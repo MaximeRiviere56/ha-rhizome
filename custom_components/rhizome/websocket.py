@@ -21,6 +21,7 @@ from .const import (
     CONF_GELEES_DERNIERE,
     CONF_GELEES_PREMIERE,
     CONF_MASQUER_TERMINEES,
+    CONF_NOTIFY_ARROSAGE,
     CONF_NOTIFY_ETAPES,
     CONF_NOTIFY_HEURE,
     CONF_NOTIFY_RECOLTE_RECURRENCE,
@@ -106,7 +107,12 @@ def _plante_en_dict(entree: dict, coordinator: RhizomeCoordinator) -> dict[str, 
             {**evt, "libelle": LIBELLES_EVENEMENTS.get(evt["type"], evt["type"])}
             for evt in plante.get("evenements") or []
         ],
-        "arrosage": fiche["arrosage"],
+        # Pas de `fiche["arrosage"]` ici : la cle porte l'etat calcule de la
+        # plante (plus haut), pas les besoins theoriques de la culture. Les
+        # deux ont coexiste dans ce meme dictionnaire, et la seconde ecrasait
+        # silencieusement la premiere — le panneau n'a jamais vu d'echeance
+        # d'arrosage sur une plante. Les besoins de la culture arrivent par
+        # `rhizome/culture`, sous `culture.arrosage`.
         "exposition": fiche["exposition"],
     }
 
@@ -399,6 +405,11 @@ async def ajouter(coordinator, msg) -> dict:
         vol.Optional("notifs"): bool,
         vol.Optional("rappel_jours"): vol.Any(int, None),
         vol.Optional("echelonnement_jours"): vol.Any(int, None),
+        # Les deux reglages d'eau d'une plante. Oublies ici lors de l'ajout de
+        # l'arrosage : le panneau les envoyait, le schema les refusait, et les
+        # deux commandes etaient donc mortes sans que rien ne le signale.
+        vol.Optional("arrosage_actif"): bool,
+        vol.Optional("arrosage_frequence_jours"): vol.Any(int, None),
     }
 )
 @websocket_api.async_response
@@ -407,7 +418,8 @@ async def modifier(coordinator, msg) -> dict:
     champs = {
         cle: msg[cle]
         for cle in (
-            "zone", "surnom", "notifs", "rappel_jours", "echelonnement_jours"
+            "zone", "surnom", "notifs", "rappel_jours", "echelonnement_jours",
+            "arrosage_actif", "arrosage_frequence_jours",
         )
         if cle in msg
     }
@@ -577,6 +589,7 @@ async def definir_reglages(coordinator, msg) -> dict:
         CONF_NOTIFY_RECOLTE_RECURRENCE,
         CONF_MASQUER_TERMINEES,
         CONF_ARROSAGE_ACTIF,
+        CONF_NOTIFY_ARROSAGE,
     }
     propose = {cle: val for cle, val in msg["options"].items() if cle in valides}
 

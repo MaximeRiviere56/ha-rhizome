@@ -21,6 +21,7 @@ from . import rotation, watering
 from .catalog import Catalogue
 from .const import (
     CONF_ARROSAGE_ACTIF,
+    CONF_NOTIFY_ARROSAGE,
     CONF_GELEES_DERNIERE,
     CONF_GELEES_PREMIERE,
     CONF_MASQUER_TERMINEES,
@@ -29,6 +30,7 @@ from .const import (
     CONF_NOTIFY_RESUME,
     CONF_RAPPEL_JOURS,
     DEFAUT_ARROSAGE_ACTIF,
+    DEFAUT_NOTIFY_ARROSAGE,
     DEFAUT_GELEES_DERNIERE,
     DEFAUT_GELEES_PREMIERE,
     DEFAUT_MASQUER_TERMINEES,
@@ -116,6 +118,17 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     def arrosage_actif(self) -> bool:
         return bool(
             self.entry.options.get(CONF_ARROSAGE_ACTIF, DEFAUT_ARROSAGE_ACTIF)
+        )
+
+    @property
+    def notify_arrosage(self) -> bool:
+        """Rappeler les arrosages dus, ou seulement les suivre.
+
+        Distinct de `arrosage_actif` : couper les rappels ne doit pas faire
+        disparaitre les echeances ni le bouton « Arrosé ».
+        """
+        return bool(
+            self.entry.options.get(CONF_NOTIFY_ARROSAGE, DEFAUT_NOTIFY_ARROSAGE)
         )
 
     @property

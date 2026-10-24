@@ -2194,9 +2194,19 @@ class RhizomePanel extends HTMLElement {
           </label>`
           )
           .join("")}
+        <label class="case">
+          <input type="checkbox" id="notify-arrosage"
+                 ${o.notify_arrosage !== false ? "checked" : ""}>
+          <span>Arroser</span>
+        </label>
         <p class="aide">
           Tout est activé au départ&nbsp;: mieux vaut décocher ce qui dérange
           que découvrir en juillet qu'un rappel n'est jamais parti.
+        </p>
+        <p class="aide">
+          Décocher «&nbsp;Arroser&nbsp;» tait les rappels d'eau sans arrêter le
+          suivi&nbsp;: les échéances restent visibles et le bouton
+          «&nbsp;Arrosé&nbsp;» reste à portée.
         </p>
       </div>
 
@@ -2248,8 +2258,13 @@ class RhizomePanel extends HTMLElement {
         <label class="case">
           <input type="checkbox" id="arrosage-actif"
                  ${o.arrosage_actif !== false ? "checked" : ""}>
-          <span>Suivre l'arrosage et le rappeler</span>
+          <span>Suivre l'arrosage</span>
         </label>
+        <p class="aide">
+          Décoché, l'eau disparaît entièrement de l'application. Pour garder le
+          suivi mais sans notification, laissez coché ici et décochez
+          «&nbsp;Arroser&nbsp;» dans <strong>Rappels&nbsp;· Quoi</strong>.
+        </p>
         <p class="aide">
           Le calcul est théorique et assumé comme tel&nbsp;: il part de la
           fréquence indiquée sur la fiche, et le compte à rebours repart
@@ -2679,6 +2694,11 @@ class RhizomePanel extends HTMLElement {
       c.addEventListener("change", () =>
         this._enregistrerReglages({ notify_etapes: etapes() })
       )
+    );
+
+    const notifEau = hote.querySelector("#notify-arrosage");
+    notifEau?.addEventListener("change", () =>
+      this._enregistrerReglages({ notify_arrosage: notifEau.checked })
     );
 
     const heure = hote.querySelector("#heure");

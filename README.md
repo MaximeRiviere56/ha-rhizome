@@ -170,7 +170,7 @@ Quatre niveaux de granularité, du plus large au plus fin :
 | Niveau | Réglage |
 |---|---|
 | **À qui** | les applications mobiles qui reçoivent les rappels, et/ou une notification interne à Home Assistant |
-| **Quoi** | quelles étapes méritent un rappel — semis à l'abri, semis en place, repiquage, plantation, récolte |
+| **Quoi** | ce qui mérite un rappel — semis à l'abri, semis en place, repiquage, plantation, récolte, arrosage |
 | **Quand** | l'heure de la vérification, le délai d'anticipation, et la relance pendant la récolte |
 | **Comment** | un message par plante, ou un seul message groupé |
 
@@ -196,6 +196,11 @@ plantes. Il ne s'applique **jamais** à une date de votre journal : un fait
 n'est pas une prévision.
 
 ### Arrosage
+
+Deux réglages, et non un seul : **Suivre l'arrosage** fait exister l'eau dans
+l'application, **Arroser** dans *Rappels · Quoi* décide si elle vous notifie. On
+peut donc garder les échéances sous les yeux sans recevoir un message chaque
+matin d'été.
 
 Un bouton **Arrosé** sur chaque plante — dans « Aujourd'hui », sur sa carte, dans
 sa fiche, et sur la carte Lovelace. C'est le geste le plus fréquent du potager :

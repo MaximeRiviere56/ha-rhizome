@@ -158,8 +158,10 @@ class RhizomeNotifier:
             a_envoyer.append(action)
             self.coordinator.store.marquer_notif_envoyee(cle, aujourdhui_iso)
 
-        # Les arrosages dus, une entree par plante et par jour.
-        if self.coordinator.arrosage_actif:
+        # Les arrosages dus, une entree par plante et par jour. Suivre l'eau et
+        # se la faire rappeler sont deux choix separes : le compte a rebours
+        # reste visible meme quand le rappel se tait.
+        if self.coordinator.arrosage_actif and self.coordinator.notify_arrosage:
             for besoin in self.coordinator.data["arrosages"]:
                 cle = f"{besoin['uid']}:arrosage:{aujourdhui_iso}"
                 if self.coordinator.store.notif_deja_envoyee(cle):

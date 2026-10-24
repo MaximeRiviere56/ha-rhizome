@@ -51,6 +51,15 @@ CONF_MASQUER_TERMINEES = "masquer_terminees"
 # terre, sous climat humide, n'en a pas forcement l'usage.
 CONF_ARROSAGE_ACTIF = "arrosage_actif"
 
+# Rappeler les arrosages dus, ou se contenter de les suivre. Deux reglages et
+# non un seul : on peut vouloir voir ou en est l'eau, et presser « Arrosé »,
+# sans recevoir une notification de plus chaque matin d'ete.
+#
+# Volontairement en dehors de `ETAPES_NOTIFIABLES` : l'arrosage n'est pas une
+# etape du cycle (invariant 6), et une liste enregistree avant ce reglage ne le
+# contiendrait pas — les rappels d'eau se seraient tus sans rien dire.
+CONF_NOTIFY_ARROSAGE = "notify_arrosage"
+
 # Bouguenais (44), zone USDA 9a, climat oceanique.
 DEFAUT_GELEES_DERNIERE = "04-15"
 DEFAUT_GELEES_PREMIERE = "11-15"
@@ -60,6 +69,7 @@ DEFAUT_NOTIFY_RECOLTE_RECURRENCE = 0
 DEFAUT_NOTIFY_RESUME = False
 DEFAUT_MASQUER_TERMINEES = False
 DEFAUT_ARROSAGE_ACTIF = True
+DEFAUT_NOTIFY_ARROSAGE = True
 
 # Par defaut on notifie tout : mieux vaut desactiver ce qui derange que
 # decouvrir en juillet qu'un rappel n'est jamais parti.

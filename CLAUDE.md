@@ -17,8 +17,7 @@ ne réclame plus jamais de la semer. Toute évolution doit préserver ça.
 
 ## Où
 
-- Source : `~/Documents/apps/ha-potager` — le dossier local porte encore
-  l'ancien nom, le dépôt distant non. Sans conséquence, mais déroutant.
+- Source : `~/Documents/apps/ha-rhizome`
 - Dépôt : `https://github.com/MaximeRiviere56/ha-rhizome` (public)
 - Déploiement : HACS en dépôt personnalisé → `/config/custom_components/rhizome/`
   sur l'instance. **Modifier les sources ne change rien chez l'utilisateur**
@@ -77,7 +76,7 @@ Le Mac de développement a **Python 3.9.6 système uniquement**. Pas de pytest,
 pas de Node, pas de pip utilisable.
 
 - Tests : `python3 -m unittest discover -s tests -p 'test_*.py'` avec
-  `PYTHONPATH=tests`. **94 tests, zéro dépendance.**
+  `PYTHONPATH=tests`. **95 tests, zéro dépendance.**
 - **Éviter la syntaxe Python 3.12+** (`type X = ...` notamment) bien que HA
   tourne en 3.14 : cela garde un contrôle statique local possible sur tous les
   fichiers avant déploiement.
@@ -129,12 +128,13 @@ sourcées.**
 - Versionner à chaque livraison : bump `manifest.json`, tag, release GitHub avec
   des notes rédigées, puis `ha_manage_hacs` (update_information + download).
 
-## État au 23 octobre 2026
+## État au 24 octobre 2026
 
-v0.7.0 : l'intégration s'appelait `potager` / « Mon Potager » jusqu'à la v0.6.0,
-elle s'appelle `rhizome` / « Rhizome » depuis. Le nom a changé pour que le
-projet puisse accueillir les plantes d'intérieur à côté du jardin — **cette
-extension n'est pas faite**, seul le nom l'anticipe.
+v0.8.0 publiée et active sur l'instance. L'intégration s'appelait `potager` /
+« Mon Potager » jusqu'à la v0.6.0 ; elle s'appelle `rhizome` / « Rhizome »
+depuis la v0.7.0. Le nom a changé pour que le projet puisse accueillir les
+plantes d'intérieur à côté du jardin — **cette extension n'est pas faite**,
+seul le nom l'anticipe.
 
 Ce que le renommage a impliqué, et qu'il ne faut pas défaire :
 
@@ -142,22 +142,44 @@ Ce que le renommage a impliqué, et qu'il ne faut pas défaire :
   chargement le `potager.jardin` écrit par les versions antérieures. L'ancien
   fichier est laissé intact. Cette reprise pourra disparaître le jour où plus
   aucune installation ne vient de « Mon Potager ».
-- Le domaine change, donc les `entity_id` aussi (`sensor.mon_potager_*` →
-  `sensor.rhizome_*`). Une entrée de configuration ne migre pas d'un domaine à
-  l'autre : l'ancienne intégration se supprime et la nouvelle se rajoute, en
-  ressaisissant les réglages.
 - Le mot « potager » reste partout où il est un **nom commun** : la vue
-  « Mon potager », les fiches du catalogue, les commentaires. Seuls les
-  identifiants et le nom du produit ont bougé. Ne passe jamais un
-  rechercher-remplacer global sur ce mot.
+  « Mon potager », les fiches du catalogue, les commentaires. Ne passe jamais
+  un rechercher-remplacer global sur ce mot.
 
-L'instance tourne bien en v0.6.0 — la passation précédente affirmait le
-contraire, c'était faux. Vérifie toujours l'état réel plutôt que ce document.
+### Trois défauts de la v0.6.0, corrigés en v0.8.0
+
+Ils datent tous de l'ajout de l'arrosage, et aucun n'était visible depuis le
+poste de développement. À lire avant de toucher à cette zone :
+
+- `_plante_en_dict` définissait **deux fois** la clé `arrosage` : l'état
+  calculé, puis les besoins de la culture, qui l'écrasaient. Le panneau n'a
+  jamais affiché d'échéance d'arrosage sur une plante. `tests/test_source.py`
+  interdit désormais les clés dupliquées dans tout le paquet.
+- Le schéma de `rhizome/modifier` ne déclarait ni `arrosage_actif` ni
+  `arrosage_frequence_jours`, que le panneau envoyait pourtant. Les deux
+  réglages d'eau par plante étaient morts, avec une erreur WebSocket.
+- Rappeler l'arrosage n'avait pas de réglage propre : seul `arrosage_actif`
+  existait, et il coupait le suivi entier. D'où `CONF_NOTIFY_ARROSAGE`,
+  volontairement **hors** de `ETAPES_NOTIFIABLES` — l'arrosage n'est pas une
+  étape du cycle (invariant 6), et une liste enregistrée avant ce réglage ne
+  l'aurait pas contenu, taisant les rappels sans rien dire.
+
+### Angle mort connu du banc d'essai
+
+`tools/banc_fixture.py` **réimplémente à la main** la sérialisation que fait
+`websocket.py`, parce que ce dernier importe Home Assistant. Le banc a donc
+montré un arrosage par plante qui fonctionnait alors qu'il était cassé en
+production. Sa promesse — « le panneau face à ce qu'il recevra réellement » —
+ne tient que tant que les deux ne divergent pas. Extraire `_plante_en_dict` et
+`_arrosage_en_dict` dans un module pur partagé par les deux serait la vraie
+correction ; elle reste à faire.
 
 Son instance : HA 2026.10.2, Bouguenais (44), zone 9a, gelées 15/04 et 15/11,
-notifications vers `notify.mobile_app_fairphone_6`.
+notifications vers `notify.mobile_app_fairphone_6`. Une vue « Rhizome » a été
+ajoutée à son tableau de bord `lovelace`, avec deux cartes `custom:rhizome-card`
+et quatre tuiles de plantes **figées** (elles ne suivent pas les ajouts).
 
 Pistes restantes, par ordre de valeur : les plantes d'intérieur, que le nom
-promet désormais ; alerte gel via l'entité météo (`weather.bouguenais` existe,
-`rusticite.gel` est dans chaque fiche) ; arrosage réellement journalisé par
-zone ; export du journal.
+promet désormais ; la sérialisation partagée ci-dessus ; alerte gel via
+l'entité météo (`weather.bouguenais` existe, `rusticite.gel` est dans chaque
+fiche) ; arrosage réellement journalisé par zone ; export du journal.
