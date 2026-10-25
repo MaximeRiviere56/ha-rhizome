@@ -34,6 +34,20 @@ def _integrations_personnalisees(enable_custom_integrations):
     return
 
 
+@pytest.fixture(autouse=True)
+def _instance_francophone(hass):
+    """L'instance de test parle francais.
+
+    Le harnais de Home Assistant monte une instance en anglais. Depuis que la
+    langue de Rhizome vaut « auto » par defaut, cela faisait basculer toute
+    l'interface en anglais sous les tests : les suites qui verifient un libelle
+    verifiaient alors la traduction, pas le comportement. Les deux langues ont
+    leurs propres tests, dans `test_i18n.py`.
+    """
+    hass.config.language = "fr"
+    return
+
+
 @pytest.fixture
 def entree() -> MockConfigEntry:
     return MockConfigEntry(domain="rhizome", title="Rhizome", data={}, options={})

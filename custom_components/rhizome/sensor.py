@@ -11,9 +11,10 @@ from homeassistant.const import UnitOfMass
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
+from . import i18n
+from .catalog import localiser, nom_localise
 from .coordinator import RhizomeCoordinator, libelle_phase
 from .entity import RhizomeEntity, RhizomePlanteEntity, suivre_les_plantes
-from .lifecycle import PHASES_LIBELLES
 
 PLATEFORME = "sensor"
 SUFFIXE = "etat"
@@ -49,11 +50,12 @@ async def async_setup_entry(
 class ActionsSensor(RhizomeEntity, SensorEntity):
     """Combien d'actions reclament une attention, et lesquelles."""
 
-    # Nom en dur, et non une `translation_key` : Home Assistant derive
-    # l'entity_id du nom ANGLAIS, ce qui donnerait
-    # `sensor.rhizome_tasks_due` sur une nouvelle installation. Le projet est
-    # francophone et le README documente ces identifiants.
-    _attr_name = "Actions à mener"
+    # Nom pose a l'instanciation, et non une `translation_key` : Home Assistant
+    # derive alors l'entity_id du nom de la langue par defaut de l'integration,
+    # ce qui le ferait changer selon le canal par lequel l'entite est creee. Le
+    # nom affiche suit la langue de l'installation ; l'entity_id, lui, est fige
+    # a la creation de l'entite et ne bouge plus — c'est ce qui rend ce
+    # reglage sans danger pour les automatisations existantes.
     _attr_icon = "mdi:sprout"
     _attr_native_unit_of_measurement = "actions"
     _attr_state_class = SensorStateClass.MEASUREMENT
@@ -63,6 +65,7 @@ class ActionsSensor(RhizomeEntity, SensorEntity):
 
     def __init__(self, coordinator: RhizomeCoordinator) -> None:
         super().__init__(coordinator, "actions")
+        self._attr_name = i18n.t(coordinator.langue, "entite_actions")
 
     @property
     def native_value(self) -> int:
@@ -78,7 +81,9 @@ class ActionsSensor(RhizomeEntity, SensorEntity):
                     "uid": action["uid"],
                     "plante": action["nom"],
                     "emoji": action["emoji"],
-                    "action": action["etape"].libelle,
+                    "action": i18n.libelle_etape(
+                        self.coordinator.langue, action["etape"].type
+                    ),
                     "etape": action["etape"].type,
                     "zone": action["zone"],
                     "debut": action["etape"].debut.isoformat(),
@@ -96,7 +101,6 @@ class RecolteSensor(RhizomeEntity, SensorEntity):
     """Total recolte, en kilos. `total` plutot que `total_increasing` : une
     annulation au journal doit pouvoir faire redescendre le compteur."""
 
-    _attr_name = "Récolte de la saison"
     _attr_icon = "mdi:basket"
     _attr_device_class = SensorDeviceClass.WEIGHT
     _attr_native_unit_of_measurement = UnitOfMass.KILOGRAMS
@@ -106,6 +110,7 @@ class RecolteSensor(RhizomeEntity, SensorEntity):
 
     def __init__(self, coordinator: RhizomeCoordinator) -> None:
         super().__init__(coordinator, "recolte")
+        self._attr_name = i18n.t(coordinator.langue, "entite_recolte")
 
     @property
     def native_value(self) -> float:
@@ -117,7 +122,7 @@ class RecolteSensor(RhizomeEntity, SensorEntity):
         for entree in self.coordinator.data["plantes"].values():
             grammes = entree["resume"].get("recolte_saison_g", 0)
             if grammes:
-                nom = entree["culture"]["nom"]
+                nom = nom_localise(entree["culture"], self.coordinator.langue)
                 par_culture[nom] = par_culture.get(nom, 0) + grammes
         return {
             "saison": self.coordinator.data["saison"],
@@ -142,7 +147,6 @@ class ArrosageSensor(RhizomeEntity, SensorEntity):
     un semis revient une fois l'an. Les melanger rendrait les deux illisibles.
     """
 
-    _attr_name = "À arroser"
     _attr_icon = "mdi:watering-can"
     _attr_native_unit_of_measurement = "plantes"
     _attr_state_class = SensorStateClass.MEASUREMENT
@@ -150,6 +154,7 @@ class ArrosageSensor(RhizomeEntity, SensorEntity):
 
     def __init__(self, coordinator: RhizomeCoordinator) -> None:
         super().__init__(coordinator, "arrosage")
+        self._attr_name = i18n.t(coordinator.langue, "entite_arrosage")
 
     @property
     def native_value(self) -> int:
@@ -180,9 +185,6 @@ class PlanteSensor(RhizomePlanteEntity, SensorEntity):
     """Une plante du jardin : sa phase en etat, sa fiche en attributs."""
 
     _attr_device_class = SensorDeviceClass.ENUM
-    # `_attr_options` est declare comme une liste par l'API de Home Assistant :
-    # un ClassVar ne conviendrait pas, d'ou la derogation.
-    _attr_options = list(PHASES_LIBELLES.values())  # noqa: RUF012
     # La fiche de culture est fixe, et le compte a rebours change chaque jour :
     # ni l'une ni l'autre n'a d'interet en base. Seul l'etat (la phase) est
     # historise, et c'est bien lui qui raconte la saison.
@@ -206,6 +208,10 @@ class PlanteSensor(RhizomePlanteEntity, SensorEntity):
 
     def __init__(self, coordinator: RhizomeCoordinator, uid: str) -> None:
         super().__init__(coordinator, uid, SUFFIXE)
+        # Les options d'un capteur `enum` doivent contenir tous les etats qu'il
+        # peut prendre : traduire la phase sans traduire cette liste rendrait
+        # l'entite invalide a chaque changement d'etat.
+        self._attr_options = i18n.phases_libellees(coordinator.langue)
 
     @property
     def icon(self) -> str:
@@ -224,7 +230,9 @@ class PlanteSensor(RhizomePlanteEntity, SensorEntity):
     @property
     def native_value(self) -> str | None:
         entree = self.entree
-        return libelle_phase(entree["resume"]["phase"]) if entree else None
+        if entree is None:
+            return None
+        return libelle_phase(entree["resume"]["phase"], self.coordinator.langue)
 
     @property
     def extra_state_attributes(self) -> dict:
@@ -232,7 +240,8 @@ class PlanteSensor(RhizomePlanteEntity, SensorEntity):
         if entree is None:
             return {}
 
-        fiche = entree["culture"]
+        langue = self.coordinator.langue
+        fiche = localiser(entree["culture"], langue)
         infos = entree["resume"]
         prochaine = entree["prochaine"]
         aujourdhui = self.coordinator.data["calcule_le"]
@@ -283,14 +292,18 @@ class PlanteSensor(RhizomePlanteEntity, SensorEntity):
                     "arrosage_frequence_jours": etat_eau.frequence_jours,
                     "arrosage_jours_restants": etat_eau.jours_restants,
                     "arrosage_a_faire": etat_eau.a_arroser,
-                    "arrosage_motif_exclusion": etat_eau.motif_exclusion,
+                    "arrosage_motif_exclusion": (
+                        i18n.t(langue, etat_eau.motif_cle)
+                        if etat_eau.motif_cle
+                        else etat_eau.motif_exclusion
+                    ),
                 }
             )
 
         if prochaine is not None:
             attributs.update(
                 {
-                    "prochaine_action": prochaine.libelle,
+                    "prochaine_action": i18n.libelle_etape(langue, prochaine.type),
                     "prochaine_date": prochaine.debut.isoformat(),
                     "prochaine_fin": prochaine.fin.isoformat(),
                     "jours_restants": prochaine.jours_restants(aujourdhui),

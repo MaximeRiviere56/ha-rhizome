@@ -6,6 +6,7 @@
         "title": "Rhizome",
         "description": "Deux réglages suffisent : vos dates de gelées, qui calent tout le calendrier, et qui doit recevoir les rappels.",
         "data": {
+          "langue": "Langue de l'interface",
           "preset_climat": "Climat",
           "gelees_derniere": "Dernière gelée de printemps",
           "gelees_premiere": "Première gelée d'automne",
@@ -15,6 +16,7 @@
           "arrosage_actif": "Suivi de l'arrosage"
         },
         "data_description": {
+          "langue": "« Automatique » suit la langue de Home Assistant. Ce réglage vaut aussi pour les rappels, le calendrier et les noms d'entités.",
           "preset_climat": "Préselection qui cale les gelées. Choisissez « Dates personnalisées » pour saisir les vôtres.",
           "gelees_derniere": "Format MM-JJ. C'est le repère qui cale les semis et les plantations.",
           "gelees_premiere": "Format MM-JJ. Repère des cultures d'hiver et des plantations d'arbres.",
@@ -35,6 +37,7 @@
         "title": "Réglages de Rhizome",
         "description": "Modifier les gelées redessine tout le calendrier, y compris les étapes déjà calculées.",
         "data": {
+          "langue": "Langue de l'interface",
           "preset_climat": "Climat",
           "gelees_derniere": "Dernière gelée de printemps",
           "gelees_premiere": "Première gelée d'automne",
@@ -44,6 +47,7 @@
           "arrosage_actif": "Suivi de l'arrosage"
         },
         "data_description": {
+          "langue": "« Automatique » suit la langue de Home Assistant. Ce réglage vaut aussi pour les rappels, le calendrier et les noms d'entités.",
           "preset_climat": "Préselection qui cale les gelées. Choisissez « Dates personnalisées » pour saisir les vôtres.",
           "gelees_derniere": "Format MM-JJ. C'est le repère qui cale les semis et les plantations.",
           "gelees_premiere": "Format MM-JJ. Repère des cultures d'hiver et des plantations d'arbres.",
@@ -56,6 +60,13 @@
     }
   },
   "selector": {
+    "langue": {
+      "options": {
+        "auto": "Automatique (langue de Home Assistant)",
+        "fr": "Français",
+        "en": "English"
+      }
+    },
     "preset_climat": {
       "options": {
         "oceanique": "Ouest océanique (Bretagne, Loire)",

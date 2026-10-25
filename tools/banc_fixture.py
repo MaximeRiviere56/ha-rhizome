@@ -4,6 +4,13 @@
 Les reponses simulees sortent du vrai catalogue et du vrai moteur : le banc
 verifie donc le panneau face aux donnees qu'il recevra reellement, et non face
 a un jeu d'essai ecrit a la main qui finirait par mentir.
+
+Usage : python3 tools/banc_fixture.py [fr|en]
+
+La langue est un argument et non une devinette : le serveur resout « auto » et
+l'annonce au panneau, donc le banc doit pouvoir faire les deux. Monter le banc
+en anglais est la seule facon de voir d'un coup d'oeil ce qui serait reste en
+francais — un libelle oublie ne se remarque pas en relisant la table.
 """
 
 from __future__ import annotations
@@ -31,6 +38,7 @@ def _charger(nom: str):
     return module
 
 
+i18n = _charger("i18n")
 lc = _charger("lifecycle")
 ph = _charger("phenology")
 cat = _charger("catalog")
@@ -40,13 +48,29 @@ GELEES = ph.Gelees("04-15", "11-15")
 AUJ = date.today()
 DEPARTS = ("semis_interieur", "semis_direct", "plantation")
 
+LANGUE = i18n.resoudre(sys.argv[1] if len(sys.argv) > 1 else None, None)
+
 ZONES = [
-    {"id": "pleine-terre", "nom": "Pleine terre", "decalage_jours": 0},
-    {"id": "serre", "nom": "Serre", "decalage_jours": -21, "abritee": True},
-    {"id": "chassis", "nom": "Chassis / tunnel", "decalage_jours": -10,
-     "abritee": True},
-    {"id": "balcon", "nom": "Balcon / pots", "decalage_jours": 0, "abritee": True},
+    {
+        "id": z["id"],
+        "nom": i18n.nom_zone_defaut(LANGUE, z["id"], z["nom"]),
+        "decalage_jours": z["decalage_jours"],
+        **({"abritee": True} if z.get("abritee") else {}),
+    }
+    for z in [
+        {"id": "pleine-terre", "nom": "Pleine terre", "decalage_jours": 0},
+        {"id": "serre", "nom": "Serre", "decalage_jours": -21, "abritee": True},
+        {"id": "chassis", "nom": "Chassis / tunnel", "decalage_jours": -10,
+         "abritee": True},
+        {"id": "balcon", "nom": "Balcon / pots", "decalage_jours": 0,
+         "abritee": True},
+    ]
 ]
+
+
+def fiche_localisee(culture_id: str) -> dict:
+    """La fiche telle que `websocket.py` la servira, dans la langue du banc."""
+    return cat.localiser(cat.culture(culture_id), LANGUE)
 
 
 def etape_dict(etape) -> dict:
@@ -55,7 +79,7 @@ def etape_dict(etape) -> dict:
         "debut": etape.debut.isoformat(),
         "fin": etape.fin.isoformat(),
         "source": etape.source,
-        "libelle": etape.libelle,
+        "libelle": i18n.libelle_etape(LANGUE, etape.type),
         "reelle": etape.reelle,
     }
 
@@ -71,12 +95,16 @@ def arrosage_dict(etat) -> dict | None:
         "jours_restants": etat.jours_restants,
         "a_arroser": etat.a_arroser,
         "en_retard": etat.en_retard,
-        "motif_exclusion": etat.motif_exclusion,
+        "motif_exclusion": (
+            i18n.t(LANGUE, etat.motif_cle)
+            if etat.motif_cle
+            else etat.motif_exclusion
+        ),
     }
 
 
 def construire(culture_id, zone_id, evenements, surnom=None, arrose_il_y_a=None) -> dict:
-    fiche = cat.culture(culture_id)
+    fiche = fiche_localisee(culture_id)
     zone = next(z for z in ZONES if z["id"] == zone_id)
     plante = {
         "uid": culture_id[:6],
@@ -110,7 +138,7 @@ def construire(culture_id, zone_id, evenements, surnom=None, arrose_il_y_a=None)
         "notifs": True,
         "rappel_jours": None,
         "phase": infos["phase"],
-        "phase_libelle": lc.PHASES_LIBELLES[infos["phase"]],
+        "phase_libelle": i18n.libelle_phase(LANGUE, infos["phase"]),
         "perenne": bool(fiche.get("perenne")),
         "prochaine": etape_dict(etapes[0]) if etapes else None,
         "etapes": [etape_dict(e) for e in etapes],
@@ -121,7 +149,8 @@ def construire(culture_id, zone_id, evenements, surnom=None, arrose_il_y_a=None)
         "nb_recoltes": infos["nb_recoltes"],
         "total_recolte_g": infos["total_recolte_g"],
         "evenements": [
-            {**e, "libelle": lc.LIBELLES_EVENEMENTS[e["type"]]} for e in plante["evenements"]
+            {**e, "libelle": i18n.libelle_evenement(LANGUE, e["type"])}
+            for e in plante["evenements"]
         ],
         "arrosage_actif": True,
         "arrosage_frequence_jours": None,
@@ -220,31 +249,42 @@ def main() -> None:
         "total_recolte_g": sum(p["total_recolte_g"] for p in plantes),
         "gelees": {"derniere": GELEES.derniere, "premiere": GELEES.premiere},
         "rappel_jours": 3,
+        "langue": LANGUE,
     }
     # Une fiche marquee « corrigee », pour voir le badge et le libelle.
     catalogue = {
         "cultures": [
             {
-                **cat.info_minimale(c),
+                **cat.info_minimale(cat.localiser(c, LANGUE)),
                 **depart(c),
                 "perso": c["id"] == "carotte",
                 "surcharge": c["id"] == "carotte",
             }
-            for c in cat.toutes()
+            for c in cat.toutes(LANGUE)
         ],
         "categories": cat.categories(),
         "total": len(cat.toutes()),
     }
 
     # Un avertissement de rotation realiste : la tomate apres l'aubergine.
+    aubergine = fiche_localisee("aubergine")
     rotation = {
         "avertissement": {
-            "famille": "Solanacées",
+            "famille": aubergine["famille"],
             "delai_ans": 4,
-            "precedents": [{"nom": "Aubergine", "annee": AUJ.year}],
-            "message": (
-                f"Solanacées déjà cultivées ici : Aubergine ({AUJ.year}). "
-                f"Cette famille demande 4 ans avant de revenir au même endroit."
+            "precedents": [
+                {
+                    "nom": aubergine["nom"],
+                    "annee": AUJ.year,
+                    "culture_id": "aubergine",
+                }
+            ],
+            "message": i18n.t(
+                LANGUE,
+                "rotation_message",
+                famille=aubergine["famille"],
+                precedents=f"{aubergine['nom']} ({AUJ.year})",
+                delai=4,
             ),
         }
     }
@@ -263,17 +303,20 @@ def main() -> None:
             "notify_recolte_recurrence": 2,
             "masquer_terminees": False,
             "arrosage_actif": True,
+            "langue": LANGUE,
         },
         "cibles_possibles": [
             {"value": "notify.mobile_app_fairphone_6", "label": "Fairphone 6", "mobile": True},
             {"value": "notify.mobile_app_maxime", "label": "Maxime", "mobile": True},
             {"value": "persistent_notification",
-             "label": "Notification dans Home Assistant", "mobile": False},
+             "label": i18n.t(LANGUE, "cible_persistante"), "mobile": False},
         ],
         "presets": {},
         "etapes_notifiables": [
             "semis_interieur", "semis_direct", "repiquage", "plantation", "recolte",
         ],
+        "langue": LANGUE,
+        "langues": list(i18n.LANGUES),
     }
 
     cultures_perso = {
@@ -299,7 +342,7 @@ def main() -> None:
     lignes = []
     for plante in plantes:
         zone = next(z for z in ZONES if z["id"] == plante["zone"]["id"])
-        fiche_culture = cat.culture(plante["culture_id"])
+        fiche_culture = fiche_localisee(plante["culture_id"])
         lignes.append(
             {
                 "uid": plante["uid"],
@@ -321,11 +364,11 @@ def main() -> None:
         )
     calendrier = {"annee": AUJ.year, "lignes": lignes}
 
-    tomate = cat.culture("tomate")
+    tomate = fiche_localisee("tomate")
     fiche = {
         "culture": tomate,
         "compagnes": {
-            cle: [cat.info_minimale(x) for x in valeur]
+            cle: [cat.info_minimale(cat.localiser(x, LANGUE)) for x in valeur]
             for cle, valeur in cat.compagnes("tomate").items()
         },
         "fenetres": [etape_dict(e) for e in ph.fenetres_theoriques(tomate, GELEES)],
@@ -355,7 +398,10 @@ def main() -> None:
         "  },\n};\n",
         encoding="utf-8",
     )
-    print(f"{sortie.relative_to(RACINE)} : {len(plantes)} plantes, {len(actions)} actions")
+    print(
+        f"{sortie.relative_to(RACINE)} : {len(plantes)} plantes, "
+        f"{len(actions)} actions, langue « {LANGUE} »"
+    )
     for plante in plantes:
         prochaine = plante["prochaine"] or {}
         eau = plante["arrosage"] or {}

@@ -24,6 +24,7 @@ from .const import (
     CONF_ARROSAGE_ACTIF,
     CONF_GELEES_DERNIERE,
     CONF_GELEES_PREMIERE,
+    CONF_LANGUE,
     CONF_NOTIFY_HEURE,
     CONF_NOTIFY_TARGETS,
     CONF_PRESET_CLIMAT,
@@ -31,9 +32,12 @@ from .const import (
     DEFAUT_ARROSAGE_ACTIF,
     DEFAUT_GELEES_DERNIERE,
     DEFAUT_GELEES_PREMIERE,
+    DEFAUT_LANGUE,
     DEFAUT_NOTIFY_HEURE,
     DEFAUT_RAPPEL_JOURS,
     DOMAIN,
+    LANGUE_AUTO,
+    LANGUES,
     PRESET_PERSONNALISE,
     PRESETS_CLIMAT,
 )
@@ -78,6 +82,19 @@ def _schema(hass, valeurs: dict[str, Any]) -> vol.Schema:
     ]
     return vol.Schema(
         {
+            # Premier champ du formulaire, et non dernier : c'est lui qui decide
+            # de la langue de tout le reste — y compris des noms d'entites
+            # creees juste apres, qui ne changent plus d'identifiant ensuite.
+            vol.Required(
+                CONF_LANGUE,
+                default=valeurs.get(CONF_LANGUE, DEFAUT_LANGUE),
+            ): selector.SelectSelector(
+                selector.SelectSelectorConfig(
+                    options=[LANGUE_AUTO, *LANGUES],
+                    translation_key="langue",
+                    mode=selector.SelectSelectorMode.DROPDOWN,
+                )
+            ),
             vol.Required(
                 CONF_PRESET_CLIMAT,
                 default=valeurs.get(CONF_PRESET_CLIMAT, "oceanique"),

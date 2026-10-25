@@ -17,8 +17,10 @@ from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.typing import ConfigType
 import voluptuous as vol
 
-from . import catalog, websocket
+from . import catalog, i18n, websocket
 from .const import (
+    CONF_LANGUE,
+    DEFAUT_LANGUE,
     DOMAIN,
     PANEL_ICON,
     PANEL_PATH,
@@ -118,23 +120,46 @@ SCHEMA_RECOLTE = SCHEMA_DATE.extend(
 SCHEMA_PERDU = SCHEMA_DATE.extend({vol.Optional("cause"): cv.string})
 
 
+def _langue_entree(hass: HomeAssistant, entry: ConfigEntry) -> str:
+    """La langue de cette entree, utilisable avant que le coordinateur existe.
+
+    Le stockage nomme ses quatre zones livrees au premier chargement, donc
+    avant le coordinateur : d'ou cette lecture directe des options.
+    """
+    return i18n.resoudre(
+        entry.options.get(CONF_LANGUE, DEFAUT_LANGUE),
+        getattr(hass.config, "language", None),
+    )
+
+
+def _langue(hass: HomeAssistant) -> str:
+    """La langue de l'installation, pour les messages de refus des actions.
+
+    Les actions sont enregistrees au demarrage de Home Assistant, avant toute
+    entree : la langue ne peut donc pas etre capturee une fois pour toutes, il
+    faut la relire a chaque appel.
+    """
+    entrees = hass.config_entries.async_loaded_entries(DOMAIN)
+    if not entrees:
+        return i18n.resoudre(None, getattr(hass.config, "language", None))
+    return entrees[0].runtime_data.langue
+
+
 def _resoudre_uid(hass: HomeAssistant, call: ServiceCall) -> str:
     """Rend l'uid de la plante visee, qu'on l'ait designee par uid ou entite."""
     uid = call.data.get("uid")
     if uid:
         return uid
 
+    langue = _langue(hass)
     entity_id = call.data.get("entity_id")
     if not entity_id:
-        raise ServiceValidationError(
-            "Indiquez la plante : son `uid` (attribut de son capteur) ou son "
-            "`entity_id`."
-        )
+        raise ServiceValidationError(i18n.t(langue, "err_plante_a_designer"))
 
     entree = er.async_get(hass).async_get(entity_id)
     if entree is None or entree.platform != DOMAIN:
         raise ServiceValidationError(
-            f"{entity_id} n'est pas une entité de Rhizome."
+            i18n.t(langue, "err_pas_une_entite", entity_id=entity_id)
         )
 
     # La convention d'identifiant unique vit dans `entity.py`, aupres du code
@@ -142,8 +167,7 @@ def _resoudre_uid(hass: HomeAssistant, call: ServiceCall) -> str:
     uid = uid_depuis_unique_id(entree.config_entry_id or "", entree.unique_id)
     if not uid:
         raise ServiceValidationError(
-            f"{entity_id} ne désigne pas une plante du jardin : "
-            f"visez le capteur d'une plante."
+            i18n.t(langue, "err_pas_une_plante", entity_id=entity_id)
         )
     return uid
 
@@ -167,7 +191,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: RhizomeEntry) -> bool:
     await hass.async_add_executor_job(catalog.charger)
 
     store = JardinStore(hass)
-    await store.async_charger()
+    await store.async_charger(_langue_entree(hass, entry))
 
     coordinator = RhizomeCoordinator(hass, entry, store)
     await coordinator.async_config_entry_first_refresh()
@@ -266,7 +290,7 @@ def _async_retirer_panneau(hass: HomeAssistant) -> None:
 
 
 @contextmanager
-def _refus_lisible():
+def _refus_lisible(langue: str = "fr"):
     """Transforme un refus du journal en erreur de validation.
 
     Sans cela, une transition impossible ou une plante disparue remonte en
@@ -276,7 +300,7 @@ def _refus_lisible():
     try:
         yield
     except ErreurJournal as err:
-        raise ServiceValidationError(str(err)) from err
+        raise ServiceValidationError(i18n.traduire_erreur(langue, err)) from err
 
 
 def _async_enregistrer_services(hass: HomeAssistant) -> None:
@@ -297,8 +321,11 @@ def _async_enregistrer_services(hass: HomeAssistant) -> None:
         coord = _coordinateur()
         if coord.catalogue.culture(call.data["culture_id"]) is None:
             raise ServiceValidationError(
-                f"Culture inconnue : {call.data['culture_id']}. "
-                f"Les identifiants sont ceux du catalogue, par exemple « tomate »."
+                i18n.t(
+                    coord.langue,
+                    "err_culture_inconnue_service",
+                    culture_id=call.data["culture_id"],
+                )
             )
         await coord.async_appliquer(
             lambda: coord.store.ajouter_plante(
@@ -313,7 +340,7 @@ def _async_enregistrer_services(hass: HomeAssistant) -> None:
     async def retirer(call: ServiceCall) -> None:
         coord = _coordinateur()
         uid = _resoudre_uid(hass, call)
-        with _refus_lisible():
+        with _refus_lisible(coord.langue):
             await coord.async_appliquer(lambda: coord.store.retirer_plante(uid))
 
     def _noteur(type_evt: str, *champs: str):
@@ -324,7 +351,7 @@ def _async_enregistrer_services(hass: HomeAssistant) -> None:
             details = {
                 champ: call.data[champ] for champ in champs if champ in call.data
             }
-            with _refus_lisible():
+            with _refus_lisible(coord.langue):
                 await coord.async_appliquer(
                     lambda: coord.store.noter(uid, type_evt, jour, **details)
                 )
@@ -336,7 +363,7 @@ def _async_enregistrer_services(hass: HomeAssistant) -> None:
         uid = _resoudre_uid(hass, call)
         jour = call.data.get("date") or coord.data["calcule_le"]
         note = call.data.get("note")
-        with _refus_lisible():
+        with _refus_lisible(coord.langue):
             await coord.async_appliquer(
                 lambda: coord.store.arroser(uid, jour, note)
             )
@@ -345,13 +372,13 @@ def _async_enregistrer_services(hass: HomeAssistant) -> None:
         coord = _coordinateur()
         uid = _resoudre_uid(hass, call)
         jour = call.data.get("date") or coord.data["calcule_le"]
-        with _refus_lisible():
+        with _refus_lisible(coord.langue):
             await coord.async_appliquer(lambda: coord.store.ressemer(uid, jour))
 
     async def annuler(call: ServiceCall) -> None:
         coord = _coordinateur()
         uid = _resoudre_uid(hass, call)
-        with _refus_lisible():
+        with _refus_lisible(coord.langue):
             await coord.async_appliquer(lambda: coord.store.annuler(uid))
 
     async def rafraichir(_: ServiceCall) -> None:

@@ -23,6 +23,7 @@ from homeassistant.core import Event, HomeAssistant, callback
 from homeassistant.helpers.event import async_track_time_change
 from homeassistant.util import dt as dt_util
 
+from . import i18n
 from .const import (
     CONF_NOTIFY_HEURE,
     CONF_NOTIFY_TARGETS,
@@ -71,15 +72,6 @@ JOURNAL_POUR_ETAPE: dict[str, tuple[str, dict[str, Any]]] = {
     ETAPE_REPIQUAGE: (EVT_REPIQUE, {}),
     ETAPE_PLANTATION: (EVT_PLANTE, {}),
     ETAPE_RECOLTE: (EVT_RECOLTE, {}),
-}
-
-VERBES = {
-    ETAPE_SEMIS_INTERIEUR: "Semer à l'abri",
-    ETAPE_SEMIS_DIRECT: "Semer en place",
-    ETAPE_REPIQUAGE: "Repiquer",
-    ETAPE_PLANTATION: "Planter",
-    ETAPE_RECOLTE: "Récolter",
-    ETAPE_RESSEMER: "Ressemer",
 }
 
 
@@ -220,33 +212,44 @@ class RhizomeNotifier:
 
         Renvoie vrai des qu'un destinataire a recu le message.
         """
+        langue = self.coordinator.langue
         etat = besoin["etat"]
         retard = -etat.jours_restants
         if retard <= 0:
-            quand = "C'est le jour"
+            quand = i18n.t(langue, "notif_eau_quand_jour")
         elif retard == 1:
-            quand = "Depuis hier"
+            quand = i18n.t(langue, "notif_eau_quand_hier")
         else:
-            quand = f"Depuis {retard} jours"
+            quand = i18n.t(langue, "notif_eau_quand_depuis", jours=retard)
 
         dernier = (
-            f"Dernier arrosage le {etat.dernier:%d/%m}"
+            i18n.t(
+                langue,
+                "notif_eau_dernier",
+                date=i18n.date_courte(langue, etat.dernier),
+            )
             if etat.dernier
-            else "Jamais arrosée depuis sa mise en terre"
+            else i18n.t(langue, "notif_eau_jamais")
         )
 
         charge: dict[str, Any] = {
-            "title": f"💧 Arroser : {besoin['nom']}",
-            "message": f"{quand} — {besoin['zone']}. {dernier}.",
+            "title": i18n.t(langue, "notif_eau_titre", plante=besoin["nom"]),
+            "message": i18n.t(
+                langue,
+                "notif_eau_message",
+                quand=quand,
+                zone=besoin["zone"],
+                dernier=dernier,
+            ),
         }
         actions_notif = [
             {
                 "action": _encoder("fait", besoin["uid"], ETAPE_ARROSAGE),
-                "title": "Arrosé",
+                "title": i18n.t(langue, "notif_bouton_arrose"),
             },
             {
                 "action": _encoder("report", besoin["uid"], ETAPE_ARROSAGE),
-                "title": f"Rappeler dans {JOURS_REPORT} j",
+                "title": i18n.t(langue, "notif_bouton_report", jours=JOURS_REPORT),
             },
         ]
         envoye = False
@@ -271,13 +274,20 @@ class RhizomeNotifier:
         balaie sans lire. Le resume n'a pas de bouton d'action : il y a
         plusieurs plantes, et deviner laquelle serait pire que rien.
         """
+        langue = self.coordinator.langue
         lignes = [
-            f"{a['emoji']} {VERBES.get(a['etape'].type, a['etape'].libelle)} : "
-            f"{a['nom']} ({a['zone']})"
+            i18n.t(
+                langue,
+                "notif_resume_ligne",
+                emoji=a["emoji"],
+                verbe=i18n.libelle_etape(langue, a["etape"].type),
+                plante=a["nom"],
+                zone=a["zone"],
+            )
             for a in actions
         ]
         charge: dict[str, Any] = {
-            "title": f"🌱 {len(actions)} choses à faire au potager",
+            "title": i18n.t(langue, "notif_resume_titre", nombre=len(actions)),
             "message": "\n".join(lignes),
         }
         envoye = False
@@ -290,26 +300,45 @@ class RhizomeNotifier:
         return envoye
 
     async def _async_envoyer(self, cibles: list[str], action: dict) -> bool:
+        langue = self.coordinator.langue
         etape = action["etape"]
-        verbe = VERBES.get(etape.type, etape.libelle)
-        titre = f"{action['emoji']} {verbe} : {action['nom']}"
+        titre = i18n.t(
+            langue,
+            "notif_titre",
+            emoji=action["emoji"],
+            verbe=i18n.libelle_etape(langue, etape.type),
+            plante=action["nom"],
+        )
 
         if action["en_cours"]:
-            quand = "C'est le moment"
+            quand = i18n.t(langue, "notif_quand_moment")
         elif action["jours_restants"] == 1:
-            quand = "Demain"
+            quand = i18n.t(langue, "notif_quand_demain")
         else:
-            quand = f"Dans {action['jours_restants']} jours"
-        message = f"{quand} — {action['zone']}. Fenêtre jusqu'au {etape.fin:%d/%m}."
+            quand = i18n.t(
+                langue, "notif_quand_dans", jours=action["jours_restants"]
+            )
+        message = i18n.t(
+            langue,
+            "notif_message",
+            quand=quand,
+            zone=action["zone"],
+            fin=i18n.date_courte(langue, etape.fin),
+        )
 
         actions_notif = [
             {
                 "action": _encoder("fait", action["uid"], etape.type),
-                "title": "Semé" if etape.type == ETAPE_RESSEMER else "C'est fait",
+                "title": i18n.t(
+                    langue,
+                    "notif_bouton_seme"
+                    if etape.type == ETAPE_RESSEMER
+                    else "notif_bouton_fait",
+                ),
             },
             {
                 "action": _encoder("report", action["uid"], etape.type),
-                "title": f"Rappeler dans {JOURS_REPORT} j",
+                "title": i18n.t(langue, "notif_bouton_report", jours=JOURS_REPORT),
             },
         ]
 

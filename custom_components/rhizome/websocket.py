@@ -16,11 +16,12 @@ from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import config_validation as cv
 import voluptuous as vol
 
-from . import catalog
+from . import catalog, i18n
 from .const import (
     CONF_ARROSAGE_ACTIF,
     CONF_GELEES_DERNIERE,
     CONF_GELEES_PREMIERE,
+    CONF_LANGUE,
     CONF_MASQUER_TERMINEES,
     CONF_NOTIFY_ARROSAGE,
     CONF_NOTIFY_ETAPES,
@@ -30,9 +31,12 @@ from .const import (
     CONF_NOTIFY_TARGETS,
     CONF_PRESET_CLIMAT,
     CONF_RAPPEL_JOURS,
+    DEFAUT_LANGUE,
     DEFAUT_NOTIFY_HEURE,
     DOMAIN,
     ETAPES_NOTIFIABLES,
+    LANGUE_AUTO,
+    LANGUES,
     PREFIXE_PERSO,
     PRESET_PERSONNALISE,
     PRESETS_CLIMAT,
@@ -40,7 +44,6 @@ from .const import (
 )
 from .coordinator import RhizomeCoordinator, etape_en_dict, libelle_phase
 from .lifecycle import (
-    LIBELLES_EVENEMENTS,
     MODE_SEMIS_DIRECT,
     MODE_SEMIS_INTERIEUR,
     TYPES_EVENEMENTS,
@@ -126,7 +129,7 @@ def _cibles_possibles(hass: HomeAssistant) -> list[dict[str, Any]]:
     cibles.append(
         {
             "value": "persistent_notification",
-            "label": "Notification dans Home Assistant",
+            "label": i18n.t(_langue(hass), "cible_persistante"),
             "mobile": False,
         }
     )
@@ -136,6 +139,24 @@ def _cibles_possibles(hass: HomeAssistant) -> list[dict[str, Any]]:
 def _coordinateur(hass: HomeAssistant) -> RhizomeCoordinator | None:
     entrees = hass.config_entries.async_loaded_entries(DOMAIN)
     return entrees[0].runtime_data if entrees else None
+
+
+def _langue(hass: HomeAssistant) -> str:
+    """La langue de l'interface, y compris quand l'entree n'est pas chargee.
+
+    Les commandes de lecture repondent « Rhizome n'est pas chargé » avant
+    d'avoir un coordinateur : ce refus doit lui aussi etre dans la bonne
+    langue, donc se lire depuis les options de l'entree, chargee ou non.
+    """
+    entrees = hass.config_entries.async_entries(DOMAIN)
+    option = entrees[0].options.get(CONF_LANGUE, DEFAUT_LANGUE) if entrees else None
+    return i18n.resoudre(option, getattr(hass.config, "language", None))
+
+
+def _refus_non_charge(hass: HomeAssistant, connection, msg) -> None:
+    connection.send_error(
+        msg["id"], "non_charge", i18n.t(_langue(hass), "err_non_charge")
+    )
 
 
 def _peut_ecrire(connection) -> bool:
@@ -164,7 +185,7 @@ def _peut_ecrire(connection) -> bool:
     return utilisateur.permissions.access_all_entities(POLICY_CONTROL)
 
 
-def _arrosage_en_dict(etat) -> dict | None:
+def _arrosage_en_dict(etat, langue: str = "fr") -> dict | None:
     """Serialise l'etat d'arrosage pour le panneau."""
     if etat is None:
         return None
@@ -176,7 +197,11 @@ def _arrosage_en_dict(etat) -> dict | None:
         "jours_restants": etat.jours_restants,
         "a_arroser": etat.a_arroser,
         "en_retard": etat.en_retard,
-        "motif_exclusion": etat.motif_exclusion,
+        "motif_exclusion": (
+            i18n.t(langue, etat.motif_cle)
+            if etat.motif_cle
+            else etat.motif_exclusion
+        ),
     }
 
 
@@ -184,6 +209,7 @@ def _plante_en_dict(entree: dict, coordinator: RhizomeCoordinator) -> dict[str, 
     plante = entree["plante"]
     fiche = entree["culture"]
     infos = entree["resume"]
+    langue = coordinator.langue
     return {
         "uid": entree["uid"],
         "culture_id": fiche["id"],
@@ -197,13 +223,13 @@ def _plante_en_dict(entree: dict, coordinator: RhizomeCoordinator) -> dict[str, 
         "echelonnement_jours": plante.get("echelonnement_jours"),
         "arrosage_actif": plante.get("arrosage_actif", True),
         "arrosage_frequence_jours": plante.get("arrosage_frequence_jours"),
-        "arrosage": _arrosage_en_dict(entree.get("arrosage")),
+        "arrosage": _arrosage_en_dict(entree.get("arrosage"), langue),
         "arrosages": list(reversed(plante.get("arrosages") or []))[:20],
         "phase": infos["phase"],
-        "phase_libelle": libelle_phase(infos["phase"]),
+        "phase_libelle": libelle_phase(infos["phase"], langue),
         "perenne": bool(fiche.get("perenne")),
-        "prochaine": etape_en_dict(entree["prochaine"]),
-        "etapes": [etape_en_dict(e) for e in entree["etapes"]],
+        "prochaine": etape_en_dict(entree["prochaine"], langue),
+        "etapes": [etape_en_dict(e, langue) for e in entree["etapes"]],
         "date_semis": infos["date_semis"].isoformat() if infos["date_semis"] else None,
         "date_mise_en_place": (
             infos["date_mise_en_place"].isoformat()
@@ -213,7 +239,7 @@ def _plante_en_dict(entree: dict, coordinator: RhizomeCoordinator) -> dict[str, 
         "nb_recoltes": infos["nb_recoltes"],
         "total_recolte_g": infos["total_recolte_g"],
         "evenements": [
-            {**evt, "libelle": LIBELLES_EVENEMENTS.get(evt["type"], evt["type"])}
+            {**evt, "libelle": i18n.libelle_evenement(langue, evt["type"])}
             for evt in plante.get("evenements") or []
         ],
         # Pas de `fiche["arrosage"]` ici : la cle porte l'etat calcule de la
@@ -268,12 +294,14 @@ def async_enregistrer(hass: HomeAssistant) -> None:
 def catalogue(hass, connection, msg) -> None:
     coordinator = _coordinateur(hass)
     if coordinator is None:
-        connection.send_error(msg["id"], "non_charge", "Rhizome n'est pas chargé")
+        _refus_non_charge(hass, connection, msg)
         return
 
+    langue = coordinator.langue
     fiches = coordinator.catalogue
     resultats = fiches.rechercher(
         msg.get("requete", ""),
+        langue=langue,
         categorie=msg.get("categorie"),
         exposition=msg.get("exposition"),
         difficulte_max=msg.get("difficulte_max"),
@@ -286,9 +314,9 @@ def catalogue(hass, connection, msg) -> None:
         {
             "cultures": [
                 {
-                    **catalog.info_minimale(c),
+                    **catalog.info_minimale(catalog.localiser(c, langue)),
                     "perso": bool(c.get("perso")),
-                    **_semis(c, gelees, aujourdhui),
+                    **_semis(c, gelees, aujourdhui, langue),
                 }
                 for c in resultats
             ],
@@ -301,7 +329,9 @@ def catalogue(hass, connection, msg) -> None:
 ETAPES_DE_DEPART = (ETAPE_SEMIS_INTERIEUR, ETAPE_SEMIS_DIRECT, ETAPE_PLANTATION)
 
 
-def _semis(fiche: dict, gelees: Gelees, aujourdhui) -> dict[str, Any]:
+def _semis(
+    fiche: dict, gelees: Gelees, aujourdhui, langue: str = "fr"
+) -> dict[str, Any]:
     """Quand cette culture se met-elle en terre, et est-ce le moment ?
 
     « Qu'est-ce que je peux semer ce week-end ? » est la question la plus utile
@@ -322,7 +352,7 @@ def _semis(fiche: dict, gelees: Gelees, aujourdhui) -> dict[str, Any]:
     retenue = ouverte or candidates[0]
     return {
         "semable_maintenant": ouverte is not None,
-        "prochain_depart": etape_en_dict(retenue),
+        "prochain_depart": etape_en_dict(retenue, langue),
     }
 
 
@@ -333,7 +363,7 @@ def _semis(fiche: dict, gelees: Gelees, aujourdhui) -> dict[str, Any]:
 def fiche_culture(hass, connection, msg) -> None:
     coordinator = _coordinateur(hass)
     if coordinator is None:
-        connection.send_error(msg["id"], "non_charge", "Rhizome n'est pas chargé")
+        _refus_non_charge(hass, connection, msg)
         return
 
     fiche = coordinator.catalogue.culture(msg["culture_id"])
@@ -341,18 +371,22 @@ def fiche_culture(hass, connection, msg) -> None:
         connection.send_error(msg["id"], "introuvable", "Culture inconnue")
         return
 
+    langue = coordinator.langue
     connection.send_result(
         msg["id"],
         {
-            "culture": fiche,
+            "culture": catalog.localiser(fiche, langue),
             "compagnes": {
-                cle: [catalog.info_minimale(c) for c in fiches]
+                cle: [
+                    catalog.info_minimale(catalog.localiser(c, langue))
+                    for c in fiches
+                ]
                 for cle, fiches in coordinator.catalogue.compagnes(
                     msg["culture_id"]
                 ).items()
             },
             "fenetres": [
-                etape_en_dict(e)
+                etape_en_dict(e, langue)
                 for e in fenetres_theoriques(
                     fiche, coordinator.gelees, 0, coordinator.data["calcule_le"].year
                 )
@@ -366,10 +400,11 @@ def fiche_culture(hass, connection, msg) -> None:
 def jardin(hass, connection, msg) -> None:
     coordinator = _coordinateur(hass)
     if coordinator is None:
-        connection.send_error(msg["id"], "non_charge", "Rhizome n'est pas chargé")
+        _refus_non_charge(hass, connection, msg)
         return
 
     donnees = coordinator.data
+    langue = coordinator.langue
     connection.send_result(
         msg["id"],
         {
@@ -384,7 +419,7 @@ def jardin(hass, connection, msg) -> None:
                     "nom": a["nom"],
                     "emoji": a["emoji"],
                     "zone": a["zone"],
-                    "etape": etape_en_dict(a["etape"]),
+                    "etape": etape_en_dict(a["etape"], langue),
                     "jours_restants": a["jours_restants"],
                     "en_cours": a["en_cours"],
                 }
@@ -396,7 +431,7 @@ def jardin(hass, connection, msg) -> None:
                     "nom": a["nom"],
                     "emoji": a["emoji"],
                     "zone": a["zone"],
-                    "etat": _arrosage_en_dict(a["etat"]),
+                    "etat": _arrosage_en_dict(a["etat"], langue),
                 }
                 for a in donnees.get("arrosages", [])
             ],
@@ -407,6 +442,9 @@ def jardin(hass, connection, msg) -> None:
                 "premiere": coordinator.gelees.premiere,
             },
             "rappel_jours": coordinator.rappel_jours,
+            # Le panneau rend ses propres libelles : il a besoin de savoir dans
+            # quelle langue le serveur lui parle, pour ne pas melanger les deux.
+            "langue": langue,
         },
     )
 
@@ -419,10 +457,11 @@ def calendrier(hass, connection, msg) -> None:
     """Bandes annuelles par plante, prevues et reelles, pour la vue calendrier."""
     coordinator = _coordinateur(hass)
     if coordinator is None:
-        connection.send_error(msg["id"], "non_charge", "Rhizome n'est pas chargé")
+        _refus_non_charge(hass, connection, msg)
         return
 
     annee = msg.get("annee") or coordinator.data["calcule_le"].year
+    langue = coordinator.langue
     lignes = []
     for entree in coordinator.data["plantes"].values():
         decalage = coordinator.store.decalage_zone(entree["plante"].get("zone"))
@@ -433,12 +472,14 @@ def calendrier(hass, connection, msg) -> None:
                 "emoji": entree["culture"]["emoji"],
                 "zone": entree["zone"]["nom"],
                 "prevues": [
-                    etape_en_dict(e)
+                    etape_en_dict(e, langue)
                     for e in fenetres_theoriques(
                         entree["culture"], coordinator.gelees, decalage, annee
                     )
                 ],
-                "reelles": [etape_en_dict(e) for e in entree["etapes"] if e.reelle],
+                "reelles": [
+                    etape_en_dict(e, langue) for e in entree["etapes"] if e.reelle
+                ],
                 "evenements": [
                     evt
                     for evt in entree["plante"].get("evenements") or []
@@ -465,22 +506,24 @@ def _avec_coordinateur(fonction):
             connection.send_error(
                 msg["id"],
                 websocket_api.const.ERR_UNAUTHORIZED,
-                "Un compte en lecture seule ne peut pas modifier le jardin.",
+                i18n.t(_langue(hass), "err_lecture_seule"),
             )
             return
 
         coordinator = _coordinateur(hass)
         if coordinator is None:
-            connection.send_error(
-                msg["id"], "non_charge", "Rhizome n'est pas chargé"
-            )
+            _refus_non_charge(hass, connection, msg)
             return
         try:
             resultat = await fonction(coordinator, msg)
         except ErreurJournal as err:
             # Transition refusee ou plante disparue : c'est une erreur d'usage,
-            # elle a sa place dans l'interface, pas dans les logs.
-            connection.send_error(msg["id"], "refuse", str(err))
+            # elle a sa place dans l'interface, pas dans les logs. Le moteur
+            # l'a levee en francais avec sa cle : on la rend ici dans la langue
+            # de l'interface.
+            connection.send_error(
+                msg["id"], "refuse", i18n.traduire_erreur(coordinator.langue, err)
+            )
             return
         except (TypeError, ValueError, KeyError) as err:
             # Une saisie mal formee (une difficulte non numerique, un conseil
@@ -488,7 +531,9 @@ def _avec_coordinateur(fonction):
             # n'affichait rien et le motif restait dans les logs.
             _LOGGER.debug("Commande %s refusee : %s", msg.get("type"), err)
             connection.send_error(
-                msg["id"], "saisie_invalide", f"Saisie invalide : {err}"
+                msg["id"],
+                "saisie_invalide",
+                i18n.t(coordinator.langue, "err_saisie_invalide", detail=err),
             )
             return
         connection.send_result(msg["id"], resultat or {"ok": True})
@@ -511,7 +556,11 @@ def _avec_coordinateur(fonction):
 @_avec_coordinateur
 async def ajouter(coordinator, msg) -> dict:
     if coordinator.catalogue.culture(msg["culture_id"]) is None:
-        raise ErreurJournal(f"Culture inconnue : {msg['culture_id']}")
+        raise ErreurJournal(
+            f"Culture inconnue : {msg['culture_id']}",
+            cle="err_culture_inconnue",
+            culture_id=msg["culture_id"],
+        )
 
     # Calcule avant l'ajout : sinon la plante qu'on vient de poser compterait
     # comme son propre antecedent.
@@ -651,7 +700,7 @@ def reglages(hass, connection, msg) -> None:
     """
     coordinator = _coordinateur(hass)
     if coordinator is None:
-        connection.send_error(msg["id"], "non_charge", "Rhizome n'est pas chargé")
+        _refus_non_charge(hass, connection, msg)
         return
 
     options = dict(coordinator.entry.options)
@@ -674,10 +723,18 @@ def reglages(hass, connection, msg) -> None:
                 CONF_NOTIFY_RECOLTE_RECURRENCE: coordinator.recolte_recurrence,
                 CONF_MASQUER_TERMINEES: coordinator.masquer_terminees,
                 CONF_ARROSAGE_ACTIF: coordinator.arrosage_actif,
+                # Le reglage brut, qui peut valoir « auto » : le selecteur du
+                # panneau doit montrer ce qui a ete choisi, pas seulement ce
+                # qui en a ete deduit.
+                CONF_LANGUE: options.get(CONF_LANGUE, DEFAUT_LANGUE),
             },
             "cibles_possibles": cibles,
             "presets": PRESETS_CLIMAT,
             "etapes_notifiables": list(ETAPES_NOTIFIABLES),
+            # La langue reellement appliquee, « auto » resolu. C'est elle que le
+            # panneau emploie pour ses propres libelles.
+            "langue": coordinator.langue,
+            "langues": list(LANGUES),
         },
     )
 
@@ -706,6 +763,10 @@ SCHEMA_REGLAGES = vol.Schema(
         vol.Optional(CONF_MASQUER_TERMINEES): bool,
         vol.Optional(CONF_ARROSAGE_ACTIF): bool,
         vol.Optional(CONF_NOTIFY_ARROSAGE): bool,
+        # Borne stricte : cette valeur decide de la langue des noms d'entites,
+        # relus a chaque montage. Une chaine libre y produirait une interface
+        # a moitie francaise sans rien signaler.
+        vol.Optional(CONF_LANGUE): vol.In([LANGUE_AUTO, *LANGUES]),
     }
 )
 
@@ -736,7 +797,9 @@ async def definir_reglages(coordinator, msg) -> dict:
     try:
         propose = SCHEMA_REGLAGES(propose)
     except vol.Invalid as err:
-        raise ErreurJournal(f"Réglage invalide : {err}") from err
+        raise ErreurJournal(
+            f"Réglage invalide : {err}", cle="err_reglage_invalide", detail=err
+        ) from err
 
     # Les destinataires ne sont pas de simples chaines : ils deviennent un nom
     # de service appele chaque matin. On n'accepte que ceux que le panneau
@@ -746,7 +809,9 @@ async def definir_reglages(coordinator, msg) -> dict:
         refusees = [c for c in propose[CONF_NOTIFY_TARGETS] if c not in connues]
         if refusees:
             raise ErreurJournal(
-                f"Destinataire de notification inconnu : {', '.join(refusees)}."
+                f"Destinataire de notification inconnu : {', '.join(refusees)}.",
+                cle="err_cible_notif",
+                cibles=", ".join(refusees),
             )
 
     fusion = {**coordinator.entry.options, **propose}
@@ -826,11 +891,19 @@ async def definir_culture_perso(coordinator, msg) -> dict:
     try:
         brute = SCHEMA_FICHE(msg["fiche"])
     except vol.Invalid as err:
-        raise ErreurJournal(f"Fiche invalide : {err}") from err
+        raise ErreurJournal(
+            f"Fiche invalide : {err}", cle="err_fiche_invalide", detail=err
+        ) from err
     fiche = _normaliser_fiche(brute, coordinator)
+    # `valider_fiche` rend des cles : ces messages s'affichent dans le
+    # formulaire du panneau, donc dans la langue de l'interface.
     soucis = catalog.valider_fiche(fiche)
     if soucis:
-        raise ErreurJournal(" ".join(soucis))
+        # Rendu ici, et non porte comme cle : on est deja dans la couche qui
+        # connait la langue, et il y a plusieurs messages a joindre.
+        raise ErreurJournal(
+            " ".join(i18n.t(coordinator.langue, cle) for cle in soucis)
+        )
 
     def _ecrire() -> dict:
         resultat = coordinator.store.enregistrer_culture(fiche)
@@ -871,7 +944,8 @@ async def retablir_culture(coordinator, msg) -> dict:
     if not coordinator.catalogue.est_livree(msg["culture_id"]):
         raise ErreurJournal(
             "Cette fiche n'existe pas dans le catalogue livré : il n'y a rien "
-            "à rétablir. Supprimez-la plutôt."
+            "à rétablir. Supprimez-la plutôt.",
+            cle="err_rien_a_retablir",
         )
 
     def _effacer() -> None:
@@ -894,7 +968,7 @@ def rotation(hass, connection, msg) -> None:
     """Avertissement de rotation, avant d'ajouter une plante a une zone."""
     coordinator = _coordinateur(hass)
     if coordinator is None:
-        connection.send_error(msg["id"], "non_charge", "Rhizome n'est pas chargé")
+        _refus_non_charge(hass, connection, msg)
         return
     connection.send_result(
         msg["id"],
@@ -946,10 +1020,17 @@ async def ressemer(coordinator, msg) -> dict:
 def cultures_perso(hass, connection, msg) -> None:
     coordinator = _coordinateur(hass)
     if coordinator is None:
-        connection.send_error(msg["id"], "non_charge", "Rhizome n'est pas chargé")
+        _refus_non_charge(hass, connection, msg)
         return
+    langue = coordinator.langue
     connection.send_result(
-        msg["id"], {"cultures": coordinator.catalogue.perso()}
+        msg["id"],
+        {
+            "cultures": [
+                catalog.localiser(c, langue)
+                for c in coordinator.catalogue.perso(langue)
+            ]
+        },
     )
 
 
@@ -1005,7 +1086,9 @@ def _normaliser_fiche(brute: dict, coordinator) -> dict:
         "id": identifiant,
         "nom": nom,
         "nom_scientifique": (brute.get("nom_scientifique") or "").strip(),
-        "famille": (brute.get("famille") or "Non précisée").strip(),
+        "famille": (
+            brute.get("famille") or i18n.t(coordinator.langue, "famille_inconnue")
+        ).strip(),
         "categorie": brute.get("categorie"),
         "emoji": (brute.get("emoji") or "🌱")[:4],
         "difficulte": max(1, min(3, int(brute.get("difficulte") or 1))),

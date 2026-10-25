@@ -14,6 +14,7 @@ from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
+from . import i18n
 from .coordinator import RhizomeCoordinator
 from .entity import RhizomePlanteEntity, suivre_les_plantes
 
@@ -54,7 +55,11 @@ class NotifsSwitch(RhizomePlanteEntity, SwitchEntity):
     @property
     def name(self) -> str | None:
         entree = self.entree
-        return f"Rappels {entree['nom_affiche']}" if entree else None
+        if entree is None:
+            return None
+        return i18n.t(
+            self.coordinator.langue, "entite_rappels", plante=entree["nom_affiche"]
+        )
 
     @property
     def is_on(self) -> bool:

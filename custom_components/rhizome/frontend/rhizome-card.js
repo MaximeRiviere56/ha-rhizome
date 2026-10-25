@@ -7,10 +7,102 @@
  *
  * Usage :
  *   type: custom:rhizome-card
- *   titre: Au potager
- *   vue: tout        # tout (défaut) · actions · arrosage
+ *   titre: Au potager   # facultatif : traduit par défaut
+ *   vue: tout           # tout (défaut) · actions · arrosage
  *   max: 8
+ *
+ * Langue : la carte n'interroge pas l'intégration, elle lit des états. Elle
+ * n'a donc pas accès au réglage de Rhizome et suit `hass.language`, la langue
+ * de qui regarde le tableau de bord. Les deux coïncident dès que le réglage
+ * vaut « auto », qui est le défaut. Ce qu'elle affiche de nommé — le nom de la
+ * plante, le verbe de l'étape, la zone — vient de toute façon des attributs du
+ * capteur, donc déjà traduit par le serveur : seuls ses propres libellés sont
+ * concernés.
  */
+
+const LANGUE_DEFAUT = "fr";
+
+const TEXTES = {
+  fr: {
+    titreDefaut: "Au potager",
+    sectionAFaire: "À faire",
+    sectionAArroser: "À arroser · {nombre}",
+    sectionProchains: "Prochains arrosages",
+    aArroser: "À arroser",
+    boutonArrose: "Arrosé",
+    boutonFait: "Fait",
+    boutonToutArroser: "Tout arroser ({nombre})",
+    tousLesNJours: "tous les {jours} j",
+    quandMaintenant: "c'est le moment",
+    quandAujourdhui: "aujourd'hui",
+    quandDemain: "demain",
+    quandDans: "dans {jours} jours",
+    quandDansCourt: "dans {jours} j",
+    quandDepuisHier: "depuis hier",
+    quandDepuis: "depuis {jours} jours",
+    rienAFaire: "Rien à faire au potager aujourd'hui 🌿",
+    capteurIntrouvable:
+      "Capteur du potager introuvable. L'intégration Rhizome est-elle installée ?",
+    actionRefusee: "Action refusée.",
+    ouvrirRhizome: "Ouvrir Rhizome →",
+    descriptionCarte:
+      "Ce qu'il y a à semer, repiquer, récolter ou arroser, avec un bouton pour le noter.",
+  },
+  en: {
+    titreDefaut: "In the garden",
+    sectionAFaire: "To do",
+    sectionAArroser: "Needs watering · {nombre}",
+    sectionProchains: "Next waterings",
+    aArroser: "Needs water",
+    boutonArrose: "Watered",
+    boutonFait: "Done",
+    boutonToutArroser: "Water all ({nombre})",
+    tousLesNJours: "every {jours} d",
+    quandMaintenant: "now is the time",
+    quandAujourdhui: "today",
+    quandDemain: "tomorrow",
+    quandDans: "in {jours} days",
+    quandDansCourt: "in {jours} d",
+    quandDepuisHier: "since yesterday",
+    quandDepuis: "{jours} days ago",
+    rienAFaire: "Nothing to do in the garden today 🌿",
+    capteurIntrouvable:
+      "Garden sensor not found. Is the Rhizome integration installed?",
+    actionRefusee: "Action refused.",
+    ouvrirRhizome: "Open Rhizome →",
+    descriptionCarte:
+      "What there is to sow, transplant, harvest or water, with a button to record it.",
+  },
+};
+
+/** Langue courante, au niveau du module : une carte ne vit jamais seule sur un
+ *  tableau de bord, et elles partagent toutes la langue de Home Assistant. */
+let LANGUE = LANGUE_DEFAUT;
+
+function T(cle, params) {
+  const table = TEXTES[LANGUE] || TEXTES[LANGUE_DEFAUT];
+  let texte = table[cle] ?? TEXTES[LANGUE_DEFAUT][cle];
+  if (texte == null) return cle;
+  if (params) {
+    for (const [nom, valeur] of Object.entries(params)) {
+      texte = texte.replaceAll(`{${nom}}`, String(valeur));
+    }
+  }
+  return texte;
+}
+
+/** Retient la base de la langue de Home Assistant : « en-GB » devient « en ».
+ *  Renvoie vrai si elle a change, pour declencher un nouveau rendu. */
+function definirLangue(langueHass) {
+  const base = String(langueHass || "")
+    .replace("_", "-")
+    .split("-")[0]
+    .toLowerCase();
+  const retenue = TEXTES[base] ? base : LANGUE_DEFAUT;
+  if (retenue === LANGUE) return false;
+  LANGUE = retenue;
+  return true;
+}
 
 const EVT_POUR_ETAPE = {
   semis_interieur: { evenement: "seme", mode: "interieur" },
@@ -36,18 +128,18 @@ const echappe = (texte) =>
   texte == null ? "" : String(texte).replace(/[&<>"']/g, (c) => ENTITES[c]);
 
 const quand = (jours, enCours) => {
-  if (enCours) return "c'est le moment";
-  if (jours === 0) return "aujourd'hui";
-  if (jours === 1) return "demain";
-  if (jours > 1) return `dans ${jours} jours`;
-  return `depuis ${Math.abs(jours)} jours`;
+  if (enCours) return T("quandMaintenant");
+  if (jours === 0) return T("quandAujourdhui");
+  if (jours === 1) return T("quandDemain");
+  if (jours > 1) return T("quandDans", { jours });
+  return T("quandDepuis", { jours: Math.abs(jours) });
 };
 
 const quandEau = (jours) => {
-  if (jours > 1) return `depuis ${jours} jours`;
-  if (jours === 1) return "depuis hier";
-  if (jours === 0) return "aujourd'hui";
-  return `dans ${-jours} j`;
+  if (jours > 1) return T("quandDepuis", { jours });
+  if (jours === 1) return T("quandDepuisHier");
+  if (jours === 0) return T("quandAujourdhui");
+  return T("quandDansCourt", { jours: -jours });
 };
 
 class RhizomeCard extends HTMLElement {
@@ -57,7 +149,10 @@ class RhizomeCard extends HTMLElement {
   }
 
   setConfig(config) {
-    this._config = { titre: "Au potager", vue: "tout", max: 8, ...config };
+    // Le titre n'est pas pose ici mais au rendu : `setConfig` est appele avant
+    // que `hass` arrive, donc avant que la langue soit connue. Un titre fourni
+    // par l'utilisateur, lui, l'emporte toujours.
+    this._config = { vue: "tout", max: 8, ...config };
     this._rendu = false;
   }
 
@@ -67,15 +162,27 @@ class RhizomeCard extends HTMLElement {
 
   set hass(hass) {
     this._hass = hass;
+    if (definirLangue(hass?.language)) this._rendu = false;
     this._rendre();
   }
 
   /** Le capteur d'actions est détecté si l'utilisateur ne l'a pas nommé :
-   *  une entité de plus à saisir pour rien est une entité de trop. */
+   *  une entité de plus à saisir pour rien est une entité de trop.
+   *
+   *  La détection porte sur les attributs et non sur le nom de l'entité.
+   *  Chercher le suffixe « _actions_a_mener » ne tenait que tant que
+   *  l'intégration était francophone : une installation créée en anglais
+   *  nomme la même entité `sensor.rhizome_tasks_due`, et la carte restait
+   *  vide sans rien dire. `actions` et `nb_plantes` ensemble n'existent que
+   *  sur ce capteur. */
   _entiteActions() {
     if (this._config?.entity) return this._config.entity;
-    return Object.keys(this._hass?.states || {}).find(
-      (id) => id.startsWith("sensor.") && id.endsWith("_actions_a_mener")
+    const etats = this._hass?.states || {};
+    return Object.keys(etats).find(
+      (id) =>
+        id.startsWith("sensor.") &&
+        Array.isArray(etats[id]?.attributes?.actions) &&
+        etats[id].attributes.nb_plantes !== undefined
     );
   }
 
@@ -127,7 +234,7 @@ class RhizomeCard extends HTMLElement {
       await this._hass.callWS(message);
     } catch (err) {
       bouton.disabled = false;
-      this._erreur = err?.message || "Action refusée.";
+      this._erreur = err?.message || T("actionRefusee");
       this._rendu = false;
       this._rendre();
     }
@@ -142,15 +249,17 @@ class RhizomeCard extends HTMLElement {
     const aArroser = eau.filter((p) => p.aFaire);
     const reste = eau.filter((p) => !p.aFaire).slice(0, Math.max(0, this._config.max - aArroser.length));
 
-    const signature = JSON.stringify([actions, aArroser, reste, this._erreur]);
+    const titre = this._config.titre ?? T("titreDefaut");
+    const signature = JSON.stringify([
+      actions, aArroser, reste, this._erreur, LANGUE,
+    ]);
     if (this._rendu && signature === this._signature) return;
     this._signature = signature;
     this._rendu = true;
 
     if (!this._entiteActions()) {
-      this.shadowRoot.innerHTML = `<ha-card header="${echappe(this._config.titre)}">
-          <div class="vide">Capteur du potager introuvable. L'intégration
-          Rhizome est-elle installée ?</div>
+      this.shadowRoot.innerHTML = `<ha-card header="${echappe(titre)}">
+          <div class="vide">${T("capteurIntrouvable")}</div>
         </ha-card>`;
       return;
     }
@@ -161,14 +270,14 @@ class RhizomeCard extends HTMLElement {
         <div class="corps">
           <div class="nom">${echappe(p.nom)}</div>
           <div class="detail">
-            ${p.aFaire ? `<span class="verbe">À arroser</span> · ` : ""}${quandEau(
-      p.jours
-    )} · ${echappe(p.zone)}${
-      p.frequence ? ` · tous les ${p.frequence} j` : ""
+            ${
+              p.aFaire ? `<span class="verbe">${T("aArroser")}</span> · ` : ""
+            }${quandEau(p.jours)} · ${echappe(p.zone)}${
+      p.frequence ? ` · ${T("tousLesNJours", { jours: p.frequence })}` : ""
     }
           </div>
         </div>
-        <button data-eau="${p.uid}">Arrosé</button>
+        <button data-eau="${p.uid}">${T("boutonArrose")}</button>
       </div>`;
 
     this.shadowRoot.innerHTML = `
@@ -207,12 +316,12 @@ class RhizomeCard extends HTMLElement {
           border-top: 1px solid var(--divider-color);
         }
       </style>
-      <ha-card header="${echappe(this._config.titre)}">
+      <ha-card header="${echappe(titre)}">
         ${this._erreur ? `<div class="erreur">${echappe(this._erreur)}</div>` : ""}
 
         ${
           actions.length
-            ? `<div class="section">À faire</div>` +
+            ? `<div class="section">${T("sectionAFaire")}</div>` +
               actions
                 .map(
                   (a, i) => `
@@ -227,7 +336,7 @@ class RhizomeCard extends HTMLElement {
                 </div>
                 ${
                   EVT_POUR_ETAPE[a.etape]
-                    ? `<button data-action="${i}">Fait</button>`
+                    ? `<button data-action="${i}">${T("boutonFait")}</button>`
                     : ""
                 }
               </div>`
@@ -238,14 +347,16 @@ class RhizomeCard extends HTMLElement {
 
         ${
           aArroser.length
-            ? `<div class="section">À arroser · ${aArroser.length}</div>` +
+            ? `<div class="section">${T("sectionAArroser", {
+                nombre: aArroser.length,
+              })}</div>` +
               aArroser.map(ligneEau).join("") +
               (aArroser.length > 1
                 ? `<div class="ligne" style="justify-content:center">
                      <button class="discret" data-eau-tout="${aArroser
                        .map((p) => p.uid)
                        .join(",")}">
-                       Tout arroser (${aArroser.length})
+                       ${T("boutonToutArroser", { nombre: aArroser.length })}
                      </button>
                    </div>`
                 : "")
@@ -254,18 +365,18 @@ class RhizomeCard extends HTMLElement {
 
         ${
           reste.length
-            ? `<div class="section">Prochains arrosages</div>` +
+            ? `<div class="section">${T("sectionProchains")}</div>` +
               reste.map(ligneEau).join("")
             : ""
         }
 
         ${
           !actions.length && !eau.length
-            ? `<div class="vide">Rien à faire au potager aujourd'hui 🌿</div>`
+            ? `<div class="vide">${T("rienAFaire")}</div>`
             : ""
         }
 
-        <a class="lien" href="/rhizome">Ouvrir Rhizome →</a>
+        <a class="lien" href="/rhizome">${T("ouvrirRhizome")}</a>
       </ha-card>`;
 
     this.shadowRoot.querySelectorAll("button[data-action]").forEach((bouton) =>
@@ -310,7 +421,7 @@ class RhizomeCard extends HTMLElement {
   }
 
   static getStubConfig() {
-    return { titre: "Au potager", vue: "tout", max: 8 };
+    return { vue: "tout", max: 8 };
   }
 }
 
@@ -320,7 +431,12 @@ window.customCards = window.customCards || [];
 window.customCards.push({
   type: "rhizome-card",
   name: "Rhizome",
-  description:
-    "Ce qu'il y a à semer, repiquer, récolter ou arroser, avec un bouton pour le noter.",
+  // Le selecteur de cartes est construit au chargement du tableau de bord,
+  // avant qu'aucune carte n'ait recu `hass` : on y lit donc la langue du
+  // navigateur, seule disponible a cet instant.
+  description: (() => {
+    definirLangue(navigator.language);
+    return T("descriptionCarte");
+  })(),
   preview: true,
 });

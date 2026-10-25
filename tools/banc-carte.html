@@ -70,7 +70,13 @@
     };
   }
 
+  // La carte ne parle pas a l'integration : elle suit `hass.language`. Le banc
+  // lui donne donc la langue de la fixture, pour que ses libelles et les noms
+  // qu'elle lit dans les attributs soient dans la meme langue.
+  const langue = jardin.langue || "fr";
+
   const hass = (actions) => ({
+    language: langue,
     states: {
       ...capteursPlantes,
       "sensor.rhizome_actions_a_mener": actions ? etat
@@ -79,12 +85,14 @@
     callWS: async (msg) => { console.log("callWS", JSON.stringify(msg)); return {}; },
   });
 
+  // La premiere carte n'a pas de titre : c'est le cas par defaut, et celui ou
+  // le titre doit venir de la traduction.
   for (const [id, avecActions, vue, titre] of [
-    ["avec", true, "tout", "Au potager"],
+    ["avec", true, "tout", undefined],
     ["sans", false, "arrosage", "Arrosage seul"],
   ]) {
     const carte = document.createElement("rhizome-card");
-    carte.setConfig({ titre, vue });
+    carte.setConfig(titre ? { titre, vue } : { vue });
     document.getElementById(id).appendChild(carte);
     carte.hass = hass(avecActions);
   }

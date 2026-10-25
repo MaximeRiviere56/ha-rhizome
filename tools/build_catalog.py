@@ -15,6 +15,7 @@ import sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 from catalogue_source import CULTURES
+from catalogue_traductions import CONSEILS, EAU_NOTES, FAMILLES, NOMS, SOLS
 
 RACINE = pathlib.Path(__file__).resolve().parent.parent
 SORTIE = RACINE / "custom_components" / "rhizome" / "data" / "catalog.json"
@@ -135,8 +136,95 @@ def _valider_coherence(c: dict, fenetres: dict) -> list[str]:
     return soucis
 
 
+# --- Traductions --------------------------------------------------------------
+#
+# La langue de reference du catalogue est le francais ; l'anglais vit a cote,
+# dans des champs suffixes. Le panneau et les entites choisissent lequel
+# afficher (`catalog.localiser`), et les champs francais restent les cles :
+# `rotation.DELAIS` s'indexe sur le nom francais de la famille.
+
+SUFFIXE = "_en"
+
+
+def traduire(cultures: list[dict]) -> list[str]:
+    """Ajoute l'anglais a chaque fiche. Renvoie ce qui manque.
+
+    Le defaut rattrape ici est precis : une culture ajoutee a la table sans sa
+    traduction. Sans ce controle, elle s'afficherait en francais au milieu
+    d'une interface anglaise, et personne ne s'en apercevrait avant de l'avoir
+    sous les yeux.
+    """
+    manquants: list[str] = []
+
+    for c in cultures:
+        cid = c["id"]
+
+        nom = NOMS.get(cid)
+        if nom:
+            c[f"nom{SUFFIXE}"] = nom
+        else:
+            manquants.append(f"{cid} : nom anglais absent de NOMS")
+
+        famille = FAMILLES.get(c["famille"])
+        if famille:
+            c[f"famille{SUFFIXE}"] = famille
+        else:
+            manquants.append(f"{cid} : famille non traduite — {c['famille']!r}")
+
+        sol = SOLS.get(c["sol"])
+        if sol:
+            c[f"sol{SUFFIXE}"] = sol
+        else:
+            manquants.append(f"{cid} : sol non traduit — {c['sol']!r}")
+
+        notes = c["arrosage"].get("notes")
+        if notes:
+            traduite = EAU_NOTES.get(notes)
+            if traduite:
+                c["arrosage"][f"notes{SUFFIXE}"] = traduite
+            else:
+                manquants.append(
+                    f"{cid} : note d'arrosage non traduite — {notes!r}"
+                )
+
+        conseils = []
+        for conseil in c.get("conseils") or []:
+            traduit = CONSEILS.get(conseil)
+            if traduit:
+                conseils.append(traduit)
+            else:
+                manquants.append(f"{cid} : conseil non traduit — {conseil!r}")
+        if conseils:
+            c[f"conseils{SUFFIXE}"] = conseils
+
+    # Une traduction qui ne correspond plus a aucun texte du catalogue n'est pas
+    # une erreur fatale, mais c'est du poids mort : on le dit.
+    for table, nom_table, textes in (
+        (NOMS, "NOMS", {c["id"] for c in cultures}),
+        (FAMILLES, "FAMILLES", {c["famille"] for c in cultures}),
+        (SOLS, "SOLS", {c["sol"] for c in cultures}),
+        (
+            EAU_NOTES,
+            "EAU_NOTES",
+            {c["arrosage"]["notes"] for c in cultures if c["arrosage"].get("notes")},
+        ),
+        (
+            CONSEILS,
+            "CONSEILS",
+            {x for c in cultures for x in c.get("conseils") or []},
+        ),
+    ):
+        for orpheline in sorted(set(table) - textes):
+            manquants.append(
+                f"{nom_table} : traduction orpheline, plus aucune fiche ne porte "
+                f"{orpheline!r}"
+            )
+
+    return manquants
+
+
 def main() -> int:
-    problemes = valider(CULTURES)
+    problemes = valider(CULTURES) + traduire(CULTURES)
     if problemes:
         print(f"{len(problemes)} probleme(s) dans le catalogue :", file=sys.stderr)
         for p in problemes:

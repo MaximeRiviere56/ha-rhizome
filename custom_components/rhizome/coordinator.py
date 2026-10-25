@@ -19,12 +19,13 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 from homeassistant.util import dt as dt_util
 
-from . import rotation, watering
-from .catalog import Catalogue
+from . import i18n, rotation, watering
+from .catalog import Catalogue, nom_localise
 from .const import (
     CONF_ARROSAGE_ACTIF,
     CONF_GELEES_DERNIERE,
     CONF_GELEES_PREMIERE,
+    CONF_LANGUE,
     CONF_MASQUER_TERMINEES,
     CONF_NOTIFY_ARROSAGE,
     CONF_NOTIFY_ETAPES,
@@ -34,6 +35,7 @@ from .const import (
     DEFAUT_ARROSAGE_ACTIF,
     DEFAUT_GELEES_DERNIERE,
     DEFAUT_GELEES_PREMIERE,
+    DEFAUT_LANGUE,
     DEFAUT_MASQUER_TERMINEES,
     DEFAUT_NOTIFY_ARROSAGE,
     DEFAUT_NOTIFY_RECOLTE_RECURRENCE,
@@ -43,11 +45,10 @@ from .const import (
     ETAPES_NOTIFIABLES,
 )
 from .lifecycle import (
-    PHASES_LIBELLES,
-    total_recolte_saison_g,
+    resume as resume_journal,
 )
 from .lifecycle import (
-    resume as resume_journal,
+    total_recolte_saison_g,
 )
 from .phenology import Gelees, prochaines_etapes
 from .store import JardinStore
@@ -107,6 +108,22 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 defaut,
             )
             return defaut
+
+    @property
+    def langue(self) -> str:
+        """La langue des textes que le serveur produit lui-meme.
+
+        Elle vaut pour les noms d'entites, les rappels, le calendrier et la
+        liste de taches — tout ce que le panneau ne rend pas. Le panneau, lui,
+        suit la langue de qui le regarde : c'est `hass.language`, qui est propre
+        a l'utilisateur, alors que `hass.config.language` est celle de
+        l'instance. Les deux coincident dans la quasi-totalite des cas, et
+        quand elles divergent, c'est la bonne reponse de chaque cote.
+        """
+        return i18n.resoudre(
+            self.entry.options.get(CONF_LANGUE, DEFAUT_LANGUE),
+            getattr(self.hass.config, "language", None),
+        )
 
     @property
     def gelees(self) -> Gelees:
@@ -206,6 +223,7 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     def _calculer(self) -> dict[str, Any]:
         aujourdhui = self.aujourdhui()
         gelees = self.gelees
+        langue = self.langue
         plantes: dict[str, dict] = {}
         actions: list[dict] = []
         total_recolte = 0
@@ -264,7 +282,7 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 "etapes": etapes,
                 "prochaine": etapes[0] if etapes else None,
                 "resume": infos,
-                "nom_affiche": nom_affiche(brute, fiche),
+                "nom_affiche": nom_affiche(brute, fiche, langue),
             }
             plantes[uid] = entree
 
@@ -340,13 +358,52 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         fiche = self._catalogue.culture(culture_id)
         if fiche is None:
             return None
-        return rotation.verifier(
+        avis = rotation.verifier(
             fiche,
             zone_id,
             self.store.plantes,
             {c["id"]: c for c in self._catalogue.toutes()},
             self.aujourdhui(),
         )
+        return self._rotation_traduite(avis, fiche)
+
+    def _rotation_traduite(self, avis: dict | None, fiche: dict) -> dict | None:
+        """Reecrit l'avis de rotation dans la langue de l'interface.
+
+        `rotation` est un module pur : il rend son message en francais, langue
+        de reference du projet, et y cite des noms de cultures qu'il a lus dans
+        le catalogue francais. On le reconstruit donc ici, ou le catalogue et
+        la langue sont connus.
+
+        La famille se lit sur la fiche qu'on vient de verifier, et non sur une
+        des antecedentes : `rotation.verifier` ne retient que les plantes de la
+        meme famille, c'est donc la meme — et elle est sous la main.
+        """
+        langue = self.langue
+        if avis is None or langue == "fr":
+            return avis
+
+        noms = ", ".join(
+            f"{self._nom_culture(p.get('culture_id'), p['nom'])} ({p['annee']})"
+            for p in sorted(avis["precedents"], key=lambda p: -p["annee"])[:3]
+        )
+        return {
+            **avis,
+            "precedents_libelle": noms,
+            "message": i18n.t(
+                langue,
+                "rotation_message",
+                famille=fiche.get(f"famille_{langue}") or avis["famille"],
+                precedents=noms,
+                delai=avis["delai_ans"],
+            ),
+        }
+
+    def _nom_culture(self, culture_id: str | None, defaut: str) -> str:
+        """Le nom traduit de cette culture, ou le nom francais si elle a
+        disparu du catalogue entre-temps."""
+        fiche = self._catalogue.culture(culture_id or "")
+        return nom_localise(fiche, self.langue) if fiche else defaut
 
     # --- Ecriture : toute mutation passe par un rafraichissement -------------
 
@@ -372,22 +429,33 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         return resultat
 
 
-def nom_affiche(plante: dict, fiche: dict) -> str:
+def nom_affiche(plante: dict, fiche: dict, langue: str = "fr") -> str:
+    """Le nom sous lequel cette plante apparait partout : entites, rappels,
+    calendrier, panneau.
+
+    Le surnom est une donnee de l'utilisateur et n'est jamais traduit ; le nom
+    de la culture, lui, suit la langue de l'interface.
+    """
+    nom = nom_localise(fiche, langue)
     surnom = plante.get("surnom")
-    return f"{fiche['nom']} ({surnom})" if surnom else fiche["nom"]
+    return f"{nom} ({surnom})" if surnom else nom
 
 
-def etape_en_dict(etape) -> dict | None:
-    """Serialise une etape pour le panneau et les attributs d'entite."""
+def etape_en_dict(etape, langue: str = "fr") -> dict | None:
+    """Serialise une etape pour le panneau et les attributs d'entite.
+
+    `libelle` est traduit ici et non cote panneau : les attributs d'entite
+    passent par le meme chemin, et la carte Lovelace les lit tels quels.
+    """
     if etape is None:
         return None
     donnees = asdict(etape)
     donnees["debut"] = etape.debut.isoformat()
     donnees["fin"] = etape.fin.isoformat()
-    donnees["libelle"] = etape.libelle
+    donnees["libelle"] = i18n.libelle_etape(langue, etape.type)
     donnees["reelle"] = etape.reelle
     return donnees
 
 
-def libelle_phase(phase: str) -> str:
-    return PHASES_LIBELLES.get(phase, phase)
+def libelle_phase(phase: str, langue: str = "fr") -> str:
+    return i18n.libelle_phase(langue, phase)
