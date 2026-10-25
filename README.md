@@ -1,5 +1,12 @@
 # Rhizome
 
+[![Version](https://img.shields.io/github/v/release/MaximeRiviere56/ha-rhizome?label=version&sort=semver)](https://github.com/MaximeRiviere56/ha-rhizome/releases)
+[![Validation](https://github.com/MaximeRiviere56/ha-rhizome/actions/workflows/validation.yml/badge.svg)](https://github.com/MaximeRiviere56/ha-rhizome/actions/workflows/validation.yml)
+[![Qualité](https://github.com/MaximeRiviere56/ha-rhizome/actions/workflows/qualite.yml/badge.svg)](https://github.com/MaximeRiviere56/ha-rhizome/actions/workflows/qualite.yml)
+[![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2026.10%2B-41BDF5?logo=home-assistant&logoColor=white)](https://www.home-assistant.io/)
+[![Licence MIT](https://img.shields.io/github/license/MaximeRiviere56/ha-rhizome)](LICENSE)
+[![Local first](https://img.shields.io/badge/local-100%25-brightgreen)](#vie-privée)
+
 [![Ajouter le dépôt à HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=MaximeRiviere56&repository=ha-rhizome&category=integration)
 
 Une intégration Home Assistant pour gérer un potager : choisir ses légumes dans
@@ -392,25 +399,169 @@ compagnon n'existe pas, ou à qui il manque `rusticite.gel`.
 
 ## Développement
 
+Toute la batterie, en une commande. Le script monte l'environnement au besoin
+(il lui faut [uv](https://docs.astral.sh/uv/)) :
+
 ```bash
-python3 -m unittest discover -s tests -p 'test_*.py'   # 94 tests, sans dépendance
+./scripts/verifier.sh
 ```
 
-`lifecycle.py` (le journal), `phenology.py` (le calcul des étapes),
-`rotation.py` et `watering.py` n'importent rien de Home Assistant : ils sont testables hors
-instance.
+Elle enchaîne `unittest` sur les modules purs, l'audit du catalogue, `ruff`,
+`mypy`, et `pytest` sur la couche Home Assistant avec la couverture.
+
+Les quatre modules purs — `lifecycle.py` (le journal), `phenology.py` (le
+calcul des étapes), `rotation.py` et `watering.py` — n'importent rien de Home
+Assistant. Ils se vérifient donc sur n'importe quel poste, sans rien
+installer :
+
+```bash
+PYTHONPATH=tests python3 -m unittest discover -s tests -p 'test_*.py'
+```
+
+Les tests de la couche Home Assistant vivent à part, dans `tests/ha/`, et
+demandent Python 3.14 et `pytest-homeassistant-custom-component`.
 
 Le panneau et la carte se vérifient sans instance :
 
 ```bash
 python3 tools/banc_fixture.py && python3 -m http.server 8777
-# http://localhost:8777/tools/banc.html        — le panneau, cinq vues
+# http://localhost:8777/tools/banc.html        — le panneau, six vues
 # http://localhost:8777/tools/banc-carte.html  — la carte Lovelace
 ```
 
 Les données du banc sortent du vrai catalogue et du vrai moteur : il montre donc
 le panneau face à ce qu'il recevra réellement.
 
+> **Son angle mort.** `tools/banc_fixture.py` réimplémente à la main la
+> sérialisation que fait `websocket.py`. Sa promesse ne tient que tant que les
+> deux ne divergent pas — c'est ce qui lui avait fait montrer un arrosage par
+> plante qui fonctionnait alors qu'il était cassé en production. Les tests de
+> `tests/ha/test_websocket.py` tapent, eux, sur les vraies commandes.
+
+`CONTRIBUTING.md` détaille les conventions et les sept invariants à ne pas
+casser.
+
+## Vie privée
+
+Rhizome est **local de bout en bout**. Ce n'est pas une intention, c'est une
+propriété vérifiable :
+
+- `manifest.json` ne déclare **aucune dépendance** (`"requirements": []`) ;
+- le code n'embarque aucun client HTTP et ne fait aucun appel sortant ;
+- le catalogue des 172 cultures est **livré avec l'intégration** : aucune API à
+  interroger, aucun compte, aucun service susceptible de disparaître ;
+- rien ne demande votre position. Les gelées se saisissent, ou se choisissent
+  dans une préselection climatique.
+
+**Ce qui est stocké chez vous** : le jardin — plantes, journal, arrosages,
+fiches personnelles, zones — dans `.storage/rhizome.jardin`, et les réglages
+dans l'entrée de configuration. Comme tout `.storage`, cela entre dans vos
+sauvegardes Home Assistant.
+
+**Ce qui sort** : uniquement le contenu des rappels, vers les services `notify`
+que vous avez choisis — donc vers votre propre application Home Assistant.
+
+**Les diagnostics** téléchargeables depuis la page de l'intégration décrivent la
+forme du jardin, pas son contenu : surnoms, notes du journal, causes de perte et
+noms d'appareils en sont retirés. Vous pouvez les joindre à une issue sans les
+relire.
+
+Pour le périmètre de sécurité et le signalement d'une faille, voir
+[`SECURITY.md`](SECURITY.md).
+
+## Dépannage
+
+**Activer les logs de débogage** — `configuration.yaml`, puis redémarrer :
+
+```yaml
+logger:
+  default: warning
+  logs:
+    custom_components.rhizome: debug
+```
+
+Ou, sans redémarrer, depuis **Paramètres → Appareils et services → Rhizome →
+menu ⋮ → Activer la journalisation de débogage**.
+
+| Symptôme | Piste |
+|---|---|
+| **Le panneau n'apparaît pas dans la barre latérale** | Videz le cache du navigateur (Ctrl-Maj-R). Le bundle est servi sans cache, mais le service worker de Home Assistant, lui, en garde un. |
+| **La carte affiche « Capteur du potager introuvable »** | L'intégration n'est pas chargée, ou la ressource Lovelace pointe encore vers `/potager-frontend/`. Voir [La carte Lovelace](#la-carte-lovelace). |
+| **Aucun rappel ne part** | Trois causes, dans l'ordre : aucun destinataire coché dans *Réglages · Rappels · À qui* ; l'étape concernée décochée dans *Quoi* ; ou l'interrupteur de rappels de la plante sur `off`. La vérification n'a lieu qu'une fois par jour, à l'heure réglée. |
+| **Les rappels partent à la mauvaise heure** | Vérifiez le fuseau de Home Assistant dans *Paramètres → Système → Général*. Rhizome suit celui-là, pas celui de la machine. |
+| **Les dates du calendrier sont fausses de plusieurs semaines** | Ce sont vos gelées. Un préréglage trop large décale tout le calendrier ; saisissez vos dates réelles. |
+| **Une plante réclame un semis déjà fait** | Son journal est vide. Notez le semis — par le bouton d'un rappel, la case de `todo.rhizome`, ou le bouton « Fait » — et la suite du cycle se recalcule. |
+| **Une récolte est annoncée en plein hiver** | Si la culture n'est pas gélive, c'est normal. Sinon, c'est une durée de cycle de la fiche qui ne correspond pas à votre jardin : corrigez-la depuis le catalogue. |
+| **Après un `git pull`, rien n'a changé sur l'instance** | HACS installe des *releases*, pas la branche. Il faut publier une version. |
+
+Si rien de tout cela ne colle, ouvrez une
+[anomalie](https://github.com/MaximeRiviere56/ha-rhizome/issues/new/choose) avec
+les logs et les diagnostics.
+
+## Questions fréquentes
+
+**Faut-il un compte, une clé d'API, une connexion ?**
+Non. Voir [Vie privée](#vie-privée).
+
+**Ça marche hors de France ?**
+Oui. Rien n'est calé sur un calendrier national : tout part de vos deux dates
+de gelées. Les quatre préréglages climatiques sont français, mais les dates se
+saisissent à la main. Les fiches, en revanche, sont rédigées en français.
+
+**Puis-je avoir plusieurs jardins ?**
+Non, une seule entrée par instance. Les **zones** jouent ce rôle : chacune
+porte son propre décalage de calendrier.
+
+**Une mise à jour efface-t-elle mes fiches personnelles ?**
+Non. Elles vivent dans le stockage du jardin, pas dans le fichier livré.
+
+**Peut-on corriger une fiche livrée ?**
+Oui, depuis le catalogue. Votre version remplace la mienne, et les plantes déjà
+au jardin suivent la correction. Un bouton **Rétablir** rend l'originale.
+
+**Que se passe-t-il si je supprime l'intégration ?**
+Le jardin reste sur disque. Le réinstaller le retrouve. Supprimer une plante
+depuis le panneau, en revanche, supprime son journal.
+
+**Pourquoi l'arrosage ne regarde-t-il pas la météo ?**
+Parce que le modèle serait faux sans capteur d'humidité du sol, et qu'un
+rappel faux discrédite tous les autres. Le compte à rebours repart quand
+*vous* dites avoir arrosé. Brancher l'alerte gel sur l'entité météo est en
+revanche une piste ouverte.
+
+## Limites connues
+
+Dites franchement, pour qu'elles ne soient pas découvertes en juillet.
+
+- **Les 172 fiches ne sont sourcées nulle part** — voir
+  [Peut-on s'y fier ?](#peut-on-sy-fier). Les durées de cycle sont ce qu'il y
+  a de plus approximatif, et ce que la correction de fiche rattrape le mieux.
+- **Un seul jardin par instance.**
+- **Aucune plante d'intérieur**, malgré le nom. Il anticipe, il ne décrit pas.
+- **Les quantités récoltées se saisissent à la main**, en grammes, et rien
+  n'oblige à les peser.
+- **L'arrosage est théorique** : rien n'observe le sol, la pluie ni la
+  température.
+- **Pas de capteur de gel.** L'entité météo n'est pas lue, alors que chaque
+  fiche porte sa rusticité.
+- **Aucun export du journal** pour l'instant.
+- **L'interface et les fiches sont en français.** Seules la configuration et
+  les actions sont traduites en anglais.
+- **Minimum Home Assistant 2026.10.** Rien n'est testé en dessous.
+
+## Contribuer
+
+Les conventions, les sept invariants à ne pas casser et la façon de vérifier
+sont dans [`CONTRIBUTING.md`](CONTRIBUTING.md). Une correction de fiche du
+catalogue est particulièrement bienvenue : il y a un
+[gabarit d'issue](https://github.com/MaximeRiviere56/ha-rhizome/issues/new/choose)
+pour ça.
+
+## Changelog
+
+Chaque version est décrite dans [`CHANGELOG.md`](CHANGELOG.md) et publiée en
+[release GitHub](https://github.com/MaximeRiviere56/ha-rhizome/releases).
+
 ## Licence
 
-MIT.
+MIT — voir [`LICENSE`](LICENSE).
