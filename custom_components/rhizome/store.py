@@ -157,7 +157,7 @@ class JardinStore:
     ) -> dict:
         """Une culture peut etre ajoutee plusieurs fois : deux semis echelonnes,
         ou le meme legume en serre et en pleine terre. D'ou l'uid."""
-        plante = {
+        plante: dict[str, Any] = {
             "uid": uuid.uuid4().hex[:8],
             "culture_id": culture_id,
             "zone": zone,

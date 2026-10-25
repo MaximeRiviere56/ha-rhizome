@@ -1,0 +1,25 @@
+name: Idée
+description: Proposer une fonctionnalité ou une amélioration
+labels: ["idée"]
+body:
+  - type: textarea
+    id: besoin
+    attributes:
+      label: Le besoin
+      description: >-
+        Le geste de jardinage ou le moment de la saison où ça manque. Décrivez
+        la situation plutôt que la solution : c'est elle qui se discute.
+    validations: { required: true }
+  - type: textarea
+    id: piste
+    attributes:
+      label: Une piste, si vous en avez une
+  - type: checkboxes
+    id: invariants
+    attributes:
+      label: Compatibilité
+      options:
+        - label: >-
+            J'ai lu CONTRIBUTING.md et cette idée ne contredit aucun des sept
+            invariants (notamment : un fait du journal gagne toujours sur une
+            moyenne saisonnière).

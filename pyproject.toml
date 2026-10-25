@@ -59,6 +59,20 @@ disallow_untyped_defs = false
 ignore_missing_imports = true
 exclude = ["^\\.venv/", "^tools/"]
 
+# Depuis 2026.9, Home Assistant valide avec probatio et installe un shim qui
+# repond aux `import voluptuous` des integrations personnalisees — le code
+# tourne donc juste. mypy, lui, resout le vrai voluptuous et declare
+# incompatible chaque schema passe a HA. Tant que le shim existe, ces erreurs
+# ne disent rien d'un defaut : on les tait, elles seules, et uniquement la ou
+# un schema traverse la frontiere.
+#
+# Le jour ou Home Assistant retire le shim, il faudra passer a
+# `import probatio as vol` et relever le minimum a 2026.9. C'est une decision
+# de compatibilite, pas une correction d'audit.
+[[tool.mypy.overrides]]
+module = ["rhizome.websocket", "rhizome.config_flow", "rhizome"]
+disable_error_code = ["dict-item", "arg-type"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"

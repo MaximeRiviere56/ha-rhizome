@@ -14,7 +14,7 @@ suivi reel reposerait sur la bonne volonte de rouvrir l'application.
 
 from __future__ import annotations
 
-from datetime import date, timedelta
+from datetime import date, time, timedelta
 import functools
 import logging
 from typing import Any
@@ -100,7 +100,12 @@ class RhizomeNotifier:
         """
         heure = dt_util.parse_time(
             self.coordinator.entry.options.get(CONF_NOTIFY_HEURE, DEFAUT_NOTIFY_HEURE)
-        ) or dt_util.parse_time(DEFAUT_NOTIFY_HEURE)
+        )
+        if heure is None:
+            _LOGGER.warning(
+                "Heure de rappel illisible : repli sur %s.", DEFAUT_NOTIFY_HEURE
+            )
+            heure = time(8, 0)
 
         annuler_horaire = async_track_time_change(
             self.hass,
@@ -142,7 +147,7 @@ class RhizomeNotifier:
         etapes_voulues = set(self.coordinator.etapes_notifiables)
         recurrence = self.coordinator.recolte_recurrence
 
-        a_envoyer: list[dict] = []
+        a_envoyer: list[tuple[str, dict]] = []
 
         for action in self.coordinator.data["actions"]:
             entree = self.coordinator.data["plantes"].get(action["uid"])

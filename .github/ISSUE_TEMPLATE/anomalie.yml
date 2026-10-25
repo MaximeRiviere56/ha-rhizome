@@ -1,0 +1,55 @@
+name: Anomalie
+description: Quelque chose ne marche pas comme annoncé
+labels: ["anomalie"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Merci. Les logs de débogage valent dix descriptions : voyez la section
+        **Dépannage** du README pour les activer.
+  - type: textarea
+    id: quoi
+    attributes:
+      label: Ce qui se passe
+      description: Et ce que vous attendiez à la place.
+    validations: { required: true }
+  - type: textarea
+    id: reproduire
+    attributes:
+      label: Comment le reproduire
+      placeholder: |
+        1. Ajouter une tomate en serre
+        2. Noter un semis au 1er mars
+        3. …
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes:
+      label: Version de Rhizome
+      placeholder: "0.8.0"
+    validations: { required: true }
+  - type: input
+    id: ha
+    attributes:
+      label: Version de Home Assistant
+      placeholder: "2026.10.4"
+    validations: { required: true }
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: >-
+        Les lignes `custom_components.rhizome`. Les diagnostics de
+        l'intégration (Paramètres › Appareils et services › Rhizome › Télécharger
+        les diagnostics) sont utiles aussi : ils ne contiennent ni vos notes,
+        ni vos surnoms de plantes.
+      render: text
+  - type: checkboxes
+    id: securite
+    attributes:
+      label: Sécurité
+      options:
+        - label: >-
+            Ce n'est pas une faille de sécurité. Une faille se signale en privé,
+            voir SECURITY.md.
+          required: true
