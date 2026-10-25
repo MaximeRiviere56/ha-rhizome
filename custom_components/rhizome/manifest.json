@@ -1,13 +1,22 @@
 {
   "domain": "rhizome",
   "name": "Rhizome",
-  "codeowners": ["@MaximeRiviere56"],
+  "codeowners": [
+    "@MaximeRiviere56"
+  ],
   "config_flow": true,
-  "dependencies": ["http", "frontend", "panel_custom", "websocket_api"],
+  "dependencies": [
+    "http",
+    "frontend",
+    "panel_custom",
+    "websocket_api"
+  ],
   "documentation": "https://github.com/MaximeRiviere56/ha-rhizome",
   "integration_type": "service",
   "iot_class": "calculated",
   "issue_tracker": "https://github.com/MaximeRiviere56/ha-rhizome/issues",
+  "quality_scale": "bronze",
   "requirements": [],
+  "single_config_entry": true,
   "version": "0.8.0"
 }

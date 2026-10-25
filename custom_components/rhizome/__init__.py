@@ -286,8 +286,7 @@ def _async_enregistrer_services(hass: HomeAssistant) -> None:
             # `HomeAssistantError` et non `RuntimeError` : l'appelant recoit un
             # message, pas une erreur 500 muette.
             raise HomeAssistantError(
-                "Rhizome n'est pas chargé : vérifiez l'intégration dans "
-                "Paramètres › Appareils et services."
+                translation_domain=DOMAIN, translation_key="non_charge"
             )
         return entrees[0].runtime_data
 

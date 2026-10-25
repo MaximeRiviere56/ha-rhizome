@@ -42,6 +42,15 @@
           "notify_heure": "Reminder time",
           "rappel_jours": "Days of advance notice",
           "arrosage_actif": "Watering tracking"
+        },
+        "data_description": {
+          "preset_climat": "Preset that sets your frost dates. Pick \"Custom dates\" to enter your own.",
+          "gelees_derniere": "Format MM-DD. The anchor for sowing and planting out.",
+          "gelees_premiere": "Format MM-DD. The anchor for winter crops and tree planting.",
+          "notify_targets": "Mobile apps get a \"Done\" button that fills in your journal in one tap.",
+          "notify_heure": "Time of the daily check.",
+          "rappel_jours": "How long before a window opens. Adjustable per plant afterwards.",
+          "arrosage_actif": "Enables watering reminders, based on each crop's frequency and the date you say you watered."
         }
       }
     }
@@ -277,6 +286,11 @@
           "description": "Free remark kept with the watering."
         }
       }
+    }
+  },
+  "exceptions": {
+    "non_charge": {
+      "message": "Rhizome is not loaded: check the integration under Settings › Devices & services."
     }
   }
 }
