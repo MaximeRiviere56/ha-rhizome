@@ -26,11 +26,21 @@ jobs:
         python: ["3.9", "3.14"]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+      # uv plutot que setup-python : `ubuntu-latest` ne fournit plus de 3.9, et
+      # uv telecharge un interpreteur autonome. Le job ne depend donc pas de ce
+      # que l'image du runner embarque aujourd'hui.
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
         with:
-          python-version: ${{ matrix.python }}
-      - run: PYTHONPATH=tests python -m unittest discover -s tests -p 'test_*.py' -v
-      - run: python tools/auditer_catalogue.py
+          enable-cache: true
+      - run: uv python install ${{ matrix.python }}
+      - name: unittest
+        run: >-
+          PYTHONPATH=tests uv run --python ${{ matrix.python }} --no-project
+          python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Cohérence du catalogue
+        run: >-
+          uv run --python ${{ matrix.python }} --no-project
+          python tools/auditer_catalogue.py
 
   controles:
     name: ruff, mypy, pytest
