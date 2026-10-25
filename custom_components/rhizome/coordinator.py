@@ -17,6 +17,7 @@ from typing import Any
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from homeassistant.util import dt as dt_util
 
 from . import rotation, watering
 from .catalog import Catalogue
@@ -185,11 +186,25 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
 
     # --- Calcul --------------------------------------------------------------
 
+    @staticmethod
+    def aujourdhui() -> date:
+        """Le jour tel que Home Assistant le voit.
+
+        `date.today()` suit le fuseau de la machine, qui se regle
+        independamment de celui de l'instance : un jardin pouvait basculer de
+        jour a une heure qui n'est pas celle de son jardinier.
+        """
+        return dt_util.now().date()
+
     async def _async_update_data(self) -> dict[str, Any]:
-        return await self.hass.async_add_executor_job(self._calculer)
+        # Dans la boucle, et non dans un executeur. Le calcul est pur et local :
+        # moins d'une milliseconde pour cinquante plantes, mesure sur le
+        # catalogue complet — moins que le cout du saut de thread. L'executeur,
+        # lui, lisait des structures que la boucle peut muter au meme instant.
+        return self._calculer()
 
     def _calculer(self) -> dict[str, Any]:
-        aujourdhui = date.today()
+        aujourdhui = self.aujourdhui()
         gelees = self.gelees
         plantes: dict[str, dict] = {}
         actions: list[dict] = []
@@ -298,7 +313,7 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             zone_id,
             self.store.plantes,
             {c["id"]: c for c in self._catalogue.toutes()},
-            date.today(),
+            self.aujourdhui(),
         )
 
     # --- Ecriture : toute mutation passe par un rafraichissement -------------
