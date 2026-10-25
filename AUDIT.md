@@ -314,31 +314,68 @@ trois morceaux. La convention `<entry_id>_<uid>_<suffixe>` tient parce que
 
 ## Suivi des correctifs
 
-Mis à jour au fil de la phase 2. Voir le rapport final pour les commits.
+Branche `audit/hardening-20261025`. Relire avec `git log main..` et
+`git diff main...`.
 
-| # | Sévérité | Statut |
-|---|---|---|
-| C1 | Critique | à faire |
-| C2 | Critique | à faire |
-| É1 | Élevé | à faire |
-| É2 | Élevé | à faire |
-| É3 | Élevé | à faire |
-| É4 | Élevé | à faire |
-| É5 | Élevé | à faire |
-| É6 | Élevé | à faire |
-| M1 | Moyen | à faire |
-| M2 | Moyen | à faire |
-| M3 | Moyen | à faire |
-| M4 | Moyen | à faire |
-| M5 | Moyen | à faire |
-| M6 | Moyen | à faire |
-| M7 | Moyen | à faire |
-| M8 | Moyen | à faire |
-| M9 | Moyen | à faire |
-| M10 | Moyen | à faire |
-| M11 | Moyen | à faire |
-| M12 | Moyen | à faire |
-| F1–F11 | Faible | à faire |
+| # | Sévérité | Statut | Commit |
+|---|---|---|---|
+| C1 | Critique | corrigé | `a04ea98` |
+| C2 | Critique | corrigé | `a04ea98` |
+| É1 | Élevé | corrigé | `5ccfa44` |
+| É2 | Élevé | corrigé | `5ccfa44` |
+| É3 | Élevé | corrigé | `5ccfa44` |
+| É4 | Élevé | corrigé | `5ccfa44` |
+| É5 | Élevé | corrigé | `8bbe769` |
+| É6 | Élevé | corrigé | `86ad864`, `1fa12b0` |
+| M1 | Moyen | corrigé | `a04ea98` |
+| M2 | Moyen | corrigé | `a04ea98` |
+| M3 | Moyen | corrigé | `5ccfa44` |
+| M4 | Moyen | corrigé | `5ccfa44` |
+| M5 | Moyen | corrigé | `253f30e` |
+| M6 | Moyen | corrigé | `5ccfa44`, `253f30e`, `1c07ed6` |
+| M7 | Moyen | corrigé | `2e93dd7` |
+| M8 | Moyen | **partiel — décision requise** | `2e93dd7` |
+| M9 | Moyen | corrigé | `2e93dd7` |
+| M10 | Moyen | **contourné — décision requise** | `8bbe769` |
+| M11 | Moyen | corrigé | `2e93dd7` |
+| M12 | Moyen | corrigé | `1fa12b0` |
+| F1 | Faible | corrigé | `86ad864` |
+| F2 | Faible | corrigé | `86ad864` |
+| F3 | Faible | corrigé | `2e93dd7` |
+| F4 | Faible | corrigé | `8c6d703` |
+| F5 | Faible | corrigé | `8bbe769` |
+| F6 | Faible | **non corrigé** — réglage du dépôt GitHub, pas du code |
+| F7 | Faible | corrigé | `253f30e` |
+| F8 | Faible | corrigé | `5ccfa44` |
+| F9 | Faible | **non corrigé** — donnée du propriétaire, pas un défaut |
+| F10 | Faible | corrigé | `86ad864` |
+| F11 | Faible | corrigé | `2e93dd7` |
+
+### Ce qui reste à décider
+
+**M8 — traduction des entités (Gold `entity-translations`).** Essayée puis
+retirée. Home Assistant construit l'`entity_id` à partir du nom **anglais** :
+avec une `translation_key`, une nouvelle installation obtient
+`sensor.rhizome_tasks_due` au lieu de `sensor.rhizome_actions_a_mener`. Les
+installations existantes gardent leur identifiant, mais le README documente
+ceux-là, et le projet est francophone. Le choix est entre la règle Gold et des
+identifiants français : il appartient au propriétaire.
+
+**M10 — `voluptuous` ou `probatio`.** Depuis 2026.9, Home Assistant valide
+avec probatio et installe un shim qui répond aux `import voluptuous` des
+intégrations personnalisées : **le code tourne juste aujourd'hui**, vérifié en
+exécution. Les 60 erreurs mypy correspondantes sont tues par module, avec la
+note expliquant quoi faire. Passer à `import probatio as vol` relèverait le
+minimum à 2026.9 : c'est une décision de compatibilité.
+
+**F6 — topics du dépôt.** `home-assistant`, `hacs`, `gardening`, `potager`,
+`python`. Cela se règle dans les paramètres GitHub ; rien n'a été modifié sur
+le dépôt distant.
+
+**F9 — données personnelles.** La commune de résidence et le modèle de
+téléphone sont dans `CLAUDE.md`, `tools/banc_fixture.py` et un commentaire de
+`const.py`. Ce sont les données du propriétaire dans son propre dépôt public :
+à lui de juger. Aucun secret n'a été trouvé, donc aucune rotation à prévoir.
 
 ## Sources
 

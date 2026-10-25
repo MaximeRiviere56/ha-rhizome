@@ -72,22 +72,33 @@ servi est celui qu'on lit. Ne pas introduire de bundler.
 
 ## Outillage — lis ceci avant de proposer quoi que ce soit
 
-Le Mac de développement a **Python 3.9.6 système uniquement**. Pas de pytest,
-pas de Node, pas de pip utilisable.
+Le Mac a **Python 3.9.6 en système**, pas de Node, pas de pip utilisable —
+mais **`uv` est installé**, ce qui change tout : un environnement réel se monte
+en une minute, avec Python 3.14, Home Assistant et son harnais de test.
 
-- Tests : `python3 -m unittest discover -s tests -p 'test_*.py'` avec
-  `PYTHONPATH=tests`. **95 tests, zéro dépendance.**
-- **Éviter la syntaxe Python 3.12+** (`type X = ...` notamment) bien que HA
-  tourne en 3.14 : cela garde un contrôle statique local possible sur tous les
-  fichiers avant déploiement.
-- Le JavaScript se vérifie dans un navigateur, pas par un linter.
+```bash
+./scripts/verifier.sh          # tout, en montant l'environnement au besoin
+./scripts/verifier.sh rapide   # seulement les modules purs, instantané
+```
+
+- **Modules purs** : `PYTHONPATH=tests python3 -m unittest discover -s tests
+  -p 'test_*.py'`. 95 tests, zéro dépendance, Python du système.
+- **Couche Home Assistant** : `tests/ha/`, sous `pytest` avec
+  `pytest-homeassistant-custom-component`. Dossier séparé exprès, pour que la
+  découverte `unittest` ne le voie pas.
+- **Éviter la syntaxe Python 3.12+** dans les modules purs (`type X = ...`
+  notamment) : c'est ce qui les garde vérifiables sans environnement, et la CI
+  les exécute sur 3.9 **et** 3.14 pour que la promesse ne s'effrite pas.
+- `hassfest` tourne en CI. En local il faut extraire `script/` du dépôt
+  `home-assistant/core` au tag correspondant ; le détail est dans `AUDIT.md`.
+- Le JavaScript se vérifie dans un navigateur ou au banc d'essai, pas par un
+  linter.
 - Git passe par HTTPS avec le jeton `gh` (aucune clé SSH sur ce poste).
 
 ## Vérification
 
 ```bash
-PYTHONPATH=tests python3 -m unittest discover -s tests -p 'test_*.py'
-python3 tools/auditer_catalogue.py      # 172 fiches, 0 impossible, 0 douteuse
+./scripts/verifier.sh                   # unittest, catalogue, ruff, mypy, pytest
 python3 tools/build_catalog.py          # régénère data/catalog.json
 python3 tools/banc_fixture.py && python3 -m http.server 8777
 #   http://localhost:8777/tools/banc.html        — le panneau, six vues
@@ -127,6 +138,22 @@ sourcées.**
   trouvés y sont consignés avec leur cause.
 - Versionner à chaque livraison : bump `manifest.json`, tag, release GitHub avec
   des notes rédigées, puis `ha_manage_hacs` (update_information + download).
+
+## Audit du 25 octobre 2026
+
+Une passe de sécurité, de conformité et de qualité a eu lieu sur la branche
+`audit/hardening-20261025`, **non fusionnée et non publiée**. Les constats et
+leur suivi sont dans `AUDIT.md`, le détail des correctifs dans `CHANGELOG.md`.
+
+Deux critiques, tous deux reproduits en exécution sur HA 2026.10.4 :
+`rhizome/reglages/definir` écrivait dans l'entrée de configuration sans exiger
+d'administrateur ni typer ses entrées, et une option non numérique mettait le
+coordinateur en panne de façon persistante. Couverture passée de 61 % à 91 %,
+mypy de 66 erreurs à zéro, CI mise en place.
+
+Deux décisions restent au propriétaire, notées en fin d'`AUDIT.md` : traduire
+les entités — ce qui anglicise les `entity_id` des nouvelles installations — et
+passer de `voluptuous` à `probatio`, ce qui relèverait le minimum à HA 2026.9.
 
 ## État au 24 octobre 2026
 
@@ -173,6 +200,10 @@ production. Sa promesse — « le panneau face à ce qu'il recevra réellement �
 ne tient que tant que les deux ne divergent pas. Extraire `_plante_en_dict` et
 `_arrosage_en_dict` dans un module pur partagé par les deux serait la vraie
 correction ; elle reste à faire.
+
+Depuis l'audit du 25/10/2026, `tests/ha/test_websocket.py` tape sur les vraies
+commandes et rejoue les trois défauts de la v0.6.0. Le banc garde sa valeur
+pour l'œil, plus pour la preuve.
 
 Son instance : HA 2026.10.2, Bouguenais (44), zone 9a, gelées 15/04 et 15/11,
 notifications vers `notify.mobile_app_fairphone_6`. Une vue « Rhizome » a été
