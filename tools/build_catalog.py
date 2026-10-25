@@ -14,7 +14,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
-from catalogue_source import CULTURES  # noqa: E402
+from catalogue_source import CULTURES
 
 RACINE = pathlib.Path(__file__).resolve().parent.parent
 SORTIE = RACINE / "custom_components" / "rhizome" / "data" / "catalog.json"

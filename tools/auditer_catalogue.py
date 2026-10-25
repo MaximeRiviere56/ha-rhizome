@@ -15,11 +15,11 @@ Usage : python3 tools/auditer_catalogue.py
 
 from __future__ import annotations
 
+from datetime import date, timedelta
 import importlib.util
 import pathlib
 import sys
 import types
-from datetime import date, timedelta
 
 RACINE = pathlib.Path(__file__).resolve().parent.parent
 SRC = RACINE / "custom_components" / "rhizome"
@@ -85,7 +85,9 @@ def auditer() -> list[tuple[str, str, str]]:
         gelive = (c.get("rusticite") or {}).get("gel") is False
         perenne = bool(c.get("perenne"))
 
-        def borne(nom):
+        # `fenetres` est lie par defaut : sans cela la fermeture lirait la
+        # derniere fiche de la boucle, pas celle en cours.
+        def borne(nom, fenetres=fenetres):
             f = fenetres.get(nom)
             if not f:
                 return None

@@ -20,6 +20,32 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from .const import DOMAIN, PANEL_TITLE
 from .coordinator import RhizomeCoordinator
 
+# Convention d'identifiant unique, ecrite ici une seule fois.
+#
+# Elle etait auparavant construite dans ce fichier et relue dans `__init__.py`,
+# a deux cents lignes de distance, par un `split("_")` qui exigeait exactement
+# trois morceaux. Cela ne tient que parce qu'un `entry_id` est un ULID sans
+# tiret bas et qu'aucun suffixe actuel n'en contient — rien ne le garantissait.
+SEPARATEUR_UID = "_"
+
+
+def unique_id_plante(entry_id: str, uid: str, suffixe: str) -> str:
+    return SEPARATEUR_UID.join((entry_id, uid, suffixe))
+
+
+def uid_depuis_unique_id(entry_id: str, unique_id: str) -> str | None:
+    """Rend l'uid de la plante porte par cet identifiant, ou None.
+
+    None pour une entite globale du potager (le calendrier, les totaux), qui
+    ne designe aucune plante en particulier.
+    """
+    prefixe = f"{entry_id}{SEPARATEUR_UID}"
+    if not unique_id.startswith(prefixe):
+        return None
+    reste = unique_id[len(prefixe) :]
+    uid, separateur, _suffixe = reste.rpartition(SEPARATEUR_UID)
+    return uid if separateur else None
+
 
 def info_appareil(entry: ConfigEntry) -> DeviceInfo:
     """Un seul appareil regroupe tout : le potager lui-meme.
@@ -50,7 +76,7 @@ class RhizomePlanteEntity(RhizomeEntity):
     """Base des entites rattachees a une plante du jardin."""
 
     def __init__(self, coordinator: RhizomeCoordinator, uid: str, suffixe: str) -> None:
-        super().__init__(coordinator, f"{uid}_{suffixe}")
+        super().__init__(coordinator, SEPARATEUR_UID.join((uid, suffixe)))
         self._uid = uid
 
     @property
@@ -114,7 +140,7 @@ def _retirer_du_registre(
 ) -> None:
     registre = er.async_get(hass)
     entity_id = registre.async_get_entity_id(
-        plateforme, DOMAIN, f"{entry.entry_id}_{uid}_{suffixe}"
+        plateforme, DOMAIN, unique_id_plante(entry.entry_id, uid, suffixe)
     )
     if entity_id:
         registre.async_remove(entity_id)

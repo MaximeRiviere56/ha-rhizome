@@ -1,0 +1,87 @@
+# Configuration des outils de verification. Le paquet lui-meme n'est pas
+# empaquete : une integration Home Assistant se copie dans custom_components/.
+
+[tool.ruff]
+line-length = 88
+# Les modules purs doivent rester lisibles par un Python ancien (voir CLAUDE.md),
+# mais la couche HA tourne en 3.14. On cible la version de Home Assistant et on
+# s'interdit la syntaxe recente par convention, pas par configuration.
+target-version = "py313"
+extend-exclude = [".venv", "custom_components/rhizome/data"]
+
+[tool.ruff.lint]
+select = [
+    "F",    # pyflakes
+    "E",    # pycodestyle
+    "W",
+    "I",    # isort
+    "UP",   # pyupgrade
+    "B",    # bugbear
+    "C4",   # comprehensions
+    "SIM",  # simplifications
+    "RUF",
+    "ASYNC",
+    "T20",  # pas de print() dans l'integration
+    "TID",  # imports relatifs maitrises
+    "PTH",
+    "LOG",
+    "G",    # formatage des logs
+    "BLE",  # un except Exception doit journaliser ou relancer
+]
+ignore = [
+    "E501",    # la longueur est geree par le formateur
+    "RUF001",  # le francais utilise des caracteres que ruff juge ambigus
+    "RUF002",
+    "RUF003",
+    "TID252",  # les imports relatifs sont la norme dans une integration HA
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Les outils de developpement ecrivent sur la sortie standard : c'est leur role.
+"tools/*" = ["T20"]
+"tests/*" = ["T20"]
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+known-first-party = ["custom_components"]
+
+[tool.mypy]
+python_version = "3.13"
+# Le typage strict integral reste un objectif (regle Platinum strict-typing) :
+# il demande d'annoter les fonctions du frontend de HA, ce qui depasse cet audit.
+# Ces reglages attrapent deja ce qui compte.
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+check_untyped_defs = true
+no_implicit_optional = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+exclude = ["^\\.venv/", "^tools/"]
+
+# Depuis 2026.9, Home Assistant valide avec probatio et installe un shim qui
+# repond aux `import voluptuous` des integrations personnalisees — le code
+# tourne donc juste. mypy, lui, resout le vrai voluptuous et declare
+# incompatible chaque schema passe a HA. Tant que le shim existe, ces erreurs
+# ne disent rien d'un defaut : on les tait, elles seules, et uniquement la ou
+# un schema traverse la frontiere.
+#
+# Le jour ou Home Assistant retire le shim, il faudra passer a
+# `import probatio as vol` et relever le minimum a 2026.9. C'est une decision
+# de compatibilite, pas une correction d'audit.
+[[tool.mypy.overrides]]
+module = ["rhizome.websocket", "rhizome.config_flow", "rhizome"]
+disable_error_code = ["dict-item", "arg-type"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+norecursedirs = [".venv", ".git", "tools"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.coverage.run]
+source = ["custom_components/rhizome"]
+omit = ["custom_components/rhizome/data/*"]
+
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "raise NotImplementedError"]

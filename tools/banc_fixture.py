@@ -8,12 +8,12 @@ a un jeu d'essai ecrit a la main qui finirait par mentir.
 
 from __future__ import annotations
 
+from datetime import date, timedelta
 import importlib.util
 import json
 import pathlib
 import sys
 import types
-from datetime import date, timedelta
 
 RACINE = pathlib.Path(__file__).resolve().parent.parent
 SRC = RACINE / "custom_components" / "rhizome"

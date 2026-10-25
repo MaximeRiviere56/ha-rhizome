@@ -18,6 +18,10 @@ from .lifecycle import PHASES_LIBELLES
 PLATEFORME = "sensor"
 SUFFIXE = "etat"
 
+# Rien a interroger : le calcul est local, et les entites se rafraichissent
+# ensemble depuis le coordinateur.
+PARALLEL_UPDATES = 0
+
 
 async def async_setup_entry(
     hass: HomeAssistant, entry, async_add_entities: AddEntitiesCallback
@@ -45,10 +49,17 @@ async def async_setup_entry(
 class ActionsSensor(RhizomeEntity, SensorEntity):
     """Combien d'actions reclament une attention, et lesquelles."""
 
+    # Nom en dur, et non une `translation_key` : Home Assistant derive
+    # l'entity_id du nom ANGLAIS, ce qui donnerait
+    # `sensor.rhizome_tasks_due` sur une nouvelle installation. Le projet est
+    # francophone et le README documente ces identifiants.
     _attr_name = "Actions à mener"
     _attr_icon = "mdi:sprout"
     _attr_native_unit_of_measurement = "actions"
     _attr_state_class = SensorStateClass.MEASUREMENT
+    # La liste change chaque jour et ne vaut rien en historique : l'archiver
+    # ferait grossir la base pour une courbe que personne ne lira.
+    _unrecorded_attributes = frozenset({"actions"})
 
     def __init__(self, coordinator: RhizomeCoordinator) -> None:
         super().__init__(coordinator, "actions")
@@ -91,6 +102,7 @@ class RecolteSensor(RhizomeEntity, SensorEntity):
     _attr_native_unit_of_measurement = UnitOfMass.KILOGRAMS
     _attr_state_class = SensorStateClass.TOTAL
     _attr_suggested_display_precision = 2
+    _unrecorded_attributes = frozenset({"par_culture_g"})
 
     def __init__(self, coordinator: RhizomeCoordinator) -> None:
         super().__init__(coordinator, "recolte")
@@ -134,6 +146,7 @@ class ArrosageSensor(RhizomeEntity, SensorEntity):
     _attr_icon = "mdi:watering-can"
     _attr_native_unit_of_measurement = "plantes"
     _attr_state_class = SensorStateClass.MEASUREMENT
+    _unrecorded_attributes = frozenset({"plantes"})
 
     def __init__(self, coordinator: RhizomeCoordinator) -> None:
         super().__init__(coordinator, "arrosage")
@@ -167,7 +180,29 @@ class PlanteSensor(RhizomePlanteEntity, SensorEntity):
     """Une plante du jardin : sa phase en etat, sa fiche en attributs."""
 
     _attr_device_class = SensorDeviceClass.ENUM
-    _attr_options = list(PHASES_LIBELLES.values())
+    # `_attr_options` est declare comme une liste par l'API de Home Assistant :
+    # un ClassVar ne conviendrait pas, d'ou la derogation.
+    _attr_options = list(PHASES_LIBELLES.values())  # noqa: RUF012
+    # La fiche de culture est fixe, et le compte a rebours change chaque jour :
+    # ni l'une ni l'autre n'a d'interet en base. Seul l'etat (la phase) est
+    # historise, et c'est bien lui qui raconte la saison.
+    _unrecorded_attributes = frozenset(
+        {
+            "conseils",
+            "sol",
+            "arrosage_notes",
+            "arrosage_besoin",
+            "arrosage_tous_les_jours",
+            "arrosage_prochain",
+            "arrosage_jours_restants",
+            "arrosage_motif_exclusion",
+            "espacement_cm",
+            "jours_restants",
+            "prochaine_date",
+            "prochaine_fin",
+            "fenetre_ouverte",
+        }
+    )
 
     def __init__(self, coordinator: RhizomeCoordinator, uid: str) -> None:
         super().__init__(coordinator, uid, SUFFIXE)

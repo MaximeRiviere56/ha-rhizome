@@ -8,32 +8,34 @@ basculer les etapes au passage de minuit.
 
 from __future__ import annotations
 
-import logging
 from dataclasses import asdict
 from datetime import date, timedelta
+import logging
+import re
 from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
+from homeassistant.util import dt as dt_util
 
 from . import rotation, watering
 from .catalog import Catalogue
 from .const import (
     CONF_ARROSAGE_ACTIF,
-    CONF_NOTIFY_ARROSAGE,
     CONF_GELEES_DERNIERE,
     CONF_GELEES_PREMIERE,
     CONF_MASQUER_TERMINEES,
+    CONF_NOTIFY_ARROSAGE,
     CONF_NOTIFY_ETAPES,
     CONF_NOTIFY_RECOLTE_RECURRENCE,
     CONF_NOTIFY_RESUME,
     CONF_RAPPEL_JOURS,
     DEFAUT_ARROSAGE_ACTIF,
-    DEFAUT_NOTIFY_ARROSAGE,
     DEFAUT_GELEES_DERNIERE,
     DEFAUT_GELEES_PREMIERE,
     DEFAUT_MASQUER_TERMINEES,
+    DEFAUT_NOTIFY_ARROSAGE,
     DEFAUT_NOTIFY_RECOLTE_RECURRENCE,
     DEFAUT_NOTIFY_RESUME,
     DEFAUT_RAPPEL_JOURS,
@@ -42,8 +44,10 @@ from .const import (
 )
 from .lifecycle import (
     PHASES_LIBELLES,
-    resume as resume_journal,
     total_recolte_saison_g,
+)
+from .lifecycle import (
+    resume as resume_journal,
 )
 from .phenology import Gelees, prochaines_etapes
 from .store import JardinStore
@@ -51,6 +55,8 @@ from .store import JardinStore
 _LOGGER = logging.getLogger(__name__)
 
 INTERVALLE = timedelta(hours=1)
+
+_MOTIF_JOUR_MOIS = re.compile(r"^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$")
 
 
 class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
@@ -81,17 +87,43 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
 
     # --- Options -------------------------------------------------------------
 
+    def _entier(self, cle: str, defaut: int) -> int:
+        """Lit une option entiere sans jamais faire echouer le calcul.
+
+        Une valeur illisible dans `entry.options` est persistee : si elle
+        remontait en ValueError depuis `_calculer`, l'integration resterait en
+        panne a chaque cycle, y compris apres redemarrage. Le defaut, lui, est
+        toujours un etat exploitable.
+        """
+        brute = self.entry.options.get(cle, defaut)
+        try:
+            return int(brute)
+        except (TypeError, ValueError):
+            _LOGGER.warning(
+                "Reglage « %s » illisible (%r) : valeur par defaut %s utilisee. "
+                "Corrigez-le depuis le panneau ou la page de l'integration.",
+                cle,
+                brute,
+                defaut,
+            )
+            return defaut
+
     @property
     def gelees(self) -> Gelees:
         options = self.entry.options
-        return Gelees(
-            derniere=options.get(CONF_GELEES_DERNIERE, DEFAUT_GELEES_DERNIERE),
-            premiere=options.get(CONF_GELEES_PREMIERE, DEFAUT_GELEES_PREMIERE),
-        )
+        derniere = options.get(CONF_GELEES_DERNIERE, DEFAUT_GELEES_DERNIERE)
+        premiere = options.get(CONF_GELEES_PREMIERE, DEFAUT_GELEES_PREMIERE)
+        if not _MOTIF_JOUR_MOIS.match(str(derniere)):
+            _LOGGER.warning("Gelée de printemps illisible (%r).", derniere)
+            derniere = DEFAUT_GELEES_DERNIERE
+        if not _MOTIF_JOUR_MOIS.match(str(premiere)):
+            _LOGGER.warning("Gelée d'automne illisible (%r).", premiere)
+            premiere = DEFAUT_GELEES_PREMIERE
+        return Gelees(derniere=derniere, premiere=premiere)
 
     @property
     def rappel_jours(self) -> int:
-        return int(self.entry.options.get(CONF_RAPPEL_JOURS, DEFAUT_RAPPEL_JOURS))
+        return self._entier(CONF_RAPPEL_JOURS, DEFAUT_RAPPEL_JOURS)
 
     @property
     def etapes_notifiables(self) -> list[str]:
@@ -99,7 +131,9 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         mieux vaut desactiver ce qui derange que decouvrir en juillet qu'un
         rappel n'est jamais parti."""
         choix = self.entry.options.get(CONF_NOTIFY_ETAPES)
-        return list(choix) if choix is not None else list(ETAPES_NOTIFIABLES)
+        if not isinstance(choix, (list, tuple)):
+            return list(ETAPES_NOTIFIABLES)
+        return [etape for etape in choix if etape in ETAPES_NOTIFIABLES]
 
     @property
     def notify_resume(self) -> bool:
@@ -108,10 +142,8 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     @property
     def recolte_recurrence(self) -> int:
         """Relance pendant la fenetre de recolte, en jours. 0 = une seule fois."""
-        return int(
-            self.entry.options.get(
-                CONF_NOTIFY_RECOLTE_RECURRENCE, DEFAUT_NOTIFY_RECOLTE_RECURRENCE
-            )
+        return self._entier(
+            CONF_NOTIFY_RECOLTE_RECURRENCE, DEFAUT_NOTIFY_RECOLTE_RECURRENCE
         )
 
     @property
@@ -140,15 +172,39 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     def rappel_pour(self, plante: dict) -> int:
         """Le reglage de la plante prime sur le reglage global."""
         propre = plante.get("rappel_jours")
-        return int(propre) if propre is not None else self.rappel_jours
+        if propre is None:
+            return self.rappel_jours
+        try:
+            return int(propre)
+        except (TypeError, ValueError):
+            _LOGGER.warning(
+                "Delai de rappel illisible (%r) pour une plante : "
+                "le reglage global prend le relais.",
+                propre,
+            )
+            return self.rappel_jours
 
     # --- Calcul --------------------------------------------------------------
 
+    @staticmethod
+    def aujourdhui() -> date:
+        """Le jour tel que Home Assistant le voit.
+
+        `date.today()` suit le fuseau de la machine, qui se regle
+        independamment de celui de l'instance : un jardin pouvait basculer de
+        jour a une heure qui n'est pas celle de son jardinier.
+        """
+        return dt_util.now().date()
+
     async def _async_update_data(self) -> dict[str, Any]:
-        return await self.hass.async_add_executor_job(self._calculer)
+        # Dans la boucle, et non dans un executeur. Le calcul est pur et local :
+        # moins d'une milliseconde pour cinquante plantes, mesure sur le
+        # catalogue complet — moins que le cout du saut de thread. L'executeur,
+        # lui, lisait des structures que la boucle peut muter au meme instant.
+        return self._calculer()
 
     def _calculer(self) -> dict[str, Any]:
-        aujourdhui = date.today()
+        aujourdhui = self.aujourdhui()
         gelees = self.gelees
         plantes: dict[str, dict] = {}
         actions: list[dict] = []
@@ -257,7 +313,7 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             zone_id,
             self.store.plantes,
             {c["id"]: c for c in self._catalogue.toutes()},
-            date.today(),
+            self.aujourdhui(),
         )
 
     # --- Ecriture : toute mutation passe par un rafraichissement -------------

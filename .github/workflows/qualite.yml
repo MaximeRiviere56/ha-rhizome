@@ -1,0 +1,62 @@
+name: Qualité
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qualite-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  purs:
+    # Les quatre modules purs n'importent rien de Home Assistant. Les tester
+    # sur un Python ancien garde vivante la promesse de CLAUDE.md : ils restent
+    # verifiables sur le poste de developpement, qui n'a que le Python systeme.
+    name: Modules purs (${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.9", "3.14"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # uv plutot que setup-python : `ubuntu-latest` ne fournit plus de 3.9, et
+      # uv telecharge un interpreteur autonome. Le job ne depend donc pas de ce
+      # que l'image du runner embarque aujourd'hui.
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          enable-cache: true
+      - run: uv python install ${{ matrix.python }}
+      - name: unittest
+        run: >-
+          PYTHONPATH=tests uv run --python ${{ matrix.python }} --no-project
+          python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Cohérence du catalogue
+        run: >-
+          uv run --python ${{ matrix.python }} --no-project
+          python tools/auditer_catalogue.py
+
+  controles:
+    name: ruff, mypy, pytest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
+        with:
+          enable-cache: true
+      - run: uv venv --python 3.14
+      - run: uv pip install -r requirements-dev.txt
+      - name: ruff
+        run: uv run ruff check .
+      - name: mypy
+        run: uv run mypy custom_components/rhizome
+      - name: pytest
+        run: >-
+          uv run pytest -q
+          --cov=custom_components/rhizome --cov-report=term-missing

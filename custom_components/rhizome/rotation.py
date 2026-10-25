@@ -70,7 +70,7 @@ def verifier(
     for plante in plantes:
         if plante.get("zone") != zone_id:
             continue
-        autre = index_cultures.get(plante.get("culture_id"))
+        autre = index_cultures.get(plante.get("culture_id") or "")
         if autre is None or autre.get("famille") != famille or autre.get("perenne"):
             continue
         annee = annee_occupation(plante, aujourdhui.year)

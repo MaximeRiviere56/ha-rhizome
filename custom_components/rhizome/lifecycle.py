@@ -8,8 +8,9 @@ qui rend `annuler_dernier_evenement` fiable.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from datetime import date, datetime
-from typing import Any, Iterable
+from typing import Any
 
 # --- Phases -------------------------------------------------------------------
 
@@ -116,7 +117,7 @@ def phase_depuis_evenements(evenements: Iterable[dict]) -> str:
     """Replie le journal en une phase. L'ordre d'insertion fait foi."""
     phase = PHASE_PREVU
     for evt in evenements:
-        suivante = PHASE_APRES.get(evt.get("type"))
+        suivante = PHASE_APRES.get(evt.get("type") or "")
         if suivante is not None:
             phase = suivante
     return phase

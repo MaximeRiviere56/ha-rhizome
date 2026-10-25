@@ -10,8 +10,6 @@ from __future__ import annotations
 
 from typing import Any
 
-import voluptuous as vol
-
 from homeassistant.config_entries import (
     ConfigEntry,
     ConfigFlow,
@@ -20,6 +18,7 @@ from homeassistant.config_entries import (
 )
 from homeassistant.core import callback
 from homeassistant.helpers import selector
+import voluptuous as vol
 
 from .const import (
     CONF_ARROSAGE_ACTIF,
@@ -29,10 +28,10 @@ from .const import (
     CONF_NOTIFY_TARGETS,
     CONF_PRESET_CLIMAT,
     CONF_RAPPEL_JOURS,
+    DEFAUT_ARROSAGE_ACTIF,
     DEFAUT_GELEES_DERNIERE,
     DEFAUT_GELEES_PREMIERE,
     DEFAUT_NOTIFY_HEURE,
-    DEFAUT_ARROSAGE_ACTIF,
     DEFAUT_RAPPEL_JOURS,
     DOMAIN,
     PRESET_PERSONNALISE,
@@ -144,9 +143,9 @@ class RhizomeConfigFlow(ConfigFlow, domain=DOMAIN):
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:
-        if self._async_current_entries():
-            return self.async_abort(reason="single_instance_allowed")
-
+        # Pas de garde manuelle ici : `single_config_entry` dans le manifest
+        # fait abandonner Home Assistant avant meme d'arriver a cette etape,
+        # avec le meme motif `single_instance_allowed`.
         if user_input is not None:
             options = _appliquer_preset(dict(user_input))
             return self.async_create_entry(title="Rhizome", data={}, options=options)

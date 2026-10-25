@@ -399,6 +399,10 @@ def prochaines_etapes(
 
     if phase == PHASE_SEME:
         jour_semis = date_evenement(evenements, EVT_SEME)
+        if jour_semis is None:
+            # La phase se deduit du journal : « seme » implique un evenement
+            # de semis. Garde defensive, pour un journal edite a la main.
+            return []
         direct = mode_semis(evenements) != MODE_SEMIS_INTERIEUR
         etapes = _chaine_depuis_semis(culture, jour_semis, direct, gelees)
         etapes += _etape_echelonnement(
@@ -408,6 +412,8 @@ def prochaines_etapes(
 
     if phase == PHASE_PLANTE:
         jour = date_mise_en_place(evenements)
+        if jour is None:
+            return []
         return _a_venir(
             _chaine_depuis_mise_en_place(culture, jour, gelees), aujourdhui
         )

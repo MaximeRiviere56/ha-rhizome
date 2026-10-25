@@ -30,6 +30,9 @@ _LOGGER = logging.getLogger(__name__)
 SEPARATEUR = "|"
 
 
+PARALLEL_UPDATES = 0
+
+
 async def async_setup_entry(
     hass: HomeAssistant, entry, async_add_entities: AddEntitiesCallback
 ) -> None:

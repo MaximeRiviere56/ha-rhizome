@@ -1,0 +1,33 @@
+name: Fiche du catalogue
+description: Une culture manque, ou ses chiffres ne correspondent pas à votre jardin
+labels: ["catalogue"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Les 172 fiches ont été écrites de mémoire horticole, sans base de
+        référence. Les corriger est précieux. Vous pouvez aussi corriger
+        n'importe quelle fiche directement dans le panneau, sans attendre :
+        vos valeurs remplacent les livrées.
+  - type: input
+    id: culture
+    attributes:
+      label: La culture
+      placeholder: "panais"
+    validations: { required: true }
+  - type: textarea
+    id: correction
+    attributes:
+      label: Ce qui cloche, et la valeur juste
+      placeholder: >-
+        La récolte est annoncée 120 jours après le semis ; chez moi c'est
+        plutôt 160.
+    validations: { required: true }
+  - type: input
+    id: source
+    attributes:
+      label: D'où vient votre chiffre
+      description: >-
+        Votre propre relevé, un sachet de graines, un ouvrage. Dites-le même si
+        c'est « de mémoire » : ça nous situe tous les deux.
+    validations: { required: true }

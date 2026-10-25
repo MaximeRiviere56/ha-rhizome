@@ -1,0 +1,34 @@
+name: Validation
+
+# Les deux validations qu'un depot HACS doit passer. Elles tournent aussi en
+# cron : une version de Home Assistant peut invalider un manifest sans qu'une
+# seule ligne du depot ait bouge.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  hassfest:
+    name: hassfest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # Le tag 1.0.0 de cette action est casse (son image ne trouve plus le
+      # paquet `script`). Elle s'utilise depuis master : on epingle le SHA.
+      - uses: home-assistant/actions/hassfest@cd6f3635a740c84d8a14f6121a90068b8ece6bf6 # master, 17/10/2026
+
+  hacs:
+    name: HACS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: hacs/action@d556e736723344f83838d08488c983a15381059a # 22.5.0
+        with:
+          category: integration

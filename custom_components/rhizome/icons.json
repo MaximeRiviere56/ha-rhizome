@@ -1,0 +1,15 @@
+{
+  "services": {
+    "ajouter_plante": "mdi:sprout",
+    "retirer_plante": "mdi:delete-outline",
+    "marquer_seme": "mdi:seed",
+    "marquer_repique": "mdi:shovel",
+    "marquer_recolte": "mdi:basket",
+    "marquer_perdu": "mdi:emoticon-sad-outline",
+    "marquer_termine": "mdi:check-circle-outline",
+    "marquer_arrose": "mdi:watering-can",
+    "ressemer": "mdi:seed-plus",
+    "annuler_dernier_evenement": "mdi:undo",
+    "rafraichir": "mdi:refresh"
+  }
+}

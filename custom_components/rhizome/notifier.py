@@ -14,8 +14,9 @@ suivi reel reposerait sur la bonne volonte de rouvrir l'application.
 
 from __future__ import annotations
 
+from datetime import date, time, timedelta
+import functools
 import logging
-from datetime import date, timedelta
 from typing import Any
 
 from homeassistant.core import Event, HomeAssistant, callback
@@ -36,12 +37,13 @@ from .lifecycle import (
     EVT_SEME,
     MODE_SEMIS_DIRECT,
     MODE_SEMIS_INTERIEUR,
+    ErreurJournal,
 )
 from .phenology import (
     ETAPE_PLANTATION,
-    ETAPE_RESSEMER,
-        ETAPE_RECOLTE,
+    ETAPE_RECOLTE,
     ETAPE_REPIQUAGE,
+    ETAPE_RESSEMER,
     ETAPE_SEMIS_DIRECT,
     ETAPE_SEMIS_INTERIEUR,
 )
@@ -54,6 +56,13 @@ PREFIXE = "RHIZOME"
 ETAPE_ARROSAGE = "arrosage"
 SEPARATEUR = "|"
 JOURS_REPORT = 3
+
+# Combien de temps garder la trace d'un rappel envoye. Une etape annuelle doit
+# l'etre plus d'un an : l'oublier avant que sa fenetre ne revienne ferait
+# repartir le meme rappel. L'arrosage, lui, ne sert qu'a ne pas prevenir deux
+# fois le meme jour.
+RETENTION_JOURS = {"arrosage": 7}
+RETENTION_DEFAUT = 400
 
 # Ce qu'il faut inscrire au journal quand l'utilisateur repond « C'est fait ».
 JOURNAL_POUR_ETAPE: dict[str, tuple[str, dict[str, Any]]] = {
@@ -91,7 +100,12 @@ class RhizomeNotifier:
         """
         heure = dt_util.parse_time(
             self.coordinator.entry.options.get(CONF_NOTIFY_HEURE, DEFAUT_NOTIFY_HEURE)
-        ) or dt_util.parse_time(DEFAUT_NOTIFY_HEURE)
+        )
+        if heure is None:
+            _LOGGER.warning(
+                "Heure de rappel illisible : repli sur %s.", DEFAUT_NOTIFY_HEURE
+            )
+            heure = time(8, 0)
 
         annuler_horaire = async_track_time_change(
             self.hass,
@@ -111,6 +125,14 @@ class RhizomeNotifier:
 
         return _desabonner
 
+    @staticmethod
+    def _aujourdhui() -> date:
+        """Le jour tel que Home Assistant le voit, pas tel que l'hote le voit.
+
+        Le fuseau de l'instance se regle independamment de celui de la machine.
+        """
+        return dt_util.now().date()
+
     # --- Verification quotidienne -------------------------------------------
 
     async def _async_verifier(self, _now=None) -> None:
@@ -120,12 +142,12 @@ class RhizomeNotifier:
 
         # Rafraichissement certain avant de decider des envois du jour.
         await self.coordinator.async_refresh()
-        aujourdhui = date.today()
+        aujourdhui = self._aujourdhui()
         aujourdhui_iso = aujourdhui.isoformat()
         etapes_voulues = set(self.coordinator.etapes_notifiables)
         recurrence = self.coordinator.recolte_recurrence
 
-        a_envoyer: list[dict] = []
+        a_envoyer: list[tuple[str, dict]] = []
 
         for action in self.coordinator.data["actions"]:
             entree = self.coordinator.data["plantes"].get(action["uid"])
@@ -143,20 +165,18 @@ class RhizomeNotifier:
             cle = f"{action['uid']}:{etape.type}:{etape.debut.isoformat()}"
             dernier = self.coordinator.store.dernier_envoi(cle)
 
-            if dernier is not None:
-                # Une recolte se relance : une courgette se cueille tous les
-                # deux jours, prevenir une seule fois ne sert a rien. Les
-                # autres etapes ne se repetent pas.
-                if not (
-                    recurrence
-                    and etape.type == ETAPE_RECOLTE
-                    and action["en_cours"]
-                    and (aujourdhui - date.fromisoformat(dernier)).days >= recurrence
-                ):
-                    continue
+            # Une recolte se relance : une courgette se cueille tous les deux
+            # jours, prevenir une seule fois ne sert a rien. Les autres etapes
+            # ne se repetent pas.
+            if dernier is not None and not (
+                recurrence
+                and etape.type == ETAPE_RECOLTE
+                and action["en_cours"]
+                and (aujourdhui - date.fromisoformat(dernier)).days >= recurrence
+            ):
+                continue
 
-            a_envoyer.append(action)
-            self.coordinator.store.marquer_notif_envoyee(cle, aujourdhui_iso)
+            a_envoyer.append((cle, action))
 
         # Les arrosages dus, une entree par plante et par jour. Suivre l'eau et
         # se la faire rappeler sont deux choix separes : le compte a rebours
@@ -169,20 +189,37 @@ class RhizomeNotifier:
                 entree = self.coordinator.data["plantes"].get(besoin["uid"])
                 if entree is None or not entree["plante"].get("notifs", True):
                     continue
-                await self._async_envoyer_arrosage(cibles, besoin)
-                self.coordinator.store.marquer_notif_envoyee(cle, aujourdhui_iso)
+                if await self._async_envoyer_arrosage(cibles, besoin):
+                    self.coordinator.store.marquer_notif_envoyee(cle, aujourdhui_iso)
 
-        if not a_envoyer:
-            return
+        if a_envoyer:
+            actions = [action for _, action in a_envoyer]
+            if self.coordinator.notify_resume and len(actions) > 1:
+                if await self._async_envoyer_resume(cibles, actions):
+                    for cle, _ in a_envoyer:
+                        self.coordinator.store.marquer_notif_envoyee(
+                            cle, aujourdhui_iso
+                        )
+            else:
+                for cle, action in a_envoyer:
+                    # Marque apres l'envoi, et non avant : un destinataire
+                    # injoignable faisait perdre le rappel definitivement.
+                    if await self._async_envoyer(cibles, action):
+                        self.coordinator.store.marquer_notif_envoyee(
+                            cle, aujourdhui_iso
+                        )
 
-        if self.coordinator.notify_resume and len(a_envoyer) > 1:
-            await self._async_envoyer_resume(cibles, a_envoyer)
-        else:
-            for action in a_envoyer:
-                await self._async_envoyer(cibles, action)
+        retires = self.coordinator.store.purger_notifs_anciennes(
+            aujourdhui_iso, RETENTION_JOURS, RETENTION_DEFAUT
+        )
+        if retires:
+            _LOGGER.debug("%s rappels perimes oublies.", retires)
 
-    async def _async_envoyer_arrosage(self, cibles: list[str], besoin: dict) -> None:
-        """Un rappel d'arrosage, avec un bouton qui le note d'un geste."""
+    async def _async_envoyer_arrosage(self, cibles: list[str], besoin: dict) -> bool:
+        """Un rappel d'arrosage, avec un bouton qui le note d'un geste.
+
+        Renvoie vrai des qu'un destinataire a recu le message.
+        """
         etat = besoin["etat"]
         retard = -etat.jours_restants
         if retard <= 0:
@@ -212,6 +249,7 @@ class RhizomeNotifier:
                 "title": f"Rappeler dans {JOURS_REPORT} j",
             },
         ]
+        envoye = False
         for cible in cibles:
             service = cible.split(".", 1)[-1]
             donnees = dict(charge)
@@ -221,16 +259,12 @@ class RhizomeNotifier:
                     "tag": f"{DOMAIN}_{besoin['uid']}_arrosage",
                     "group": f"{DOMAIN}_arrosage",
                 }
-            try:
-                await self.hass.services.async_call(
-                    "notify", service, donnees, blocking=False
-                )
-            except Exception:  # noqa: BLE001
-                _LOGGER.exception("Echec du rappel d'arrosage vers notify.%s", service)
+            envoye = await self._async_appeler(service, donnees) or envoye
+        return envoye
 
     async def _async_envoyer_resume(
         self, cibles: list[str], actions: list[dict]
-    ) -> None:
+    ) -> bool:
         """Un seul message pour toute la journee.
 
         Au printemps, cinq rappels le meme matin sont cinq rappels qu'on
@@ -246,19 +280,16 @@ class RhizomeNotifier:
             "title": f"🌱 {len(actions)} choses à faire au potager",
             "message": "\n".join(lignes),
         }
+        envoye = False
         for cible in cibles:
             service = cible.split(".", 1)[-1]
             donnees = dict(charge)
             if service != "persistent_notification":
                 donnees["data"] = {"tag": f"{DOMAIN}_resume", "group": DOMAIN}
-            try:
-                await self.hass.services.async_call(
-                    "notify", service, donnees, blocking=False
-                )
-            except Exception:  # noqa: BLE001
-                _LOGGER.exception("Echec du résumé vers notify.%s", service)
+            envoye = await self._async_appeler(service, donnees) or envoye
+        return envoye
 
-    async def _async_envoyer(self, cibles: list[str], action: dict) -> None:
+    async def _async_envoyer(self, cibles: list[str], action: dict) -> bool:
         etape = action["etape"]
         verbe = VERBES.get(etape.type, etape.libelle)
         titre = f"{action['emoji']} {verbe} : {action['nom']}"
@@ -282,6 +313,7 @@ class RhizomeNotifier:
             },
         ]
 
+        envoye = False
         for cible in cibles:
             service = cible.split(".", 1)[-1]
             charge: dict[str, Any] = {"title": titre, "message": message}
@@ -291,13 +323,34 @@ class RhizomeNotifier:
                     "tag": f"{DOMAIN}_{action['uid']}_{etape.type}",
                     "group": DOMAIN,
                 }
-            try:
-                await self.hass.services.async_call(
-                    "notify", service, charge, blocking=False
-                )
-            except Exception:  # noqa: BLE001 - un destinataire absent ne doit
-                # pas empecher les autres de recevoir leur rappel.
-                _LOGGER.exception("Echec de l'envoi du rappel vers notify.%s", service)
+            envoye = await self._async_appeler(service, charge) or envoye
+        return envoye
+
+    async def _async_appeler(self, service: str, charge: dict[str, Any]) -> bool:
+        """Appelle un service `notify`. Un destinataire absent ne doit pas
+        empecher les autres de recevoir leur rappel.
+
+        `blocking=True`, contrairement a avant : sans attendre, un service
+        defaillant echouait apres coup et le rappel passait quand meme pour
+        envoye, donc etait perdu.
+        """
+        if not self.hass.services.has_service("notify", service):
+            _LOGGER.warning(
+                "Destinataire de rappel introuvable : notify.%s. "
+                "Verifiez les reglages de Rhizome.",
+                service,
+            )
+            return False
+        try:
+            await self.hass.services.async_call(
+                "notify", service, charge, blocking=True
+            )
+        # Un service de notification tiers peut lever a peu pres n'importe
+        # quoi : on l'absorbe pour ne pas perdre les autres destinataires.
+        except Exception:
+            _LOGGER.exception("Echec de l'envoi du rappel vers notify.%s", service)
+            return False
+        return True
 
     # --- Reponses aux boutons ------------------------------------------------
 
@@ -308,37 +361,38 @@ class RhizomeNotifier:
         quoi, uid, type_etape = decode
 
         if quoi == "report":
-            jusqu_au = (date.today() + timedelta(days=JOURS_REPORT)).isoformat()
+            jusqu_au = (self._aujourdhui() + timedelta(days=JOURS_REPORT)).isoformat()
             self.coordinator.store.reporter(f"{uid}:{type_etape}", jusqu_au)
             return
 
         store = self.coordinator.store
+        jour = self._aujourdhui()
 
         if type_etape == ETAPE_ARROSAGE:
-            await self.coordinator.async_appliquer(
-                lambda: store.arroser(uid, date.today())
-            )
-            return
-
-        # Un ressemis n'est pas un evenement de plus sur la meme plante :
-        # c'est un nouveau lot. D'ou un chemin distinct.
-        if type_etape == ETAPE_RESSEMER:
-            mutation = lambda: store.ressemer(uid, date.today())  # noqa: E731
+            mutation = functools.partial(store.arroser, uid, jour)
+        elif type_etape == ETAPE_RESSEMER:
+            # Un ressemis n'est pas un evenement de plus sur la meme plante :
+            # c'est un nouveau lot. D'ou un chemin distinct.
+            mutation = functools.partial(store.ressemer, uid, jour)
         else:
             inscription = JOURNAL_POUR_ETAPE.get(type_etape)
             if inscription is None:
                 return
             type_evt, details = inscription
-            mutation = lambda: store.noter(  # noqa: E731
-                uid, type_evt, date.today(), **details
-            )
+            mutation = functools.partial(store.noter, uid, type_evt, jour, **details)
 
         try:
             await self.coordinator.async_appliquer(mutation)
-        except Exception:  # noqa: BLE001 - journal deja avance, ou plante retiree
-            # entre l'envoi du rappel et la reponse : sans interet a remonter.
+        except ErreurJournal as err:
+            # Journal deja avance, ou plante retiree entre l'envoi du rappel et
+            # la reponse : sans interet a remonter.
+            #
+            # On journalise `type_etape`, et non le type d'evenement : ce
+            # dernier n'existe pas sur le chemin du ressemis, et la variable
+            # non liee faisait lever une UnboundLocalError depuis le
+            # gestionnaire d'exception lui-meme.
             _LOGGER.debug(
-                "Action '%s' ignoree pour %s : transition impossible", type_evt, uid
+                "Action « %s » ignoree pour %s : %s", type_etape, uid, err
             )
 
 

@@ -288,8 +288,9 @@
       }
     }
   },
-  "entity": {
-    "sensor": {},
-    "switch": {}
+  "exceptions": {
+    "non_charge": {
+      "message": "Rhizome n'est pas chargé : vérifiez l'intégration dans Paramètres › Appareils et services."
+    }
   }
 }

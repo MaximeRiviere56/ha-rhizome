@@ -7,11 +7,11 @@ casse pas a l'ecriture, elle casse six mois plus tard chez l'utilisateur.
 
 from __future__ import annotations
 
+from datetime import date
 import json
 import pathlib
 import sys
 import unittest
-from datetime import date
 
 from _pure import lifecycle as lc
 from _pure import phenology as ph
