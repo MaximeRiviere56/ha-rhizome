@@ -82,7 +82,7 @@ en une minute, avec Python 3.14, Home Assistant et son harnais de test.
 ```
 
 - **Modules purs** : `PYTHONPATH=tests python3 -m unittest discover -s tests
-  -p 'test_*.py'`. 95 tests, zéro dépendance, Python du système.
+  -p 'test_*.py'`. 98 tests, zéro dépendance, Python du système.
 - **Couche Home Assistant** : `tests/ha/`, sous `pytest` avec
   `pytest-homeassistant-custom-component`. Dossier séparé exprès, pour que la
   découverte `unittest` ne le voie pas.
@@ -139,21 +139,44 @@ sourcées.**
 - Versionner à chaque livraison : bump `manifest.json`, tag, release GitHub avec
   des notes rédigées, puis `ha_manage_hacs` (update_information + download).
 
-## Audit du 25 octobre 2026
+## Audits du 25 octobre 2026
 
-Une passe de sécurité, de conformité et de qualité a eu lieu sur la branche
-`audit/hardening-20261025`, **non fusionnée et non publiée**. Les constats et
-leur suivi sont dans `AUDIT.md`, le détail des correctifs dans `CHANGELOG.md`.
+Deux passes, toutes deux sur HA 2026.10.4, toutes deux **non publiées** : rien
+n'est parti en release, donc rien n'a encore atteint l'instance.
 
-Deux critiques, tous deux reproduits en exécution sur HA 2026.10.4 :
+**Première passe**, branche `audit/hardening-20261025`, **fusionnée dans
+`main`** (commit `60b50b1`). Deux critiques reproduits en exécution :
 `rhizome/reglages/definir` écrivait dans l'entrée de configuration sans exiger
 d'administrateur ni typer ses entrées, et une option non numérique mettait le
-coordinateur en panne de façon persistante. Couverture passée de 61 % à 91 %,
-mypy de 66 erreurs à zéro, CI mise en place.
+coordinateur en panne de façon persistante. Couverture de 61 % à 91 %, mypy de
+66 erreurs à zéro, CI mise en place.
+
+**Seconde passe**, branche `audit/hardening-20261025-2`, **non fusionnée**.
+Elle a trouvé ce que la première avait manqué, dans des zones qu'elle déclarait
+saines :
+
+- une **XSS stockée** dans le panneau — `echappe()` n'échappait pas les
+  guillemets, et sert à l'intérieur d'attributs ;
+- les **onze commandes d'écriture** du jardin n'exigeaient aucune autorisation,
+  `retirer` compris ;
+- la panne persistante du coordinateur **existait aussi par le stockage du
+  jardin**, pas seulement par les réglages.
+
+Les constats et leur suivi sont dans `AUDIT.md`, le détail des correctifs dans
+`CHANGELOG.md`.
+
+**Leçon pour la suite** : les deux passes ont trouvé la même classe de défaut
+en trois endroits — une valeur non contrainte qui finit dans un calcul de date
+et fige le coordinateur jusqu'à édition manuelle du stockage. Avant d'ajouter
+un champ, demande-toi où il atterrit et ce qu'il devient dans
+`date + timedelta(...)`.
 
 Deux décisions restent au propriétaire, notées en fin d'`AUDIT.md` : traduire
 les entités — ce qui anglicise les `entity_id` des nouvelles installations — et
 passer de `voluptuous` à `probatio`, ce qui relèverait le minimum à HA 2026.9.
+Sur ce second point, Home Assistant a depuis écrit noir sur blanc qu'une
+intégration peut garder l'ancien import aussi longtemps qu'elle veut : rien
+ne presse.
 
 ## État au 24 octobre 2026
 

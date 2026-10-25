@@ -385,6 +385,229 @@ téléphone sont dans `CLAUDE.md`, `tools/banc_fixture.py` et un commentaire de
 `const.py`. Ce sont les données du propriétaire dans son propre dépôt public :
 à lui de juger. Aucun secret n'a été trouvé, donc aucune rotation à prévoir.
 
+---
+
+# Seconde passe — 25 octobre 2026
+
+Menée sur `main` après fusion de la première passe (commit `60b50b1`), sur la
+même instance : HA 2026.10.4, Python 3.14.8, `pytest-homeassistant-custom-
+component`, ruff, mypy, et `script.hassfest` extrait du tag `2026.10.4`.
+
+Branche `audit/hardening-20261025-2`.
+
+### Lancer `hassfest` en local
+
+`CLAUDE.md` renvoyait ici sans donner la marche à suivre. Deux pièges :
+`script/hassfest` importe `script.translations`, donc il faut **tout
+`script/`** et non le seul sous-dossier ; et il ne faut surtout **pas**
+récupérer `homeassistant/`, dont la copie partielle masquerait le paquet
+installé (`ModuleNotFoundError: homeassistant.generated`).
+
+```bash
+git clone --depth 1 --branch 2026.10.4 --filter=blob:none --sparse \
+  https://github.com/home-assistant/core.git /tmp/core
+git -C /tmp/core sparse-checkout set script
+PYTHONPATH=/tmp/core .venv/bin/python -m script.hassfest \
+  --integration-path custom_components/rhizome
+```
+
+## État de référence (après la première passe)
+
+| Vérification | Résultat |
+|---|---|
+| `ruff check` | **0 écart** |
+| `mypy` | **0 erreur** (18 fichiers) |
+| `pytest` | **181 tests OK**, 1 204 sous-tests, **couverture 91 %** |
+| `hassfest` 2026.10.4 | **0 intégration invalide** |
+| Validation HACS | non exécutable hors CI (inchangé) |
+
+La première passe tient : rien de ce qu'elle déclare corrigé ne s'est révélé
+faux. Les constats ci-dessous sont des défauts qu'elle **n'avait pas vus** —
+trois d'entre eux dans des zones qu'elle avait explicitement déclarées saines.
+
+## Constats
+
+### Critique
+
+#### C3 — XSS stockée dans le panneau : `echappe()` n'échappe pas les guillemets
+`frontend/rhizome-panel.js:140-144` (fonction) · points d'injection
+`rhizome-panel.js:1027, 1054, 1059, 1489, 2297, 2431, 2436, 2445, 2563, 2567`
+et `rhizome-card.js:143, 202`
+
+`echappe()` posait le texte dans un nœud puis relisait `innerHTML`. Le
+sérialiseur HTML n'échappe alors que `&`, `<` et `>` : le guillemet passe
+intact, parce qu'il est sans danger **dans un nœud de texte**. Or `echappe()`
+est aussi employé **à l'intérieur d'attributs**, à une douzaine d'endroits :
+`value="${echappe(plante.surnom)}"`, `title="${echappe(ligne.nom)}"`,
+`header="${echappe(this._config.titre)}"`.
+
+**Vérifié dans un navigateur** : la charge `" onmouseover="…" x="` posée comme
+nom de zone produit un véritable attribut `onmouseover` sur l'élément, et le
+code s'exécute. Le shadow DOM n'y change rien.
+
+**Impact** — exécution de JavaScript arbitraire dans l'origine de Home
+Assistant, avec la session de qui regarde le panneau. La charge se pose par
+`rhizome/modifier` (surnom) ou `rhizome/zones` (nom), c'est-à-dire par
+n'importe quel compte authentifié — y compris en lecture seule avant É7 — et
+se déclenche chez l'administrateur. C'est une prise de contrôle de l'instance.
+
+La première passe concluait, en « non-constats » : « `echappe()` est appliqué
+à 53 endroits et couvre tous les textes libres ». Le comptage était juste, le
+contexte d'insertion n'avait pas été examiné.
+
+**Corrigé** — table d'entités couvrant les cinq caractères, indépendante du
+contexte. Identifiant de zone et emojis, jusqu'ici interpolés nus parce que
+contraints côté serveur, passent aussi par `echappe()` : la sûreté ne repose
+plus sur une troncature à quatre caractères lue ailleurs.
+
+#### C4 — Un entier non borné écrit dans le stockage paralyse le coordinateur
+`websocket.py:426, 458-464, 501, 542, 825` → `phenology.py:150` ·
+`watering.py:155` · `lifecycle` (dates du journal)
+
+Même panne que C2, par un autre chemin. Ces valeurs finissent dans
+`.storage/rhizome.jardin`, puis dans un `date + timedelta(...)` : un entier
+démesuré y lève une `OverflowError` depuis `_calculer`, donc à chaque cycle.
+La valeur étant **persistée**, ni le rechargement ni le redémarrage n'y
+changent rien.
+
+C2 avait fermé ce chemin pour `entry.options` ; le stockage du jardin, lui,
+n'avait aucune garde — ni à l'écriture, ni à la lecture.
+
+**Vérifié en exécution**, trois chemins, tous avec `success: true` côté client
+et `last_update_success: false` juste après :
+
+| Commande | Valeur acceptée |
+|---|---|
+| `rhizome/zones` | `decalage_jours: 10**9` |
+| `rhizome/modifier` | `arrosage_frequence_jours: 10**12` |
+| `rhizome/noter` | `date: "9999-12-31"`, rangée au journal |
+
+Le service `rhizome.ajouter_plante` bornait pourtant déjà `echelonnement_jours`
+entre 0 et 90 (`__init__.py:86`) : c'est le schéma WebSocket qui avait été
+écrit plus lâche — et le panneau est le seul chemin que l'utilisateur emprunte.
+
+**Corrigé** — trois niveaux : les schémas bornent ce qui entre, `store` et
+`watering` bornent ce qu'ils relisent (pour les jardins déjà empoisonnés),
+et `_calculer` isole chaque plante.
+
+### Élevé
+
+#### É7 — Les commandes d'écriture du jardin n'exigent aucune autorisation
+`websocket.py:378-415` (`_avec_coordinateur`) et les onze commandes qu'il
+enveloppe
+
+Une commande WebSocket personnalisée n'hérite d'aucun contrôle d'accès : toute
+session authentifiée l'atteint. La première passe avait gardé
+`rhizome/reglages/definir` avec `require_admin`, parce qu'elle écrit dans
+l'entrée de configuration. Les onze autres, non.
+
+**Vérifié** avec un jeton en lecture seule : `ajouter`, `modifier`, `noter`,
+`annuler`, `arroser`, `ressemer`, `zones` et **`retirer`** renvoient toutes
+`success: true`.
+
+**Impact** — `retirer` efface le journal d'une plante, c'est-à-dire la seule
+donnée du projet que rien ne reconstitue : ni le catalogue, ni le calcul, ni
+une sauvegarde de configuration. L'audit précédent le dit lui-même en
+justifiant les diagnostics.
+
+**Corrigé** — garde unique dans `_avec_coordinateur`, sur le droit de contrôler
+les entités : un compte ordinaire jardine, un compte en lecture seule consulte.
+
+### Moyen
+
+#### M13 — Textes libres non bornés
+`websocket.py:424, 457, 505-507, 541`
+
+`surnom`, `note`, `cause` et le nom d'une zone n'avaient aucune borne de
+longueur — contrairement aux fiches personnelles, bornées par M5.
+**Vérifié** : un surnom de 100 000 caractères est accepté, persisté, et devient
+le nom de l'entité donc son `entity_id` — un identifiant de 100 000 caractères
+apparaît dans le registre. **Corrigé** avec C4.
+
+#### M14 — Le mode de semis n'était contraint que côté service
+`websocket.py:502`
+
+`vol.Optional("mode"): str` acceptait n'importe quelle chaîne, rangée au
+journal et ressortie telle quelle, là où `SCHEMA_SEMIS` (`__init__.py:103`)
+borne à deux valeurs. **Vérifié**. **Corrigé** avec C4.
+
+#### M16 — La plage demandée au calendrier bloque la boucle d'événements
+`calendar.py:60-96`
+
+`async_get_events` reçoit ses dates du client et recalcule les prévisions année
+par année, pour chaque plante, dans la boucle. L'API calendrier de Home
+Assistant n'impose aucune borne.
+
+**Mesuré** : 0,91 s de boucle bloquée pour 500 ans et 10 plantes, coût
+linéaire ensuite. Toute session authentifiée pouvait figer l'instance sans
+rien écrire. **Corrigé** : dix années par requête, plage tronquée et non
+refusée.
+
+### Faible
+
+| # | Fichier | Constat | Statut |
+|---|---|---|---|
+| F12 | `rhizome-panel.js:1475, 1681` | L'identifiant de zone restait interpolé nu, alors que la première passe annonçait « échapper quand même côté panneau ». Sans danger (motif `[a-z0-9-]` imposé par M1), mais la ceinture manquait. | corrigé (C3) |
+| F13 | `rhizome-panel.js` ×13 | Emojis interpolés nus. Sûrs par une troncature à 4 caractères dans `_normaliser_fiche`, lue à deux cents lignes de là. | corrigé (C3) |
+| F14 | `websocket.py:826` | La liste d'uid de `rhizome/arroser` n'avait pas de borne de taille. | corrigé (C4) |
+
+### Non-constats de cette passe (vérifiés)
+
+- **`DeviceInfo` devient une dataclass en 2026.11** (4 nov. 2026, sans période
+  de dépréciation). `entity.py:56` la construit par mots-clés et n'en fait
+  aucun usage de dictionnaire — pas de `copy()`, `|`, `get()`, `len()`.
+  **Rien à changer**, vérifié par relecture de la seule occurrence du dépôt.
+- **`RestoreStateData.last_states`, retiré en 2026.11** : non utilisé.
+- **`step_id` obligatoire dans les résultats de flux** (dépréciation annoncée
+  pour 2027.5) : `config_flow.py` le passe déjà dans ses deux `async_show_form`.
+- **Exposition et catégorie des fiches personnelles**, interpolées nues en
+  repli dans `rhizome-panel.js:1796` : validées côté serveur contre une liste
+  blanche (`catalog.valider_fiche:176-179`). Pas de vecteur.
+- **`c.nom`/`c.famille` de `rhizome-panel.js:958`** : concaténation pour la
+  recherche, pas du HTML. Faux positif de l'analyse statique, écarté.
+- **Première passe** : aucun de ses correctifs ne s'est révélé incomplet ou
+  faux, hors les deux cas notés F12 et F13 ci-dessus.
+
+## Suivi des correctifs — seconde passe
+
+| # | Sévérité | Statut | Commit |
+|---|---|---|---|
+| C3 | Critique | corrigé | `fc34282` |
+| C4 | Critique | corrigé | `0a42cc9` |
+| É7 | Élevé | corrigé | `0fd7e80` |
+| M13 | Moyen | corrigé | `0a42cc9` |
+| M14 | Moyen | corrigé | `0a42cc9` |
+| M16 | Moyen | corrigé | `607f94c` |
+| F12 | Faible | corrigé | `fc34282` |
+| F13 | Faible | corrigé | `fc34282` |
+| F14 | Faible | corrigé | `0a42cc9` |
+
+### Ce qui n'a pas pu être vérifié
+
+- La **validation HACS officielle**, toujours non exécutable hors CI.
+- Le **frontend** n'a toujours ni linter ni test unitaire : pas de Node sur le
+  poste. Les correctifs de C3 ont été vérifiés **dans un vrai navigateur** —
+  exécution de la charge avant, absence d'exécution après — puis les cinq vues
+  du panneau ont été rendues au banc d'essai, sans erreur console ni entité
+  HTML visible dans le texte. Les trois garde-fous de `tests/test_source.py`
+  lisent le source, faute de pouvoir l'exécuter ; chacun a été vérifié en
+  réintroduisant la faute.
+- L'**exactitude agronomique** des 172 fiches, inchangée et hors de portée.
+
+### Décisions qui restent au propriétaire
+
+Les deux de la première passe (M8 traduction des entités, M10 `voluptuous` ou
+`probatio`) sont inchangées. Sur M10, la source est désormais explicite :
+« Your integration can keep the old import for as long as you like »
+([Probatio is our validation engine](https://contributors.home-assistant.io/blog/2026/09/30/probatio-validation-engine/)).
+Aucune échéance n'est annoncée — la décision peut attendre.
+
+Une nouvelle, mineure : **É7 fixe une politique d'accès**. Le choix retenu est
+le droit de contrôler les entités, ce qui laisse jardiner un compte ordinaire
+et arrête un compte en lecture seule. Si vous préférez réserver l'écriture aux
+administrateurs, c'est `require_admin` sur `_avec_coordinateur` et un test à
+retourner.
+
 ## Sources
 
 - [Integration Quality Scale — toutes les règles](https://contributors.home-assistant.io/core/quality-scale/rules/)
@@ -396,3 +619,16 @@ téléphone sont dans `CLAUDE.md`, `tools/banc_fixture.py` et un commentaire de
   renvoyer un booléen.
 - `homeassistant/__init__.py` 2026.10.4, appel à
   `probatio.compat.install_as_voluptuous()`.
+- [DeviceInfo is now a dataclass (13 oct. 2026)](https://contributors.home-assistant.io/blog/2026/10/13/device-info-class/)
+  — 2026.11, sans période de dépréciation ; sans effet ici.
+- [Probatio is our validation engine (30 sept. 2026)](https://contributors.home-assistant.io/blog/2026/09/30/probatio-validation-engine/)
+- [Always pass a step_id to flow results (23 oct. 2026)](https://contributors.home-assistant.io/blog/2026/10/23/flow-results-require-step-id/)
+  — déjà respecté.
+- [Integrations have categories now (20 oct. 2026)](https://contributors.home-assistant.io/blog/2026/10/20/integration-categories/)
+  — `categories` reste **optionnelle** pour une intégration personnalisée :
+  `hacs/action` se contente d'un avertissement. Confirme la note ci-dessus.
+- HACS devient **Marketplace**, intégré au cœur à partir de 2026.11
+  ([hacs.xyz](https://www.hacs.xyz/docs/publish/integration/)). Les exigences
+  structurelles sont inchangées, et le dépôt les satisfait déjà :
+  `hacs.json`, `README.md`, `custom_components/rhizome/`, les six clés de
+  manifest, et `brand/icon.png`.
