@@ -344,7 +344,7 @@ Branche `audit/hardening-20261025`. Relire avec `git log main..` et
 | F3 | Faible | corrigé | `2e93dd7` |
 | F4 | Faible | corrigé | `8c6d703` |
 | F5 | Faible | corrigé | `8bbe769` |
-| F6 | Faible | **non corrigé** — réglage du dépôt GitHub, pas du code |
+| F6 | Faible | corrigé — topics posés sur le dépôt (hors commit) |
 | F7 | Faible | corrigé | `253f30e` |
 | F8 | Faible | corrigé | `5ccfa44` |
 | F9 | Faible | **non corrigé** — donnée du propriétaire, pas un défaut |
@@ -368,9 +368,17 @@ exécution. Les 60 erreurs mypy correspondantes sont tues par module, avec la
 note expliquant quoi faire. Passer à `import probatio as vol` relèverait le
 minimum à 2026.9 : c'est une décision de compatibilité.
 
-**F6 — topics du dépôt.** `home-assistant`, `hacs`, `gardening`, `potager`,
-`python`. Cela se règle dans les paramètres GitHub ; rien n'a été modifié sur
-le dépôt distant.
+**F6 — topics du dépôt.** Posés le 25/10/2026 : `home-assistant`, `hacs`,
+`home-assistant-custom`, `gardening`, `garden`, `potager`, `plants`, `python`.
+C'est une métadonnée GitHub, pas un fichier du dépôt : `hacs/action` la vérifie
+et refusait la validation sans elle.
+
+**Clé `categories` du manifest.** `hacs/action` la réclame en avertissement, et
+`garden_plants` conviendrait exactement. Elle a été ajoutée puis retirée : le
+`hassfest` de 2026.10.4 — la version qui tourne sur l'instance — ne connaît pas
+encore cette clé et refuse le manifest. À reprendre quand le minimum supporté
+aura dépassé la version qui l'introduit. Optionnelle pour une intégration
+personnalisée.
 
 **F9 — données personnelles.** La commune de résidence et le modèle de
 téléphone sont dans `CLAUDE.md`, `tools/banc_fixture.py` et un commentaire de

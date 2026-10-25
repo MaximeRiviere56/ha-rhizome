@@ -20,7 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: home-assistant/actions/hassfest@4b258cf2bf1668d8e0adcb6b2be96b6cda36f42f # 1.0.0
+      # Le tag 1.0.0 de cette action est casse (son image ne trouve plus le
+      # paquet `script`). Elle s'utilise depuis master : on epingle le SHA.
+      - uses: home-assistant/actions/hassfest@cd6f3635a740c84d8a14f6121a90068b8ece6bf6 # master, 17/10/2026
 
   hacs:
     name: HACS
