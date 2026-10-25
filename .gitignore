@@ -5,3 +5,10 @@ __pycache__/
 
 # Genere par tools/banc_fixture.py
 tools/fixture.js
+
+# Outillage de verification
+.coverage
+htmlcov/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
