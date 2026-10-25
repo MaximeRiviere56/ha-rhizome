@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-import unittest
 from datetime import date
+from typing import ClassVar
+import unittest
 
 from _pure import lifecycle as lc
 from _pure import phenology as ph
@@ -127,11 +128,11 @@ class TestPerennesInstallees(unittest.TestCase):
     """Les fiches disent « aucun arrosage une fois établi » : le moteur
     doit les écouter."""
 
-    SOBRE = {
+    SOBRE: ClassVar[dict] = {
         "perenne": True,
         "arrosage": {"besoin": "faible", "frequence_jours": 10},
     }
-    GOURMANDE = {
+    GOURMANDE: ClassVar[dict] = {
         "perenne": True,
         "arrosage": {"besoin": "eleve", "frequence_jours": 3},
     }

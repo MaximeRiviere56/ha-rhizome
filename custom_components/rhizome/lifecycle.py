@@ -8,8 +8,9 @@ qui rend `annuler_dernier_evenement` fiable.
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from datetime import date, datetime
-from typing import Any, Iterable
+from typing import Any
 
 # --- Phases -------------------------------------------------------------------
 

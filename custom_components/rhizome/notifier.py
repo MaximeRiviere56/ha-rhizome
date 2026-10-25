@@ -14,8 +14,8 @@ suivi reel reposerait sur la bonne volonte de rouvrir l'application.
 
 from __future__ import annotations
 
-import logging
 from datetime import date, timedelta
+import logging
 from typing import Any
 
 from homeassistant.core import Event, HomeAssistant, callback
@@ -39,9 +39,9 @@ from .lifecycle import (
 )
 from .phenology import (
     ETAPE_PLANTATION,
-    ETAPE_RESSEMER,
-        ETAPE_RECOLTE,
+    ETAPE_RECOLTE,
     ETAPE_REPIQUAGE,
+    ETAPE_RESSEMER,
     ETAPE_SEMIS_DIRECT,
     ETAPE_SEMIS_INTERIEUR,
 )
@@ -143,17 +143,16 @@ class RhizomeNotifier:
             cle = f"{action['uid']}:{etape.type}:{etape.debut.isoformat()}"
             dernier = self.coordinator.store.dernier_envoi(cle)
 
-            if dernier is not None:
-                # Une recolte se relance : une courgette se cueille tous les
-                # deux jours, prevenir une seule fois ne sert a rien. Les
-                # autres etapes ne se repetent pas.
-                if not (
-                    recurrence
-                    and etape.type == ETAPE_RECOLTE
-                    and action["en_cours"]
-                    and (aujourdhui - date.fromisoformat(dernier)).days >= recurrence
-                ):
-                    continue
+            # Une recolte se relance : une courgette se cueille tous les deux
+            # jours, prevenir une seule fois ne sert a rien. Les autres etapes
+            # ne se repetent pas.
+            if dernier is not None and not (
+                recurrence
+                and etape.type == ETAPE_RECOLTE
+                and action["en_cours"]
+                and (aujourdhui - date.fromisoformat(dernier)).days >= recurrence
+            ):
+                continue
 
             a_envoyer.append(action)
             self.coordinator.store.marquer_notif_envoyee(cle, aujourdhui_iso)
@@ -225,7 +224,7 @@ class RhizomeNotifier:
                 await self.hass.services.async_call(
                     "notify", service, donnees, blocking=False
                 )
-            except Exception:  # noqa: BLE001
+            except Exception:
                 _LOGGER.exception("Echec du rappel d'arrosage vers notify.%s", service)
 
     async def _async_envoyer_resume(
@@ -255,7 +254,7 @@ class RhizomeNotifier:
                 await self.hass.services.async_call(
                     "notify", service, donnees, blocking=False
                 )
-            except Exception:  # noqa: BLE001
+            except Exception:
                 _LOGGER.exception("Echec du résumé vers notify.%s", service)
 
     async def _async_envoyer(self, cibles: list[str], action: dict) -> None:
@@ -295,7 +294,7 @@ class RhizomeNotifier:
                 await self.hass.services.async_call(
                     "notify", service, charge, blocking=False
                 )
-            except Exception:  # noqa: BLE001 - un destinataire absent ne doit
+            except Exception:
                 # pas empecher les autres de recevoir leur rappel.
                 _LOGGER.exception("Echec de l'envoi du rappel vers notify.%s", service)
 

@@ -10,8 +10,6 @@ from __future__ import annotations
 
 from typing import Any
 
-import voluptuous as vol
-
 from homeassistant.config_entries import (
     ConfigEntry,
     ConfigFlow,
@@ -20,6 +18,7 @@ from homeassistant.config_entries import (
 )
 from homeassistant.core import callback
 from homeassistant.helpers import selector
+import voluptuous as vol
 
 from .const import (
     CONF_ARROSAGE_ACTIF,
@@ -29,10 +28,10 @@ from .const import (
     CONF_NOTIFY_TARGETS,
     CONF_PRESET_CLIMAT,
     CONF_RAPPEL_JOURS,
+    DEFAUT_ARROSAGE_ACTIF,
     DEFAUT_GELEES_DERNIERE,
     DEFAUT_GELEES_PREMIERE,
     DEFAUT_NOTIFY_HEURE,
-    DEFAUT_ARROSAGE_ACTIF,
     DEFAUT_RAPPEL_JOURS,
     DOMAIN,
     PRESET_PERSONNALISE,

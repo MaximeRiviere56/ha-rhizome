@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-import unittest
 from datetime import date
+import unittest
 
 from _pure import lifecycle as lc
 from _pure import phenology as ph

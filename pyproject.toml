@@ -1,0 +1,73 @@
+# Configuration des outils de verification. Le paquet lui-meme n'est pas
+# empaquete : une integration Home Assistant se copie dans custom_components/.
+
+[tool.ruff]
+line-length = 88
+# Les modules purs doivent rester lisibles par un Python ancien (voir CLAUDE.md),
+# mais la couche HA tourne en 3.14. On cible la version de Home Assistant et on
+# s'interdit la syntaxe recente par convention, pas par configuration.
+target-version = "py313"
+extend-exclude = [".venv", "custom_components/rhizome/data"]
+
+[tool.ruff.lint]
+select = [
+    "F",    # pyflakes
+    "E",    # pycodestyle
+    "W",
+    "I",    # isort
+    "UP",   # pyupgrade
+    "B",    # bugbear
+    "C4",   # comprehensions
+    "SIM",  # simplifications
+    "RUF",
+    "ASYNC",
+    "T20",  # pas de print() dans l'integration
+    "TID",  # imports relatifs maitrises
+    "PTH",
+    "LOG",
+    "G",    # formatage des logs
+    "BLE",  # les except Exception doivent etre justifies
+]
+ignore = [
+    "E501",    # la longueur est geree par le formateur
+    "RUF001",  # le francais utilise des caracteres que ruff juge ambigus
+    "RUF002",
+    "RUF003",
+    "TID252",  # les imports relatifs sont la norme dans une integration HA
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Les outils de developpement ecrivent sur la sortie standard : c'est leur role.
+"tools/*" = ["T20"]
+"tests/*" = ["T20"]
+
+[tool.ruff.lint.isort]
+force-sort-within-sections = true
+known-first-party = ["custom_components"]
+
+[tool.mypy]
+python_version = "3.13"
+# Le typage strict integral reste un objectif (regle Platinum strict-typing) :
+# il demande d'annoter les fonctions du frontend de HA, ce qui depasse cet audit.
+# Ces reglages attrapent deja ce qui compte.
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+check_untyped_defs = true
+no_implicit_optional = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+exclude = ["^\\.venv/", "^tools/"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+norecursedirs = [".venv", ".git", "tools"]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.coverage.run]
+source = ["custom_components/rhizome"]
+omit = ["custom_components/rhizome/data/*"]
+
+[tool.coverage.report]
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "raise NotImplementedError"]

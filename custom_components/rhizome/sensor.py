@@ -167,7 +167,9 @@ class PlanteSensor(RhizomePlanteEntity, SensorEntity):
     """Une plante du jardin : sa phase en etat, sa fiche en attributs."""
 
     _attr_device_class = SensorDeviceClass.ENUM
-    _attr_options = list(PHASES_LIBELLES.values())
+    # `_attr_options` est declare comme une liste par l'API de Home Assistant :
+    # un ClassVar ne conviendrait pas, d'ou la derogation.
+    _attr_options = list(PHASES_LIBELLES.values())  # noqa: RUF012
 
     def __init__(self, coordinator: RhizomeCoordinator, uid: str) -> None:
         super().__init__(coordinator, uid, SUFFIXE)

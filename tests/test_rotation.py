@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-import unittest
 from datetime import date
+import unittest
 
 from _pure import lifecycle as lc
 from _pure import phenology as ph
 from _pure import rotation as rot
-from fixtures import POMMIER, RADIS, TOMATE
+from fixtures import RADIS
 
 GELEES = ph.Gelees(derniere="04-15", premiere="11-15")
 
@@ -126,7 +126,7 @@ class TestEchelonnement(unittest.TestCase):
         """Il découle d'une date du journal, pas d'une moyenne saisonnière."""
         p = self._radis_seme("2026-05-01", 15)
         etapes = ph.prochaines_etapes(RADIS, p, GELEES, 0, date(2026, 5, 2))
-        ressemis = [e for e in etapes if e.type == ph.ETAPE_RESSEMER][0]
+        ressemis = next(e for e in etapes if e.type == ph.ETAPE_RESSEMER)
         self.assertTrue(ressemis.reelle)
         self.assertEqual(ressemis.libelle, "Ressemer")
 
