@@ -7,6 +7,7 @@ par ce module, qui valide via `lifecycle` avant d'ecrire.
 
 from __future__ import annotations
 
+from datetime import date, timedelta
 import logging
 from typing import Any
 import uuid
@@ -357,6 +358,45 @@ class JardinStore:
             table = self.etat_notifs[bloc]
             for cle in [c for c in table if c.startswith(f"{uid}:")]:
                 del table[cle]
+
+    def purger_notifs_anciennes(
+        self, aujourdhui: str, retentions: dict[str, int], defaut: int
+    ) -> int:
+        """Oublie les rappels assez vieux pour ne plus pouvoir se re-declencher.
+
+        Sans cela le stockage ne faisait que grossir : la cle d'un rappel
+        d'arrosage porte la date du jour, donc une entree s'ajoutait par plante
+        et par jour, et rien ne les retirait jamais hormis le retrait de la
+        plante elle-meme.
+
+        `retentions` donne un nombre de jours par type d'etape. Une etape
+        annuelle doit etre gardee plus d'un an : la reoublier avant que sa
+        fenetre ne revienne ferait repartir le meme rappel.
+
+        Renvoie le nombre d'entrees retirees.
+        """
+        limite = (date.fromisoformat(aujourdhui) - timedelta(days=1)).isoformat()
+        etat = self.etat_notifs
+        retires = 0
+
+        for cle, envoye_le in list(etat["envoyees"].items()):
+            morceaux = cle.split(":")
+            jours = retentions.get(morceaux[1] if len(morceaux) > 1 else "", defaut)
+            perime = (
+                date.fromisoformat(aujourdhui) - timedelta(days=jours)
+            ).isoformat()
+            if str(envoye_le) < perime:
+                del etat["envoyees"][cle]
+                retires += 1
+
+        for cle, jusqu_au in list(etat["reports"].items()):
+            if str(jusqu_au) <= limite:
+                del etat["reports"][cle]
+                retires += 1
+
+        if retires:
+            self._sauvegarder()
+        return retires
 
     # --- Ecriture : zones ----------------------------------------------------
 

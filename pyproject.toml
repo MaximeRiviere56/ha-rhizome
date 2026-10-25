@@ -26,7 +26,7 @@ select = [
     "PTH",
     "LOG",
     "G",    # formatage des logs
-    "BLE",  # les except Exception doivent etre justifies
+    "BLE",  # un except Exception doit journaliser ou relancer
 ]
 ignore = [
     "E501",    # la longueur est geree par le formateur

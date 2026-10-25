@@ -6,12 +6,12 @@ from contextlib import contextmanager
 import logging
 from pathlib import Path
 
-from homeassistant.components import panel_custom
+from homeassistant.components import frontend, panel_custom
 from homeassistant.components.http import StaticPathConfig
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EVENT_HOMEASSISTANT_FINAL_WRITE, Platform
-from homeassistant.core import HomeAssistant, ServiceCall
-from homeassistant.exceptions import ServiceValidationError
+from homeassistant.core import HomeAssistant, ServiceCall, callback
+from homeassistant.exceptions import HomeAssistantError, ServiceValidationError
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.typing import ConfigType
@@ -146,9 +146,16 @@ def _resoudre_uid(hass: HomeAssistant, call: ServiceCall) -> str:
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
-    """Enregistre ce qui ne doit l'etre qu'une fois, quel que soit le nombre
-    d'entrees : les commandes WebSocket du panneau."""
+    """Enregistre ce qui ne depend pas d'une entree : les commandes WebSocket
+    du panneau, et les actions.
+
+    Les actions vivent ici et non dans `async_setup_entry` : la regle Bronze
+    `action-setup` veut qu'elles soient connues de l'editeur d'automatisation
+    meme quand l'entree n'est pas chargee, et qu'elles le disent proprement
+    plutot que d'etre introuvables.
+    """
     websocket.async_enregistrer(hass)
+    _async_enregistrer_services(hass)
     return True
 
 
@@ -169,7 +176,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: RhizomeEntry) -> bool:
     notifier = RhizomeNotifier(hass, coordinator)
     entry.async_on_unload(notifier.async_demarrer())
 
-    _async_enregistrer_services(hass)
     entry.async_on_unload(entry.add_update_listener(_async_options_modifiees))
 
     # Filet de securite : Home Assistant n'appelle pas toujours
@@ -186,14 +192,26 @@ async def async_setup_entry(hass: HomeAssistant, entry: RhizomeEntry) -> bool:
 
 async def async_unload_entry(hass: HomeAssistant, entry: RhizomeEntry) -> bool:
     decharge = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
-    if decharge:
-        await entry.runtime_data.store.async_sauvegarder_maintenant()
-    return decharge
+    if not decharge:
+        return False
+
+    await entry.runtime_data.store.async_sauvegarder_maintenant()
+
+    # Sans cela, retirer l'integration laissait son entree dans la barre
+    # laterale jusqu'au prochain redemarrage, menant vers un panneau mort.
+    if len(hass.config_entries.async_loaded_entries(DOMAIN)) <= 1:
+        _async_retirer_panneau(hass)
+    return True
 
 
 async def _async_options_modifiees(hass: HomeAssistant, entry: RhizomeEntry) -> None:
-    """Changer les dates de gelees ou les zones redessine tout le calendrier."""
-    await entry.runtime_data.async_refresh()
+    """Un changement de reglage redemande un montage complet.
+
+    Un simple `async_refresh` ne suffisait pas : l'heure des rappels est lue
+    une seule fois, au moment d'armer le minuteur. La regler sur 21 h ne
+    changeait donc rien jusqu'au prochain redemarrage, sans aucun signe.
+    """
+    await hass.config_entries.async_reload(entry.entry_id)
 
 
 # --- Panneau ------------------------------------------------------------------
@@ -226,6 +244,21 @@ async def _async_enregistrer_panneau(hass: HomeAssistant) -> None:
     hass.data[f"{DOMAIN}_panneau"][DOMAIN] = True
 
 
+@callback
+def _async_retirer_panneau(hass: HomeAssistant) -> None:
+    """Retire l'entree de la barre laterale.
+
+    Le chemin statique du bundle, lui, n'est pas desenregistrable : Home
+    Assistant n'offre pas d'inverse a `async_register_static_paths`. Il reste
+    donc servi jusqu'au redemarrage, ce qui est sans consequence — c'est un
+    fichier JavaScript, pas une donnee.
+    """
+    pose = hass.data.get(f"{DOMAIN}_panneau", {})
+    if not pose.pop(DOMAIN, None):
+        return
+    frontend.async_remove_panel(hass, PANEL_PATH)
+
+
 # --- Services -----------------------------------------------------------------
 
 
@@ -250,7 +283,12 @@ def _async_enregistrer_services(hass: HomeAssistant) -> None:
     def _coordinateur() -> RhizomeCoordinator:
         entrees = hass.config_entries.async_loaded_entries(DOMAIN)
         if not entrees:
-            raise RuntimeError("Rhizome n'est pas charge.")
+            # `HomeAssistantError` et non `RuntimeError` : l'appelant recoit un
+            # message, pas une erreur 500 muette.
+            raise HomeAssistantError(
+                "Rhizome n'est pas chargé : vérifiez l'intégration dans "
+                "Paramètres › Appareils et services."
+            )
         return entrees[0].runtime_data
 
     async def ajouter(call: ServiceCall) -> None:
