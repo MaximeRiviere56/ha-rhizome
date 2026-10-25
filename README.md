@@ -109,6 +109,21 @@ il ne reste qu'à télécharger, redémarrer, puis ajouter l'intégration.
 Copier `custom_components/rhizome/` dans le dossier `config/` de Home
 Assistant, redémarrer, puis ajouter l'intégration.
 
+### Désinstaller
+
+1. **Paramètres → Appareils et services → Rhizome → menu ⋮ → Supprimer.** Les
+   entités, le panneau latéral et les actions disparaissent immédiatement, sans
+   redémarrage.
+2. Dans HACS, **Rhizome → menu ⋮ → Supprimer**, puis redémarrer Home Assistant.
+3. Retirer la ressource `/rhizome-frontend/rhizome-card.js` de **Paramètres →
+   Tableaux de bord → Ressources**, et les cartes `custom:rhizome-card` de vos
+   tableaux de bord.
+
+**Votre jardin n'est pas effacé.** Le journal vit dans
+`.storage/rhizome.jardin`, que l'intégration ne touche pas en partant :
+réinstaller le retrouve intact. Pour l'effacer vraiment, supprimez ce fichier
+à la main, Home Assistant arrêté.
+
 ### Migration depuis Mon Potager
 
 Le renommage change le domaine de l'intégration, et Home Assistant ne sait pas
@@ -396,6 +411,97 @@ compagnon n'existe pas, ou à qui il manque `rusticite.gel`.
 | `rhizome.ressemer` | Ouvre le lot suivant d'un semis échelonné |
 | `rhizome.annuler_dernier_evenement` | Défait la dernière entrée du journal |
 | `rhizome.rafraichir` | Recalcule tout de suite |
+
+## Exemples d'automatisation
+
+Syntaxe moderne (`triggers:` / `conditions:` / `actions:`).
+
+**Couper tous les rappels pendant les vacances** — chaque plante a son
+interrupteur :
+
+```yaml
+alias: Potager en vacances
+triggers:
+  - trigger: calendar
+    entity_id: calendar.vacances
+    event: start
+actions:
+  - action: switch.turn_off
+    target:
+      entity_id: >
+        {{ states.switch
+           | selectattr('entity_id', 'search', '^switch.rhizome_rappels_')
+           | map(attribute='entity_id') | list }}
+```
+
+**Annoncer la tournée du matin sur une enceinte**, seulement s'il y a quelque
+chose à faire :
+
+```yaml
+alias: Le potager du matin
+triggers:
+  - trigger: time
+    at: "07:30:00"
+conditions:
+  - condition: numeric_state
+    entity_id: sensor.rhizome_actions_a_mener
+    above: 0
+actions:
+  - action: tts.speak
+    target:
+      entity_id: tts.piper
+    data:
+      media_player_entity_id: media_player.cuisine
+      message: >
+        {{ states('sensor.rhizome_actions_a_mener') }} choses au potager :
+        {{ state_attr('sensor.rhizome_actions_a_mener', 'actions')
+           | map(attribute='plante') | join(', ') }}.
+```
+
+**Noter l'arrosage depuis une vanne connectée** — l'uid est dans les attributs
+du capteur de la plante :
+
+```yaml
+alias: La vanne du potager note son arrosage
+triggers:
+  - trigger: state
+    entity_id: switch.vanne_potager
+    to: "off"
+actions:
+  - action: rhizome.marquer_arrose
+    data:
+      entity_id: sensor.rhizome_tomate
+      note: arrosage automatique
+```
+
+**Alerter quand une récolte s'ouvre**, sans attendre le rappel quotidien :
+
+```yaml
+alias: Une récolte commence
+triggers:
+  - trigger: state
+    entity_id: sensor.rhizome_tomate
+    to: En récolte
+actions:
+  - action: notify.persistent_notification
+    data:
+      title: 🍅 Première tomate
+      message: >
+        Semée le {{ state_attr('sensor.rhizome_tomate', 'date_semis') }}.
+```
+
+Une carte minimale qui liste ce qu'il y a à faire, sans la carte dédiée :
+
+```yaml
+type: markdown
+content: >
+  {% for a in state_attr('sensor.rhizome_actions_a_mener', 'actions') %}
+  - {{ a.emoji }} **{{ a.action }}** : {{ a.plante }} ({{ a.zone }}) —
+    {{ 'maintenant' if a.en_cours else 'dans ' ~ a.jours_restants ~ ' j' }}
+  {% else %}
+  Rien à faire aujourd'hui.
+  {% endfor %}
+```
 
 ## Développement
 

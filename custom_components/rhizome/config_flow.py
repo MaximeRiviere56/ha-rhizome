@@ -143,9 +143,9 @@ class RhizomeConfigFlow(ConfigFlow, domain=DOMAIN):
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
     ) -> ConfigFlowResult:
-        if self._async_current_entries():
-            return self.async_abort(reason="single_instance_allowed")
-
+        # Pas de garde manuelle ici : `single_config_entry` dans le manifest
+        # fait abandonner Home Assistant avant meme d'arriver a cette etape,
+        # avec le meme motif `single_instance_allowed`.
         if user_input is not None:
             options = _appliquer_preset(dict(user_input))
             return self.async_create_entry(title="Rhizome", data={}, options=options)

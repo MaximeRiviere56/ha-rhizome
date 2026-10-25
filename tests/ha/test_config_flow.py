@@ -112,3 +112,17 @@ async def test_le_flux_d_options_fusionne_sans_effacer(
     assert resultat["data"]["rappel_jours"] == 10
     assert resultat["data"]["notify_resume"] is True
     assert resultat["data"]["masquer_terminees"] is True
+
+
+async def test_les_dates_du_preset_oceanique(hass: HomeAssistant) -> None:
+    """Le préréglage par défaut, celui qui sert au plus grand nombre."""
+    flux = await hass.config_entries.flow.async_init(
+        "rhizome", context={"source": config_entries.SOURCE_USER}
+    )
+    resultat = await hass.config_entries.flow.async_configure(flux["flow_id"], SAISIE)
+
+    assert resultat["options"]["gelees_derniere"] == "04-15"
+    assert resultat["options"]["rappel_jours"] == 3
+    # Les options vivent dans `options`, pas dans `data` : c'est ce qui les
+    # rend modifiables depuis « Configurer » sans toucher a l'entree.
+    assert resultat["data"] == {}
