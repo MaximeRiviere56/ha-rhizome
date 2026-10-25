@@ -38,6 +38,7 @@ from .const import (
     ZONE_PLEINE_TERRE,
 )
 from .coordinator import RhizomeCoordinator
+from .entity import uid_depuis_unique_id
 from .lifecycle import (
     EVT_PERDU,
     EVT_RECOLTE,
@@ -133,16 +134,18 @@ def _resoudre_uid(hass: HomeAssistant, call: ServiceCall) -> str:
     entree = er.async_get(hass).async_get(entity_id)
     if entree is None or entree.platform != DOMAIN:
         raise ServiceValidationError(
-            f"{entity_id} n'est pas une entite de Rhizome."
+            f"{entity_id} n'est pas une entité de Rhizome."
         )
 
-    # unique_id = <entry_id>_<uid>_<suffixe>
-    morceaux = entree.unique_id.split("_")
-    if len(morceaux) != 3:
+    # La convention d'identifiant unique vit dans `entity.py`, aupres du code
+    # qui la construit : la relire a la main ici l'aurait fait diverger.
+    uid = uid_depuis_unique_id(entree.config_entry_id or "", entree.unique_id)
+    if not uid:
         raise ServiceValidationError(
-            f"{entity_id} ne designe pas une plante du jardin."
+            f"{entity_id} ne désigne pas une plante du jardin : "
+            f"visez le capteur d'une plante."
         )
-    return morceaux[1]
+    return uid
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
