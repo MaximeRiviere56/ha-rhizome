@@ -38,7 +38,13 @@ from .const import (
     ZONE_PLEINE_TERRE,
 )
 from .coordinator import RhizomeCoordinator, etape_en_dict, libelle_phase
-from .lifecycle import LIBELLES_EVENEMENTS, TYPES_EVENEMENTS, ErreurJournal
+from .lifecycle import (
+    LIBELLES_EVENEMENTS,
+    MODE_SEMIS_DIRECT,
+    MODE_SEMIS_INTERIEUR,
+    TYPES_EVENEMENTS,
+    ErreurJournal,
+)
 from .phenology import (
     ETAPE_PLANTATION,
     ETAPE_SEMIS_DIRECT,
@@ -63,6 +69,41 @@ _HEURE = vol.Match(_MOTIF_HEURE, msg="Format attendu : HH:MM ou HH:MM:SS.")
 _ID_ZONE = vol.Match(
     _MOTIF_ID_ZONE, msg="Identifiant de zone : minuscules, chiffres et tirets."
 )
+
+# --- Bornes des valeurs qui finissent dans un calcul de date ------------------
+#
+# Tout ce qui est ci-dessous atterrit dans le stockage du jardin, puis dans un
+# `date + timedelta(...)`. Un entier demesure y leve une `OverflowError` depuis
+# `_calculer`, donc a chaque cycle du coordinateur — et comme la valeur est
+# persistee, l'integration ne se repare ni au rechargement ni au redemarrage.
+# C'est exactement ce que la validation des reglages a corrige pour
+# `entry.options` ; le stockage du jardin, lui, n'avait aucune garde.
+#
+# Les bornes sont celles du sens horticole, pas celles de `timedelta` : un
+# decalage de serre se compte en semaines, pas en siecles.
+_DECALAGE_ZONE = vol.All(vol.Coerce(int), vol.Range(min=-120, max=120))
+_RAPPEL_JOURS = vol.Any(vol.All(vol.Coerce(int), vol.Range(min=0, max=30)), None)
+_ECHELONNEMENT = vol.Any(vol.All(vol.Coerce(int), vol.Range(min=0, max=90)), None)
+_FREQUENCE_EAU = vol.Any(vol.All(vol.Coerce(int), vol.Range(min=1, max=365)), None)
+_QUANTITE_G = vol.Any(
+    vol.All(vol.Coerce(int), vol.Range(min=0, max=10_000_000)), None
+)
+
+# Une date du journal reste dans les annees ou un potager existe. « 9999-12-31 »
+# passait le schema, se rangeait au journal, et faisait deborder le calcul de
+# la recolte suivante : meme panne persistante, par un autre chemin.
+_MOTIF_DATE = r"^(19|20|21)[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+_DATE = vol.Any(
+    vol.Match(_MOTIF_DATE, msg="Date attendue au format AAAA-MM-JJ."), None
+)
+
+# Les textes libres finissent dans `.storage/rhizome.jardin`, et le surnom
+# devient le nom d'une entite, donc son `entity_id`. Sans borne, un surnom de
+# cent mille caracteres produisait un identifiant d'entite de cent mille
+# caracteres dans le registre.
+_SURNOM = vol.Any(vol.All(cv.string, vol.Length(max=120)), None)
+_NOTE = vol.All(cv.string, vol.Length(max=1000))
+_NOM_ZONE = vol.All(cv.string, vol.Length(max=80))
 
 
 def _cibles_possibles(hass: HomeAssistant) -> list[dict[str, Any]]:
@@ -420,10 +461,10 @@ def _avec_coordinateur(fonction):
     {
         vol.Required("type"): f"{DOMAIN}/ajouter",
         vol.Required("culture_id"): str,
-        vol.Optional("zone", default=ZONE_PLEINE_TERRE): str,
-        vol.Optional("surnom"): vol.Any(str, None),
+        vol.Optional("zone", default=ZONE_PLEINE_TERRE): _ID_ZONE,
+        vol.Optional("surnom"): _SURNOM,
         vol.Optional("notifs", default=True): bool,
-        vol.Optional("echelonnement_jours"): vol.Any(int, None),
+        vol.Optional("echelonnement_jours"): _ECHELONNEMENT,
     }
 )
 @websocket_api.async_response
@@ -452,16 +493,16 @@ async def ajouter(coordinator, msg) -> dict:
     {
         vol.Required("type"): f"{DOMAIN}/modifier",
         vol.Required("uid"): str,
-        vol.Optional("zone"): str,
-        vol.Optional("surnom"): vol.Any(str, None),
+        vol.Optional("zone"): _ID_ZONE,
+        vol.Optional("surnom"): _SURNOM,
         vol.Optional("notifs"): bool,
-        vol.Optional("rappel_jours"): vol.Any(int, None),
-        vol.Optional("echelonnement_jours"): vol.Any(int, None),
+        vol.Optional("rappel_jours"): _RAPPEL_JOURS,
+        vol.Optional("echelonnement_jours"): _ECHELONNEMENT,
         # Les deux reglages d'eau d'une plante. Oublies ici lors de l'ajout de
         # l'arrosage : le panneau les envoyait, le schema les refusait, et les
         # deux commandes etaient donc mortes sans que rien ne le signale.
         vol.Optional("arrosage_actif"): bool,
-        vol.Optional("arrosage_frequence_jours"): vol.Any(int, None),
+        vol.Optional("arrosage_frequence_jours"): _FREQUENCE_EAU,
     }
 )
 @websocket_api.async_response
@@ -498,11 +539,14 @@ async def retirer(coordinator, msg) -> dict:
         vol.Required("type"): f"{DOMAIN}/noter",
         vol.Required("uid"): str,
         vol.Required("evenement"): vol.In(sorted(TYPES_EVENEMENTS)),
-        vol.Optional("date"): vol.Any(str, None),
-        vol.Optional("mode"): str,
-        vol.Optional("quantite_g"): vol.Any(int, None),
-        vol.Optional("cause"): str,
-        vol.Optional("note"): str,
+        vol.Optional("date"): _DATE,
+        # Les deux seuls modes de semis, comme le service le fait deja. Le
+        # schema acceptait n'importe quelle chaine, qui se rangeait au
+        # journal et ressortait telle quelle dans le panneau.
+        vol.Optional("mode"): vol.In([MODE_SEMIS_DIRECT, MODE_SEMIS_INTERIEUR]),
+        vol.Optional("quantite_g"): _QUANTITE_G,
+        vol.Optional("cause"): _NOTE,
+        vol.Optional("note"): _NOTE,
     }
 )
 @websocket_api.async_response
@@ -538,8 +582,8 @@ async def annuler(coordinator, msg) -> dict:
         vol.Required("zones"): [
             {
                 vol.Required("id"): _ID_ZONE,
-                vol.Required("nom"): str,
-                vol.Required("decalage_jours"): int,
+                vol.Required("nom"): _NOM_ZONE,
+                vol.Required("decalage_jours"): _DECALAGE_ZONE,
                 vol.Optional("abritee", default=False): bool,
             }
         ],
@@ -821,8 +865,9 @@ def rotation(hass, connection, msg) -> None:
 @websocket_api.websocket_command(
     {
         vol.Required("type"): f"{DOMAIN}/arroser",
-        vol.Required("uid"): vol.Any(str, [str]),
-        vol.Optional("date"): vol.Any(str, None),
+        # Borne le lot : « tout arroser » vise le jardin, pas dix mille uid.
+        vol.Required("uid"): vol.Any(str, vol.All([str], vol.Length(max=500))),
+        vol.Optional("date"): _DATE,
     }
 )
 @websocket_api.async_response

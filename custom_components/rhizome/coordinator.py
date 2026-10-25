@@ -222,8 +222,30 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 continue
 
             decalage = self.store.decalage_zone(brute.get("zone"))
-            etapes = prochaines_etapes(fiche, brute, gelees, decalage, aujourdhui)
-            infos = resume_journal(brute)
+            try:
+                etapes = prochaines_etapes(
+                    fiche, brute, gelees, decalage, aujourdhui
+                )
+                infos = resume_journal(brute)
+            # Une plante abimee ne doit pas coucher le jardin entier.
+            #
+            # Les schemas bornent desormais tout ce qui entre, et le stockage
+            # borne ce qu'il relit. Reste ce qu'aucune garde ne peut prevoir :
+            # une date du journal posee par une version anterieure, un fichier
+            # `.storage` edite a la main. Sans ce filet, l'exception remontait
+            # a `_async_update_data`, donc a chaque cycle — et comme la donnee
+            # est persistee, ni le rechargement ni le redemarrage n'y
+            # changeaient rien. Ignorer la plante laisse les autres vivre, et
+            # le journal dit laquelle regarder.
+            except (OverflowError, ValueError, TypeError, KeyError):
+                _LOGGER.exception(
+                    "Plante ignoree ce cycle, son enregistrement est "
+                    "incalculable (uid %s, culture %s). Les autres plantes "
+                    "ne sont pas affectees.",
+                    uid,
+                    brute.get("culture_id"),
+                )
+                continue
             total_recolte += infos["total_recolte_g"]
             # Le total « de la saison » doit se remettre a zero chaque annee,
             # sinon son nom ment des la deuxieme. L'annee civile tranche la
@@ -265,13 +287,23 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         arrosages: list[dict] = []
         if self.arrosage_actif:
             for uid, entree in plantes.items():
-                etat = watering.etat(
-                    entree["culture"],
-                    entree["plante"],
-                    entree["zone"],
-                    gelees,
-                    aujourdhui,
-                )
+                # Meme filet que plus haut : un historique d'arrosage abime
+                # prive cette plante de son echeance d'eau, pas le jardin de
+                # son calcul.
+                try:
+                    etat = watering.etat(
+                        entree["culture"],
+                        entree["plante"],
+                        entree["zone"],
+                        gelees,
+                        aujourdhui,
+                    )
+                except (OverflowError, ValueError, TypeError, KeyError):
+                    _LOGGER.exception(
+                        "Arrosage incalculable pour la plante %s : ignore.", uid
+                    )
+                    entree["arrosage"] = None
+                    continue
                 entree["arrosage"] = etat
                 if etat.a_arroser:
                     arrosages.append(

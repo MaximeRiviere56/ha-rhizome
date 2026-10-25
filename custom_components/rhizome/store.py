@@ -16,6 +16,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.storage import Store
 
 from .const import (
+    DECALAGE_ZONE_MAX,
     STORAGE_KEY,
     STORAGE_KEY_HERITAGE,
     STORAGE_VERSION,
@@ -141,7 +142,36 @@ class JardinStore:
         return {"id": ZONE_PLEINE_TERRE, "nom": "Pleine terre", "decalage_jours": 0}
 
     def decalage_zone(self, zone_id: str | None) -> int:
-        return int(self.zone(zone_id).get("decalage_jours", 0))
+        """Decalage d'une zone, borne au sens horticole.
+
+        Le schema WebSocket borne deja l'ecriture. Cette seconde garde vise ce
+        qui est deja dans `.storage` : une valeur posee par une version
+        anterieure, ou un fichier edite a la main. Sans elle, un decalage
+        demesure faisait deborder `date + timedelta(...)` a chaque cycle du
+        coordinateur, et l'etat ne se reparait ni au rechargement ni au
+        redemarrage puisque la valeur est persistee.
+        """
+        brute = self.zone(zone_id).get("decalage_jours", 0)
+        try:
+            decalage = int(brute)
+        except (TypeError, ValueError):
+            _LOGGER.warning(
+                "Decalage illisible (%r) pour la zone « %s » : 0 utilise.",
+                brute,
+                zone_id,
+            )
+            return 0
+        if not -DECALAGE_ZONE_MAX <= decalage <= DECALAGE_ZONE_MAX:
+            borne = max(-DECALAGE_ZONE_MAX, min(DECALAGE_ZONE_MAX, decalage))
+            _LOGGER.warning(
+                "Decalage hors limites (%s j) pour la zone « %s » : "
+                "ramene a %s j.",
+                decalage,
+                zone_id,
+                borne,
+            )
+            return borne
+        return decalage
 
     # --- Ecriture : plantes --------------------------------------------------
 
