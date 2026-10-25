@@ -21,6 +21,10 @@ from .phenology import fenetres_theoriques
 
 PHASES_SANS_PREVISION = {"seme", "plante", "en_recolte", "termine", "perdu"}
 
+# Nombre d'annees de previsions qu'une seule requete peut demander. Une vue
+# calendrier en affiche une ; dix laissent la place a tout usage reel.
+ANNEES_MAX = 10
+
 
 PARALLEL_UPDATES = 0
 
@@ -63,6 +67,16 @@ class RhizomeCalendar(RhizomeEntity, CalendarEntity):
     ) -> list[CalendarEvent]:
         debut = dt_util.as_local(start_date).date()
         fin = dt_util.as_local(end_date).date()
+
+        # La plage vient du client, sans borne : l'API calendrier de Home
+        # Assistant accepte les dates qu'on lui donne. Or les previsions se
+        # recalculent annee par annee, pour chaque plante — 0,9 s de boucle
+        # bloquee pour cinq siecles et dix plantes, mesure. Un affichage
+        # demande au plus quelques annees ; au-dela, c'est du gaspillage ou
+        # un abus, et dans les deux cas la boucle d'evenements le paie.
+        if fin.year - debut.year > ANNEES_MAX:
+            fin = fin.replace(year=debut.year + ANNEES_MAX)
+
         evenements: list[CalendarEvent] = []
 
         for entree in self.coordinator.data["plantes"].values():

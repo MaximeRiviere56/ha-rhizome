@@ -21,11 +21,19 @@ const EVT_POUR_ETAPE = {
   ressemer: { commande: "rhizome/ressemer" },
 };
 
-const echappe = (texte) => {
-  const div = document.createElement("div");
-  div.textContent = texte == null ? "" : String(texte);
-  return div.innerHTML;
+// Voir la note de `rhizome-panel.js` : `textContent` puis `innerHTML`
+// n'echappe pas les guillemets, et cette fonction sert aussi a l'interieur
+// d'attributs (`<ha-card header="...">`).
+const ENTITES = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;",
 };
+
+const echappe = (texte) =>
+  texte == null ? "" : String(texte).replace(/[&<>"']/g, (c) => ENTITES[c]);
 
 const quand = (jours, enCours) => {
   if (enCours) return "c'est le moment";
@@ -209,7 +217,7 @@ class RhizomeCard extends HTMLElement {
                 .map(
                   (a, i) => `
               <div class="ligne ${a.en_cours ? "urgent" : ""}">
-                <div class="emoji">${a.emoji || "🌱"}</div>
+                <div class="emoji">${echappe(a.emoji || "🌱")}</div>
                 <div class="corps">
                   <div class="nom">${echappe(a.plante)}</div>
                   <div class="detail">

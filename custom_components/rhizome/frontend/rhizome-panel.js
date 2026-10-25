@@ -137,10 +137,31 @@ function _versFormulaire(fiche) {
   };
 }
 
+// Les guillemets comptent autant que les chevrons.
+//
+// La version precedente passait par `textContent` puis relisait `innerHTML`.
+// Le serialiseur HTML n'echappe alors que `&`, `<` et `>` : les guillemets
+// traversent intacts, parce qu'ils sont inoffensifs dans un noeud de texte.
+// Or `echappe()` est aussi employe a l'interieur d'attributs — le surnom d'une
+// plante dans `value="..."`, le nom d'une zone dans `title="..."`. Un surnom
+// contenant un guillemet y fermait l'attribut et ouvrait les suivants : un
+// `onmouseover` suffisait alors a executer du code dans l'origine de Home
+// Assistant, avec la session de qui regarde le panneau.
+//
+// On echappe donc explicitement les cinq caracteres, sans dependre du
+// serialiseur ni du contexte d'insertion.
+const ENTITES = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;",
+};
+
 function echappe(texte) {
-  const div = document.createElement("div");
-  div.textContent = texte == null ? "" : String(texte);
-  return div.innerHTML;
+  return texte == null
+    ? ""
+    : String(texte).replace(/[&<>"']/g, (c) => ENTITES[c]);
 }
 
 /** Jours entre aujourd'hui et une date ISO. Negatif si elle est passee. */
@@ -669,7 +690,7 @@ class RhizomePanel extends HTMLElement {
               ? "Depuis hier"
               : `Depuis ${retard} jours`;
           return `<div class="carte action ${retard > 1 ? "urgent" : ""}">
-            <div class="emoji">${b.emoji}</div>
+            <div class="emoji">${echappe(b.emoji)}</div>
             <div class="corps">
               <div class="titre">${echappe(b.nom)}</div>
               <div class="detail">
@@ -709,7 +730,7 @@ class RhizomePanel extends HTMLElement {
     const largeur = action.en_cours ? this._avancementFenetre(etape) : 0;
     return `
       <div class="carte action ${urgent ? "urgent" : ""}">
-        <div class="emoji">${action.emoji}</div>
+        <div class="emoji">${echappe(action.emoji)}</div>
         <div class="corps">
           <div class="titre">${echappe(action.nom)}</div>
           <div class="detail">
@@ -788,7 +809,7 @@ class RhizomePanel extends HTMLElement {
     return `
       <div class="carte plante" data-fiche="${plante.uid}">
         <div class="plante-tete">
-          <div class="emoji">${plante.emoji}</div>
+          <div class="emoji">${echappe(plante.emoji)}</div>
           <div style="flex:1;min-width:0">
             <div class="plante-nom">${echappe(plante.nom)}</div>
             <div class="plante-zone">${echappe(plante.zone.nom)}${
@@ -953,7 +974,7 @@ class RhizomePanel extends HTMLElement {
     return `
       <div class="carte plante" data-culture="${culture.id}">
         <div class="plante-tete">
-          <div class="emoji">${culture.emoji}</div>
+          <div class="emoji">${echappe(culture.emoji)}</div>
           <div style="flex:1;min-width:0">
             <div class="plante-nom">${echappe(culture.nom)}</div>
             <div class="plante-zone">${CATEGORIES[culture.categorie] || ""} · ${
@@ -1056,7 +1077,7 @@ class RhizomePanel extends HTMLElement {
           .join("");
 
         return `<div class="cal-ligne">
-            <div class="cal-nom" title="${echappe(ligne.nom)}">${ligne.emoji} ${echappe(
+            <div class="cal-nom" title="${echappe(ligne.nom)}">${echappe(ligne.emoji)} ${echappe(
           ligne.nom
         )}</div>
             <div class="cal-piste">${prevues}${reelles}${faits}${repere}</div>
@@ -1159,7 +1180,7 @@ class RhizomePanel extends HTMLElement {
           .map(
             (e) => `<div class="journal-ligne">
               <div class="journal-date">${fmtCourt(e.date)}</div>
-              <div style="font-size:20px">${e.plante.emoji}</div>
+              <div style="font-size:20px">${echappe(e.plante.emoji)}</div>
               <div class="journal-corps">
                 <div><strong>${echappe(e.libelle)}</strong> · ${echappe(
               e.plante.nom
@@ -1393,7 +1414,7 @@ class RhizomePanel extends HTMLElement {
 
     return `
       <div class="fiche-tete">
-        <div class="emoji">${plante.emoji}</div>
+        <div class="emoji">${echappe(plante.emoji)}</div>
         <h3>${echappe(plante.nom)}</h3>
         <span class="badge ${plante.phase}">${echappe(plante.phase_libelle)}</span>
         <button class="icone" data-fermer="1"><ha-icon icon="mdi:close"></ha-icon></button>
@@ -1472,7 +1493,7 @@ class RhizomePanel extends HTMLElement {
             <select id="sel-zone" data-uid="${plante.uid}">
               ${zones
                 .map(
-                  (z) => `<option value="${z.id}" ${
+                  (z) => `<option value="${echappe(z.id)}" ${
                     z.id === plante.zone.id ? "selected" : ""
                   }>${echappe(z.nom)}${
                     z.decalage_jours
@@ -1656,7 +1677,7 @@ class RhizomePanel extends HTMLElement {
 
     return `
       <div class="fiche-tete">
-        <div class="emoji">${culture.emoji}</div>
+        <div class="emoji">${echappe(culture.emoji)}</div>
         <h3>${echappe(culture.nom)}</h3>
         <button class="icone" data-fermer="1"><ha-icon icon="mdi:close"></ha-icon></button>
       </div>
@@ -1678,7 +1699,7 @@ class RhizomePanel extends HTMLElement {
             <select id="sel-zone-ajout">
               ${zones
                 .map(
-                  (z) => `<option value="${z.id}">${echappe(z.nom)}${
+                  (z) => `<option value="${echappe(z.id)}">${echappe(z.nom)}${
                     z.decalage_jours
                       ? ` (${z.decalage_jours > 0 ? "+" : ""}${z.decalage_jours} j)`
                       : ""
@@ -1841,7 +1862,7 @@ class RhizomePanel extends HTMLElement {
           aime.length
             ? `<div style="font-size:13px;margin-bottom:4px">Bons voisins</div>
                <div class="compagnes" style="margin-bottom:12px">${aime
-                 .map((c) => `<span class="compagne">${c.emoji} ${echappe(c.nom)}</span>`)
+                 .map((c) => `<span class="compagne">${echappe(c.emoji)} ${echappe(c.nom)}</span>`)
                  .join("")}</div>`
             : ""
         }
@@ -1849,7 +1870,7 @@ class RhizomePanel extends HTMLElement {
           evite.length
             ? `<div style="font-size:13px;margin-bottom:4px">À éloigner</div>
                <div class="compagnes">${evite
-                 .map((c) => `<span class="compagne">${c.emoji} ${echappe(c.nom)}</span>`)
+                 .map((c) => `<span class="compagne">${echappe(c.emoji)} ${echappe(c.nom)}</span>`)
                  .join("")}</div>`
             : ""
         }
@@ -2342,7 +2363,7 @@ class RhizomePanel extends HTMLElement {
                 .map(
                   (c) => `
             <div class="ligne-zone">
-              <span style="flex:1">${c.emoji} ${echappe(c.nom)}
+              <span style="flex:1">${echappe(c.emoji)} ${echappe(c.nom)}
                 <span class="aide" style="margin:0">· ${
                   CATEGORIES[c.categorie] || c.categorie
                 }${c.surcharge ? " · fiche livrée corrigée" : " · fiche inédite"}</span>
@@ -2418,7 +2439,7 @@ class RhizomePanel extends HTMLElement {
 
     return `
       <div class="fiche-tete">
-        <div class="emoji">${f.emoji || "🌱"}</div>
+        <div class="emoji">${echappe(f.emoji || "🌱")}</div>
         <h3>${f.id ? "Modifier la fiche" : "Nouvelle fiche"}</h3>
         <button class="icone" data-fermer="1"><ha-icon icon="mdi:close"></ha-icon></button>
       </div>

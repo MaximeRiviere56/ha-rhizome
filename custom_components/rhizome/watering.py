@@ -75,13 +75,29 @@ class EtatArrosage:
         return self.jours_restants is not None and self.jours_restants <= 0
 
 
+# Un arrosage s'espace de quelques jours à une saison. Au-delà, la valeur ne
+# décrit plus un besoin en eau : elle vient d'une saisie aberrante ou d'un
+# stockage édité à la main, et `date + timedelta(jours)` y déborde — ce qui
+# mettait le coordinateur en panne à chaque cycle, de façon persistante.
+FREQUENCE_MAX_JOURS = 365
+
+
 def frequence_pour(culture: dict, plante: dict) -> int:
     """Nombre de jours entre deux arrosages. Le réglage de la plante prime."""
     propre = plante.get("arrosage_frequence_jours")
     if propre:
-        return max(1, int(propre))
+        return _borner(propre)
     base = (culture.get("arrosage") or {}).get("frequence_jours") or 4
-    return max(1, int(base))
+    return _borner(base)
+
+
+def _borner(valeur) -> int:
+    """Ramène une fréquence dans l'intervalle où elle a un sens."""
+    try:
+        jours = int(valeur)
+    except (TypeError, ValueError):
+        return 4
+    return max(1, min(FREQUENCE_MAX_JOURS, jours))
 
 
 def dernier_arrosage(plante: dict) -> dict | None:

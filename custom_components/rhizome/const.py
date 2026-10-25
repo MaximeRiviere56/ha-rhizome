@@ -83,6 +83,11 @@ ETAPES_NOTIFIABLES = (
 
 ZONE_PLEINE_TERRE = "pleine-terre"
 
+# Un decalage de zone s'exprime en semaines : une serre prend trois semaines
+# d'avance, pas trois siecles. La borne protege le calcul de date, ou un
+# entier demesure leve une OverflowError a chaque cycle du coordinateur.
+DECALAGE_ZONE_MAX = 120
+
 # `abritee` : serre, chassis, pots. Ces zones sechent toute l'annee, donc
 # l'arrosage y est rappele meme en hiver. En pleine terre, aucun rappel entre
 # la premiere et la derniere gelee : personne n'arrose son jardin en decembre.

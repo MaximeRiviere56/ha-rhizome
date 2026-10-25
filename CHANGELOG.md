@@ -6,10 +6,43 @@ l'intérieur peut encore bouger, mais pas vos données.
 
 ## [Non publié]
 
-Issu d'un audit de sécurité, de conformité Home Assistant et de qualité mené le
-25 octobre 2026 (voir `AUDIT.md`), sur Home Assistant 2026.10.4.
+Issu de deux passes d'audit de sécurité, de conformité Home Assistant et de
+qualité menées le 25 octobre 2026 (voir `AUDIT.md`), sur Home Assistant
+2026.10.4. Aucun changement cassant : rien à migrer, rien à reconfigurer.
 
-### Sécurité
+### Sécurité — seconde passe
+
+- **Le panneau échappe enfin les guillemets.** `echappe()` passait par le
+  sérialiseur HTML, qui ne couvre que `&`, `<` et `>` : sans danger dans un
+  nœud de texte, mais la fonction sert aussi à l'intérieur d'attributs — le
+  surnom d'une plante, le nom d'une zone, le titre de la carte. Un surnom
+  contenant un guillemet y fermait l'attribut et en ouvrait d'autres, ce qui
+  permettait d'exécuter du code dans l'origine de Home Assistant, avec la
+  session de qui regarde le panneau. Vérifié dans un navigateur.
+- **Modifier le jardin demande désormais le droit d'écrire.** Onze commandes
+  WebSocket — dont `retirer`, qui efface le journal d'une plante — étaient
+  ouvertes à toute session authentifiée, y compris un jeton en lecture seule.
+  Un compte ordinaire jardine, un compte en lecture seule consulte, et les
+  commandes de lecture restent ouvertes à tous.
+- **Rien d'illimité n'entre plus dans le stockage du jardin.** Un décalage de
+  zone, une fréquence d'arrosage ou une date du journal démesurés étaient
+  acceptés, persistés, et faisaient déborder le calcul de date à chaque cycle
+  du coordinateur — une panne dont ni le rechargement ni le redémarrage ne
+  sortaient. Même défaut que celui corrigé pour les réglages, par un autre
+  chemin. Les bornes sont désormais posées à l'écriture, à la lecture, et une
+  plante abîmée n'emporte plus les autres.
+- **Le mode de semis et les textes libres sont bornés.** Le service le faisait
+  déjà, la commande du panneau non : un surnom de cent mille caractères
+  produisait un identifiant d'entité de cent mille caractères.
+
+### Performance — seconde passe
+
+- **La plage demandée au calendrier est bornée à dix années.** Elle venait du
+  client sans limite, et chaque année de prévision se recalcule pour chaque
+  plante dans la boucle d'événements : près d'une seconde de boucle bloquée
+  pour cinq siècles et dix plantes.
+
+### Sécurité — première passe
 
 - **`rhizome/reglages/definir` exige désormais le rôle administrateur.** La
   commande écrit dans l'entrée de configuration sans l'avoir jamais réclamé :
