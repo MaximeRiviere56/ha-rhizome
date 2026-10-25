@@ -285,7 +285,9 @@ def fiche_culture(hass, connection, msg) -> None:
             },
             "fenetres": [
                 etape_en_dict(e)
-                for e in fenetres_theoriques(fiche, coordinator.gelees)
+                for e in fenetres_theoriques(
+                    fiche, coordinator.gelees, 0, coordinator.data["calcule_le"].year
+                )
             ],
         },
     )
