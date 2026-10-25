@@ -10,6 +10,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
+from homeassistant.auth.permissions.const import POLICY_CONTROL
 from homeassistant.components import websocket_api
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import config_validation as cv
@@ -135,6 +136,32 @@ def _cibles_possibles(hass: HomeAssistant) -> list[dict[str, Any]]:
 def _coordinateur(hass: HomeAssistant) -> RhizomeCoordinator | None:
     entrees = hass.config_entries.async_loaded_entries(DOMAIN)
     return entrees[0].runtime_data if entrees else None
+
+
+def _peut_ecrire(connection) -> bool:
+    """Ce compte a-t-il le droit de modifier le jardin ?
+
+    Une commande WebSocket personnalisee n'herite d'aucun controle : toute
+    session authentifiee l'atteint, y compris celle d'un compte en lecture
+    seule. Seule `rhizome/reglages/definir` etait gardee, parce qu'elle ecrit
+    dans l'entree de configuration. Le reste ne l'etait pas : un jeton en
+    lecture seule pouvait ajouter, modifier, noter et surtout **retirer** une
+    plante — donc effacer le journal, la seule donnee de ce projet que rien
+    ne reconstitue.
+
+    Le critere retenu est celui de Home Assistant lui-meme pour decider si
+    quelqu'un peut agir sur l'instance : le droit de controler les entites.
+    Administrateurs et comptes ordinaires l'ont ; les comptes en lecture
+    seule, non. Jardiner a plusieurs reste donc possible — c'etait le point —
+    sans que « lecture seule » cesse de vouloir dire quelque chose.
+
+    `require_admin` aurait ete plus simple et plus faux : le panneau est fait
+    pour etre utilise par la maisonnee, pas par le seul administrateur.
+    """
+    utilisateur = getattr(connection, "user", None)
+    if utilisateur is None:
+        return False
+    return utilisateur.permissions.access_all_entities(POLICY_CONTROL)
 
 
 def _arrosage_en_dict(etat) -> dict | None:
@@ -426,9 +453,22 @@ def calendrier(hass, connection, msg) -> None:
 
 
 def _avec_coordinateur(fonction):
-    """Resout le coordinateur, remonte proprement les refus du journal."""
+    """Resout le coordinateur, verifie le droit d'ecrire, et remonte
+    proprement les refus du journal.
+
+    Toutes les commandes d'ecriture passent par ici : c'est le seul endroit
+    ou poser la garde, et le seul ou l'oublier serait invisible.
+    """
 
     async def enveloppe(hass, connection, msg) -> None:
+        if not _peut_ecrire(connection):
+            connection.send_error(
+                msg["id"],
+                websocket_api.const.ERR_UNAUTHORIZED,
+                "Un compte en lecture seule ne peut pas modifier le jardin.",
+            )
+            return
+
         coordinator = _coordinateur(hass)
         if coordinator is None:
             connection.send_error(
