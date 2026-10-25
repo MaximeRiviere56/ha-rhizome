@@ -4,7 +4,7 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Versions sous [SemVer](https://semver.org/lang/fr/). Rhizome est en `0.x` :
 l'intérieur peut encore bouger, mais pas vos données.
 
-## [Non publié]
+## [0.9.0] — 2026-10-25
 
 Issu de deux passes d'audit de sécurité, de conformité Home Assistant et de
 qualité menées le 25 octobre 2026 (voir `AUDIT.md`), sur Home Assistant
@@ -188,7 +188,8 @@ Premiers correctifs après mise en service.
 
 Première version : catalogue, jardin virtuel, panneau latéral, rappels.
 
-[Non publié]: https://github.com/MaximeRiviere56/ha-rhizome/compare/v0.8.0...HEAD
+[Non publié]: https://github.com/MaximeRiviere56/ha-rhizome/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/MaximeRiviere56/ha-rhizome/releases/tag/v0.9.0
 [0.8.0]: https://github.com/MaximeRiviere56/ha-rhizome/releases/tag/v0.8.0
 [0.7.0]: https://github.com/MaximeRiviere56/ha-rhizome/releases/tag/v0.7.0
 [0.6.0]: https://github.com/MaximeRiviere56/ha-rhizome/releases/tag/v0.6.0
