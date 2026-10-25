@@ -7,7 +7,6 @@ a chaque client connecte. Le panneau interroge donc directement ces commandes.
 
 from __future__ import annotations
 
-import re
 from typing import Any
 
 from homeassistant.components import websocket_api
@@ -32,6 +31,7 @@ from .const import (
     DOMAIN,
     ETAPES_NOTIFIABLES,
     PREFIXE_PERSO,
+    PRESET_PERSONNALISE,
     PRESETS_CLIMAT,
     ZONE_PLEINE_TERRE,
 )
@@ -45,7 +45,43 @@ from .phenology import (
     fenetres_theoriques,
 )
 
-_MOTIF_JOUR_MOIS = re.compile(r"^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$")
+_MOTIF_JOUR_MOIS = r"^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+_MOTIF_HEURE = r"^([01][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$"
+# Un identifiant de zone finit dans un attribut HTML du panneau : on ne laisse
+# passer que ce que `slugifier()` cote interface produit deja.
+_MOTIF_ID_ZONE = r"^[a-z0-9]+(-[a-z0-9]+)*$"
+
+_JOUR_MOIS = vol.Match(_MOTIF_JOUR_MOIS, msg="Format attendu : MM-JJ.")
+_HEURE = vol.Match(_MOTIF_HEURE, msg="Format attendu : HH:MM ou HH:MM:SS.")
+_ID_ZONE = vol.Match(
+    _MOTIF_ID_ZONE, msg="Identifiant de zone : minuscules, chiffres et tirets."
+)
+
+
+def _cibles_possibles(hass: HomeAssistant) -> list[dict[str, Any]]:
+    """Destinataires de rappel proposables, et seuls acceptables.
+
+    Les services `notify.mobile_app_*` sont les seuls a transporter des boutons
+    d'action ; `persistent_notification` sert de repli sans telephone.
+    """
+    services = hass.services.async_services().get("notify", {})
+    cibles: list[dict[str, Any]] = [
+        {
+            "value": f"notify.{nom}",
+            "label": nom.removeprefix("mobile_app_").replace("_", " ").title(),
+            "mobile": True,
+        }
+        for nom in sorted(services)
+        if nom.startswith("mobile_app_")
+    ]
+    cibles.append(
+        {
+            "value": "persistent_notification",
+            "label": "Notification dans Home Assistant",
+            "mobile": False,
+        }
+    )
+    return cibles
 
 
 def _coordinateur(hass: HomeAssistant) -> RhizomeCoordinator | None:
@@ -483,7 +519,7 @@ async def annuler(coordinator, msg) -> dict:
         vol.Required("type"): f"{DOMAIN}/zones",
         vol.Required("zones"): [
             {
-                vol.Required("id"): str,
+                vol.Required("id"): _ID_ZONE,
                 vol.Required("nom"): str,
                 vol.Required("decalage_jours"): int,
                 vol.Optional("abritee", default=False): bool,
@@ -517,23 +553,7 @@ def reglages(hass, connection, msg) -> None:
         return
 
     options = dict(coordinator.entry.options)
-    services = hass.services.async_services().get("notify", {})
-    cibles = [
-        {
-            "value": f"notify.{nom}",
-            "label": nom.removeprefix("mobile_app_").replace("_", " ").title(),
-            "mobile": True,
-        }
-        for nom in sorted(services)
-        if nom.startswith("mobile_app_")
-    ]
-    cibles.append(
-        {
-            "value": "persistent_notification",
-            "label": "Notification dans Home Assistant",
-            "mobile": False,
-        }
-    )
+    cibles = _cibles_possibles(hass)
 
     connection.send_result(
         msg["id"],
@@ -560,12 +580,44 @@ def reglages(hass, connection, msg) -> None:
     )
 
 
+# Chaque reglage est type ici, et non simplement filtre par son nom. Un
+# `rappel_jours` non numerique accepte se retrouvait dans `entry.options`, d'ou
+# une ValueError a chaque recalcul : l'integration restait en panne meme apres
+# redemarrage, puisque la valeur etait persistee.
+SCHEMA_REGLAGES = vol.Schema(
+    {
+        vol.Optional(CONF_PRESET_CLIMAT): vol.In(
+            [*PRESETS_CLIMAT, PRESET_PERSONNALISE]
+        ),
+        vol.Optional(CONF_GELEES_DERNIERE): _JOUR_MOIS,
+        vol.Optional(CONF_GELEES_PREMIERE): _JOUR_MOIS,
+        vol.Optional(CONF_NOTIFY_TARGETS): [str],
+        vol.Optional(CONF_NOTIFY_HEURE): _HEURE,
+        vol.Optional(CONF_RAPPEL_JOURS): vol.All(
+            vol.Coerce(int), vol.Range(min=0, max=30)
+        ),
+        vol.Optional(CONF_NOTIFY_ETAPES): [vol.In(ETAPES_NOTIFIABLES)],
+        vol.Optional(CONF_NOTIFY_RESUME): bool,
+        vol.Optional(CONF_NOTIFY_RECOLTE_RECURRENCE): vol.All(
+            vol.Coerce(int), vol.Range(min=0, max=90)
+        ),
+        vol.Optional(CONF_MASQUER_TERMINEES): bool,
+        vol.Optional(CONF_ARROSAGE_ACTIF): bool,
+        vol.Optional(CONF_NOTIFY_ARROSAGE): bool,
+    }
+)
+
+
 @websocket_api.websocket_command(
     {
         vol.Required("type"): f"{DOMAIN}/reglages/definir",
         vol.Required("options"): dict,
     }
 )
+# Ecrire dans une entree de configuration est une operation d'administration.
+# Sans cette garde, un simple jeton en lecture seule suffisait a rediriger les
+# notifications du jardin, ou a y poser une valeur qui paralyse le calcul.
+@websocket_api.require_admin
 @websocket_api.async_response
 @_avec_coordinateur
 async def definir_reglages(coordinator, msg) -> dict:
@@ -575,26 +627,24 @@ async def definir_reglages(coordinator, msg) -> dict:
     du jardin : ils restent ainsi modifiables depuis la page d'integration de
     Home Assistant, et le panneau n'est qu'une facon plus agreable d'y acceder.
     """
-    valides = {
-        CONF_PRESET_CLIMAT,
-        CONF_GELEES_DERNIERE,
-        CONF_GELEES_PREMIERE,
-        CONF_NOTIFY_TARGETS,
-        CONF_NOTIFY_HEURE,
-        CONF_RAPPEL_JOURS,
-        CONF_NOTIFY_ETAPES,
-        CONF_NOTIFY_RESUME,
-        CONF_NOTIFY_RECOLTE_RECURRENCE,
-        CONF_MASQUER_TERMINEES,
-        CONF_ARROSAGE_ACTIF,
-        CONF_NOTIFY_ARROSAGE,
+    inconnues = set(msg["options"]) - set(SCHEMA_REGLAGES.schema)
+    propose = {
+        cle: val for cle, val in msg["options"].items() if cle not in inconnues
     }
-    propose = {cle: val for cle, val in msg["options"].items() if cle in valides}
+    try:
+        propose = SCHEMA_REGLAGES(propose)
+    except vol.Invalid as err:
+        raise ErreurJournal(f"Réglage invalide : {err}") from err
 
-    for cle in (CONF_GELEES_DERNIERE, CONF_GELEES_PREMIERE):
-        if cle in propose and not _MOTIF_JOUR_MOIS.match(str(propose[cle])):
+    # Les destinataires ne sont pas de simples chaines : ils deviennent un nom
+    # de service appele chaque matin. On n'accepte que ceux que le panneau
+    # propose vraiment.
+    if CONF_NOTIFY_TARGETS in propose:
+        connues = {c["value"] for c in _cibles_possibles(coordinator.hass)}
+        refusees = [c for c in propose[CONF_NOTIFY_TARGETS] if c not in connues]
+        if refusees:
             raise ErreurJournal(
-                f"Date de gelée invalide : {propose[cle]!r}. Format attendu MM-JJ."
+                f"Destinataire de notification inconnu : {', '.join(refusees)}."
             )
 
     fusion = {**coordinator.entry.options, **propose}
