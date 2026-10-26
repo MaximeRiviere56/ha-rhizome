@@ -742,4 +742,3 @@ Chaque version est décrite dans [`CHANGELOG.md`](CHANGELOG.md) et publiée en
 ## Licence
 
 MIT — voir [`LICENSE`](LICENSE).
-
