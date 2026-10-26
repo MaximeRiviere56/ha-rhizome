@@ -202,6 +202,35 @@ sourcées.**
 - Versionner à chaque livraison : bump `manifest.json`, tag, release GitHub avec
   des notes rédigées, puis `ha_manage_hacs` (update_information + download).
 
+## Ce que tu ne fais pas sans accord explicite
+
+`main` est protégée : pull request obligatoire, cinq contrôles verts
+(`Modules purs (3.9)` et `(3.14)`, `ruff, mypy, pytest`, `hassfest`, `HACS`),
+branche à jour avant fusion, ni force-push ni suppression. La règle s'applique
+**aussi aux administrateurs**, donc à toi.
+
+Mais la protection ne te distingue pas du propriétaire : tu agis avec son jeton
+`gh`, et GitHub ne voit qu'un seul compte. Aucun réglage de permission ne peut
+poser cette frontière — c'est cette convention qui la pose, et elle seule.
+
+**Tu ouvres, tu surveilles, tu ne conclus pas :**
+
+| Tu peux, sans demander | Tu demandes d'abord |
+|---|---|
+| pousser une branche de travail | **fusionner une PR dans `main`** |
+| ouvrir une pull request, la rédiger | **taguer une version** |
+| surveiller la CI et corriger ce qui casse | **publier une release GitHub** |
+| lire l'instance (états, diagnostics, logs) | **déployer par HACS**, et *a fortiori* **redémarrer Home Assistant** |
+
+Approuver une PR est **hors de ta portée, et doit le rester** : c'est le geste
+par lequel le propriétaire dit qu'il a lu. Ne le contourne pas, ne propose pas
+de le contourner, et ne désactive jamais la protection pour « débloquer » quoi
+que ce soit — si une règle gêne, dis-le et laisse-le trancher.
+
+Une sonde qui écrit n'est pas une sonde. `git push --dry-run` est purement
+local et ne consulte aucune règle du serveur : pour vérifier une protection, on
+relit son état par l'API, on ne pousse pas pour voir.
+
 ## Audits du 25 octobre 2026
 
 Deux passes, toutes deux sur HA 2026.10.4, toutes deux **non publiées** : rien
