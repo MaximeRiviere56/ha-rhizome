@@ -46,8 +46,11 @@ async def async_get_config_entry_diagnostics(
                     entree["prochaine"].type if entree["prochaine"] else None
                 ),
                 "arrosage_concerne": etat_eau.concernee if etat_eau else None,
+                # La cle et non le libelle traduit : un diagnostic doit se lire
+                # de la meme facon quelle que soit la langue de l'instance qui
+                # l'a produit.
                 "arrosage_motif_exclusion": (
-                    etat_eau.motif_exclusion if etat_eau else None
+                    etat_eau.motif_cle if etat_eau else None
                 ),
             }
         )

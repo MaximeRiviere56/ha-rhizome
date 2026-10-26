@@ -15,6 +15,8 @@ mais trois promesses mecaniques :
 from __future__ import annotations
 
 from datetime import date
+import json
+import pathlib
 import re
 import unittest
 
@@ -145,6 +147,81 @@ class TraductionDesRefus(unittest.TestCase):
     def test_un_refus_sans_cle_garde_son_message(self):
         self.assertEqual(
             i18n.traduire_erreur("en", ValueError("quelque chose")), "quelque chose"
+        )
+
+
+class ClesDeTraductionDeHomeAssistant(unittest.TestCase):
+    """Les `translation_key` du code et les fichiers de traduction doivent se
+    repondre, dans les deux sens.
+
+    Le defaut que ces tests rattrapent etait invisible et ancien : le flux de
+    configuration posait un `label=` explicite sur chaque preselection
+    climatique, ce qui ecrase la traduction. Le bloc `selector.preset_climat`
+    de `translations/en.json` existait donc sans que rien ne l'appelle, et le
+    formulaire anglais affichait « Ouest océanique (Bretagne, Loire) ».
+    """
+
+    SRC = (
+        pathlib.Path(__file__).resolve().parent.parent
+        / "custom_components"
+        / "rhizome"
+    )
+    # Les deux sections de `strings.json` indexees par cle depuis le code.
+    SECTIONS = ("selector", "exceptions")
+    MOTIF_CLE = re.compile(r"""translation_key=["'](\w+)["']""")
+
+    def _fichiers_de_traduction(self):
+        chemins = [self.SRC / "strings.json"]
+        chemins += sorted((self.SRC / "translations").glob("*.json"))
+        return [
+            (c.name, json.loads(c.read_text(encoding="utf-8"))) for c in chemins
+        ]
+
+    @staticmethod
+    def _declarees(contenu):
+        declarees = set()
+        for section in ClesDeTraductionDeHomeAssistant.SECTIONS:
+            declarees |= set(contenu.get(section, {}))
+        return declarees
+
+    def _employees(self):
+        cles = set()
+        for f in self.SRC.glob("*.py"):
+            cles |= set(self.MOTIF_CLE.findall(f.read_text(encoding="utf-8")))
+        return cles
+
+    def test_chaque_cle_employee_existe_dans_chaque_langue(self):
+        employees = self._employees()
+        self.assertTrue(employees, "aucun translation_key trouvé — motif obsolète ?")
+        for nom, contenu in self._fichiers_de_traduction():
+            manquantes = employees - self._declarees(contenu)
+            self.assertEqual(manquantes, set(), f"{nom} : clés absentes")
+
+    def test_aucune_cle_orpheline(self):
+        """Une cle que plus rien n'appelle est du texte mort, qui donne
+        l'illusion d'une traduction."""
+        employees = self._employees()
+        for nom, contenu in self._fichiers_de_traduction():
+            orphelines = self._declarees(contenu) - employees
+            self.assertEqual(orphelines, set(), f"{nom} : clés orphelines")
+
+    def test_le_flux_de_configuration_ne_pose_pas_de_libelle_en_dur(self):
+        """Un `label=` explicite ecrase la traduction, en silence.
+
+        La seule exception toleree est la liste des destinataires de rappel :
+        ses autres options sont des noms d'appareils, donc des donnees qu'il
+        ne faut surtout pas traduire. Son libelle fixe passe par `i18n.t`.
+        """
+        source = (self.SRC / "config_flow.py").read_text(encoding="utf-8")
+        en_dur = [
+            ligne.strip()
+            for ligne in source.splitlines()
+            if "label=" in ligne
+            and "i18n.t(" not in ligne
+            and "removeprefix" not in ligne
+        ]
+        self.assertEqual(
+            en_dur, [], "libellés en dur dans le flux de configuration"
         )
 
 

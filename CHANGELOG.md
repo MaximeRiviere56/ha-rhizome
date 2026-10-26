@@ -64,6 +64,13 @@ Assistant est en français, et le réglage vaut « Automatique » par défaut.
 
 ### Corrigé
 
+- **Les préréglages climatiques n'étaient jamais traduits.** Le flux de
+  configuration posait un `label=` explicite sur chaque option, ce qui écrase
+  la traduction : le bloc `selector.preset_climat` de `translations/en.json`
+  existait depuis des versions sans que rien ne l'appelle, et le formulaire
+  anglais affichait « Ouest océanique (Bretagne, Loire) ». Les options passent
+  désormais par `translation_key`. Un test vérifie les deux sens — aucune clé
+  employée sans traduction, aucune traduction orpheline.
 - **La carte Lovelace trouvait son capteur par le nom de l'entité.** Elle
   cherchait le suffixe `_actions_a_mener`, ce qui ne tenait que tant que
   l'intégration était francophone : une installation créée en anglais nomme la

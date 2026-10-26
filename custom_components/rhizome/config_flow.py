@@ -20,6 +20,7 @@ from homeassistant.core import callback
 from homeassistant.helpers import selector
 import voluptuous as vol
 
+from . import i18n
 from .const import (
     CONF_ARROSAGE_ACTIF,
     CONF_GELEES_DERNIERE,
@@ -48,6 +49,17 @@ MOTIF_JOUR_MOIS = vol.Match(
 )
 
 
+def _langue(hass) -> str:
+    """La langue de l'instance.
+
+    Le formulaire de configuration initiale s'affiche avant qu'aucune entree
+    n'existe : il n'y a pas encore de reglage a lire, seulement la langue de
+    Home Assistant. Celui des options, lui, est de toute facon rendu par Home
+    Assistant dans la langue de l'utilisateur.
+    """
+    return i18n.resoudre(None, getattr(hass.config, "language", None))
+
+
 def _services_mobiles(hass) -> list[selector.SelectOptionDict]:
     """Les services notify.mobile_app_*, seuls a porter des boutons d'action.
 
@@ -64,22 +76,25 @@ def _services_mobiles(hass) -> list[selector.SelectOptionDict]:
         for nom in sorted(services)
         if nom.startswith("mobile_app_")
     ]
+    # Pas de `translation_key` sur ce selecteur : les autres options sont des
+    # noms d'appareils, donc des donnees, que Home Assistant chercherait alors
+    # a traduire aussi. Seul ce libelle-ci est fixe, et il se traduit ici.
     options.append(
         selector.SelectOptionDict(
-            value="persistent_notification", label="Notification dans Home Assistant"
+            value="persistent_notification",
+            label=i18n.t(_langue(hass), "cible_persistante"),
         )
     )
     return options
 
 
 def _schema(hass, valeurs: dict[str, Any]) -> vol.Schema:
-    presets = [
-        selector.SelectOptionDict(value="oceanique", label="Ouest océanique (Bretagne, Loire)"),
-        selector.SelectOptionDict(value="nord_est", label="Nord et Est continental"),
-        selector.SelectOptionDict(value="midi", label="Midi méditerranéen"),
-        selector.SelectOptionDict(value="montagne", label="Montagne"),
-        selector.SelectOptionDict(value=PRESET_PERSONNALISE, label="Dates personnalisées"),
-    ]
+    # Les options partent sans `label` : un libelle explicite ecrase la
+    # traduction, et c'est ce qui rendait muet le bloc `selector.preset_climat`
+    # de `translations/en.json` — le formulaire anglais affichait « Ouest
+    # océanique (Bretagne, Loire) ». Avec `translation_key`, Home Assistant va
+    # chercher le libelle dans le fichier de la langue de l'utilisateur.
+    presets = ["oceanique", "nord_est", "midi", "montagne", PRESET_PERSONNALISE]
     return vol.Schema(
         {
             # Premier champ du formulaire, et non dernier : c'est lui qui decide
@@ -100,7 +115,9 @@ def _schema(hass, valeurs: dict[str, Any]) -> vol.Schema:
                 default=valeurs.get(CONF_PRESET_CLIMAT, "oceanique"),
             ): selector.SelectSelector(
                 selector.SelectSelectorConfig(
-                    options=presets, mode=selector.SelectSelectorMode.DROPDOWN
+                    options=presets,
+                    translation_key="preset_climat",
+                    mode=selector.SelectSelectorMode.DROPDOWN,
                 )
             ),
             vol.Required(

@@ -1100,7 +1100,9 @@ def _normaliser_fiche(brute: dict, coordinator) -> dict:
             ),
             "notes": ((brute.get("arrosage") or {}).get("notes") or "").strip(),
         },
-        "sol": (brute.get("sol") or "ordinaire, bien drainé").strip(),
+        "sol": (
+            brute.get("sol") or i18n.t(coordinator.langue, "sol_defaut")
+        ).strip(),
         "espacement_cm": int(brute.get("espacement_cm") or 30),
         "rusticite": {
             "gel": bool(brute.get("gel", True)),

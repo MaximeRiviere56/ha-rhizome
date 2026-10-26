@@ -207,11 +207,6 @@ CATEGORIES_VALIDES = {
 EXPOSITIONS_VALIDES = {"plein-soleil", "mi-ombre", "ombre"}
 BESOINS_EAU_VALIDES = {"faible", "moyen", "eleve"}
 
-MOIS_NOMS = [
-    "janvier", "février", "mars", "avril", "mai", "juin",
-    "juillet", "août", "septembre", "octobre", "novembre", "décembre",
-]
-
 
 def slug(texte: str) -> str:
     """Identifiant stable derive du nom, sans accent ni espace."""

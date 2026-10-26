@@ -299,6 +299,8 @@ TEXTES: dict[str, dict[str, str]] = {
         "cible_persistante": "Notification dans Home Assistant",
         # Famille botanique d'une fiche personnelle laissee vide.
         "famille_inconnue": "Non précisée",
+        # Sol par defaut d'une fiche personnelle laissee vide.
+        "sol_defaut": "ordinaire, bien drainé",
     },
     "en": {
         "phase_prevu": "Planned",
@@ -404,5 +406,6 @@ TEXTES: dict[str, dict[str, str]] = {
         ),
         "cible_persistante": "Notification inside Home Assistant",
         "famille_inconnue": "Unspecified",
+        "sol_defaut": "ordinary, well drained",
     },
 }
