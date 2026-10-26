@@ -243,13 +243,18 @@ le minimum à HA 2026.9 — et sur ce point Home Assistant a depuis écrit noir 
 blanc qu'une intégration peut garder l'ancien import aussi longtemps qu'elle
 veut : rien ne presse.
 
-## État au 25 octobre 2026
+## État au 26 octobre 2026
 
-v0.9.0 publiée. **v0.10.0 (bilingue) préparée sur la branche
-`feat/i18n-anglais`, non publiée** : comme les deux passes d'audit, rien n'a
-atteint l'instance tant qu'une release n'est pas sortie.
+**v0.10.0 (bilingue) publiée, fusionnée dans `main`, et téléchargée par HACS
+sur l'instance — mais pas encore active** : le propriétaire redémarrera Home
+Assistant quand la maison sera calme. Jusque-là l'instance exécute la v0.9.0,
+et le prochain redémarrage chargera la v0.10.0 tout seul. Si tu reprends après
+ce redémarrage, c'est bien la v0.10.0 qui tourne.
 
-Avant v0.9.0 : v0.8.0 publiée et active sur l'instance. L'intégration s'appelait `potager` /
+La CI est verte sur la PR #3 — `hassfest`, validation HACS, et les modules purs
+sur Python 3.9 **et** 3.14.
+
+Avant : v0.9.0 (deux passes d'audit), puis v0.8.0. L'intégration s'appelait `potager` /
 « Mon Potager » jusqu'à la v0.6.0 ; elle s'appelle `rhizome` / « Rhizome »
 depuis la v0.7.0. Le nom a changé pour que le projet puisse accueillir les
 plantes d'intérieur à côté du jardin — **cette extension n'est pas faite**,
