@@ -29,6 +29,10 @@ bon moment un rappel pour semer, repiquer ou récolter.
 **Un panneau « Rhizome » dans la barre latérale**, avec six vues :
 Aujourd'hui, Mon potager, Catalogue, Calendrier, Journal et Réglages.
 
+L'ensemble existe **en français et en anglais** — panneau, carte, catalogue,
+rappels, calendrier et noms d'entités. Par défaut la langue suit celle de Home
+Assistant ; elle se force depuis *Réglages · Langue*.
+
 ![Le jardin, par zone](docs/mon-potager.png)
 
 Chaque plante montre sa phase, sa zone et son échéance suivante. La barre de
@@ -60,6 +64,13 @@ sûr moyen de faire ignorer les vraies.
 | `todo.rhizome` | Tâches en cours — **cocher enregistre l'événement** |
 
 **Une carte Lovelace** `custom:rhizome-card` pour votre tableau de bord principal.
+
+> **Les `entity_id` ci-dessus sont ceux d'une installation en français.** Ils
+> sont dérivés du nom de l'entité **au moment où elle est créée**, et ne
+> bougent plus ensuite : changer de langue renomme ce qui s'affiche, jamais un
+> identifiant, donc vos automatisations survivent. Une installation créée en
+> anglais, elle, les nomme dès le départ `sensor.rhizome_tasks_due`,
+> `sensor.rhizome_needs_watering` et `sensor.rhizome_harvest_this_season`.
 
 ## Le suivi réel, sans formulaire
 
@@ -184,6 +195,32 @@ pages de configuration de Home Assistant.
 Les deux dates qui calent **tout** le calendrier. Un préréglage climatique
 (Ouest océanique, Nord et Est, Midi, Montagne) les remplit, ou vous saisissez
 les vôtres. Les modifier redessine immédiatement les 172 fiches.
+
+### Langue
+
+**Automatique**, **Français** ou **English**. « Automatique » est le défaut et
+suit la langue de Home Assistant.
+
+Le réglage ne touche pas que le panneau. Il décide aussi de la langue des
+rappels, des événements du calendrier, de la liste de tâches, du catalogue
+(les 172 fiches sont traduites : noms, familles, sols, conseils) et des **noms
+affichés** des entités.
+
+Trois conséquences, qu'il vaut mieux connaître avant de changer :
+
+- les `entity_id` ne bougent pas. Ils sont figés à la création de l'entité :
+  une installation française garde `sensor.rhizome_actions_a_mener` même
+  passée en anglais, et vos automatisations continuent de fonctionner ;
+- le capteur de phase d'une plante change d'état (`Semé` devient `Sown`). Son
+  historique garde donc les anciens libellés avant le changement, et une
+  automatisation qui compare cet état au texte demande à être relue ;
+- les noms de vos zones ne sont pas traduits. Les quatre zones livrées sont
+  nommées dans votre langue **à la première installation**, puis deviennent
+  des données que vous pouvez renommer — les retraduire après coup effacerait
+  vos propres noms.
+
+Vos fiches personnelles ne sont pas traduites non plus, pour la même raison :
+elles s'affichent telles que vous les avez écrites.
 
 ### Rappels
 
@@ -348,6 +385,17 @@ Permapeople ne fournit pas de calendrier de semis.
 Une culture gélive voit sa fenêtre de récolte plafonnée à la première gelée :
 une courgette ne se récolte pas en janvier.
 
+Le catalogue existe **dans les deux langues** : les 172 noms, les 36 familles,
+les descriptions de sol, les notes d'arrosage et les 318 conseils sont
+traduits. Le français reste la version de référence — c'est lui qui sert de
+clé, notamment pour le délai de rotation d'une famille — et la construction du
+catalogue échoue si une fiche arrive sans sa traduction, plutôt que de la
+laisser passer en français au milieu d'une interface anglaise.
+
+La recherche, elle, interroge les deux langues quelle que soit celle affichée :
+« courgette » trouve la courgette sur une interface anglaise, « leek » trouve
+le poireau sur une interface française.
+
 ### Peut-on s'y fier ?
 
 Autant le dire franchement : **ces 172 fiches n'ont été confrontées à aucune
@@ -379,6 +427,10 @@ après les gelées, une récolte qui précède son semis, un arbre espacé de tr
 centimètres, des durées de cycle qui se contredisent. Huit règles, toutes
 vérifiables sans connaissance extérieure. **Au dernier passage : 0 impossible,
 0 douteuse.**
+
+**La traduction anglaise n'est pas plus sourcée que l'original**, et ne lui
+ajoute aucune autorité : c'est le même contenu, dans une autre langue. Le nom
+latin reste sur chaque fiche pour trancher quand le nom commun est ambigu.
 
 Ce qui reste hors de portée, ce sont les durées de cycle — elles varient de
 plusieurs semaines selon la variété, et seul un relevé au jardin peut trancher.
@@ -538,6 +590,15 @@ python3 tools/banc_fixture.py && python3 -m http.server 8777
 Les données du banc sortent du vrai catalogue et du vrai moteur : il montre donc
 le panneau face à ce qu'il recevra réellement.
 
+Le banc se monte dans l'une ou l'autre langue, et c'est le seul moyen rapide de
+voir un libellé resté en français — il ne se remarque pas en relisant la table
+des textes :
+
+```bash
+python3 tools/banc_fixture.py en   # puis recharger le banc
+python3 tools/banc_fixture.py      # retour au français
+```
+
 > **Son angle mort.** `tools/banc_fixture.py` réimplémente à la main la
 > sérialisation que fait `websocket.py`. Sa promesse ne tient que tant que les
 > deux ne divergent pas — c'est ce qui lui avait fait montrer un arrosage par
@@ -612,7 +673,14 @@ Non. Voir [Vie privée](#vie-privée).
 **Ça marche hors de France ?**
 Oui. Rien n'est calé sur un calendrier national : tout part de vos deux dates
 de gelées. Les quatre préréglages climatiques sont français, mais les dates se
-saisissent à la main. Les fiches, en revanche, sont rédigées en français.
+saisissent à la main, et l'interface comme le catalogue existent en anglais
+(voir [Langue](#langue)).
+
+**Changer de langue casse-t-il mes automatisations ?**
+Non pour celles qui visent une entité : les `entity_id` sont figés à la
+création et ne bougent pas. Oui, potentiellement, pour celles qui comparent
+l'**état** d'un capteur de plante à un texte (`Semé`, `En récolte`) : cet état
+suit la langue. L'historique garde les anciens libellés avant le changement.
 
 **Puis-je avoir plusieurs jardins ?**
 Non, une seule entrée par instance. Les **zones** jouent ce rôle : chacune
@@ -651,8 +719,11 @@ Dites franchement, pour qu'elles ne soient pas découvertes en juillet.
 - **Pas de capteur de gel.** L'entité météo n'est pas lue, alors que chaque
   fiche porte sa rusticité.
 - **Aucun export du journal** pour l'instant.
-- **L'interface et les fiches sont en français.** Seules la configuration et
-  les actions sont traduites en anglais.
+- **Deux langues, et pas une de plus.** Français et anglais. En ajouter une
+  demande de remplir `i18n.py`, les deux tables du frontend et
+  `tools/catalogue_traductions.py` — le catalogue est le gros du travail.
+- **Vos propres textes ne sont jamais traduits** : surnoms, noms de zones,
+  fiches personnelles, notes du journal. C'est délibéré, ce sont des données.
 - **Minimum Home Assistant 2026.10.** Rien n'est testé en dessous.
 
 ## Contribuer

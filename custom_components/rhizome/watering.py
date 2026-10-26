@@ -65,6 +65,11 @@ class EtatArrosage:
     frequence_jours: int | None
     jours_restants: int | None
     motif_exclusion: str | None = None
+    # Cle de traduction du motif ci-dessus. Le module reste pur : il ne sait
+    # pas dans quelle langue l'interface parle, mais il sait de quel motif il
+    # s'agit. La couche de presentation traduit depuis cette cle, et retombe
+    # sur le texte francais quand elle est absente.
+    motif_cle: str | None = None
 
     @property
     def en_retard(self) -> bool:
@@ -148,7 +153,7 @@ def etat(
     phase = phase_depuis_evenements(evenements)
     dernier = dernier_arrosage(plante)
 
-    def exclue(motif: str) -> EtatArrosage:
+    def exclue(motif: str, cle: str) -> EtatArrosage:
         return EtatArrosage(
             concernee=False,
             dernier=parse_date(dernier["date"]) if dernier else None,
@@ -156,18 +161,27 @@ def etat(
             frequence_jours=None,
             jours_restants=None,
             motif_exclusion=motif,
+            motif_cle=cle,
         )
 
     if not plante.get("arrosage_actif", True):
-        return exclue("Rappels d'arrosage désactivés pour cette plante.")
+        return exclue(
+            "Rappels d'arrosage désactivés pour cette plante.",
+            "eau_exclu_desactive",
+        )
     if phase not in PHASES_ARROSABLES:
-        return exclue("Pas encore en terre, ou culture terminée.")
+        return exclue(
+            "Pas encore en terre, ou culture terminée.", "eau_exclu_pas_en_terre"
+        )
     if not zone.get("abritee") and _dans_la_periode_de_gel(aujourdhui, gelees):
-        return exclue("En pleine terre l'hiver, la nature s'en charge.")
+        return exclue(
+            "En pleine terre l'hiver, la nature s'en charge.", "eau_exclu_hiver"
+        )
 
     if _perenne_installee(culture, evenements, aujourdhui):
         return exclue(
-            "Pérenne installée et peu gourmande : elle se débrouille seule."
+            "Pérenne installée et peu gourmande : elle se débrouille seule.",
+            "eau_exclu_perenne",
         )
 
     frequence = frequence_pour(culture, plante)

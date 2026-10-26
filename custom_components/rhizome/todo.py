@@ -19,6 +19,7 @@ from homeassistant.components.todo import (
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
+from . import i18n
 from .coordinator import RhizomeCoordinator
 from .entity import RhizomeEntity
 from .lifecycle import ErreurJournal
@@ -56,6 +57,7 @@ class RhizomeTodo(RhizomeEntity, TodoListEntity):
     @property
     def todo_items(self) -> list[TodoItem]:
         aujourdhui = self.coordinator.data["calcule_le"]
+        langue = self.coordinator.langue
         elements: list[TodoItem] = []
 
         for action in self.coordinator.data["actions"]:
@@ -67,11 +69,20 @@ class RhizomeTodo(RhizomeEntity, TodoListEntity):
                     uid=SEPARATEUR.join(
                         (action["uid"], etape.type, etape.debut.isoformat())
                     ),
-                    summary=f"{action['emoji']} {etape.libelle} : {action['nom']}",
+                    summary=i18n.t(
+                        langue,
+                        "todo_resume",
+                        emoji=action["emoji"],
+                        verbe=i18n.libelle_etape(langue, etape.type),
+                        plante=action["nom"],
+                    ),
                     status=TodoItemStatus.NEEDS_ACTION,
                     due=max(etape.debut, aujourdhui),
-                    description=(
-                        f"{action['zone']} — fenêtre jusqu'au {etape.fin:%d/%m}."
+                    description=i18n.t(
+                        langue,
+                        "todo_description",
+                        zone=action["zone"],
+                        fin=i18n.date_courte(langue, etape.fin),
                     ),
                 )
             )

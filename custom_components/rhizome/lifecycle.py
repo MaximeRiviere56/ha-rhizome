@@ -82,7 +82,20 @@ LIBELLES_EVENEMENTS = {
 
 
 class ErreurJournal(ValueError):
-    """Operation refusee sur le journal d'une plante."""
+    """Operation refusee sur le journal d'une plante.
+
+    Elle porte toujours son message francais — c'est la langue de reference du
+    projet, et ce module reste pur, donc sans acces aux reglages. Elle porte en
+    plus, quand il en existe une, la cle de traduction qui permet a la couche
+    Home Assistant de rendre le meme refus dans la langue de l'interface. Sans
+    cle, le message francais passe tel quel : un refus comprehensible dans la
+    mauvaise langue vaut mieux qu'un refus muet.
+    """
+
+    def __init__(self, message: str, *, cle: str | None = None, **params: Any) -> None:
+        super().__init__(message)
+        self.cle = cle
+        self.params = params
 
 
 class TransitionInvalide(ErreurJournal):
@@ -102,8 +115,12 @@ def parse_date(valeur: Any) -> date:
         try:
             return date.fromisoformat(valeur[:10])
         except ValueError as err:
-            raise ErreurJournal(f"Date invalide : {valeur!r}") from err
-    raise ErreurJournal(f"Date invalide : {valeur!r}")
+            raise ErreurJournal(
+            f"Date invalide : {valeur!r}", cle="err_date_invalide", valeur=repr(valeur)
+        ) from err
+    raise ErreurJournal(
+        f"Date invalide : {valeur!r}", cle="err_date_invalide", valeur=repr(valeur)
+    )
 
 
 def fmt_date(valeur: date) -> str:
@@ -194,12 +211,22 @@ def total_recolte_g(evenements: Iterable[dict]) -> int:
 
 def valider_transition(phase: str, type_evt: str) -> None:
     if type_evt not in TYPES_EVENEMENTS:
-        raise ErreurJournal(f"Type d'événement inconnu : {type_evt!r}")
+        raise ErreurJournal(
+            f"Type d'événement inconnu : {type_evt!r}",
+            cle="err_type_evenement",
+            type=repr(type_evt),
+        )
     autorisees = TRANSITIONS[type_evt]
     if phase not in autorisees:
+        # Les deux libelles partent en cles et non en texte : le rendu les
+        # traduit avec le reste du message, sinon un refus anglais citerait
+        # « Semé » et « En récolte » en plein milieu.
         raise TransitionInvalide(
             f"Impossible d'enregistrer '{LIBELLES_EVENEMENTS[type_evt]}' "
-            f"depuis la phase '{PHASES_LIBELLES.get(phase, phase)}'."
+            f"depuis la phase '{PHASES_LIBELLES.get(phase, phase)}'.",
+            cle="err_transition",
+            evenement=type_evt,
+            phase=phase,
         )
 
 
@@ -218,7 +245,10 @@ def construire_evenement(
     if quantite_g is not None:
         quantite = int(quantite_g)
         if quantite < 0:
-            raise ErreurJournal("Une quantité récoltée ne peut pas être négative.")
+            raise ErreurJournal(
+                "Une quantité récoltée ne peut pas être négative.",
+                cle="err_quantite_negative",
+            )
         evt["quantite_g"] = quantite
     if cause:
         evt["cause"] = cause

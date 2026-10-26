@@ -334,7 +334,7 @@ Branche `audit/hardening-20261025`. Relire avec `git log main..` et
 | M5 | Moyen | corrigé | `253f30e` |
 | M6 | Moyen | corrigé | `5ccfa44`, `253f30e`, `1c07ed6` |
 | M7 | Moyen | corrigé | `2e93dd7` |
-| M8 | Moyen | **partiel — décision requise** | `2e93dd7` |
+| M8 | Moyen | tranché en v0.10.0 — voir ci-dessous | `2e93dd7` |
 | M9 | Moyen | corrigé | `2e93dd7` |
 | M10 | Moyen | **contourné — décision requise** | `8bbe769` |
 | M11 | Moyen | corrigé | `2e93dd7` |
@@ -596,8 +596,18 @@ refusée.
 
 ### Décisions qui restent au propriétaire
 
-Les deux de la première passe (M8 traduction des entités, M10 `voluptuous` ou
-`probatio`) sont inchangées. Sur M10, la source est désormais explicite :
+**M8 est tranchée depuis la v0.10.0.** Les entités sont traduites, mais par
+leur `_attr_name` posé à l'instanciation et non par une `translation_key` :
+Home Assistant dériverait sinon l'`entity_id` du nom traduit. Le nom affiché
+suit donc la langue de l'installation, et l'identifiant reste figé à la
+création de l'entité. Ce que l'audit redoutait — anglifier les `entity_id`
+d'une installation existante — n'arrive pas ; seule une installation **créée**
+en anglais les nomme en anglais, ce qui est le comportement voulu. Le coût
+assumé, documenté dans le README : l'état du capteur de phase suit la langue,
+donc son historique garde les anciens libellés avant un changement.
+
+M10 (`voluptuous` ou `probatio`) reste ouverte. La source est désormais
+explicite :
 « Your integration can keep the old import for as long as you like »
 ([Probatio is our validation engine](https://contributors.home-assistant.io/blog/2026/09/30/probatio-validation-engine/)).
 Aucune échéance n'est annoncée — la décision peut attendre.

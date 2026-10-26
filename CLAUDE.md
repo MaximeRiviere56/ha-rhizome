@@ -33,6 +33,7 @@ ne réclame plus jamais de la semer. Toute évolution doit préserver ça.
 | `phenology.py` | calcul des étapes culturales, théoriques et recalculées |
 | `rotation.py` | avertissement de rotation des cultures |
 | `watering.py` | arrosage : fréquence, échéance, exclusions |
+| `i18n.py` | langue de l'interface : résolution, textes du serveur, dates |
 
 **C'est la convention la plus importante du projet.** Toute logique métier non
 triviale va dans un module pur et arrive avec ses tests. Home Assistant ne peut
@@ -82,7 +83,7 @@ en une minute, avec Python 3.14, Home Assistant et son harnais de test.
 ```
 
 - **Modules purs** : `PYTHONPATH=tests python3 -m unittest discover -s tests
-  -p 'test_*.py'`. 98 tests, zéro dépendance, Python du système.
+  -p 'test_*.py'`. 117 tests, zéro dépendance, Python du système.
 - **Couche Home Assistant** : `tests/ha/`, sous `pytest` avec
   `pytest-homeassistant-custom-component`. Dossier séparé exprès, pour que la
   découverte `unittest` ne le voie pas.
@@ -94,6 +95,60 @@ en une minute, avec Python 3.14, Home Assistant et son harnais de test.
 - Le JavaScript se vérifie dans un navigateur ou au banc d'essai, pas par un
   linter.
 - Git passe par HTTPS avec le jeton `gh` (aucune clé SSH sur ce poste).
+
+## La langue
+
+Le réglage `CONF_LANGUE` vaut `auto` (défaut), `fr` ou `en`. **Une seule langue
+par installation**, résolue côté serveur par `coordinator.langue` : « auto »
+suit `hass.config.language`. Le panneau ne décide rien — il reçoit la langue
+résolue dans `rhizome/jardin` et `rhizome/reglages`. C'est ce qui empêche
+l'incohérence la plus visible : des libellés anglais sur des noms de cultures
+français.
+
+Quatre endroits à tenir d'accord, et c'est tout :
+
+| Où | Quoi |
+|---|---|
+| `i18n.py` | tout ce que le **serveur** produit : noms d'entités, rappels, calendrier, tâches, refus |
+| `frontend/rhizome-panel.js`, table `TEXTES` | les libellés du **panneau** |
+| `frontend/rhizome-card.js`, table `TEXTES` | les libellés de la **carte** |
+| `tools/catalogue_traductions.py` | les **172 fiches** : noms, familles, sols, notes d'eau, conseils |
+
+Trois règles qui ne se devinent pas :
+
+1. **Le français est la clé, pas seulement une traduction.** `rotation.DELAIS`
+   s'indexe sur le nom français de la famille botanique ; `catalog.localiser`
+   substitue l'anglais à l'affichage et laisse l'original en place. Ne jamais
+   traduire une clé.
+2. **Les modules purs ne connaissent aucun réglage.** Ils rendent leur message
+   en français *et* portent une clé (`ErreurJournal.cle`,
+   `EtatArrosage.motif_cle`, `valider_fiche`) ; la couche Home Assistant
+   traduit. C'est ce qui garde ces modules testables sans instance.
+3. **Les `entity_id` ne changent jamais.** Les noms d'entités sont posés à
+   l'instanciation (`_attr_name` dans `__init__`), pas par `translation_key` :
+   Home Assistant dériverait sinon l'identifiant du nom traduit. Le nom
+   affiché suit la langue, l'identifiant est figé à la création. C'est ce qui
+   rend le réglage sans danger pour les automatisations — et c'est la réponse
+   à la question laissée ouverte par l'audit du 25/10.
+
+Ce qui n'est **jamais** traduit, et ne doit pas l'être : les surnoms, les noms
+de zones après la première installation, les fiches personnelles, les notes du
+journal. Ce sont des données.
+
+Les garde-fous, dans l'ordre d'utilité :
+
+- `tools/build_catalog.py` échoue si une fiche n'a pas sa traduction, et
+  signale les traductions orphelines ;
+- `tests/test_i18n.py` vérifie que les deux tables portent les mêmes clés et
+  les mêmes variables ;
+- `tests/ha/test_langue.py` monte une installation anglophone de bout en bout ;
+- `python3 tools/banc_fixture.py en` monte le banc en anglais — **le seul
+  moyen rapide de voir un libellé resté en français**, qui ne se remarque pas
+  en relisant la table.
+
+Les tests de `tests/ha/` forcent `hass.config.language = "fr"` : le harnais de
+Home Assistant monte sinon une instance anglaise, et les suites qui vérifient
+un libellé vérifieraient la traduction au lieu du comportement.
 
 ## Vérification
 
@@ -113,14 +168,17 @@ pommier, lecture d'`entity_id` sur un objet qui ne le porte pas. **Utilise-le
 systématiquement avant de publier.**
 
 Le catalogue se modifie dans `tools/catalogue_source.py` (table compacte), pas
-dans le JSON généré.
+dans le JSON généré — **et sa traduction dans `tools/catalogue_traductions.py`**,
+sans quoi `build_catalog.py` refuse de compiler.
 
 ## Honnêteté sur les données
 
-**Les 172 fiches n'ont été confrontées à aucune base de référence.** Les API du
-domaine ne fournissent pas de calendriers de semis — OpenFarm est mort,
-Growstuff n'a pas d'API officielle, Permapeople ne couvre pas les semis. Le
-catalogue a été écrit de mémoire horticole.
+**Les 172 fiches n'ont été confrontées à aucune base de référence**, et leur
+traduction anglaise pas davantage — c'est le même contenu dans une autre
+langue, pas une seconde source. Les API du domaine ne fournissent pas de
+calendriers de semis — OpenFarm est mort, Growstuff n'a pas d'API officielle,
+Permapeople ne couvre pas les semis. Le catalogue a été écrit de mémoire
+horticole.
 
 Trois atténuations : le réel prime dès le premier semis noté ; l'utilisateur
 peut corriger n'importe quelle fiche, y compris livrée ; et
@@ -131,7 +189,12 @@ sourcées.**
 
 ## Conventions
 
-- Tout en français : code, commentaires, commits, interface, documentation.
+- Tout en français : code, commentaires, commits, documentation.
+- **L'interface, elle, est bilingue depuis la v0.10.0** — et le français en
+  reste la version de référence. Un texte affiché ne s'écrit plus en dur : il
+  passe par `i18n.py` côté serveur, par la table `TEXTES` de chaque fichier du
+  frontend, et par `tools/catalogue_traductions.py` pour le catalogue. Le
+  détail est plus bas.
 - Les commentaires disent **pourquoi**, pas quoi. Ceux qui expliquent un choix
   contre-intuitif ont de la valeur ; les autres non.
 - Messages de commit : ce qui change, et le raisonnement derrière. Les défauts
@@ -171,16 +234,22 @@ et fige le coordinateur jusqu'à édition manuelle du stockage. Avant d'ajouter
 un champ, demande-toi où il atterrit et ce qu'il devient dans
 `date + timedelta(...)`.
 
-Deux décisions restent au propriétaire, notées en fin d'`AUDIT.md` : traduire
-les entités — ce qui anglicise les `entity_id` des nouvelles installations — et
-passer de `voluptuous` à `probatio`, ce qui relèverait le minimum à HA 2026.9.
-Sur ce second point, Home Assistant a depuis écrit noir sur blanc qu'une
-intégration peut garder l'ancien import aussi longtemps qu'elle veut : rien
-ne presse.
+Des deux décisions laissées au propriétaire en fin d'`AUDIT.md`, une est
+tranchée : **les entités sont traduites depuis la v0.10.0**, mais par leur nom
+affiché et non par une `translation_key`. Les `entity_id` d'une installation
+existante ne bougent donc pas ; seule une installation créée en anglais les
+nomme en anglais. Reste le passage de `voluptuous` à `probatio`, qui relèverait
+le minimum à HA 2026.9 — et sur ce point Home Assistant a depuis écrit noir sur
+blanc qu'une intégration peut garder l'ancien import aussi longtemps qu'elle
+veut : rien ne presse.
 
-## État au 24 octobre 2026
+## État au 25 octobre 2026
 
-v0.8.0 publiée et active sur l'instance. L'intégration s'appelait `potager` /
+v0.9.0 publiée. **v0.10.0 (bilingue) préparée sur la branche
+`feat/i18n-anglais`, non publiée** : comme les deux passes d'audit, rien n'a
+atteint l'instance tant qu'une release n'est pas sortie.
+
+Avant v0.9.0 : v0.8.0 publiée et active sur l'instance. L'intégration s'appelait `potager` /
 « Mon Potager » jusqu'à la v0.6.0 ; elle s'appelle `rhizome` / « Rhizome »
 depuis la v0.7.0. Le nom a changé pour que le projet puisse accueillir les
 plantes d'intérieur à côté du jardin — **cette extension n'est pas faite**,

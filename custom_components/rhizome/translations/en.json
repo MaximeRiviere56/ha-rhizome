@@ -6,6 +6,7 @@
         "title": "Rhizome",
         "description": "Two settings matter: your frost dates, which anchor the whole calendar, and who receives the reminders.",
         "data": {
+          "langue": "Interface language",
           "preset_climat": "Climate",
           "gelees_derniere": "Last spring frost",
           "gelees_premiere": "First autumn frost",
@@ -15,6 +16,7 @@
           "arrosage_actif": "Watering tracking"
         },
         "data_description": {
+          "langue": "“Automatic” follows the Home Assistant language. This setting also applies to reminders, the calendar and entity names.",
           "preset_climat": "Preset that sets your frost dates. Pick \"Custom dates\" to enter your own.",
           "gelees_derniere": "Format MM-DD. The anchor for sowing and planting out.",
           "gelees_premiere": "Format MM-DD. The anchor for winter crops and tree planting.",
@@ -35,6 +37,7 @@
         "title": "Rhizome settings",
         "description": "Changing the frost dates redraws the whole calendar.",
         "data": {
+          "langue": "Interface language",
           "preset_climat": "Climate",
           "gelees_derniere": "Last spring frost",
           "gelees_premiere": "First autumn frost",
@@ -44,6 +47,7 @@
           "arrosage_actif": "Watering tracking"
         },
         "data_description": {
+          "langue": "“Automatic” follows the Home Assistant language. This setting also applies to reminders, the calendar and entity names.",
           "preset_climat": "Preset that sets your frost dates. Pick \"Custom dates\" to enter your own.",
           "gelees_derniere": "Format MM-DD. The anchor for sowing and planting out.",
           "gelees_premiere": "Format MM-DD. The anchor for winter crops and tree planting.",
@@ -56,6 +60,13 @@
     }
   },
   "selector": {
+    "langue": {
+      "options": {
+        "auto": "Automatic (Home Assistant language)",
+        "fr": "Français",
+        "en": "English"
+      }
+    },
     "preset_climat": {
       "options": {
         "oceanique": "Oceanic west",

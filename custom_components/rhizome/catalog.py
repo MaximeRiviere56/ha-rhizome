@@ -24,12 +24,75 @@ def charger() -> dict[str, dict]:
     return {culture["id"]: culture for culture in charge.get("cultures", [])}
 
 
+# Champs du catalogue qui s'affichent et se traduisent donc. Les autres sont
+# soit des nombres, soit des identifiants, soit du latin.
+#
+# Les valeurs d'origine sont celles du catalogue francais et le restent : la
+# famille commande le delai de rotation (`rotation.DELAIS` s'indexe dessus), et
+# un nom francais est l'identite d'une fiche aux yeux de l'utilisateur qui l'a
+# corrigee. La traduction vit a cote, suffixee par la langue.
+CHAMPS_TRADUITS = ("nom", "famille", "sol", "conseils")
+
+# Les suffixes de traduction reconnus, pour pouvoir les retirer des fiches
+# servies au panneau : un `conseils_en` de plus par fiche doublerait la taille
+# du catalogue sur le fil pour une donnee que personne ne lit la.
+SUFFIXES_TRADUCTION = ("_en",)
+
+
+def localiser(fiche: dict, langue: str) -> dict:
+    """La fiche telle qu'elle doit s'afficher dans cette langue.
+
+    Une fiche personnelle n'a pas de traduction : elle s'affiche telle que son
+    auteur l'a ecrite, quelle que soit la langue de l'interface. C'est le bon
+    comportement — personne n'attend que « Chou-rave de ma grand-mere » soit
+    traduit — et c'est le seul possible : rien ne peut la traduire.
+    """
+    suffixe = f"_{langue}"
+    traduit = dict(fiche)
+    if langue != "fr":
+        for champ in CHAMPS_TRADUITS:
+            valeur = fiche.get(f"{champ}{suffixe}")
+            if valeur:
+                traduit[champ] = valeur
+        arrosage = fiche.get("arrosage") or {}
+        notes = arrosage.get(f"notes{suffixe}")
+        if notes:
+            traduit["arrosage"] = {**arrosage, "notes": notes}
+
+    for cle in list(traduit):
+        if cle.endswith(SUFFIXES_TRADUCTION):
+            del traduit[cle]
+    arrosage = traduit.get("arrosage")
+    if isinstance(arrosage, dict) and any(
+        cle.endswith(SUFFIXES_TRADUCTION) for cle in arrosage
+    ):
+        traduit["arrosage"] = {
+            cle: valeur
+            for cle, valeur in arrosage.items()
+            if not cle.endswith(SUFFIXES_TRADUCTION)
+        }
+    return traduit
+
+
+def nom_localise(fiche: dict, langue: str) -> str:
+    """Le nom d'affichage, sans recopier toute la fiche."""
+    if langue == "fr":
+        return str(fiche["nom"])
+    return str(fiche.get(f"nom_{langue}") or fiche["nom"])
+
+
 def culture(culture_id: str) -> dict | None:
     return charger().get(culture_id)
 
 
-def toutes() -> list[dict]:
-    return sorted(charger().values(), key=lambda c: c["nom"])
+def toutes(langue: str = "fr") -> list[dict]:
+    """Toutes les fiches, triees par le nom tel qu'il s'affichera.
+
+    Trier sur le nom francais quand l'interface est anglaise donnerait un
+    catalogue dans un ordre apparemment aleatoire : « Leek » entre « Poireau »
+    et « Poirée ».
+    """
+    return sorted(charger().values(), key=lambda c: nom_localise(c, langue))
 
 
 def categories() -> list[str]:
@@ -61,13 +124,7 @@ def rechercher(
 
     if requete:
         terme = _sans_accents(requete.strip())
-        resultats = [
-            c
-            for c in resultats
-            if terme in _sans_accents(c["nom"])
-            or terme in _sans_accents(c["nom_scientifique"])
-            or terme in _sans_accents(c["famille"])
-        ]
+        resultats = [c for c in resultats if _correspond(c, terme)]
     if categorie:
         resultats = [c for c in resultats if c["categorie"] == categorie]
     if exposition:
@@ -78,6 +135,24 @@ def rechercher(
         resultats = [c for c in resultats if bool(c.get("perenne")) is perenne]
 
     return resultats
+
+
+def _correspond(fiche: dict, terme: str) -> bool:
+    """Le terme cherche apparait-il dans un des noms de cette fiche ?
+
+    On cherche dans les deux langues sans se demander laquelle est affichee :
+    « courgette » doit trouver la courgette meme sur une interface anglaise,
+    et « zucchini » doit la trouver sur une interface francaise. Le nom latin
+    sert de pont pour qui le connait.
+    """
+    champs = [
+        fiche.get("nom"),
+        fiche.get("nom_scientifique"),
+        fiche.get("famille"),
+        *(fiche.get(f"nom{suffixe}") for suffixe in SUFFIXES_TRADUCTION),
+        *(fiche.get(f"famille{suffixe}") for suffixe in SUFFIXES_TRADUCTION),
+    ]
+    return any(champ and terme in _sans_accents(champ) for champ in champs)
 
 
 def compagnes(culture_id: str) -> dict[str, list[dict]]:
@@ -93,7 +168,11 @@ def compagnes(culture_id: str) -> dict[str, list[dict]]:
 
 
 def info_minimale(fiche: dict) -> dict[str, Any]:
-    """Version allegee d'une fiche, pour les listes du panneau."""
+    """Version allegee d'une fiche, pour les listes du panneau.
+
+    La fiche recue est deja passee par `localiser()` : il n'y a qu'un endroit
+    ou la langue est appliquee, et c'est celui-la.
+    """
     return {
         "id": fiche["id"],
         "nom": fiche["nom"],
@@ -127,11 +206,6 @@ CATEGORIES_VALIDES = {
 }
 EXPOSITIONS_VALIDES = {"plein-soleil", "mi-ombre", "ombre"}
 BESOINS_EAU_VALIDES = {"faible", "moyen", "eleve"}
-
-MOIS_NOMS = [
-    "janvier", "février", "mars", "avril", "mai", "juin",
-    "juillet", "août", "septembre", "octobre", "novembre", "décembre",
-]
 
 
 def slug(texte: str) -> str:
@@ -168,23 +242,27 @@ def valider_fiche(fiche: dict) -> list[str]:
     Volontairement plus souple que la validation du catalogue livre : on
     verifie ce sans quoi le moteur ne saurait rien calculer, pas la qualite
     agronomique de la saisie.
+
+    Renvoie des cles de traduction et non des phrases : ces messages
+    s'affichent dans le formulaire du panneau, donc dans la langue de
+    l'interface. Ce module reste pur et ne la connait pas.
     """
     soucis: list[str] = []
 
     if not (fiche.get("nom") or "").strip():
-        soucis.append("Le nom est obligatoire.")
+        soucis.append("fiche_nom_requis")
     if fiche.get("categorie") not in CATEGORIES_VALIDES:
-        soucis.append("Catégorie inconnue.")
+        soucis.append("fiche_categorie")
     if fiche.get("exposition") not in EXPOSITIONS_VALIDES:
-        soucis.append("Exposition inconnue.")
+        soucis.append("fiche_exposition")
     if (fiche.get("arrosage") or {}).get("besoin") not in BESOINS_EAU_VALIDES:
-        soucis.append("Besoin en eau inconnu.")
+        soucis.append("fiche_eau")
     if not isinstance((fiche.get("rusticite") or {}).get("gel"), bool):
-        soucis.append("Indiquez si la culture craint le gel.")
+        soucis.append("fiche_gel")
 
     fenetres = fiche.get("fenetres") or {}
     if not fenetres:
-        soucis.append("Indiquez au moins une période de semis ou de plantation.")
+        soucis.append("fiche_aucune_periode")
 
     cycle = fiche.get("cycle") or {}
     recolte_calculable = (
@@ -196,10 +274,7 @@ def valider_fiche(fiche: dict) -> list[str]:
         )
     )
     if not recolte_calculable:
-        soucis.append(
-            "Impossible de calculer une récolte : indiquez une période de "
-            "récolte, ou le nombre de jours entre la mise en terre et la récolte."
-        )
+        soucis.append("fiche_recolte_incalculable")
 
     return soucis
 
@@ -220,34 +295,30 @@ class Catalogue:
     def culture(self, culture_id: str) -> dict | None:
         return self._index.get(culture_id)
 
-    def toutes(self) -> list[dict]:
-        return sorted(self._index.values(), key=lambda c: c["nom"])
+    def toutes(self, langue: str = "fr") -> list[dict]:
+        return sorted(self._index.values(), key=lambda c: nom_localise(c, langue))
 
     def categories(self) -> list[str]:
         return sorted({c["categorie"] for c in self._index.values()})
 
-    def perso(self) -> list[dict]:
+    def perso(self, langue: str = "fr") -> list[dict]:
         """Fiches inedites et fiches livrees corrigees, les secondes marquees."""
         return sorted(
             (c for c in self._index.values() if c.get("perso")),
-            key=lambda c: c["nom"],
+            key=lambda c: nom_localise(c, langue),
         )
 
     def est_livree(self, culture_id: str) -> bool:
         """Vrai si cet id existe dans le catalogue d'origine."""
         return culture_id in charger()
 
-    def rechercher(self, requete: str = "", **filtres) -> list[dict]:
-        resultats = self.toutes()
+    def rechercher(
+        self, requete: str = "", *, langue: str = "fr", **filtres
+    ) -> list[dict]:
+        resultats = self.toutes(langue)
         if requete:
             terme = _sans_accents(requete.strip())
-            resultats = [
-                c
-                for c in resultats
-                if terme in _sans_accents(c["nom"])
-                or terme in _sans_accents(c.get("nom_scientifique") or "")
-                or terme in _sans_accents(c.get("famille") or "")
-            ]
+            resultats = [c for c in resultats if _correspond(c, terme)]
         if filtres.get("categorie"):
             resultats = [c for c in resultats if c["categorie"] == filtres["categorie"]]
         if filtres.get("exposition"):

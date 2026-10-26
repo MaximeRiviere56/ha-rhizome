@@ -14,7 +14,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Sobre ; redoute l'humidité."
+    "notes": "Sobre ; redoute l'humidité.",
+    "notes_en": "Frugal; dislikes damp."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 450,
@@ -45,7 +46,14 @@
     "Floraison très précoce : une gelée de mars supprime la récolte",
     "Lui donner l'emplacement le plus abrité et le plus tardif à se réchauffer"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Apricot tree",
+   "famille_en": "Rosaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Flowers very early: a March frost wipes out the crop",
+    "Give it the most sheltered spot, and the last one to warm up"
+   ]
   },
   {
    "id": "ail-blanc",
@@ -59,7 +67,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Ne jamais arroser : l'ail déteste l'humidité."
+    "notes": "Ne jamais arroser : l'ail déteste l'humidité.",
+    "notes_en": "Never water: garlic hates damp."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 12,
@@ -95,7 +104,14 @@
     "Planté en octobre-novembre, il profite du froid pour se diviser",
     "Couper les fleurs pour que le bulbe grossisse"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "White garlic",
+   "famille_en": "Amaryllidaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Planted in October or November, it uses the cold to split",
+    "Cut the flowers off so the bulb swells"
+   ]
   },
   {
    "id": "ail-ours",
@@ -109,7 +125,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 5,
-    "notes": "Aime les sols frais et ombragés de sous-bois."
+    "notes": "Aime les sols frais et ombragés de sous-bois.",
+    "notes_en": "Likes the cool, shaded soil of woodland."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 20,
@@ -141,7 +158,15 @@
     "Se récolte en feuilles avant la floraison, de mars à mai",
     "Ne jamais le confondre avec le muguet : froisser et sentir l'ail"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Wild garlic",
+   "famille_en": "Amaryllidaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "The one allium that prefers shade: ideal under a tree",
+    "Harvested as leaves before flowering, from March to May",
+    "Never confuse it with lily of the valley: crush a leaf and smell garlic"
+   ]
   },
   {
    "id": "ail-rose",
@@ -155,7 +180,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Aucun arrosage."
+    "notes": "Aucun arrosage.",
+    "notes_en": "No watering."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 12,
@@ -188,7 +214,13 @@
    "conseils": [
     "Se plante en février, contrairement à l'ail blanc"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Pink garlic",
+   "famille_en": "Amaryllidaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Planted in February, unlike white garlic"
+   ]
   },
   {
    "id": "amandier",
@@ -202,7 +234,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 12,
-    "notes": "Très sobre ; il redoute l'humidité bien plus que la sécheresse."
+    "notes": "Très sobre ; il redoute l'humidité bien plus que la sécheresse.",
+    "notes_en": "Very frugal; it fears damp far more than drought."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 450,
@@ -233,7 +266,14 @@
     "Floraison en février : une gelée tardive suffit à supprimer la récolte",
     "Sous climat océanique, la cloque est son ennemie principale"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Almond tree",
+   "famille_en": "Rosaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Flowers in February: one late frost is enough to wipe out the crop",
+    "In a maritime climate, leaf curl is its main enemy"
+   ]
   },
   {
    "id": "amarante",
@@ -247,7 +287,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 6,
-    "notes": "Supporte très bien la sécheresse."
+    "notes": "Supporte très bien la sécheresse.",
+    "notes_en": "Stands drought very well."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 40,
@@ -279,7 +320,14 @@
     "Double usage : feuilles en épinard tout l'été, graines à l'automne",
     "Se ressème très abondamment : couper les épis avant qu'ils ne lâchent"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Amaranth",
+   "famille_en": "Amaranthaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Dual purpose: leaves as spinach all summer, seed in autumn",
+    "Self-seeds very freely: cut the heads before they shed"
+   ]
   },
   {
    "id": "aneth",
@@ -293,7 +341,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Modéré."
+    "notes": "Modéré.",
+    "notes_en": "Moderate."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 20,
@@ -327,7 +376,13 @@
    "conseils": [
     "Se ressème seul année après année si on le laisse fleurir"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Dill",
+   "famille_en": "Apiaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Self-seeds year after year if you let it flower"
+   ]
   },
   {
    "id": "angelique",
@@ -341,7 +396,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 3,
-    "notes": "Aime les sols humides et frais, au bord de l'eau si possible."
+    "notes": "Aime les sols humides et frais, au bord de l'eau si possible.",
+    "notes_en": "Likes wet, cool soil, by water if you can."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 100,
@@ -373,7 +429,14 @@
     "Monte à 2 m : à placer au fond, elle ferait de l'ombre à tout"
    ],
    "profondeur_semis_cm": 0.5,
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Angelica",
+   "famille_en": "Apiaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Biennial: it flowers and dies in the second year, but self-seeds",
+    "Reaches 2 m: put it at the back, it would shade everything else"
+   ]
   },
   {
    "id": "argousier",
@@ -387,7 +450,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 12,
-    "notes": "Aucun arrosage : il pousse dans les dunes."
+    "notes": "Aucun arrosage : il pousse dans les dunes.",
+    "notes_en": "No watering: it grows in sand dunes."
    },
    "sol": "pauvre, sableux, très drainé",
    "espacement_cm": 250,
@@ -419,7 +483,15 @@
     "Très épineux : cueillir en coupant les rameaux entiers",
     "Drageonne beaucoup : poser une barrière anti-rhizome"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Sea buckthorn",
+   "famille_en": "Elaeagnaceae",
+   "sol_en": "poor, sandy, very free draining",
+   "conseils_en": [
+    "One male plant per five females, or no fruit at all",
+    "Very thorny: pick by cutting whole shoots",
+    "Suckers freely: put in a root barrier"
+   ]
   },
   {
    "id": "arroche",
@@ -433,7 +505,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Modéré ; bien plus tolérante que l'épinard."
+    "notes": "Modéré ; bien plus tolérante que l'épinard.",
+    "notes_en": "Moderate; far more forgiving than spinach."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 40,
@@ -463,7 +536,14 @@
     "L'épinard des étés secs : elle monte beaucoup moins vite",
     "Se ressème seule d'année en année"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Orache",
+   "famille_en": "Amaranthaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "The spinach for dry summers: it bolts far more slowly",
+    "Self-seeds from year to year"
+   ]
   },
   {
    "id": "artichaut",
@@ -477,7 +557,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Généreux en été, surtout la première année."
+    "notes": "Généreux en été, surtout la première année.",
+    "notes_en": "Generous in summer, especially in the first year."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 100,
@@ -511,7 +592,14 @@
     "Pailler le pied l'hiver : c'est le gel qui tue les artichauts",
     "Productif 4 à 5 ans, puis diviser les œilletons"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Globe artichoke",
+   "famille_en": "Asteraceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Mulch the crown in winter: frost is what kills artichokes",
+    "Productive for four or five years, then split the offsets"
+   ]
   },
   {
    "id": "asperge",
@@ -525,7 +613,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 5,
-    "notes": "Modéré ; craint l'eau stagnante en hiver."
+    "notes": "Modéré ; craint l'eau stagnante en hiver.",
+    "notes_en": "Moderate; dislikes standing water in winter."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 50,
@@ -562,7 +651,14 @@
     "Patience : aucune récolte les deux premières années, puis 15 ans de production",
     "Butter la griffe au printemps pour obtenir des asperges blanches"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Asparagus",
+   "famille_en": "Asparagaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Patience: nothing for the first two years, then fifteen years of crops",
+    "Earth up the crown in spring to get white spears"
+   ]
   },
   {
    "id": "aubergine",
@@ -576,7 +672,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Gourmande en eau dès la formation des fruits."
+    "notes": "Gourmande en eau dès la formation des fruits.",
+    "notes_en": "Thirsty from the moment the fruit sets."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 60,
@@ -616,7 +713,14 @@
     "Tuteurer : les fruits sont lourds",
     "Limiter à 4-5 fruits par plant"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Aubergine",
+   "famille_en": "Solanaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Stake it: the fruit is heavy",
+    "Limit it to four or five fruits per plant"
+   ]
   },
   {
    "id": "avoine",
@@ -630,7 +734,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Aucun arrosage."
+    "notes": "Aucun arrosage.",
+    "notes_en": "No watering."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 8,
@@ -660,7 +765,14 @@
     "Gèle vers -12 °C et forme alors un paillage naturel : rien à faucher",
     "Idéale avant une culture exigeante au printemps suivant"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Oats (green manure)",
+   "famille_en": "Poaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Killed around -12 °C and then forms its own mulch: nothing to cut",
+    "Ideal ahead of a hungry crop the following spring"
+   ]
   },
   {
    "id": "basilic",
@@ -674,7 +786,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Le matin, au pied ; jamais le soir, l'humidité nocturne le fait noircir."
+    "notes": "Le matin, au pied ; jamais le soir, l'humidité nocturne le fait noircir.",
+    "notes_en": "In the morning, at the base; never in the evening, night damp turns it black."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 25,
@@ -714,7 +827,14 @@
     "Pincer les fleurs dès qu'elles apparaissent : elles arrêtent la production de feuilles",
     "Craint le froid plus que tout : attendre la mi-mai dehors"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Basil",
+   "famille_en": "Lamiaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Pinch out the flowers as they appear: they stop leaf production",
+    "Fears cold above all: wait until mid-May outdoors"
+   ]
   },
   {
    "id": "betterave",
@@ -728,7 +848,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Modéré et régulier."
+    "notes": "Modéré et régulier.",
+    "notes_en": "Moderate and regular."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 12,
@@ -761,7 +882,13 @@
    "conseils": [
     "Chaque graine donne plusieurs plants : éclaircir à 10 cm"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Beetroot",
+   "famille_en": "Amaranthaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Each seed gives several plants: thin to 10 cm"
+   ]
   },
   {
    "id": "blette",
@@ -775,7 +902,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier ; très tolérante par ailleurs."
+    "notes": "Régulier ; très tolérante par ailleurs.",
+    "notes_en": "Regular; otherwise very forgiving."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 35,
@@ -809,7 +937,14 @@
     "Un seul semis nourrit du printemps aux gelées",
     "Récolter feuille à feuille, jamais le pied entier"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Chard",
+   "famille_en": "Amaranthaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "One sowing feeds you from spring to the frosts",
+    "Harvest leaf by leaf, never the whole plant"
+   ]
   },
   {
    "id": "bourrache",
@@ -823,7 +958,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 6,
-    "notes": "Très sobre."
+    "notes": "Très sobre.",
+    "notes_en": "Very frugal."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 40,
@@ -855,7 +991,14 @@
     "Aimant à bourdons : elle fait grimper la pollinisation des courgettes",
     "Se ressème seule indéfiniment"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Borage",
+   "famille_en": "Boraginaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "A bumblebee magnet: it lifts courgette pollination sharply",
+    "Self-seeds indefinitely"
+   ]
   },
   {
    "id": "brocoli",
@@ -869,7 +1012,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 3,
-    "notes": "Régulier et généreux."
+    "notes": "Régulier et généreux.",
+    "notes_en": "Regular and generous."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 50,
@@ -908,7 +1052,13 @@
    "conseils": [
     "Couper la tête centrale incite les rejets latéraux à se développer"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Broccoli",
+   "famille_en": "Brassicaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Cutting the central head pushes the side shoots to develop"
+   ]
   },
   {
    "id": "camerisier",
@@ -922,7 +1072,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Aime la fraîcheur, redoute la sécheresse estivale."
+    "notes": "Aime la fraîcheur, redoute la sécheresse estivale.",
+    "notes_en": "Likes cool soil, suffers in summer drought."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 150,
@@ -953,7 +1104,14 @@
     "Le tout premier fruit de l'année, avant même les fraises",
     "Deux variétés différentes sont indispensables pour fructifier"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Honeyberry",
+   "famille_en": "Caprifoliaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "The very first fruit of the year, even before strawberries",
+    "Two different varieties are essential for it to set fruit"
+   ]
   },
   {
    "id": "camomille",
@@ -967,7 +1125,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 6,
-    "notes": "Sobre une fois installée."
+    "notes": "Sobre une fois installée.",
+    "notes_en": "Frugal once established."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 30,
@@ -1003,7 +1162,13 @@
     "Se récolte en fleurs, à sécher à l'ombre"
    ],
    "profondeur_semis_cm": 0.5,
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Roman chamomile",
+   "famille_en": "Asteraceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Harvested in flower, to be dried in the shade"
+   ]
   },
   {
    "id": "capucine",
@@ -1017,7 +1182,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 5,
-    "notes": "Sobre ; trop d'eau et d'engrais la font monter en feuilles."
+    "notes": "Sobre ; trop d'eau et d'engrais la font monter en feuilles.",
+    "notes_en": "Frugal; too much water and feed send it to leaf."
    },
    "sol": "pauvre, sinon elle fait des feuilles et pas de fleurs",
    "espacement_cm": 40,
@@ -1051,7 +1217,14 @@
     "Plante-piège à pucerons : ils s'y installent plutôt que sur vos légumes",
     "Fleurs et jeunes feuilles se mangent, goût poivré"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Nasturtium",
+   "famille_en": "Tropaeolaceae",
+   "sol_en": "poor, or it makes leaves instead of flowers",
+   "conseils_en": [
+    "An aphid trap plant: they settle on it rather than on your vegetables",
+    "Flowers and young leaves are edible, peppery"
+   ]
   },
   {
    "id": "cardon",
@@ -1065,7 +1238,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 3,
-    "notes": "Soutenu : c'est un gros buveur."
+    "notes": "Soutenu : c'est un gros buveur.",
+    "notes_en": "Sustained: this one drinks heavily."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 90,
@@ -1093,7 +1267,13 @@
    "conseils": [
     "Lier et emballer les côtes un mois avant la récolte pour les blanchir"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Cardoon",
+   "famille_en": "Asteraceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Tie and wrap the stalks a month before harvest to blanch them"
+   ]
   },
   {
    "id": "carotte",
@@ -1107,7 +1287,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Humidité constante jusqu'à la levée, qui est lente (15 à 20 jours)."
+    "notes": "Humidité constante jusqu'à la levée, qui est lente (15 à 20 jours).",
+    "notes_en": "Constant moisture until it germinates, which is slow (15 to 20 days)."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 5,
@@ -1143,7 +1324,14 @@
     "Semer clair et éclaircir sans pitié : une carotte serrée reste un fil",
     "Le poireau voisin éloigne la mouche de la carotte"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Carrot",
+   "famille_en": "Apiaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Sow thinly and thin ruthlessly: a crowded carrot stays a thread",
+    "A leek alongside keeps the carrot fly away"
+   ]
   },
   {
    "id": "cassissier",
@@ -1157,7 +1345,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Aime la fraîcheur, plus exigeant que le groseillier."
+    "notes": "Aime la fraîcheur, plus exigeant que le groseillier.",
+    "notes_en": "Likes cool soil, thirstier than the redcurrant."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 130,
@@ -1189,7 +1378,13 @@
    "conseils": [
     "Fructifie sur le bois de l'année : tailler sévèrement les vieilles branches"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Blackcurrant",
+   "famille_en": "Grossulariaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Fruits on the current year's wood: prune the old branches hard"
+   ]
   },
   {
    "id": "cerfeuil",
@@ -1203,7 +1398,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Garder frais ; il aime la mi-ombre."
+    "notes": "Garder frais ; il aime la mi-ombre.",
+    "notes_en": "Keep it moist; it likes partial shade."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 15,
@@ -1232,7 +1428,13 @@
    "conseils": [
     "Préfère la mi-ombre : parfait au pied des plus grands"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Chervil",
+   "famille_en": "Apiaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Prefers partial shade: perfect at the foot of taller plants"
+   ]
   },
   {
    "id": "cerisier",
@@ -1246,7 +1448,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 12,
-    "notes": "Ne pas arroser en période de fruits : les cerises éclatent."
+    "notes": "Ne pas arroser en période de fruits : les cerises éclatent.",
+    "notes_en": "Do not water while it is in fruit: the cherries split."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 500,
@@ -1279,7 +1482,14 @@
     "Tailler le moins possible, et seulement après la récolte : il gomme",
     "Un filet est la seule défense réaliste contre les oiseaux"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Cherry tree",
+   "famille_en": "Rosaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Prune as little as possible, and only after harvest: it bleeds gum",
+    "Netting is the only realistic defence against birds"
+   ]
   },
   {
    "id": "chayotte",
@@ -1293,7 +1503,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 3,
-    "notes": "Très gourmande en eau pendant toute la végétation."
+    "notes": "Très gourmande en eau pendant toute la végétation.",
+    "notes_en": "Very thirsty throughout its growing season."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 200,
@@ -1325,7 +1536,15 @@
     "Prévoir une treille solide : une liane de 8 m en une saison",
     "Pailler lourdement la souche pour la faire repartir l'an prochain"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Chayote",
+   "famille_en": "Cucurbitaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Planted by burying the whole fruit, sprout upward",
+    "Allow for a sturdy trellis: an 8 m vine in one season",
+    "Mulch the stool heavily so it comes back next year"
+   ]
   },
   {
    "id": "chervis",
@@ -1339,7 +1558,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Aime la fraîcheur, comme toutes les apiacées."
+    "notes": "Aime la fraîcheur, comme toutes les apiacées.",
+    "notes_en": "Likes cool soil, like every apiaceae."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 30,
@@ -1376,7 +1596,14 @@
     "Se multiplie par éclat de souche au printemps"
    ],
    "profondeur_semis_cm": 1,
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Skirret",
+   "famille_en": "Apiaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "A forgotten vegetable, very sweet, fashionable before the potato",
+    "Propagated by splitting the crown in spring"
+   ]
   },
   {
    "id": "chicoree-frisee",
@@ -1390,7 +1617,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Au pied uniquement : le cœur mouillé pourrit."
+    "notes": "Au pied uniquement : le cœur mouillé pourrit.",
+    "notes_en": "At the base only: a wet crown rots."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 30,
@@ -1421,7 +1649,13 @@
    "conseils": [
     "Lier les feuilles deux semaines avant pour blanchir le cœur"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Curly endive",
+   "famille_en": "Asteraceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Tie the leaves up two weeks beforehand to blanch the heart"
+   ]
   },
   {
    "id": "pain-de-sucre",
@@ -1435,7 +1669,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Modéré."
+    "notes": "Modéré.",
+    "notes_en": "Moderate."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 30,
@@ -1465,7 +1700,14 @@
     "La salade d'hiver la plus facile : semée en juillet, récoltée en décembre",
     "Son cœur serré se conserve des semaines en cave"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Sugarloaf chicory",
+   "famille_en": "Asteraceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "The easiest winter salad: sown in July, harvested in December",
+    "Its tight heart keeps for weeks in a cellar"
+   ]
   },
   {
    "id": "chou-daubenton",
@@ -1479,7 +1721,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 5,
-    "notes": "Sobre une fois installé."
+    "notes": "Sobre une fois installé.",
+    "notes_en": "Frugal once established."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 100,
@@ -1517,7 +1760,15 @@
     "Se bouture en plantant simplement un rameau en terre",
     "Le meilleur rapport effort/récolte du potager"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Daubenton perennial kale",
+   "famille_en": "Brassicaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "A perennial kale giving leaves all year, for five or six years",
+    "Strikes from a sprig simply pushed into the ground",
+    "The best effort-to-harvest ratio in the garden"
+   ]
   },
   {
    "id": "chou-chinois",
@@ -1531,7 +1782,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Jamais sec, sinon il monte immédiatement."
+    "notes": "Jamais sec, sinon il monte immédiatement.",
+    "notes_en": "Never dry, or it bolts straight away."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 30,
@@ -1562,7 +1814,13 @@
    "conseils": [
     "Culture d'arrière-saison : semé en juillet-août, il ne monte pas"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Pak choi",
+   "famille_en": "Brassicaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "A late-season crop: sown in July or August, it does not bolt"
+   ]
   },
   {
    "id": "chou-bruxelles",
@@ -1576,7 +1834,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Modéré ; le froid fait le reste."
+    "notes": "Modéré ; le froid fait le reste.",
+    "notes_en": "Moderate; the cold does the rest."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 60,
@@ -1615,7 +1874,14 @@
     "Pincer la tête en septembre pour grossir les choux du bas",
     "Meilleur après une gelée"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Brussels sprouts",
+   "famille_en": "Brassicaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Pinch out the top in September to swell the lower sprouts",
+    "Better after a frost"
+   ]
   },
   {
    "id": "chou-milan",
@@ -1629,7 +1895,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 3,
-    "notes": "Soutenu à la formation de la pomme."
+    "notes": "Soutenu à la formation de la pomme.",
+    "notes_en": "Sustained as the head forms."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 55,
@@ -1667,7 +1934,13 @@
    "conseils": [
     "Variété d'hiver : se récolte de novembre à mars"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Savoy cabbage",
+   "famille_en": "Brassicaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "A winter variety: harvested from November to March"
+   ]
   },
   {
    "id": "chou-kale",
@@ -1681,7 +1954,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Peu exigeant, très résistant."
+    "notes": "Peu exigeant, très résistant.",
+    "notes_en": "Undemanding, very tough."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 45,
@@ -1721,7 +1995,14 @@
     "Le plus facile et le plus rustique des choux : il produit tout l'hiver",
     "Cueillir les feuilles du bas, le pied continue de monter"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Kale",
+   "famille_en": "Brassicaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "The easiest and hardiest of the brassicas: it crops all winter",
+    "Pick the bottom leaves, the plant keeps growing upward"
+   ]
   },
   {
    "id": "chou-cabus",
@@ -1735,7 +2016,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 3,
-    "notes": "Soutenu pendant la formation de la pomme."
+    "notes": "Soutenu pendant la formation de la pomme.",
+    "notes_en": "Sustained while the head is forming."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 50,
@@ -1777,7 +2059,14 @@
     "Poser une collerette en carton au pied contre la mouche du chou",
     "Un filet anti-insectes règle le problème des piérides une fois pour toutes"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "White cabbage",
+   "famille_en": "Brassicaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Fit a cardboard collar at the base against cabbage root fly",
+    "Insect mesh settles the cabbage white problem once and for all"
+   ]
   },
   {
    "id": "chou-rouge",
@@ -1791,7 +2080,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 3,
-    "notes": "Comme le chou pommé."
+    "notes": "Comme le chou pommé.",
+    "notes_en": "Same as white cabbage."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 50,
@@ -1830,7 +2120,13 @@
    "conseils": [
     "Se conserve plusieurs mois en cave"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Red cabbage",
+   "famille_en": "Brassicaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Keeps for months in a cellar"
+   ]
   },
   {
    "id": "chou-fleur",
@@ -1844,7 +2140,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Le plus exigeant des choux : un coup de sec et la pomme avorte."
+    "notes": "Le plus exigeant des choux : un coup de sec et la pomme avorte.",
+    "notes_en": "The thirstiest of the cabbages: one dry spell and the head aborts."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 60,
@@ -1884,7 +2181,14 @@
     "Casser une feuille sur la pomme pour la garder blanche",
     "Récolter avant que les grains ne s'écartent"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Cauliflower",
+   "famille_en": "Brassicaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Snap a leaf over the head to keep it white",
+    "Harvest before the beads start to separate"
+   ]
   },
   {
    "id": "chou-rave",
@@ -1898,7 +2202,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier : un à-coup le rend ligneux."
+    "notes": "Régulier : un à-coup le rend ligneux.",
+    "notes_en": "Regular: an interruption turns it woody."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 25,
@@ -1932,7 +2237,14 @@
     "Récolter à la taille d'une balle de tennis, pas plus gros",
     "La boule pousse au-dessus du sol : ne jamais la butter"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Kohlrabi",
+   "famille_en": "Brassicaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Harvest at tennis-ball size, no bigger",
+    "The bulb grows above ground: never earth it up"
+   ]
   },
   {
    "id": "chataignier",
@@ -1946,7 +2258,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 12,
-    "notes": "Aucun arrosage une fois installé."
+    "notes": "Aucun arrosage une fois installé.",
+    "notes_en": "No watering once established."
    },
    "sol": "acide, drainé, sans calcaire",
    "espacement_cm": 1000,
@@ -1977,7 +2290,14 @@
     "Refuse absolument le calcaire : inutile d'insister en sol crayeux",
     "Deux variétés pour la pollinisation, et vingt mètres de dégagement"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Sweet chestnut",
+   "famille_en": "Fagaceae",
+   "sol_en": "acid, free draining, lime-free",
+   "conseils_en": [
+    "Flatly refuses lime: no point persisting on chalk",
+    "Two varieties for pollination, and twenty metres of clearance"
+   ]
   },
   {
    "id": "ciboule",
@@ -1991,7 +2311,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 5,
-    "notes": "Modéré."
+    "notes": "Modéré.",
+    "notes_en": "Moderate."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 10,
@@ -2023,7 +2344,13 @@
    "conseils": [
     "Se coupe comme de la ciboulette et repousse toute la saison"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Welsh onion",
+   "famille_en": "Amaryllidaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Cut like chives and it regrows all season"
+   ]
   },
   {
    "id": "ciboulette",
@@ -2037,7 +2364,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Régulier, elle aime la fraîcheur."
+    "notes": "Régulier, elle aime la fraîcheur.",
+    "notes_en": "Regular, it likes cool soil."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 20,
@@ -2076,7 +2404,14 @@
     "Diviser la touffe tous les 3 ans"
    ],
    "profondeur_semis_cm": 1,
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Chives",
+   "famille_en": "Amaryllidaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Cut 3 cm above the ground, it regrows three or four times a season",
+    "Divide the clump every three years"
+   ]
   },
   {
    "id": "citrouille",
@@ -2090,7 +2425,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Volume d'eau important, surtout pendant le grossissement."
+    "notes": "Volume d'eau important, surtout pendant le grossissement.",
+    "notes_en": "Large volumes of water, especially while it is bulking up."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 150,
@@ -2128,7 +2464,13 @@
    "conseils": [
     "Glisser une planchette sous le fruit pour éviter qu'il pourrisse"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Pumpkin",
+   "famille_en": "Cucurbitaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Slide a board under the fruit to stop it rotting"
+   ]
   },
   {
    "id": "claytone",
@@ -2142,7 +2484,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Garder frais ; elle apprécie la mi-ombre."
+    "notes": "Garder frais ; elle apprécie la mi-ombre.",
+    "notes_en": "Keep it moist; it appreciates partial shade."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 15,
@@ -2172,7 +2515,14 @@
     "Salade d'hiver increvable, elle pousse sous la neige",
     "Se ressème toute seule une fois installée"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Miner's lettuce",
+   "famille_en": "Montiaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "An indestructible winter salad, it grows under snow",
+    "Self-seeds on its own once established"
+   ]
   },
   {
    "id": "cognassier",
@@ -2186,7 +2536,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Aime les sols frais, mais ne demande aucun arrosage une fois pris."
+    "notes": "Aime les sols frais, mais ne demande aucun arrosage une fois pris.",
+    "notes_en": "Likes moist soil, but asks for nothing once established."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 400,
@@ -2219,7 +2570,14 @@
     "Autofertile : un seul arbre suffit",
     "Cueillir quand le duvet s'efface et que le parfum embaume"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Quince tree",
+   "famille_en": "Rosaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Self-fertile: one tree is enough",
+    "Pick when the down fades and the scent fills the air"
+   ]
   },
   {
    "id": "concombre",
@@ -2233,7 +2591,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Un manque d'eau rend les fruits amers."
+    "notes": "Un manque d'eau rend les fruits amers.",
+    "notes_en": "A shortage of water makes the fruit bitter."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 80,
@@ -2273,7 +2632,13 @@
    "conseils": [
     "Palisser à la verticale : fruits plus droits, moins de maladies"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Cucumber",
+   "famille_en": "Cucurbitaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Train it vertically: straighter fruit, less disease"
+   ]
   },
   {
    "id": "consoude",
@@ -2287,7 +2652,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 5,
-    "notes": "Aime les sols riches et frais."
+    "notes": "Aime les sols riches et frais.",
+    "notes_en": "Likes rich, moist soil."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 80,
@@ -2322,7 +2688,15 @@
     "Choisir la variété Bocking 14, stérile : les autres envahissent tout",
     "Ses racines descendent à deux mètres et remontent les minéraux"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Comfrey",
+   "famille_en": "Boraginaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Three or four cuts a year for liquid feed, rich in potash",
+    "Choose the sterile Bocking 14: the others take over everything",
+    "Its roots go down two metres and bring minerals back up"
+   ]
   },
   {
    "id": "coriandre",
@@ -2336,7 +2710,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier ; le sec la fait monter aussitôt."
+    "notes": "Régulier ; le sec la fait monter aussitôt.",
+    "notes_en": "Regular; dryness sends it to seed at once."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 15,
@@ -2366,7 +2741,13 @@
    "conseils": [
     "Monte très vite en été : semer peu et souvent, ou à l'ombre légère"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Coriander",
+   "famille_en": "Apiaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Bolts very fast in summer: sow a little and often, or in light shade"
+   ]
   },
   {
    "id": "cornichon",
@@ -2380,7 +2761,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Arrosage régulier, sinon les fruits avortent."
+    "notes": "Arrosage régulier, sinon les fruits avortent.",
+    "notes_en": "Water regularly, or the fruit aborts."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 70,
@@ -2418,7 +2800,13 @@
    "conseils": [
     "Cueillir tous les deux jours au plus fort de la production"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Gherkin",
+   "famille_en": "Cucurbitaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Pick every other day at the height of production"
+   ]
   },
   {
    "id": "cosmos",
@@ -2432,7 +2820,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 6,
-    "notes": "Sobre."
+    "notes": "Sobre.",
+    "notes_en": "Frugal."
    },
    "sol": "pauvre : trop riche, il ne fait que des feuilles",
    "espacement_cm": 40,
@@ -2462,7 +2851,14 @@
     "Aimant à syrphes et à chrysopes, dont les larves mangent les pucerons",
     "Fleurit jusqu'aux gelées et se ressème seul"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Cosmos",
+   "famille_en": "Asteraceae",
+   "sol_en": "poor: too rich and it makes nothing but leaves",
+   "conseils_en": [
+    "A magnet for hoverflies and lacewings, whose larvae eat aphids",
+    "Flowers until the frosts and self-seeds"
+   ]
   },
   {
    "id": "courge-butternut",
@@ -2476,7 +2872,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Arrosages copieux mais espacés ; couper l'eau à l'approche de la récolte."
+    "notes": "Arrosages copieux mais espacés ; couper l'eau à l'approche de la récolte.",
+    "notes_en": "Generous but infrequent watering; cut the water off as harvest nears."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 120,
@@ -2516,7 +2913,14 @@
     "Récolter quand le pédoncule est sec et liégeux",
     "Laisser ressuyer une semaine au soleil avant de stocker"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Butternut squash",
+   "famille_en": "Cucurbitaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Harvest when the stalk is dry and corky",
+    "Leave to dry off in the sun for a week before storing"
+   ]
   },
   {
    "id": "courge-muscade",
@@ -2530,7 +2934,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Gros buveur en été, à sevrer en fin de cycle."
+    "notes": "Gros buveur en été, à sevrer en fin de cycle.",
+    "notes_en": "A heavy drinker in summer, to be weaned off at the end of the cycle."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 150,
@@ -2570,7 +2975,14 @@
     "Exige une longue saison chaude : à réserver aux étés francs",
     "Un seul fruit nourrit une famille pendant des semaines"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Musquée de Provence squash",
+   "famille_en": "Cucurbitaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Demands a long warm season: keep it for proper summers",
+    "A single fruit feeds a family for weeks"
+   ]
   },
   {
    "id": "courge-spaghetti",
@@ -2584,7 +2996,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Copieux mais espacés ; couper l'eau à l'approche de la récolte."
+    "notes": "Copieux mais espacés ; couper l'eau à l'approche de la récolte.",
+    "notes_en": "Generous but infrequent; cut the water off as harvest nears."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 110,
@@ -2624,7 +3037,14 @@
     "Sa chair se défait en filaments à la cuisson, d'où son nom",
     "Récolter quand l'écorce résiste à l'ongle, vers la mi-septembre"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Spaghetti squash",
+   "famille_en": "Cucurbitaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "The flesh falls apart into strands when cooked, hence the name",
+    "Harvest when the skin resists a fingernail, around mid-September"
+   ]
   },
   {
    "id": "courgette",
@@ -2638,7 +3058,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Beaucoup d'eau, au pied, sans mouiller les feuilles."
+    "notes": "Beaucoup d'eau, au pied, sans mouiller les feuilles.",
+    "notes_en": "Plenty of water, at the base, without wetting the leaves."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 100,
@@ -2684,7 +3105,14 @@
     "Récolter jeune et souvent : un plant freine dès qu'un fruit grossit",
     "Deux plants suffisent pour une famille"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Courgette",
+   "famille_en": "Cucurbitaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Harvest young and often: a plant slows down as soon as one fruit swells",
+    "Two plants are enough for a family"
+   ]
   },
   {
    "id": "cresson-alenois",
@@ -2698,7 +3126,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Toujours humide."
+    "notes": "Toujours humide.",
+    "notes_en": "Always damp."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 5,
@@ -2727,7 +3156,13 @@
    "conseils": [
     "Prêt en trois semaines : le plus rapide après le radis"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Garden cress",
+   "famille_en": "Brassicaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Ready in three weeks: the fastest after radish"
+   ]
   },
   {
    "id": "cresson-fontaine",
@@ -2741,7 +3176,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 1,
-    "notes": "Les pieds littéralement dans l'eau : bac, mare ou ruisseau."
+    "notes": "Les pieds littéralement dans l'eau : bac, mare ou ruisseau.",
+    "notes_en": "Feet literally in water: a tub, a pond or a stream."
    },
    "sol": "toujours détrempé, au bord de l'eau",
    "espacement_cm": 20,
@@ -2773,7 +3209,14 @@
     "Ne jamais récolter de cresson sauvage : risque de douve du foie"
    ],
    "profondeur_semis_cm": 0.5,
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Watercress",
+   "famille_en": "Brassicaceae",
+   "sol_en": "permanently wet, at the water's edge",
+   "conseils_en": [
+    "Impossible in ordinary ground: it needs running water or a tub",
+    "Never gather wild watercress: risk of liver fluke"
+   ]
   },
   {
    "id": "crosne",
@@ -2787,7 +3230,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 5,
-    "notes": "Arroser en été pour grossir les tubercules."
+    "notes": "Arroser en été pour grossir les tubercules.",
+    "notes_en": "Water in summer to swell the tubers."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 40,
@@ -2818,7 +3262,13 @@
     "Récolter après les premières gelées et ne pas chercher à les conserver"
    ],
    "profondeur_semis_cm": 8,
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Chinese artichoke",
+   "famille_en": "Lamiaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Harvest after the first frosts and do not try to store them"
+   ]
   },
   {
    "id": "celeri-branche",
@@ -2832,7 +3282,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Jamais sec, jamais : c'est une plante de marais."
+    "notes": "Jamais sec, jamais : c'est une plante de marais.",
+    "notes_en": "Never dry, ever: this is a marsh plant."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 30,
@@ -2872,7 +3323,13 @@
    "conseils": [
     "Butter ou lier en fin de culture pour blanchir les côtes"
    ],
-   "profondeur_semis_cm": 0.2
+   "profondeur_semis_cm": 0.2,
+   "nom_en": "Celery",
+   "famille_en": "Apiaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Earth up or tie late in the season to blanch the stalks"
+   ]
   },
   {
    "id": "celeri-couper",
@@ -2886,7 +3343,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 3,
-    "notes": "Jamais sec, comme tous les céleris."
+    "notes": "Jamais sec, comme tous les céleris.",
+    "notes_en": "Never dry, like every celery."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 20,
@@ -2920,7 +3378,14 @@
     "Bien plus facile que le céleri branche, et aussi parfumé",
     "Se coupe au fur et à mesure pendant des mois"
    ],
-   "profondeur_semis_cm": 0.2
+   "profondeur_semis_cm": 0.2,
+   "nom_en": "Leaf celery",
+   "famille_en": "Apiaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Far easier than celery, and just as fragrant",
+    "Cut as you need it, for months"
+   ]
   },
   {
    "id": "celeri-rave",
@@ -2934,7 +3399,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Jamais à sec : c'est la culture la plus assoiffée du potager."
+    "notes": "Jamais à sec : c'est la culture la plus assoiffée du potager.",
+    "notes_en": "Never dry: this is the thirstiest crop in the garden."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 35,
@@ -2974,7 +3440,13 @@
    "conseils": [
     "Dégager la base de la boule en fin d'été pour qu'elle grossisse"
    ],
-   "profondeur_semis_cm": 0.2
+   "profondeur_semis_cm": 0.2,
+   "nom_en": "Celeriac",
+   "famille_en": "Apiaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Clear soil from the base of the bulb in late summer so it swells"
+   ]
   },
   {
    "id": "daikon",
@@ -2988,7 +3460,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier, sinon la racine devient piquante et creuse."
+    "notes": "Régulier, sinon la racine devient piquante et creuse.",
+    "notes_en": "Regular, or the root turns hot and hollow."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 20,
@@ -3020,7 +3493,14 @@
     "Semé fin août, il se récolte d'octobre aux gelées",
     "Sa racine descend profond : ameublir sur 30 cm"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Daikon radish",
+   "famille_en": "Brassicaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Sown in late August, harvested from October to the frosts",
+    "Its root goes deep: loosen the soil to 30 cm"
+   ]
   },
   {
    "id": "endive",
@@ -3034,7 +3514,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Régulier pendant la formation de la racine."
+    "notes": "Régulier pendant la formation de la racine.",
+    "notes_en": "Regular while the root is forming."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 12,
@@ -3064,7 +3545,14 @@
     "Deux temps : la racine au jardin l'été, le forçage à l'obscurité l'hiver",
     "Arracher les racines en novembre et les forcer en cave par lots"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Belgian endive",
+   "famille_en": "Asteraceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Two stages: the root in the garden in summer, forcing in the dark in winter",
+    "Lift the roots in November and force them in batches in the cellar"
+   ]
   },
   {
    "id": "estragon",
@@ -3078,7 +3566,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 5,
-    "notes": "Modéré ; redoute l'humidité stagnante l'hiver."
+    "notes": "Modéré ; redoute l'humidité stagnante l'hiver.",
+    "notes_en": "Moderate; fears standing damp in winter."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 50,
@@ -3112,7 +3601,14 @@
     "Protéger le pied l'hiver par un paillage sec",
     "Diviser tous les 3 ans, il s'épuise"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Tarragon",
+   "famille_en": "Asteraceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Protect the crown in winter with a dry mulch",
+    "Divide every three years, it exhausts itself"
+   ]
   },
   {
    "id": "fenouil-aromatique",
@@ -3126,7 +3622,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 7,
-    "notes": "Très sobre une fois installé."
+    "notes": "Très sobre une fois installé.",
+    "notes_en": "Very frugal once established."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 60,
@@ -3165,7 +3662,14 @@
     "Ses ombelles jaunes attirent quantité d'insectes auxiliaires"
    ],
    "profondeur_semis_cm": 1,
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Herb fennel",
+   "famille_en": "Apiaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "A notoriously bad neighbour: keep it in a corner of its own",
+    "Its yellow umbels draw a great many beneficial insects"
+   ]
   },
   {
    "id": "fenouil-bulbeux",
@@ -3179,7 +3683,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier, sinon il monte sans faire de bulbe."
+    "notes": "Régulier, sinon il monte sans faire de bulbe.",
+    "notes_en": "Regular, or it bolts without making a bulb."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 25,
@@ -3214,7 +3719,14 @@
     "Semer après le solstice : semé trop tôt, il monte systématiquement",
     "Mauvais voisin pour presque tout : lui donner un coin à part"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Florence fennel",
+   "famille_en": "Apiaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Sow after the solstice: sown too early, it bolts every time",
+    "A bad neighbour for almost everything: give it a corner of its own"
+   ]
   },
   {
    "id": "figuier",
@@ -3228,7 +3740,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Très sobre ; trop d'eau dilue le goût des figues."
+    "notes": "Très sobre ; trop d'eau dilue le goût des figues.",
+    "notes_en": "Very frugal; too much water waters down the figs."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 400,
@@ -3259,7 +3772,14 @@
     "Se plaît contre un mur au sud, racines contenues",
     "Parfaitement adapté au climat de la Loire-Atlantique"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Fig tree",
+   "famille_en": "Moraceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Happy against a south wall, with its roots confined",
+    "Perfectly suited to the Loire-Atlantique climate"
+   ]
   },
   {
    "id": "fraisier",
@@ -3273,7 +3793,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Régulier, au pied : l'eau sur les fruits les fait pourrir."
+    "notes": "Régulier, au pied : l'eau sur les fruits les fait pourrir.",
+    "notes_en": "Regular, at the base: water on the fruit makes it rot."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 35,
@@ -3313,7 +3834,15 @@
     "Pailler pour garder les fruits propres et hors du sol",
     "Remplacer les pieds tous les 3 ans, le rendement s'effondre après"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Strawberry",
+   "famille_en": "Rosaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Plant in September to harvest the following spring",
+    "Mulch to keep the fruit clean and off the soil",
+    "Replace the plants every three years, yield collapses after that"
+   ]
   },
   {
    "id": "fraisier-remontant",
@@ -3327,7 +3856,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Comme le fraisier classique, mais sur une période bien plus longue."
+    "notes": "Comme le fraisier classique, mais sur une période bien plus longue.",
+    "notes_en": "Like an ordinary strawberry, but over a far longer season."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 35,
@@ -3364,7 +3894,14 @@
     "Produit par vagues de juin aux gelées",
     "Supprimer les stolons pour favoriser les fruits"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Everbearing strawberry",
+   "famille_en": "Rosaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Crops in flushes from June to the frosts",
+    "Remove the runners to favour the fruit"
+   ]
   },
   {
    "id": "framboisier",
@@ -3378,7 +3915,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Aime les sols frais ; pailler plutôt qu'arroser beaucoup."
+    "notes": "Aime les sols frais ; pailler plutôt qu'arroser beaucoup.",
+    "notes_en": "Likes moist soil; mulch rather than water heavily."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 50,
@@ -3414,7 +3952,14 @@
     "Palisser sur deux fils : sans cela c'est un roncier",
     "Non remontant : couper au sol les cannes qui ont fructifié"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Raspberry",
+   "famille_en": "Rosaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Train it on two wires: without that it is a bramble thicket",
+    "Summer-fruiting: cut the canes that have fruited to the ground"
+   ]
   },
   {
    "id": "framboisier-remontant",
@@ -3428,7 +3973,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Comme le non remontant."
+    "notes": "Comme le non remontant.",
+    "notes_en": "Same as the summer-fruiting kind."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 50,
@@ -3462,7 +4008,13 @@
    "conseils": [
     "Taille simple : tout rabattre au sol en février"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Autumn raspberry",
+   "famille_en": "Rosaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Simple pruning: cut everything to the ground in February"
+   ]
   },
   {
    "id": "feve",
@@ -3476,7 +4028,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 5,
-    "notes": "Peu exigeante, l'hiver s'en charge."
+    "notes": "Peu exigeante, l'hiver s'en charge.",
+    "notes_en": "Undemanding, winter sees to it."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 20,
@@ -3511,7 +4064,14 @@
     "Semée en novembre, elle passe l'hiver et devance les pucerons noirs",
     "Pincer les têtes dès l'apparition des premiers pucerons"
    ],
-   "profondeur_semis_cm": 5
+   "profondeur_semis_cm": 5,
+   "nom_en": "Broad bean",
+   "famille_en": "Fabaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Sown in November, it overwinters and gets ahead of the blackfly",
+    "Pinch out the tips as soon as the first aphids show"
+   ]
   },
   {
    "id": "goji",
@@ -3525,7 +4085,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 8,
-    "notes": "Très sobre, il préfère le sec."
+    "notes": "Très sobre, il préfère le sec.",
+    "notes_en": "Very frugal, it prefers dry conditions."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 180,
@@ -3559,7 +4120,14 @@
     "Palisser : laissé libre, il devient un buisson retombant ingérable",
     "Ne fructifie vraiment qu'à partir de la troisième année"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Goji berry",
+   "famille_en": "Solanaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Train it: left alone it becomes an unmanageable sprawling bush",
+    "It does not really fruit before the third year"
+   ]
   },
   {
    "id": "gombo",
@@ -3573,7 +4141,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier, mais il déteste les pieds mouillés."
+    "notes": "Régulier, mais il déteste les pieds mouillés.",
+    "notes_en": "Regular, but it hates wet feet."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 50,
@@ -3610,7 +4179,14 @@
     "Demande une vraie chaleur : serre ou mur plein sud sous climat océanique",
     "Cueillir les gousses à 7-8 cm, elles deviennent filandreuses ensuite"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Okra",
+   "famille_en": "Malvaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Needs real heat: a greenhouse or a south wall in a maritime climate",
+    "Pick the pods at 7-8 cm, they turn stringy after that"
+   ]
   },
   {
    "id": "groseillier",
@@ -3624,7 +4200,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Modéré ; supporte la mi-ombre."
+    "notes": "Modéré ; supporte la mi-ombre.",
+    "notes_en": "Moderate; tolerates partial shade."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 120,
@@ -3657,7 +4234,14 @@
     "Tolère très bien la mi-ombre : utile pour les coins ingrats",
     "Supprimer le bois de plus de 4 ans en hiver"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Redcurrant",
+   "famille_en": "Grossulariaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Very tolerant of partial shade: useful for awkward corners",
+    "Take out wood more than four years old in winter"
+   ]
   },
   {
    "id": "groseillier-maquereau",
@@ -3671,7 +4255,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Modéré ; il supporte bien la mi-ombre."
+    "notes": "Modéré ; il supporte bien la mi-ombre.",
+    "notes_en": "Moderate; it copes well with partial shade."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 120,
@@ -3704,7 +4289,14 @@
     "Épineux : tailler en gobelet pour pouvoir cueillir",
     "Se récolte vert pour les tartes, mûr pour le frais"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Gooseberry",
+   "famille_en": "Grossulariaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Thorny: prune to an open goblet so you can pick",
+    "Picked green for tarts, ripe for eating fresh"
+   ]
   },
   {
    "id": "haricot-espagne",
@@ -3718,7 +4310,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier à la floraison."
+    "notes": "Régulier à la floraison.",
+    "notes_en": "Regular at flowering."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 20,
@@ -3751,7 +4344,14 @@
     "Fleurs rouges très décoratives, et comestibles",
     "Plus rustique que le haricot vert : il supporte les étés frais"
    ],
-   "profondeur_semis_cm": 4
+   "profondeur_semis_cm": 4,
+   "nom_en": "Runner bean",
+   "famille_en": "Fabaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Very decorative red flowers, and edible",
+    "Hardier than a French bean: it copes with cool summers"
+   ]
   },
   {
    "id": "haricot-sec",
@@ -3765,7 +4365,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 6,
-    "notes": "Sobre ; arrêter l'arrosage dès que les gousses jaunissent."
+    "notes": "Sobre ; arrêter l'arrosage dès que les gousses jaunissent.",
+    "notes_en": "Frugal; stop watering as soon as the pods turn yellow."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 12,
@@ -3797,7 +4398,13 @@
    "conseils": [
     "Arracher les plants entiers et les faire sécher tête en bas"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Drying bean",
+   "famille_en": "Fabaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Pull whole plants and hang them upside down to dry"
+   ]
   },
   {
    "id": "haricot-nain",
@@ -3811,7 +4418,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Ne pas arroser avant la levée, puis régulièrement à la floraison."
+    "notes": "Ne pas arroser avant la levée, puis régulièrement à la floraison.",
+    "notes_en": "Do not water before germination, then regularly at flowering."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 10,
@@ -3848,7 +4456,14 @@
     "Semer tous les 15 jours jusqu'en juillet pour étaler la récolte",
     "Récolter tous les deux jours : un haricot oublié stoppe le plant"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Dwarf French bean",
+   "famille_en": "Fabaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Sow every fortnight until July to spread the harvest",
+    "Harvest every other day: one forgotten bean stops the plant"
+   ]
   },
   {
    "id": "haricot-a-rames",
@@ -3862,7 +4477,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier dès la floraison."
+    "notes": "Régulier dès la floraison.",
+    "notes_en": "Regular from flowering onwards."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 15,
@@ -3898,7 +4514,14 @@
     "Installer les tuteurs avant de semer",
     "Produit plus longtemps que le nain"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Climbing French bean",
+   "famille_en": "Fabaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Put the supports in before sowing",
+    "Crops over a longer period than the dwarf kind"
+   ]
   },
   {
    "id": "houblon",
@@ -3912,7 +4535,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Aime les sols frais et profonds."
+    "notes": "Aime les sols frais et profonds.",
+    "notes_en": "Likes deep, moist soil."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 150,
@@ -3944,7 +4568,15 @@
     "Seuls les pieds femelles donnent des cônes",
     "Les jeunes pousses de printemps se mangent comme des asperges"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Hop",
+   "famille_en": "Cannabaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Six metres in one season: it needs a strong wire up to the roof",
+    "Only the female plants bear cones",
+    "The young spring shoots eat like asparagus"
+   ]
   },
   {
    "id": "hysope",
@@ -3958,7 +4590,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 8,
-    "notes": "Sobre : une méditerranéenne de plus."
+    "notes": "Sobre : une méditerranéenne de plus.",
+    "notes_en": "Frugal: one more Mediterranean plant."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 40,
@@ -3994,7 +4627,14 @@
     "Ses fleurs bleues attirent les abeilles tout l'été",
     "Plantée près des choux, elle détourne la piéride"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Hyssop",
+   "famille_en": "Lamiaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Its blue flowers draw bees all summer",
+    "Planted near brassicas, it draws the cabbage white away"
+   ]
   },
   {
    "id": "kaki",
@@ -4008,7 +4648,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 8,
-    "notes": "Arroser les trois premières années, puis plus rien."
+    "notes": "Arroser les trois premières années, puis plus rien.",
+    "notes_en": "Water for the first three years, then nothing."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 450,
@@ -4039,7 +4680,14 @@
     "Se récolte après la chute des feuilles, quand le fruit est translucide",
     "Choisir une variété non astringente si l'on veut croquer le fruit ferme"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Persimmon",
+   "famille_en": "Ebenaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Harvested after leaf fall, when the fruit turns translucent",
+    "Choose a non-astringent variety if you want to eat the fruit firm"
+   ]
   },
   {
    "id": "kiwi",
@@ -4053,7 +4701,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 3,
-    "notes": "Gros besoins en été ; le feuillage flétrit vite s'il manque d'eau."
+    "notes": "Gros besoins en été ; le feuillage flétrit vite s'il manque d'eau.",
+    "notes_en": "Thirsty in summer; the foliage wilts quickly when water runs short."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 400,
@@ -4085,7 +4734,15 @@
     "Prévoir une pergola solide : il devient très lourd",
     "Récolter avant les gelées et laisser mûrir en cagette"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Kiwi",
+   "famille_en": "Actinidiaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "One male plant per five females, unless the variety is self-fertile",
+    "Allow for a sturdy pergola: it gets very heavy",
+    "Harvest before the frosts and let them ripen in a crate"
+   ]
   },
   {
    "id": "laitue",
@@ -4099,7 +4756,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Le matin, au pied : l'eau sur les feuilles au soleil les brûle."
+    "notes": "Le matin, au pied : l'eau sur les feuilles au soleil les brûle.",
+    "notes_en": "In the morning, at the base: water on the leaves in full sun scorches them."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 25,
@@ -4141,7 +4799,14 @@
     "Semer 6 à 8 pieds tous les 15 jours plutôt qu'une planche entière",
     "Ne pas enterrer la graine : elle a besoin de lumière pour germer"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Lettuce",
+   "famille_en": "Asteraceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Sow six to eight plants every fortnight rather than a whole bed",
+    "Do not bury the seed: it needs light to germinate"
+   ]
   },
   {
    "id": "laitue-hiver",
@@ -4155,7 +4820,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Modéré, l'hiver fournit l'essentiel."
+    "notes": "Modéré, l'hiver fournit l'essentiel.",
+    "notes_en": "Moderate, winter supplies most of it."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 25,
@@ -4186,7 +4852,13 @@
    "conseils": [
     "Variétés 'Merveille d'hiver' ou 'Rougette' : les seules à passer le froid"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Winter lettuce",
+   "famille_en": "Asteraceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "'Merveille d'hiver' or 'Rougette': the only ones that come through the cold"
+   ]
   },
   {
    "id": "laurier-sauce",
@@ -4200,7 +4872,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Aucun arrosage une fois établi."
+    "notes": "Aucun arrosage une fois établi.",
+    "notes_en": "No watering once established."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 150,
@@ -4231,7 +4904,14 @@
     "Devient un arbre : prévoir la place ou le tailler en boule",
     "Se cueille toute l'année"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Bay laurel",
+   "famille_en": "Lauraceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "It becomes a tree: allow the space or keep it clipped to a ball",
+    "Picked all year round"
+   ]
   },
   {
    "id": "lavande",
@@ -4245,7 +4925,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 12,
-    "notes": "Aucun arrosage : elle meurt d'excès d'eau, jamais de sécheresse."
+    "notes": "Aucun arrosage : elle meurt d'excès d'eau, jamais de sécheresse.",
+    "notes_en": "No watering: it dies of too much water, never of drought."
    },
    "sol": "pauvre, caillouteux, très drainé",
    "espacement_cm": 60,
@@ -4279,7 +4960,14 @@
     "Tailler en boule après la floraison, sans jamais couper dans le vieux bois",
     "Une bordure de lavande éloigne les pucerons et nourrit les abeilles"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Lavender",
+   "famille_en": "Lamiaceae",
+   "sol_en": "poor, stony, very free draining",
+   "conseils_en": [
+    "Clip to a ball after flowering, never cutting into old wood",
+    "A lavender edging keeps aphids off and feeds the bees"
+   ]
   },
   {
    "id": "lentille",
@@ -4293,7 +4981,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Ne jamais arroser : l'excès d'eau la fait verser."
+    "notes": "Ne jamais arroser : l'excès d'eau la fait verser.",
+    "notes_en": "Never water: too much and it flops over."
    },
    "sol": "pauvre, caillouteux, très drainé",
    "espacement_cm": 5,
@@ -4325,7 +5014,14 @@
     "Réussit en sol pauvre, là où rien d'autre ne donne",
     "Arracher les plants entiers quand les gousses du bas brunissent"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Lentil",
+   "famille_en": "Fabaceae",
+   "sol_en": "poor, stony, very free draining",
+   "conseils_en": [
+    "Succeeds in poor soil, where nothing else will crop",
+    "Pull whole plants once the lower pods turn brown"
+   ]
   },
   {
    "id": "liveche",
@@ -4339,7 +5035,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Aime la fraîcheur."
+    "notes": "Aime la fraîcheur.",
+    "notes_en": "Likes cool soil."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 80,
@@ -4370,7 +5067,14 @@
     "Goût de céleri en plus puissant : quelques feuilles suffisent",
     "Monte à 2 m : à placer au fond du jardin"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Lovage",
+   "famille_en": "Apiaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Celery flavour, only stronger: a few leaves are plenty",
+    "Reaches 2 m: put it at the back of the garden"
+   ]
   },
   {
    "id": "marjolaine",
@@ -4384,7 +5088,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 6,
-    "notes": "Sobre."
+    "notes": "Sobre.",
+    "notes_en": "Frugal."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 25,
@@ -4421,7 +5126,14 @@
     "Plus douce et plus fine que l'origan, mais gélive : à rentrer ou ressemer",
     "Se cultive très bien en pot"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Marjoram",
+   "famille_en": "Lamiaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Milder and finer than oregano, but frost-tender: bring it in or sow again",
+    "Grows very well in a pot"
+   ]
   },
   {
    "id": "mauve",
@@ -4435,7 +5147,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 7,
-    "notes": "Très sobre."
+    "notes": "Très sobre.",
+    "notes_en": "Very frugal."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 50,
@@ -4467,7 +5180,14 @@
     "Se ressème abondamment : arracher les surnuméraires au printemps"
    ],
    "profondeur_semis_cm": 1,
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Common mallow",
+   "famille_en": "Malvaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Flowers and young leaves are edible, in salad or as a tea",
+    "Self-seeds freely: pull out the surplus in spring"
+   ]
   },
   {
    "id": "mais-doux",
@@ -4481,7 +5201,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 3,
-    "notes": "Très assoiffé à la floraison : ne jamais laisser sécher à ce stade."
+    "notes": "Très assoiffé à la floraison : ne jamais laisser sécher à ce stade.",
+    "notes_en": "Very thirsty at flowering: never let it dry out at that stage."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 40,
@@ -4515,7 +5236,14 @@
     "Semer en bloc carré, jamais en ligne unique : la pollinisation en dépend",
     "Récolter quand les soies brunissent"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Sweetcorn",
+   "famille_en": "Poaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Sow in a square block, never a single row: pollination depends on it",
+    "Harvest when the silks turn brown"
+   ]
   },
   {
    "id": "mais-popcorn",
@@ -4529,7 +5257,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Assoiffé à la floraison, comme le maïs doux."
+    "notes": "Assoiffé à la floraison, comme le maïs doux.",
+    "notes_en": "Thirsty at flowering, like sweetcorn."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 35,
@@ -4563,7 +5292,15 @@
     "Jamais près du maïs doux : ils se croisent et gâchent les deux",
     "Faire sécher les épis deux mois avant de tenter le premier pop"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Popcorn maize",
+   "famille_en": "Poaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Harvested dry, unlike sweetcorn: wait for the stems to brown",
+    "Never near sweetcorn: they cross and spoil both",
+    "Dry the cobs for two months before trying your first pop"
+   ]
   },
   {
    "id": "melon",
@@ -4577,7 +5314,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Réduire fortement l'eau dix jours avant la récolte : c'est ce qui fait le sucre."
+    "notes": "Réduire fortement l'eau dix jours avant la récolte : c'est ce qui fait le sucre.",
+    "notes_en": "Cut the water right back ten days before harvest: that is what makes the sugar."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 100,
@@ -4617,7 +5355,14 @@
     "Pailler avec une bâche ou de l'ardoise pour accumuler la chaleur",
     "Récolter quand le pédoncule se craquelle et que le parfum monte"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Melon",
+   "famille_en": "Cucurbitaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Mulch with sheeting or slate to store up heat",
+    "Harvest when the stalk cracks and the scent rises"
+   ]
   },
   {
    "id": "menthe",
@@ -4631,7 +5376,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Aime avoir les pieds au frais, presque humides."
+    "notes": "Aime avoir les pieds au frais, presque humides.",
+    "notes_en": "Likes its feet cool, almost damp."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 40,
@@ -4668,7 +5414,14 @@
     "À cultiver en pot, sans exception : en pleine terre elle colonise tout",
     "Rabattre au sol en fin d'été pour une repousse tendre"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Mint",
+   "famille_en": "Lamiaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Grow it in a pot, no exceptions: in open ground it colonises everything",
+    "Cut to the ground in late summer for tender regrowth"
+   ]
   },
   {
    "id": "mizuna",
@@ -4682,7 +5435,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier ; le sec la rend très piquante."
+    "notes": "Régulier ; le sec la rend très piquante.",
+    "notes_en": "Regular; dryness makes it very hot."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 20,
@@ -4714,7 +5468,14 @@
     "Se coupe et repousse trois ou quatre fois",
     "Résiste au froid bien mieux que la roquette"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Mizuna",
+   "famille_en": "Brassicaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Cut and come again three or four times",
+    "Stands cold far better than rocket"
+   ]
   },
   {
    "id": "moutarde-blanche",
@@ -4728,7 +5489,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 8,
-    "notes": "Aucun arrosage."
+    "notes": "Aucun arrosage.",
+    "notes_en": "No watering."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 10,
@@ -4760,7 +5522,15 @@
     "Faucher avant la floraison et laisser sur place",
     "Jamais avant ni après un chou : même famille, mêmes maladies"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "White mustard (green manure)",
+   "famille_en": "Brassicaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Grows in six weeks on any empty bed",
+    "Cut before flowering and leave it where it falls",
+    "Never before or after a brassica: same family, same diseases"
+   ]
   },
   {
    "id": "myrtillier",
@@ -4774,7 +5544,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Eau non calcaire impérative : eau de pluie si possible."
+    "notes": "Eau non calcaire impérative : eau de pluie si possible.",
+    "notes_en": "Lime-free water is essential: rainwater if you can."
    },
    "sol": "acide (pH 4-5), terre de bruyère",
    "espacement_cm": 120,
@@ -4805,7 +5576,14 @@
     "Sol acide obligatoire : en pot avec de la terre de bruyère si le jardin est calcaire",
     "Planter deux variétés différentes pour une bonne pollinisation"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Blueberry",
+   "famille_en": "Ericaceae",
+   "sol_en": "acid (pH 4-5), ericaceous compost",
+   "conseils_en": [
+    "Acid soil is mandatory: in a pot of ericaceous compost if the garden is chalky",
+    "Plant two different varieties for good pollination"
+   ]
   },
   {
    "id": "mache",
@@ -4819,7 +5597,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Garder frais jusqu'à la levée, puis l'oublier."
+    "notes": "Garder frais jusqu'à la levée, puis l'oublier.",
+    "notes_en": "Keep moist until it germinates, then forget it."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 10,
@@ -4850,7 +5629,14 @@
     "Semer sur sol tassé, surtout pas labouré : elle aime la terre ferme",
     "Plombez le semis en tapotant avec le dos du râteau"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Lamb's lettuce",
+   "famille_en": "Caprifoliaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Sow on firm ground, certainly not dug over: it likes solid soil",
+    "Firm the seedbed down with the back of the rake"
+   ]
   },
   {
    "id": "melisse",
@@ -4864,7 +5650,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Aime la fraîcheur et la mi-ombre."
+    "notes": "Aime la fraîcheur et la mi-ombre.",
+    "notes_en": "Likes cool soil and partial shade."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 40,
@@ -4898,7 +5685,14 @@
     "Envahissante par semis spontané : couper les fleurs avant qu'elles montent",
     "Rabattre en juillet pour une repousse tendre"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Lemon balm",
+   "famille_en": "Lamiaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Invasive by self-seeding: cut the flowers before they run to seed",
+    "Cut back in July for tender regrowth"
+   ]
   },
   {
    "id": "murier",
@@ -4912,7 +5706,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 6,
-    "notes": "Très sobre une fois installé."
+    "notes": "Très sobre une fois installé.",
+    "notes_en": "Very frugal once established."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 200,
@@ -4943,7 +5738,14 @@
     "Choisir une variété sans épines, la cueillette change de nature",
     "Palisser sur un grillage et rabattre chaque hiver"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Blackberry",
+   "famille_en": "Rosaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Choose a thornless variety, picking becomes another matter entirely",
+    "Train it on a wire mesh and cut it back each winter"
+   ]
   },
   {
    "id": "nashi",
@@ -4957,7 +5759,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 8,
-    "notes": "Un peu plus exigeant en eau que le poirier européen."
+    "notes": "Un peu plus exigeant en eau que le poirier européen.",
+    "notes_en": "A little thirstier than a European pear."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 400,
@@ -4990,7 +5793,14 @@
     "Croquant comme une pomme, juteux comme une poire",
     "Éclaircir sévèrement : il met trop de fruits et les fait tous petits"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Nashi pear",
+   "famille_en": "Rosaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Crisp as an apple, juicy as a pear",
+    "Thin hard: it sets too much fruit and makes it all small"
+   ]
   },
   {
    "id": "navet",
@@ -5004,7 +5814,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Un arrosage irrégulier le rend fibreux."
+    "notes": "Un arrosage irrégulier le rend fibreux.",
+    "notes_en": "Irregular watering turns it stringy."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 12,
@@ -5036,7 +5847,13 @@
    "conseils": [
     "Récolter jeune, à la taille d'une balle de golf"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Turnip",
+   "famille_en": "Brassicaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Harvest young, at golf-ball size"
+   ]
   },
   {
    "id": "noisetier",
@@ -5050,7 +5867,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Aucun arrosage une fois installé."
+    "notes": "Aucun arrosage une fois installé.",
+    "notes_en": "No watering once established."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 400,
@@ -5081,7 +5899,14 @@
     "Deux variétés différentes pour la pollinisation",
     "Le balanin perce les noisettes : ramasser et détruire les fruits tombés"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Hazel",
+   "famille_en": "Betulaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Two different varieties for pollination",
+    "The nut weevil bores into hazelnuts: gather and destroy the fallen nuts"
+   ]
   },
   {
    "id": "noyer",
@@ -5095,7 +5920,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 12,
-    "notes": "Aucun arrosage une fois établi."
+    "notes": "Aucun arrosage une fois établi.",
+    "notes_en": "No watering once established."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 1000,
@@ -5129,7 +5955,14 @@
     "Rien ne pousse sous un noyer : la juglone inhibe les voisins",
     "Prévoir 10 m de dégagement, c'est un arbre de 20 m"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Walnut tree",
+   "famille_en": "Juglandaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Nothing grows under a walnut: juglone holds back the neighbours",
+    "Allow 10 m of clearance, this is a 20 m tree"
+   ]
   },
   {
    "id": "neflier",
@@ -5143,7 +5976,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Aucun arrosage une fois établi."
+    "notes": "Aucun arrosage une fois établi.",
+    "notes_en": "No watering once established."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 350,
@@ -5174,7 +6008,14 @@
     "Les nèfles ne se mangent que blettes, après les premières gelées",
     "Petit arbre très rustique, et un des derniers fruits de l'année"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Medlar",
+   "famille_en": "Rosaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Medlars are only edible bletted, after the first frosts",
+    "A small, very hardy tree, and one of the last fruits of the year"
+   ]
   },
   {
    "id": "oca-perou",
@@ -5188,7 +6029,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Modéré ; elle grossit surtout à l'automne."
+    "notes": "Modéré ; elle grossit surtout à l'automne.",
+    "notes_en": "Moderate; it mostly bulks up in autumn."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 40,
@@ -5217,7 +6059,14 @@
     "Les tubercules ne se forment qu'aux jours courts, en octobre",
     "Récolter après le premier gel du feuillage, pas avant"
    ],
-   "profondeur_semis_cm": 6
+   "profondeur_semis_cm": 6,
+   "nom_en": "Oca",
+   "famille_en": "Oxalidaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "The tubers only form in short days, in October",
+    "Harvest after the foliage has been frosted, not before"
+   ]
   },
   {
    "id": "oignon-blanc",
@@ -5231,7 +6080,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 6,
-    "notes": "Comme le jaune : sobre."
+    "notes": "Comme le jaune : sobre.",
+    "notes_en": "Like the yellow one: frugal."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 10,
@@ -5263,7 +6113,13 @@
    "conseils": [
     "Semé en août, il se consomme frais au printemps suivant"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Spring onion",
+   "famille_en": "Amaryllidaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Sown in August, eaten fresh the following spring"
+   ]
   },
   {
    "id": "oignon-jaune",
@@ -5277,7 +6133,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 7,
-    "notes": "Très peu d'eau : l'excès fait pourrir le bulbe."
+    "notes": "Très peu d'eau : l'excès fait pourrir le bulbe.",
+    "notes_en": "Very little water: too much rots the bulb."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 12,
@@ -5313,7 +6170,14 @@
     "Coucher le feuillage en fin de cycle pour hâter la maturité",
     "Faire sécher au soleil une semaine avant de stocker"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Yellow onion",
+   "famille_en": "Amaryllidaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Bend the foliage over at the end of the cycle to hasten ripening",
+    "Dry in the sun for a week before storing"
+   ]
   },
   {
    "id": "oignon-rocambole",
@@ -5327,7 +6191,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 8,
-    "notes": "Rustique et sobre."
+    "notes": "Rustique et sobre.",
+    "notes_en": "Hardy and frugal."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 25,
@@ -5365,7 +6230,14 @@
     "Une fois installé, il revient indéfiniment sans qu'on s'en occupe"
    ],
    "profondeur_semis_cm": 3,
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Walking onion",
+   "famille_en": "Amaryllidaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "It makes its bulbils at the top of the stem, which replant themselves",
+    "Once established it comes back indefinitely with no attention"
+   ]
   },
   {
    "id": "oignon-rouge",
@@ -5379,7 +6251,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 7,
-    "notes": "Très peu d'eau, comme tous les oignons."
+    "notes": "Très peu d'eau, comme tous les oignons.",
+    "notes_en": "Very little water, like every onion."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 12,
@@ -5412,7 +6285,13 @@
    "conseils": [
     "Se conserve moins longtemps que le jaune : à consommer en premier"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Red onion",
+   "famille_en": "Amaryllidaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Keeps less well than the yellow one: eat it first"
+   ]
   },
   {
    "id": "origan",
@@ -5426,7 +6305,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 8,
-    "notes": "Sobre."
+    "notes": "Sobre.",
+    "notes_en": "Frugal."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 35,
@@ -5460,7 +6340,13 @@
    "conseils": [
     "Le plus parfumé juste avant la floraison : c'est le moment de le sécher"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Oregano",
+   "famille_en": "Lamiaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "At its most fragrant just before flowering: that is the moment to dry it"
+   ]
   },
   {
    "id": "oseille",
@@ -5474,7 +6360,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Aime les sols frais ; elle monte si elle a soif."
+    "notes": "Aime les sols frais ; elle monte si elle a soif.",
+    "notes_en": "Likes moist soil; it bolts when thirsty."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 30,
@@ -5506,7 +6393,14 @@
     "Couper les hampes florales dès qu'elles montent, pour garder les feuilles tendres"
    ],
    "profondeur_semis_cm": 1,
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Sorrel",
+   "famille_en": "Polygonaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "One clump is enough for years",
+    "Cut the flower stems as soon as they rise, to keep the leaves tender"
+   ]
   },
   {
    "id": "panais",
@@ -5520,7 +6414,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 5,
-    "notes": "Peu d'arrosage une fois installé, la racine va chercher loin."
+    "notes": "Peu d'arrosage une fois installé, la racine va chercher loin.",
+    "notes_en": "Little watering once established, the root reaches a long way."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 15,
@@ -5553,7 +6448,14 @@
     "Le gel améliore son goût : le laisser en terre et récolter au besoin",
     "Graines à renouveler chaque année, elles perdent vite leur pouvoir germinatif"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Parsnip",
+   "famille_en": "Apiaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Frost improves the flavour: leave it in the ground and lift as needed",
+    "Buy fresh seed each year, it loses viability quickly"
+   ]
   },
   {
    "id": "pasteque",
@@ -5567,7 +6469,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Comme le melon : couper l'eau en fin de cycle."
+    "notes": "Comme le melon : couper l'eau en fin de cycle.",
+    "notes_en": "Like melon: cut the water off at the end of the cycle."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 140,
@@ -5604,7 +6507,13 @@
    "conseils": [
     "Exige un été chaud : réserver la place la plus abritée du jardin"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Watermelon",
+   "famille_en": "Cucurbitaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Demands a hot summer: give it the most sheltered spot in the garden"
+   ]
   },
   {
    "id": "patate-douce",
@@ -5618,7 +6527,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Supporte le sec une fois installée."
+    "notes": "Supporte le sec une fois installée.",
+    "notes_en": "Stands dry conditions once established."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 80,
@@ -5648,6 +6558,13 @@
    "conseils": [
     "Planter les boutures quand le sol atteint 15 °C",
     "Récolter avant les premières gelées, le feuillage est très sensible"
+   ],
+   "nom_en": "Sweet potato",
+   "famille_en": "Convolvulaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Plant the slips when the soil reaches 15 °C",
+    "Harvest before the first frosts, the foliage is very tender"
    ]
   },
   {
@@ -5662,7 +6579,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier ; il jaunit s'il a soif."
+    "notes": "Régulier ; il jaunit s'il a soif.",
+    "notes_en": "Regular; it yellows when thirsty."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 15,
@@ -5696,7 +6614,14 @@
     "Germination très lente (3 semaines) : tremper les graines une nuit",
     "Bisannuel : il monte en graines la deuxième année, mieux vaut le ressemer"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Parsley",
+   "famille_en": "Apiaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Very slow to germinate (three weeks): soak the seed overnight",
+    "Biennial: it goes to seed in the second year, better to sow again"
+   ]
   },
   {
    "id": "persil-tubereux",
@@ -5710,7 +6635,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Régulier au départ, la levée est lente."
+    "notes": "Régulier au départ, la levée est lente.",
+    "notes_en": "Regular at the start, germination is slow."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 15,
@@ -5743,7 +6669,14 @@
     "Racine au goût de persil et de panais, feuillage utilisable aussi",
     "Comme le panais, le gel l'adoucit"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Turnip-rooted parsley",
+   "famille_en": "Apiaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "A root tasting of parsley and parsnip, and the leaves are usable too",
+    "Like parsnip, frost sweetens it"
+   ]
   },
   {
    "id": "petit-pois",
@@ -5757,7 +6690,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Craint la sécheresse à la floraison."
+    "notes": "Craint la sécheresse à la floraison.",
+    "notes_en": "Suffers from drought at flowering."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 5,
@@ -5793,7 +6727,14 @@
     "Supporte le froid : un semis de février donne la première récolte",
     "Ramer dès 15 cm de hauteur"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Garden pea",
+   "famille_en": "Fabaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Stands the cold: a February sowing gives the first crop",
+    "Give it supports from 15 cm tall"
+   ]
   },
   {
    "id": "phacelie",
@@ -5807,7 +6748,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 7,
-    "notes": "Aucun arrosage."
+    "notes": "Aucun arrosage.",
+    "notes_en": "No watering."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 15,
@@ -5834,7 +6776,14 @@
     "Engrais vert et pompe à pollinisateurs : à semer sur toute planche vide",
     "Faucher avant la montée en graines et laisser sur place"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Phacelia",
+   "famille_en": "Boraginaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Green manure and a pollinator pump: sow it on any empty bed",
+    "Cut before it runs to seed and leave it where it falls"
+   ]
   },
   {
    "id": "physalis",
@@ -5848,7 +6797,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Supporte bien un léger stress hydrique."
+    "notes": "Supporte bien un léger stress hydrique.",
+    "notes_en": "Copes well with a little water stress."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 80,
@@ -5884,7 +6834,13 @@
    "conseils": [
     "Les fruits sont mûrs quand le calice est sec et qu'ils tombent seuls"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Cape gooseberry",
+   "famille_en": "Solanaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "The fruit is ripe when the husk is dry and it drops by itself"
+   ]
   },
   {
    "id": "piment",
@@ -5898,7 +6854,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Laisser sécher légèrement entre deux arrosages : le piment gagne en force."
+    "notes": "Laisser sécher légèrement entre deux arrosages : le piment gagne en force.",
+    "notes_en": "Let it dry out a little between waterings: the chilli gets hotter."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 45,
@@ -5937,7 +6894,14 @@
     "Semis très précoce indispensable sous nos latitudes",
     "Se cultive très bien en pot à rentrer l'hiver"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Chilli pepper",
+   "famille_en": "Solanaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "A very early sowing is essential at our latitudes",
+    "Grows very well in a pot to bring in over winter"
+   ]
   },
   {
    "id": "poireau",
@@ -5951,7 +6915,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Régulier, surtout après la plantation."
+    "notes": "Régulier, surtout après la plantation.",
+    "notes_en": "Regular, especially after planting out."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 15,
@@ -5992,7 +6957,14 @@
     "Raccourcir racines et feuilles de moitié avant de planter",
     "Butter progressivement pour allonger le blanc"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Leek",
+   "famille_en": "Amaryllidaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Trim roots and leaves back by half before planting",
+    "Earth up gradually to lengthen the white shank"
+   ]
   },
   {
    "id": "poireau-perpetuel",
@@ -6006,7 +6978,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 8,
-    "notes": "Sobre une fois installé ; il se débrouille seul."
+    "notes": "Sobre une fois installé ; il se débrouille seul.",
+    "notes_en": "Frugal once established; it manages on its own."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 20,
@@ -6046,7 +7019,15 @@
     "Il se multiplie seul par bulbilles — diviser la touffe tous les 3 ans"
    ],
    "profondeur_semis_cm": 3,
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Perennial leek",
+   "famille_en": "Amaryllidaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Planted once, it is harvested all year round for years",
+    "Cut the stem at ground level: it regrows from the stool",
+    "It multiplies itself by bulbils — divide the clump every three years"
+   ]
   },
   {
    "id": "poirier",
@@ -6060,7 +7041,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Sobre une fois installé."
+    "notes": "Sobre une fois installé.",
+    "notes_en": "Frugal once established."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 400,
@@ -6093,7 +7075,14 @@
     "Fleurit tôt : éviter les fonds de vallée gélifs",
     "Cueillir légèrement avant maturité et finir en fruitier"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Pear tree",
+   "famille_en": "Rosaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Flowers early: avoid frost-prone valley bottoms",
+    "Pick slightly before ripeness and finish them indoors"
+   ]
   },
   {
    "id": "pois-chiche",
@@ -6107,7 +7096,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 8,
-    "notes": "Résiste très bien au sec : ne pas arroser hors période de semis."
+    "notes": "Résiste très bien au sec : ne pas arroser hors période de semis.",
+    "notes_en": "Stands drought very well: do not water outside the sowing period."
    },
    "sol": "léger, calcaire, très drainé",
    "espacement_cm": 15,
@@ -6139,7 +7129,13 @@
    "conseils": [
     "Redoute l'excès d'eau plus que la sécheresse"
    ],
-   "profondeur_semis_cm": 4
+   "profondeur_semis_cm": 4,
+   "nom_en": "Chickpea",
+   "famille_en": "Fabaceae",
+   "sol_en": "light, chalky, very free draining",
+   "conseils_en": [
+    "Fears too much water more than drought"
+   ]
   },
   {
    "id": "pois-mange-tout",
@@ -6153,7 +7149,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Comme le petit pois."
+    "notes": "Comme le petit pois.",
+    "notes_en": "Same as the garden pea."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 5,
@@ -6186,7 +7183,13 @@
    "conseils": [
     "Récolter les gousses bien plates, avant que les grains ne se forment"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Mangetout pea",
+   "famille_en": "Fabaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Harvest the pods while flat, before the peas form"
+   ]
   },
   {
    "id": "poivron",
@@ -6200,7 +7203,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier et sans excès ; craint l'eau stagnante."
+    "notes": "Régulier et sans excès ; craint l'eau stagnante.",
+    "notes_en": "Regular and never excessive; dislikes standing water."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 50,
@@ -6241,7 +7245,14 @@
     "Chaleur indispensable : attendre un sol à 15 °C",
     "Pincer la première fleur pour renforcer le plant"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Sweet pepper",
+   "famille_en": "Solanaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Warmth is essential: wait for the soil to reach 15 °C",
+    "Pinch out the first flower to strengthen the plant"
+   ]
   },
   {
    "id": "pomme-de-terre",
@@ -6255,7 +7266,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Régulier à la floraison, moment où les tubercules se forment."
+    "notes": "Régulier à la floraison, moment où les tubercules se forment.",
+    "notes_en": "Regular at flowering, which is when the tubers form."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 35,
@@ -6292,7 +7304,14 @@
     "Butter dès que les plants atteignent 20 cm",
     "Ne jamais replanter au même endroit avant 4 ans"
    ],
-   "profondeur_semis_cm": 10
+   "profondeur_semis_cm": 10,
+   "nom_en": "Potato",
+   "famille_en": "Solanaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Earth up as soon as the plants reach 20 cm",
+    "Never replant in the same spot for four years"
+   ]
   },
   {
    "id": "pommier",
@@ -6306,7 +7325,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Aucun arrosage une fois établi, sauf été de canicule les 3 premières années."
+    "notes": "Aucun arrosage une fois établi, sauf été de canicule les 3 premières années.",
+    "notes_en": "No watering once established, apart from heatwave summers in the first three years."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 400,
@@ -6341,7 +7361,15 @@
     "Deux variétés différentes pour la pollinisation",
     "Éclaircir les fruits en juin : moins de pommes, mais plus belles"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Apple tree",
+   "famille_en": "Rosaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "On St Catherine's day (25 November), any wood takes root",
+    "Two different varieties for pollination",
+    "Thin the fruit in June: fewer apples, but better ones"
+   ]
   },
   {
    "id": "potimarron",
@@ -6355,7 +7383,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Comme la butternut : copieux et espacés."
+    "notes": "Comme la butternut : copieux et espacés.",
+    "notes_en": "Like butternut: generous and infrequent."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 120,
@@ -6393,7 +7422,13 @@
    "conseils": [
     "Se conserve tout l'hiver dans une pièce fraîche et sèche"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Red kuri squash",
+   "famille_en": "Cucurbitaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Keeps all winter in a cool, dry room"
+   ]
   },
   {
    "id": "pourpier",
@@ -6407,7 +7442,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 6,
-    "notes": "Supporte très bien la sécheresse : c'est une plante grasse."
+    "notes": "Supporte très bien la sécheresse : c'est une plante grasse.",
+    "notes_en": "Stands drought very well: it is a succulent."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 15,
@@ -6436,7 +7472,13 @@
    "conseils": [
     "Pousse là où rien ne pousse, en plein cagnard"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Summer purslane",
+   "famille_en": "Portulacaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Grows where nothing else will, in full baking sun"
+   ]
   },
   {
    "id": "prunier",
@@ -6450,7 +7492,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Sobre."
+    "notes": "Sobre.",
+    "notes_en": "Frugal."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 450,
@@ -6481,7 +7524,14 @@
     "Le plus facile des fruitiers à noyau sous climat océanique",
     "Étayer les branches chargées, elles cassent"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Plum tree",
+   "famille_en": "Rosaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "The easiest stone fruit in a maritime climate",
+    "Prop up the laden branches, they break"
+   ]
   },
   {
    "id": "patisson",
@@ -6495,7 +7545,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Comme la courgette : beaucoup d'eau au pied."
+    "notes": "Comme la courgette : beaucoup d'eau au pied.",
+    "notes_en": "Like courgette: plenty of water at the base."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 90,
@@ -6540,7 +7591,14 @@
     "Se cueille jeune, à la taille d'une soucoupe",
     "Plus il grossit, plus il devient cotonneux"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Pattypan squash",
+   "famille_en": "Cucurbitaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Pick young, at saucer size",
+    "The bigger it gets, the woollier it becomes"
+   ]
   },
   {
    "id": "pecher",
@@ -6554,7 +7612,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 6,
-    "notes": "Arroser en été, mais jamais le feuillage."
+    "notes": "Arroser en été, mais jamais le feuillage.",
+    "notes_en": "Water in summer, but never the foliage."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 400,
@@ -6588,7 +7647,14 @@
     "La cloque est la difficulté principale : décoction de prêle dès le débourrement",
     "Planter de l'ail au pied, vieux remède de jardinier contre la cloque"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Peach tree",
+   "famille_en": "Rosaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Peach leaf curl is the main difficulty: horsetail decoction from bud break",
+    "Plant garlic at its foot, an old gardener's remedy against leaf curl"
+   ]
   },
   {
    "id": "quinoa",
@@ -6602,7 +7668,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 7,
-    "notes": "Très sobre : il vient de l'Altiplano."
+    "notes": "Très sobre : il vient de l'Altiplano.",
+    "notes_en": "Very frugal: it comes from the Altiplano."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 30,
@@ -6635,7 +7702,15 @@
     "Les jeunes feuilles se mangent comme des épinards",
     "Récolter quand les feuilles tombent et que la graine résiste à l'ongle"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Quinoa",
+   "famille_en": "Amaranthaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "The seed carries a bitter saponin: rinse it thoroughly",
+    "The young leaves eat like spinach",
+    "Harvest when the leaves drop and the seed resists a fingernail"
+   ]
   },
   {
    "id": "radis",
@@ -6649,7 +7724,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Jamais sec : un radis qui a soif devient piquant et creux."
+    "notes": "Jamais sec : un radis qui a soif devient piquant et creux.",
+    "notes_en": "Never dry: a thirsty radish turns hot and hollow."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 4,
@@ -6684,7 +7760,14 @@
     "Le plus rapide du potager : parfait pour débuter",
     "Semer une petite ligne tous les 10 jours plutôt qu'une grande d'un coup"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Radish",
+   "famille_en": "Brassicaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "The fastest crop in the garden: perfect for a beginner",
+    "Sow a short row every ten days rather than one long row at once"
+   ]
   },
   {
    "id": "radis-noir",
@@ -6698,7 +7781,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier, sinon la racine se fend."
+    "notes": "Régulier, sinon la racine se fend.",
+    "notes_en": "Regular, or the root splits."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 15,
@@ -6729,7 +7813,13 @@
    "conseils": [
     "Semé en août, il se récolte tout l'automne et se garde en cave"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Black winter radish",
+   "famille_en": "Brassicaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Sown in August, harvested all autumn and kept in the cellar"
+   ]
   },
   {
    "id": "raifort",
@@ -6743,7 +7833,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 7,
-    "notes": "Rustique et sobre."
+    "notes": "Rustique et sobre.",
+    "notes_en": "Hardy and frugal."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 50,
@@ -6775,7 +7866,13 @@
    "conseils": [
     "Aussi envahissant que le topinambour : le cantonner dans un bac"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Horseradish",
+   "famille_en": "Brassicaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "As invasive as a Jerusalem artichoke: confine it to a container"
+   ]
   },
   {
    "id": "rhubarbe",
@@ -6789,7 +7886,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 3,
-    "notes": "Aime les sols frais ; arroser en été."
+    "notes": "Aime les sols frais ; arroser en été.",
+    "notes_en": "Likes moist soil; water through the summer."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 100,
@@ -6820,7 +7918,14 @@
     "Ne rien récolter la première année",
     "Tirer les pétioles, ne pas les couper ; les feuilles sont toxiques"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Rhubarb",
+   "famille_en": "Polygonaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Harvest nothing in the first year",
+    "Pull the stalks, do not cut them; the leaves are poisonous"
+   ]
   },
   {
    "id": "romarin",
@@ -6834,7 +7939,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 12,
-    "notes": "Aucun arrosage une fois installé."
+    "notes": "Aucun arrosage une fois installé.",
+    "notes_en": "No watering once established."
    },
    "sol": "pauvre, caillouteux, très drainé",
    "espacement_cm": 80,
@@ -6868,7 +7974,14 @@
     "Se récolte toute l'année, même sous la neige",
     "Bouture très facilement : une branche dans un verre d'eau"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Rosemary",
+   "famille_en": "Lamiaceae",
+   "sol_en": "poor, stony, very free draining",
+   "conseils_en": [
+    "Harvested all year round, even under snow",
+    "Strikes very easily: a sprig in a glass of water"
+   ]
   },
   {
    "id": "roquette",
@@ -6882,7 +7995,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier, sinon elle devient très piquante et monte."
+    "notes": "Régulier, sinon elle devient très piquante et monte.",
+    "notes_en": "Regular, or it turns very hot and bolts."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 10,
@@ -6913,7 +8027,13 @@
    "conseils": [
     "Pousse si vite qu'un semis de printemps et un d'automne suffisent"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Rocket",
+   "famille_en": "Brassicaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Grows so fast that one spring and one autumn sowing are enough"
+   ]
   },
   {
    "id": "roquette-vivace",
@@ -6927,7 +8047,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 6,
-    "notes": "Très sobre, bien plus que la roquette annuelle."
+    "notes": "Très sobre, bien plus que la roquette annuelle.",
+    "notes_en": "Very frugal, far more so than annual rocket."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 25,
@@ -6965,7 +8086,15 @@
     "Supprimer les fleurs jaunes pour garder des feuilles tendres"
    ],
    "profondeur_semis_cm": 0.5,
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Perennial wall rocket",
+   "famille_en": "Brassicaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Hotter and far hardier than cultivated rocket",
+    "Cut and come again endlessly, from March to November",
+    "Remove the yellow flowers to keep the leaves tender"
+   ]
   },
   {
    "id": "rutabaga",
@@ -6979,7 +8108,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Régulier, il n'aime pas les à-coups."
+    "notes": "Régulier, il n'aime pas les à-coups.",
+    "notes_en": "Regular, it does not like interruptions."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 25,
@@ -7011,7 +8141,13 @@
    "conseils": [
     "Se garde en terre tout l'hiver sous un paillage"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Swede",
+   "famille_en": "Brassicaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Keeps in the ground all winter under a mulch"
+   ]
   },
   {
    "id": "salsifis",
@@ -7025,7 +8161,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 5,
-    "notes": "Sobre après la levée."
+    "notes": "Sobre après la levée.",
+    "notes_en": "Frugal once it has germinated."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 10,
@@ -7054,7 +8191,13 @@
    "conseils": [
     "Se récolte de novembre à mars, au fur et à mesure des besoins"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Salsify",
+   "famille_en": "Asteraceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Harvested from November to March, as you need it"
+   ]
   },
   {
    "id": "sarrasin",
@@ -7068,7 +8211,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 8,
-    "notes": "Aucun arrosage."
+    "notes": "Aucun arrosage.",
+    "notes_en": "No watering."
    },
    "sol": "pauvre, même ingrat",
    "espacement_cm": 10,
@@ -7095,7 +8239,14 @@
     "Étouffe les adventices mieux que tout autre engrais vert",
     "Gèle au premier froid, ce qui évite d'avoir à le faucher"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Buckwheat (green manure)",
+   "famille_en": "Polygonaceae",
+   "sol_en": "poor, even downright unpromising",
+   "conseils_en": [
+    "Smothers weeds better than any other green manure",
+    "Killed by the first cold, which saves you cutting it"
+   ]
   },
   {
    "id": "sarriette",
@@ -7109,7 +8260,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 6,
-    "notes": "Sobre, comme toutes les méditerranéennes."
+    "notes": "Sobre, comme toutes les méditerranéennes.",
+    "notes_en": "Frugal, like every Mediterranean plant."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 20,
@@ -7139,7 +8291,13 @@
    "conseils": [
     "Plantée près des haricots, elle éloigne les pucerons noirs"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Summer savory",
+   "famille_en": "Lamiaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Planted near beans, it keeps blackfly away"
+   ]
   },
   {
    "id": "sauge",
@@ -7153,7 +8311,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 8,
-    "notes": "Sobre ; craint l'humidité hivernale."
+    "notes": "Sobre ; craint l'humidité hivernale.",
+    "notes_en": "Frugal; fears winter damp."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 50,
@@ -7189,7 +8348,13 @@
    "conseils": [
     "Rabattre d'un tiers au printemps pour la garder compacte"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Sage",
+   "famille_en": "Lamiaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Cut back by a third in spring to keep it compact"
+   ]
   },
   {
    "id": "scarole",
@@ -7203,7 +8368,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier ; au pied uniquement."
+    "notes": "Régulier ; au pied uniquement.",
+    "notes_en": "Regular; at the base only."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 35,
@@ -7234,7 +8400,13 @@
    "conseils": [
     "Lier les feuilles ou poser une assiette dessus pour blanchir le cœur"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Escarole",
+   "famille_en": "Asteraceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Tie the leaves up or lay a plate on top to blanch the heart"
+   ]
   },
   {
    "id": "scorsonere",
@@ -7248,7 +8420,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 5,
-    "notes": "Sobre une fois levée."
+    "notes": "Sobre une fois levée.",
+    "notes_en": "Frugal once it has germinated."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 10,
@@ -7278,7 +8451,14 @@
     "Racine noire, chair plus fine que le salsifis",
     "Se laisse en terre tout l'hiver et s'arrache au besoin"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Scorzonera",
+   "famille_en": "Asteraceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Black root, finer flesh than salsify",
+    "Left in the ground all winter and lifted as needed"
+   ]
   },
   {
    "id": "seigle",
@@ -7292,7 +8472,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Aucun arrosage."
+    "notes": "Aucun arrosage.",
+    "notes_en": "No watering."
    },
    "sol": "pauvre, même ingrat",
    "espacement_cm": 8,
@@ -7323,7 +8504,15 @@
     "Se sème avec la vesce, à qui il sert de tuteur",
     "Ses racines décompactent les sols tassés en profondeur"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Rye (green manure)",
+   "famille_en": "Poaceae",
+   "sol_en": "poor, even downright unpromising",
+   "conseils_en": [
+    "The hardiest green manure: it still germinates at 3 °C",
+    "Sown with vetch, which it holds up",
+    "Its roots break up compacted soil at depth"
+   ]
   },
   {
    "id": "shiso",
@@ -7337,7 +8526,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Régulier ; il flétrit vite au sec."
+    "notes": "Régulier ; il flétrit vite au sec.",
+    "notes_en": "Regular; it wilts quickly when dry."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 35,
@@ -7374,7 +8564,14 @@
     "Goût entre la menthe et le cumin : la feuille des sushis",
     "Se ressème seul si on le laisse fleurir"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Shiso",
+   "famille_en": "Lamiaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Somewhere between mint and cumin: the sushi leaf",
+    "Self-seeds if you let it flower"
+   ]
   },
   {
    "id": "edamame",
@@ -7388,7 +8585,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Soutenu à la formation des gousses."
+    "notes": "Soutenu à la formation des gousses.",
+    "notes_en": "Sustained as the pods form."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 15,
@@ -7421,7 +8619,14 @@
     "Se récolte vert, quand les gousses sont pleines mais encore tendres",
     "Blanchir 5 minutes dans l'eau salée, puis déguster à la main"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Edamame soybean",
+   "famille_en": "Fabaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Harvested green, when the pods are full but still tender",
+    "Blanch five minutes in salted water, then eat with your fingers"
+   ]
   },
   {
    "id": "souci",
@@ -7435,7 +8640,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 5,
-    "notes": "Sobre."
+    "notes": "Sobre.",
+    "notes_en": "Frugal."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 30,
@@ -7467,7 +8673,14 @@
     "Attire les syrphes, dont les larves dévorent les pucerons",
     "Fleurit du printemps aux gelées et se ressème seul"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Pot marigold",
+   "famille_en": "Asteraceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Draws hoverflies, whose larvae devour aphids",
+    "Flowers from spring to the frosts and self-seeds"
+   ]
   },
   {
    "id": "sureau-noir",
@@ -7481,7 +8694,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 8,
-    "notes": "Aucun arrosage une fois établi."
+    "notes": "Aucun arrosage une fois établi.",
+    "notes_en": "No watering once established."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 300,
@@ -7513,7 +8727,15 @@
     "Les baies crues sont indigestes : toujours les cuire",
     "Pousse vite et partout, y compris en haie"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Black elder",
+   "famille_en": "Adoxaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Two harvests: the flowers in June for cordial, the berries in August",
+    "The raw berries are indigestible: always cook them",
+    "Grows fast and anywhere, hedges included"
+   ]
   },
   {
    "id": "thym",
@@ -7527,7 +8749,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Ne jamais arroser en pleine terre : il meurt d'excès d'eau, pas de sécheresse."
+    "notes": "Ne jamais arroser en pleine terre : il meurt d'excès d'eau, pas de sécheresse.",
+    "notes_en": "Never water it in open ground: it dies of too much water, not of drought."
    },
    "sol": "pauvre, caillouteux, très drainé",
    "espacement_cm": 30,
@@ -7562,7 +8785,14 @@
     "Le pire ennemi du thym est l'arrosoir",
     "Tailler après la floraison pour éviter qu'il se dégarnisse"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Thyme",
+   "famille_en": "Lamiaceae",
+   "sol_en": "poor, stony, very free draining",
+   "conseils_en": [
+    "Thyme's worst enemy is the watering can",
+    "Prune after flowering to stop it going bare"
+   ]
   },
   {
    "id": "tomate",
@@ -7576,7 +8806,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Au pied, jamais sur le feuillage : c'est ainsi qu'arrive le mildiou."
+    "notes": "Au pied, jamais sur le feuillage : c'est ainsi qu'arrive le mildiou.",
+    "notes_en": "At the base, never on the foliage: that is how blight arrives."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 60,
@@ -7620,7 +8851,15 @@
     "Tuteurer dès la plantation, pas après",
     "Pailler dès juin pour stabiliser l'humidité"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Tomato",
+   "famille_en": "Solanaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Pinch out the side shoots once a week",
+    "Stake at planting time, not afterwards",
+    "Mulch from June to even out the moisture"
+   ]
   },
   {
    "id": "tomate-cerise",
@@ -7634,7 +8873,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 2,
-    "notes": "Plus tolérante que la grosse tomate, mais garder le sol frais."
+    "notes": "Plus tolérante que la grosse tomate, mais garder le sol frais.",
+    "notes_en": "More forgiving than a large tomato, but keep the soil moist."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 50,
@@ -7674,7 +8914,14 @@
     "Se passe de taille si elle est bien tuteurée",
     "Idéale en pot sur un balcon"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Cherry tomato",
+   "famille_en": "Solanaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Needs no pruning if it is well staked",
+    "Ideal in a pot on a balcony"
+   ]
   },
   {
    "id": "tomatille",
@@ -7688,7 +8935,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 3,
-    "notes": "Supporte le sec mieux que la tomate."
+    "notes": "Supporte le sec mieux que la tomate.",
+    "notes_en": "Stands dry conditions better than a tomato."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 80,
@@ -7728,7 +8976,14 @@
     "Deux pieds minimum : elle ne se féconde pas elle-même",
     "Mûre quand le fruit fait éclater son calice"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Tomatillo",
+   "famille_en": "Solanaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Two plants at least: it does not fertilise itself",
+    "Ripe when the fruit bursts its husk"
+   ]
   },
   {
    "id": "topinambour",
@@ -7742,7 +8997,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 8,
-    "notes": "Se débrouille seul, même en sol pauvre."
+    "notes": "Se débrouille seul, même en sol pauvre.",
+    "notes_en": "Manages on its own, even in poor soil."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 60,
@@ -7776,7 +9032,14 @@
     "Récolter au fur et à mesure, il ne se conserve pas hors de terre"
    ],
    "profondeur_semis_cm": 10,
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Jerusalem artichoke",
+   "famille_en": "Asteraceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Very invasive: give it a corner it cannot escape from",
+    "Lift as you need it, it does not keep out of the ground"
+   ]
   },
   {
    "id": "tournesol",
@@ -7790,7 +9053,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 5,
-    "notes": "Modéré ; ses racines descendent chercher loin."
+    "notes": "Modéré ; ses racines descendent chercher loin.",
+    "notes_en": "Moderate; its roots go down a long way to find water."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 50,
@@ -7825,7 +9089,15 @@
     "Laisser une tête sur pied : les mésanges s'en chargeront tout l'hiver",
     "Il assèche et épuise le sol : ne pas le mettre à côté d'un gourmand"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Sunflower",
+   "famille_en": "Asteraceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Harvest when the back of the head yellows and the seeds come loose",
+    "Leave one head standing: the tits will see to it all winter",
+    "It dries and exhausts the soil: do not put it next to a hungry crop"
+   ]
   },
   {
    "id": "trefle-incarnat",
@@ -7839,7 +9111,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 8,
-    "notes": "Aucun arrosage."
+    "notes": "Aucun arrosage.",
+    "notes_en": "No watering."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 8,
@@ -7866,7 +9139,14 @@
     "Semé en septembre, il couvre le sol tout l'hiver et fixe l'azote",
     "Ses fleurs rouges en mai sont un festin pour les abeilles"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Crimson clover (green manure)",
+   "famille_en": "Fabaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Sown in September, it covers the soil all winter and fixes nitrogen",
+    "Its red May flowers are a feast for bees"
+   ]
   },
   {
    "id": "trevise",
@@ -7880,7 +9160,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Modéré."
+    "notes": "Modéré.",
+    "notes_en": "Moderate."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 30,
@@ -7909,7 +9190,13 @@
    "conseils": [
     "C'est le froid qui fait rougir les feuilles : ne pas récolter trop tôt"
    ],
-   "profondeur_semis_cm": 1
+   "profondeur_semis_cm": 1,
+   "nom_en": "Radicchio",
+   "famille_en": "Asteraceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Cold is what reddens the leaves: do not harvest too early"
+   ]
   },
   {
    "id": "tetragone",
@@ -7923,7 +9210,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Modéré, bien plus tolérante que l'épinard."
+    "notes": "Modéré, bien plus tolérante que l'épinard.",
+    "notes_en": "Moderate, far more forgiving than spinach."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 50,
@@ -7952,7 +9240,13 @@
    "conseils": [
     "La solution à l'épinard qui monte en été : elle ne monte pas"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "New Zealand spinach",
+   "famille_en": "Aizoaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "The answer to spinach bolting in summer: this one does not bolt"
+   ]
   },
   {
    "id": "verveine-citronnelle",
@@ -7966,7 +9260,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 5,
-    "notes": "Modéré ; elle craint surtout l'humidité hivernale."
+    "notes": "Modéré ; elle craint surtout l'humidité hivernale.",
+    "notes_en": "Moderate; what it really fears is winter damp."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 100,
@@ -7997,7 +9292,14 @@
     "Pailler le pied généreusement l'hiver, elle gèle facilement",
     "Elle perd toutes ses feuilles l'hiver et repart tard : ne pas l'arracher trop vite"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Lemon verbena",
+   "famille_en": "Verbenaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "Mulch the crown generously in winter, it frosts easily",
+    "It drops every leaf in winter and starts late: do not pull it up too soon"
+   ]
   },
   {
    "id": "vesce",
@@ -8011,7 +9313,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Aucun arrosage."
+    "notes": "Aucun arrosage.",
+    "notes_en": "No watering."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 8,
@@ -8038,7 +9341,14 @@
     "Se sème avec du seigle, qui lui sert de tuteur",
     "L'engrais vert d'hiver le plus riche en azote"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Winter vetch (green manure)",
+   "famille_en": "Fabaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Sown with rye, which holds it up",
+    "The winter green manure richest in nitrogen"
+   ]
   },
   {
    "id": "vigne-table",
@@ -8052,7 +9362,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 10,
-    "notes": "Ne pas arroser : la vigne cherche l'eau en profondeur et gagne en sucre au sec."
+    "notes": "Ne pas arroser : la vigne cherche l'eau en profondeur et gagne en sucre au sec.",
+    "notes_en": "Do not water: the vine finds water deep down and sweetens when kept dry."
    },
    "sol": "caillouteux, drainé, même pauvre",
    "espacement_cm": 150,
@@ -8085,7 +9396,14 @@
     "Taille d'hiver indispensable : 2 yeux par coursonne",
     "Plein sud contre un mur : c'est la chaleur restituée qui fait le raisin"
    ],
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Grapevine (table grapes)",
+   "famille_en": "Vitaceae",
+   "sol_en": "stony, free draining, poor is fine",
+   "conseils_en": [
+    "Winter pruning is essential: two buds per spur",
+    "Due south against a wall: the stored heat is what makes the grapes"
+   ]
   },
   {
    "id": "echalote",
@@ -8099,7 +9417,8 @@
    "arrosage": {
     "besoin": "faible",
     "frequence_jours": 7,
-    "notes": "Presque aucun arrosage."
+    "notes": "Presque aucun arrosage.",
+    "notes_en": "Almost no watering at all."
    },
    "sol": "léger, meuble, sans cailloux",
    "espacement_cm": 15,
@@ -8134,7 +9453,14 @@
     "Dicton fiable : plantée en février, récoltée en juillet",
     "Ne pas enterrer la pointe, elle doit affleurer"
    ],
-   "profondeur_semis_cm": 3
+   "profondeur_semis_cm": 3,
+   "nom_en": "Shallot",
+   "famille_en": "Amaryllidaceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "A reliable saying: planted in February, harvested in July",
+    "Do not bury the tip, it must sit at the surface"
+   ]
   },
   {
    "id": "epinard",
@@ -8148,7 +9474,8 @@
    "arrosage": {
     "besoin": "eleve",
     "frequence_jours": 3,
-    "notes": "Généreux : la sécheresse le fait monter en graines aussitôt."
+    "notes": "Généreux : la sécheresse le fait monter en graines aussitôt.",
+    "notes_en": "Generous: drought sends it straight to seed."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 15,
@@ -8181,7 +9508,14 @@
     "Culture d'automne et de printemps : l'été le fait monter",
     "Couper les feuilles extérieures, le pied continue de produire"
    ],
-   "profondeur_semis_cm": 2
+   "profondeur_semis_cm": 2,
+   "nom_en": "Spinach",
+   "famille_en": "Amaranthaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "An autumn and spring crop: summer makes it bolt",
+    "Pick the outer leaves and the plant keeps producing"
+   ]
   },
   {
    "id": "epinard-perpetuel",
@@ -8195,7 +9529,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 5,
-    "notes": "Aime la fraîcheur et la mi-ombre."
+    "notes": "Aime la fraîcheur et la mi-ombre.",
+    "notes_en": "Likes cool soil and partial shade."
    },
    "sol": "riche en humus, frais et bien drainé",
    "espacement_cm": 40,
@@ -8233,7 +9568,15 @@
     "Les jeunes pousses se préparent comme des asperges"
    ],
    "profondeur_semis_cm": 1,
-   "perenne": true
+   "perenne": true,
+   "nom_en": "Perpetual spinach (Good-King-Henry)",
+   "famille_en": "Amaranthaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "One clump gives leaves from April to October, for ten years",
+    "Harvest nothing in the first year, while it settles in",
+    "The young shoots are cooked like asparagus"
+   ]
   },
   {
    "id": "oeillet-inde",
@@ -8247,7 +9590,8 @@
    "arrosage": {
     "besoin": "moyen",
     "frequence_jours": 4,
-    "notes": "Modéré ; très tolérant."
+    "notes": "Modéré ; très tolérant.",
+    "notes_en": "Moderate; very forgiving."
    },
    "sol": "ordinaire, bien drainé",
    "espacement_cm": 25,
@@ -8286,7 +9630,14 @@
     "Ses racines assainissent le sol des nématodes : le compagnon numéro un de la tomate",
     "Supprimer les fleurs fanées pour prolonger la floraison jusqu'aux gelées"
    ],
-   "profondeur_semis_cm": 0.5
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "French marigold",
+   "famille_en": "Asteraceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Its roots clear the soil of nematodes: the tomato's number one companion",
+    "Deadhead to keep it flowering until the frosts"
+   ]
   }
  ]
 }

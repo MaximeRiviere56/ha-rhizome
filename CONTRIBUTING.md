@@ -94,9 +94,15 @@ Les fiches se modifient dans `tools/catalogue_source.py` (table compacte), pas
 dans le JSON généré :
 
 ```bash
-$EDITOR tools/catalogue_source.py
-python3 tools/build_catalog.py     # valide puis régénère data/catalog.json
+$EDITOR tools/catalogue_source.py       # la fiche
+$EDITOR tools/catalogue_traductions.py  # son anglais
+python3 tools/build_catalog.py          # valide puis régénère data/catalog.json
 ```
+
+Les deux vont ensemble : `build_catalog.py` **échoue** si une fiche arrive sans
+son nom anglais, sa famille, son sol, sa note d'arrosage ou ses conseils
+traduits. C'est délibéré — une fiche à moitié traduite ne se remarque qu'une
+fois sous les yeux d'un utilisateur anglophone.
 
 **Les 172 fiches n'ont été confrontées à aucune base de référence** — elles
 sont écrites de mémoire horticole. Ne les présentez jamais comme sourcées. Une
@@ -104,7 +110,14 @@ correction de fiche est la bienvenue ; dites d'où vient votre valeur.
 
 ## Conventions
 
-- **Tout en français** : code, commentaires, commits, interface, documentation.
+- **Tout en français** : code, commentaires, commits, documentation.
+- **L'interface, elle, est bilingue** (français et anglais), et le français en
+  reste la version de référence. Un texte affiché ne s'écrit jamais en dur : il
+  passe par `i18n.py` côté serveur, par la table `TEXTES` du fichier concerné
+  côté frontend, et par `tools/catalogue_traductions.py` pour le catalogue —
+  où `build_catalog.py` refuse de compiler une fiche sans sa traduction. Les
+  textes de l'utilisateur (surnoms, noms de zones, fiches personnelles, notes)
+  ne sont jamais traduits : ce sont des données.
 - Les commentaires disent **pourquoi**, pas quoi. Ceux qui expliquent un choix
   contre-intuitif ont de la valeur ; les autres non.
 - Messages de commit : ce qui change, et le raisonnement derrière. Les défauts

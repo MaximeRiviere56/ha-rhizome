@@ -75,7 +75,12 @@ def verifier(
             continue
         annee = annee_occupation(plante, aujourdhui.year)
         if annee >= limite:
-            precedents.append({"nom": autre["nom"], "annee": annee})
+            # `culture_id` en plus du nom : c'est lui qui permet de retrouver
+            # le nom traduit de la culture au moment d'afficher l'avis, le nom
+            # stocke ici etant celui du catalogue francais.
+            precedents.append(
+                {"nom": autre["nom"], "annee": annee, "culture_id": autre["id"]}
+            )
 
     if not precedents:
         return None
@@ -84,10 +89,16 @@ def verifier(
         f"{p['nom']} ({p['annee']})"
         for p in sorted(precedents, key=lambda p: -p["annee"])[:3]
     )
+    # Le message francais est rendu ici parce que ce module est pur et que le
+    # francais est la langue de reference. `precedents_libelle` est la meme
+    # enumeration, exposee a part : la couche de presentation la reutilise
+    # pour reconstruire le message dans une autre langue, sans avoir a
+    # retrier ni retronquer la liste.
     return {
         "famille": famille,
         "delai_ans": delai,
         "precedents": precedents,
+        "precedents_libelle": noms,
         "message": (
             f"{famille} déjà cultivées ici : {noms}. Cette famille demande "
             f"{delai} ans avant de revenir au même endroit."

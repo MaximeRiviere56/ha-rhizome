@@ -176,7 +176,9 @@ class TestCataloguePersonnel(unittest.TestCase):
             "cycle": {},
         }
         soucis = self.cat.valider_fiche(fiche)
-        self.assertTrue(any("récolte" in s for s in soucis), soucis)
+        # `valider_fiche` rend des cles de traduction, pas des phrases : la
+        # couche Home Assistant les rend dans la langue de l'interface.
+        self.assertIn("fiche_recolte_incalculable", soucis)
 
     def test_fiche_complete_acceptee(self):
         fiche = {

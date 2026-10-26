@@ -24,7 +24,9 @@ ajouter_plante:
           min: 0
           max: 90
           step: 1
-          unit_of_measurement: jours
+          # Pas d'`unit_of_measurement` : Home Assistant l'affiche telle quelle,
+          # sans la traduire, alors que le libelle et la description du champ le
+          # sont. La description dit deja « en jours » dans les deux langues.
           mode: box
 
 retirer_plante:

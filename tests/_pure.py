@@ -33,6 +33,7 @@ def _charger(nom_module: str):
     return module
 
 
+i18n = _charger("i18n")
 lifecycle = _charger("lifecycle")
 phenology = _charger("phenology")
 rotation = _charger("rotation")

@@ -24,6 +24,7 @@ from .const import (
     ZONE_PLEINE_TERRE,
     ZONES_DEFAUT,
 )
+from .i18n import nom_zone_defaut
 from .lifecycle import (
     EVT_SEME,
     MODE_SEMIS_DIRECT,
@@ -58,7 +59,13 @@ class JardinStore:
 
     # --- Cycle de vie du stockage --------------------------------------------
 
-    async def async_charger(self) -> None:
+    async def async_charger(self, langue: str = "fr") -> None:
+        """Lit le jardin, et cree les zones livrees s'il n'en a pas encore.
+
+        `langue` ne sert qu'a nommer ces quatre zones initiales. Elles
+        deviennent ensuite des donnees : changer de langue plus tard ne les
+        renomme pas, et c'est voulu — l'utilisateur a pu les rebaptiser.
+        """
         charge = await self._store.async_load()
         if charge is None:
             charge = await self._async_adopter_heritage()
@@ -67,7 +74,10 @@ class JardinStore:
         self._donnees.setdefault("plantes", [])
         self._donnees.setdefault("cultures_perso", [])
         if not self._donnees.get("zones"):
-            self._donnees["zones"] = [dict(z) for z in ZONES_DEFAUT]
+            self._donnees["zones"] = [
+                {**z, "nom": nom_zone_defaut(langue, z["id"], z["nom"])}
+                for z in ZONES_DEFAUT
+            ]
         else:
             # Un stockage anterieur a l'arrosage ne porte pas encore les
             # caracteristiques de zone : on les deduit pour les zones
@@ -133,7 +143,11 @@ class JardinStore:
         for plante in self.plantes:
             if plante["uid"] == uid:
                 return plante
-        raise PlanteInconnue(f"Plante introuvable dans le jardin : {uid}")
+        raise PlanteInconnue(
+            f"Plante introuvable dans le jardin : {uid}",
+            cle="err_plante_introuvable",
+            uid=uid,
+        )
 
     def zone(self, zone_id: str | None) -> dict:
         for zone in self.zones:
@@ -343,7 +357,10 @@ class JardinStore:
             noms = ", ".join(p.get("surnom") or p["culture_id"] for p in utilisees)
             raise ErreurJournal(
                 f"Cette fiche est utilisée par {len(utilisees)} plante(s) du "
-                f"jardin ({noms}). Retirez-les d'abord."
+                f"jardin ({noms}). Retirez-les d'abord.",
+                cle="err_fiche_utilisee",
+                nombre=len(utilisees),
+                plantes=noms,
             )
         self._donnees["cultures_perso"] = [
             c for c in self.cultures_perso if c["id"] != culture_id

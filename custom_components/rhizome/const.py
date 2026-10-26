@@ -28,6 +28,12 @@ CONF_NOTIFY_HEURE = "notify_heure"
 CONF_PRESET_CLIMAT = "preset_climat"
 CONF_RAPPEL_JOURS = "rappel_jours"
 
+# Langue de l'interface. « auto » suit la langue de Home Assistant ; les deux
+# autres valeurs la forcent. Ce reglage n'est pas cosmetique : il decide aussi
+# de la langue des rappels, du calendrier et des noms d'entites, qui sont
+# produits par le serveur et non par le panneau.
+CONF_LANGUE = "langue"
+
 # --- Granularite des rappels --------------------------------------------------
 
 # Quelles etapes meritent un rappel. Tout le monde ne veut pas etre prevenu
@@ -70,6 +76,13 @@ DEFAUT_NOTIFY_RESUME = False
 DEFAUT_MASQUER_TERMINEES = False
 DEFAUT_ARROSAGE_ACTIF = True
 DEFAUT_NOTIFY_ARROSAGE = True
+
+# « auto » plutot que « fr » : une installation anglophone n'a aucune raison
+# d'afficher du francais, et une installation existante ne change pas de langue
+# puisque son Home Assistant est en francais.
+DEFAUT_LANGUE = "auto"
+LANGUE_AUTO = "auto"
+LANGUES = ("fr", "en")
 
 # Par defaut on notifie tout : mieux vaut desactiver ce qui derange que
 # decouvrir en juillet qu'un rappel n'est jamais parti.

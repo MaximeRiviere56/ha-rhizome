@@ -4,6 +4,86 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Versions sous [SemVer](https://semver.org/lang/fr/). Rhizome est en `0.x` :
 l'intérieur peut encore bouger, mais pas vos données.
 
+## [0.10.0] — 2026-10-25
+
+Rhizome parle anglais. Interface, catalogue, rappels, calendrier, liste de
+tâches et noms d'entités : tout ce que l'application affiche existe désormais
+dans les deux langues, avec un réglage pour choisir.
+
+Rien à migrer. Une installation existante ne change pas de langue : son Home
+Assistant est en français, et le réglage vaut « Automatique » par défaut.
+
+### Ajouté
+
+- **Un réglage de langue**, dans *Réglages · Langue* du panneau et dans le flux
+  de configuration : **Automatique** (défaut, suit Home Assistant), **Français**
+  ou **English**.
+- **Le catalogue en anglais** : les 172 noms de cultures, 36 familles, 13
+  descriptions de sol, 148 notes d'arrosage et 318 conseils. Le français reste
+  la version de référence — c'est lui qui sert de clé, notamment pour le délai
+  de rotation d'une famille. `tools/build_catalog.py` **refuse de compiler** si
+  une fiche arrive sans sa traduction : une culture ajoutée sans son anglais
+  est rattrapée à la construction, pas chez l'utilisateur.
+- **La recherche du catalogue interroge les deux langues**, quelle que soit
+  celle affichée : « courgette » trouve la courgette sur une interface
+  anglaise, « leek » trouve le poireau sur une interface française.
+- **Le banc d'essai se monte dans les deux langues** :
+  `python3 tools/banc_fixture.py en`. C'est le seul moyen rapide de voir un
+  libellé resté en français — il ne se remarque pas en relisant la table.
+- `custom_components/rhizome/i18n.py`, module pur : résolution de la langue,
+  table des textes du serveur, formats de date. Ses tests vérifient ce qui est
+  vérifiable mécaniquement — que les deux tables portent les mêmes clés, que
+  les modèles attendent les mêmes variables, et qu'« auto » retombe toujours
+  sur une langue connue.
+
+### Modifié
+
+- **Les noms affichés des entités suivent la langue** : « Actions à mener »
+  devient « Tasks due », « Rappels Tomate » devient « Tomato reminders ». Les
+  `entity_id`, eux, sont figés à la création de l'entité et **ne bougent
+  pas** : vos automatisations survivent au changement de langue. Une
+  installation créée en anglais les nomme en anglais dès le départ.
+- **Le capteur de phase d'une plante traduit son état** (`Semé` → `Sown`)
+  **et ses `options`** — traduire l'un sans l'autre rend une entité `enum`
+  invalide à chaque changement d'état. Conséquence assumée : l'historique
+  garde les anciens libellés avant le changement, et une automatisation qui
+  compare cet état à un texte demande à être relue.
+- **Les refus du moteur sont traduits.** Les modules purs ne connaissent aucun
+  réglage : ils portent désormais leur message français *et* une clé, que la
+  couche Home Assistant rend dans la langue de l'interface. Les deux
+  sous-libellés d'un refus de transition (l'événement et la phase) sont
+  traduits avec lui, sinon un refus anglais citerait « Semé ».
+- **Les quatre zones livrées naissent dans la langue de l'installation.**
+  Elles deviennent ensuite des données : changer de langue plus tard ne les
+  renomme pas — ce serait effacer les noms que vous leur avez donnés.
+- **Les dates suivent la langue** : « 15/04 » devient « Apr 15 ». « 15/04 » se
+  lit « le 4 du quinzième mois » pour un anglophone.
+- `catalog.valider_fiche` renvoie des clés de traduction et non des phrases :
+  ces messages s'affichent dans le formulaire du panneau, donc dans la langue
+  de l'interface.
+
+### Corrigé
+
+- **Les préréglages climatiques n'étaient jamais traduits.** Le flux de
+  configuration posait un `label=` explicite sur chaque option, ce qui écrase
+  la traduction : le bloc `selector.preset_climat` de `translations/en.json`
+  existait depuis des versions sans que rien ne l'appelle, et le formulaire
+  anglais affichait « Ouest océanique (Bretagne, Loire) ». Les options passent
+  désormais par `translation_key`. Un test vérifie les deux sens — aucune clé
+  employée sans traduction, aucune traduction orpheline.
+- **La carte Lovelace trouvait son capteur par le nom de l'entité.** Elle
+  cherchait le suffixe `_actions_a_mener`, ce qui ne tenait que tant que
+  l'intégration était francophone : une installation créée en anglais nomme la
+  même entité `sensor.rhizome_tasks_due`, et la carte restait vide sans rien
+  signaler. La détection porte maintenant sur les attributs.
+
+### Non traduit, délibérément
+
+Vos propres textes : surnoms, noms de zones, fiches personnelles, notes du
+journal. Ce sont des données, pas des libellés — et rien ne pourrait les
+traduire. La traduction anglaise du catalogue, elle, **n'est pas plus sourcée
+que l'original** et ne lui ajoute aucune autorité.
+
 ## [0.9.0] — 2026-10-25
 
 Issu de deux passes d'audit de sécurité, de conformité Home Assistant et de
@@ -188,7 +268,8 @@ Premiers correctifs après mise en service.
 
 Première version : catalogue, jardin virtuel, panneau latéral, rappels.
 
-[Non publié]: https://github.com/MaximeRiviere56/ha-rhizome/compare/v0.9.0...HEAD
+[Non publié]: https://github.com/MaximeRiviere56/ha-rhizome/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/MaximeRiviere56/ha-rhizome/releases/tag/v0.10.0
 [0.9.0]: https://github.com/MaximeRiviere56/ha-rhizome/releases/tag/v0.9.0
 [0.8.0]: https://github.com/MaximeRiviere56/ha-rhizome/releases/tag/v0.8.0
 [0.7.0]: https://github.com/MaximeRiviere56/ha-rhizome/releases/tag/v0.7.0
