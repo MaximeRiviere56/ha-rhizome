@@ -1,9 +1,20 @@
 name: Qualité
 
+# Le cron est la raison d'etre de ce declencheur, et non un doublon des deux
+# autres : `hassfest` et la validation HACS tournent deja chaque lundi, mais ils
+# ne regardent que la structure et le manifest. Une API de Home Assistant
+# depreciee puis retiree ne casse pas le manifest — elle casse les tests, qui
+# jusqu'ici n'etaient joues qu'a l'occasion d'un commit. Sur un depot ou il peut
+# se passer trois mois sans commit, cela veut dire trois mois sans rien savoir.
+#
+# Decale d'une demi-heure par rapport a `Validation` : GitHub repousse les crons
+# programmes a l'heure pile quand la charge monte.
 on:
   push:
     branches: [main]
   pull_request:
+  schedule:
+    - cron: "30 6 * * 1"
   workflow_dispatch:
 
 permissions:
