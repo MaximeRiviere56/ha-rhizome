@@ -4,7 +4,7 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Versions sous [SemVer](https://semver.org/lang/fr/). Rhizome est en `0.x` :
 l'intérieur peut encore bouger, mais pas vos données.
 
-## Non publié
+## [0.11.0] — 2026-10-29
 
 L'arrosage se lisait mal : un bouton bleu « Arrosé » qui ne disait pas s'il
 constatait ou commandait, et des arrosages notés nulle part de visible.
