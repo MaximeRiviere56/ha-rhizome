@@ -93,6 +93,10 @@ const TEXTES = {
     evt_recolte: "Récolté",
     evt_termine: "Terminé",
     evt_perdu: "Perdu",
+    // L'arrosage n'est pas un evenement du journal (invariant 6) mais il
+    // s'affiche dedans : c'est un fait date, et le cacher laissait l'utilisateur
+    // sans trace de ce qu'il venait de noter.
+    evt_arrosage: "Arrosé",
 
     // Etapes culturales, pour les formulaires qui les listent.
     etape_semis_interieur: "Semer à l'abri",
@@ -121,11 +125,16 @@ const TEXTES = {
     sectionMaintenant: "C'est le moment",
     sectionAPreparer: "À préparer",
     sectionAArroser: "À arroser · {nombre}",
-    eauCestLeJour: "C'est le jour",
     eauTousLesNJours: "tous les {jours} j",
     eauDernierLe: "Dernier arrosage le {date}",
     eauJamais: "Jamais arrosée depuis sa mise en terre",
-    boutonArrose: "Arrosé",
+    // L'etat se lit dans la pastille, au passe quand c'est un fait ; le bouton
+    // ne porte que le geste, a l'imperatif.
+    eauChipRetard: "À arroser · {jours} j de retard",
+    eauChipAujourdhui: "À arroser aujourd'hui",
+    eauChipOk: "Arrosé · prochain dans {jours} j",
+    eauChipFait: "Arrosé · noté au journal",
+    boutonArroser: "Arroser",
     boutonToutArroser: "Tout arroser ({nombre})",
     fenetreJusquAu: "Fenêtre jusqu'au {date}",
     dApresVotreJournal: "d'après votre journal",
@@ -138,9 +147,6 @@ const TEXTES = {
     ajouterDesLegumes: "Ajouter des légumes",
     recoltesSuffixe: "{poids} récoltés",
     rienDePrevu: "Rien de prévu",
-    eauAArroserDepuis: "À arroser · depuis {jours} j",
-    eauAArroserAujourdhui: "À arroser aujourd'hui",
-    eauProchainDans: "Arrosée · prochain dans {jours} j",
     noterUnArrosage: "Noter un arrosage",
 
     // Vue « Catalogue ».
@@ -179,6 +185,8 @@ const TEXTES = {
     bilanNbRecoltes: "récolte{s} notée{s}",
     bilanPlantes: "plantes suivies",
     bilanPertes: "perte{s}",
+    bilanArrosages: "arrosage{s}",
+    journalNPlantes: "{nombre} plantes",
     filtreTout: "Tout",
     etiquetteCause: "Cause : {cause}",
 
@@ -211,7 +219,6 @@ const TEXTES = {
 
     // Arrosage, dans la fiche.
     blocArrosage: "Arrosage",
-    eauAArroser: "À arroser",
     eauProchainLe: "Prochain arrosage le {date}",
     eauTousLesJours: "Tous les {jours} jours",
     eauDernierLeLong: "dernier le {date}",
@@ -223,10 +230,11 @@ const TEXTES = {
     aideFrequenceEau:
       "0 pour suivre la fréquence de la fiche{precision}. Un semis boit deux fois plus souvent qu'un plant installé, l'écart est appliqué automatiquement.",
     aideFrequenceEauPrecision: " ({jours} j)",
-    blocDerniersArrosages: "Derniers arrosages",
 
     // Frise du journal.
     blocJournal: "Journal",
+    friseArrosages: "{nombre} arrosages",
+    frisePeriode: "du {debut} au {fin}",
     videFrise:
       "Rien de noté pour l'instant. Le premier «&nbsp;C'est fait&nbsp;» démarrera la frise, et les dates suivantes se calculeront depuis lui.",
 
@@ -444,6 +452,7 @@ const TEXTES = {
     evt_recolte: "Harvested",
     evt_termine: "Finished",
     evt_perdu: "Lost",
+    evt_arrosage: "Watered",
 
     etape_semis_interieur: "Sow under cover",
     etape_semis_direct: "Sow in place",
@@ -468,11 +477,14 @@ const TEXTES = {
     sectionMaintenant: "Now is the time",
     sectionAPreparer: "Coming up",
     sectionAArroser: "Needs watering · {nombre}",
-    eauCestLeJour: "Due today",
     eauTousLesNJours: "every {jours} d",
     eauDernierLe: "Last watered {date}",
     eauJamais: "Never watered since it went in the ground",
-    boutonArrose: "Watered",
+    eauChipRetard: "Needs water · {jours} d overdue",
+    eauChipAujourdhui: "Needs water today",
+    eauChipOk: "Watered · next in {jours} d",
+    eauChipFait: "Watered · recorded in the journal",
+    boutonArroser: "Water",
     boutonToutArroser: "Water all ({nombre})",
     fenetreJusquAu: "Window until {date}",
     dApresVotreJournal: "from your journal",
@@ -484,9 +496,6 @@ const TEXTES = {
     ajouterDesLegumes: "Add some vegetables",
     recoltesSuffixe: "{poids} harvested",
     rienDePrevu: "Nothing planned",
-    eauAArroserDepuis: "Needs water · {jours} d overdue",
-    eauAArroserAujourdhui: "Needs water today",
-    eauProchainDans: "Watered · next in {jours} d",
     noterUnArrosage: "Record a watering",
 
     chercherPlaceholder: "Search a vegetable, a fruit, a family…",
@@ -521,6 +530,8 @@ const TEXTES = {
     bilanNbRecoltes: "harvest{s} recorded",
     bilanPlantes: "plants tracked",
     bilanPertes: "loss{s}",
+    bilanArrosages: "watering{s}",
+    journalNPlantes: "{nombre} plants",
     filtreTout: "All",
     etiquetteCause: "Cause: {cause}",
 
@@ -551,7 +562,6 @@ const TEXTES = {
     confirmRetirerPlante: "Remove this plant and its journal?",
 
     blocArrosage: "Watering",
-    eauAArroser: "Needs water",
     eauProchainLe: "Next watering on {date}",
     eauTousLesJours: "Every {jours} days",
     eauDernierLeLong: "last on {date}",
@@ -563,9 +573,10 @@ const TEXTES = {
     aideFrequenceEau:
       "0 to follow the frequency on the crop entry{precision}. A seedling drinks twice as often as an established plant, and that difference is applied for you.",
     aideFrequenceEauPrecision: " ({jours} d)",
-    blocDerniersArrosages: "Recent waterings",
 
     blocJournal: "Journal",
+    friseArrosages: "{nombre} waterings",
+    frisePeriode: "from {debut} to {fin}",
     videFrise:
       "Nothing recorded yet. The first «&nbsp;Done&nbsp;» starts the timeline, and the dates that follow are computed from it.",
 
@@ -793,6 +804,39 @@ const EVT_POUR_ETAPE = {
 
 const libelleEvenement = (type) => (type ? T(`evt_${type}`) : "");
 
+/** Les trois etats d'arrosage, chacun avec son icone et son fond.
+ *
+ *  Un bouton bleu « Arrosé » posait la mauvaise question : etait-ce un constat
+ *  ou une commande ? L'etat vit desormais dans une pastille — au passe quand
+ *  c'est un fait, a l'impératif sur le bouton d'a cote — et l'icone suffit a
+ *  trancher sans lire : alerte, arrosoir, ou coche. */
+const NIVEAUX_EAU = {
+  retard: { icone: "mdi:water-alert", cle: "eauChipRetard" },
+  jour: { icone: "mdi:watering-can", cle: "eauChipAujourdhui" },
+  ok: { icone: "mdi:water-check", cle: "eauChipOk" },
+  fait: { icone: "mdi:check-circle", cle: "eauChipFait" },
+};
+
+const niveauEau = (eau) =>
+  eau.jours_restants < 0 ? "retard" : eau.jours_restants === 0 ? "jour" : "ok";
+
+/** La pastille d'etat. `confirme` la remplace quelques secondes par la
+ *  confirmation du clic : le compte a rebours repart de lui-meme, mais rien ne
+ *  disait que *ce* geste avait ete pris, ni ou il etait parti. */
+function pastilleEau(eau, confirme = false) {
+  const niveau = confirme ? "fait" : niveauEau(eau);
+  const { icone, cle } = NIVEAUX_EAU[niveau];
+  const jours = Math.abs(eau.jours_restants);
+  return `<span class="chip-eau" data-niveau="${niveau}">
+      <ha-icon icon="${icone}" style="--mdc-icon-size:15px"></ha-icon>
+      ${T(cle, { jours })}
+    </span>`;
+}
+
+/** Vrai quand l'eau n'est pas due : le bouton se fait discret, pour que la
+ *  couleur pleine reste le signal de ce qui attend un geste. */
+const eauAJour = (eau, confirme) => confirme || eau.jours_restants > 0;
+
 // Au-delà de ce seuil, la récolte couvre l'essentiel de l'année : c'est ce
 // qui sépare le poireau perpétuel, qu'on coupe en janvier comme en juillet,
 // de l'asperge, qui ne donne que six semaines.
@@ -1003,13 +1047,38 @@ const STYLES = `
 
   .pied-eau {
     display: flex; align-items: center; justify-content: space-between;
-    gap: 8px; margin-top: 10px; padding-top: 10px;
+    gap: 8px; flex-wrap: wrap; margin-top: 10px; padding-top: 10px;
     border-top: 1px solid var(--divider-color);
     font-size: 12px; color: var(--secondary-text-color);
   }
-  .pied-eau > span { display: inline-flex; align-items: center; gap: 5px; }
-  .pied-eau .soif { color: var(--rhizome-eau); font-weight: 500; }
   button.bouton.mini { padding: 5px 12px; font-size: 12px; }
+
+  /* --- Pastille d'arrosage ----------------------------------------------
+     L'etat d'arrosage tient dans une pastille, pas dans le libelle d'un
+     bouton : trois fonds, trois icones, pour que « c'est fait » et « c'est a
+     faire » ne se ressemblent pas. Le texte reste en couleur de premier plan,
+     comme les badges de phase — un texte teinte sur un fond teinte de la meme
+     teinte passe mal en theme sombre. */
+  .chip-eau {
+    display: inline-flex; align-items: center; gap: 5px; max-width: 100%;
+    font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 999px;
+    background: color-mix(in srgb, var(--secondary-text-color) 14%, transparent);
+    color: var(--primary-text-color); line-height: 1.35;
+  }
+  .chip-eau ha-icon { color: var(--secondary-text-color); flex: 0 0 auto; }
+  .chip-eau[data-niveau="retard"] {
+    background: color-mix(in srgb, var(--rhizome-recolte) 26%, transparent);
+  }
+  .chip-eau[data-niveau="retard"] ha-icon { color: var(--rhizome-recolte); }
+  .chip-eau[data-niveau="jour"] {
+    background: color-mix(in srgb, var(--rhizome-eau) 24%, transparent);
+  }
+  .chip-eau[data-niveau="jour"] ha-icon { color: var(--rhizome-eau); }
+  .chip-eau[data-niveau="ok"] ha-icon { color: var(--rhizome-eau); }
+  .chip-eau[data-niveau="fait"] {
+    background: color-mix(in srgb, var(--rhizome-semis) 30%, transparent);
+  }
+  .chip-eau[data-niveau="fait"] ha-icon { color: var(--rhizome-semis); }
 
   .badge {
     display: inline-flex; align-items: center; gap: 4px;
@@ -1118,6 +1187,15 @@ const STYLES = `
   .frise-etape { display: flex; gap: 12px; }
   .frise-trait { flex: 0 0 12px; display: flex; flex-direction: column; align-items: center; }
   .frise-point { width: 10px; height: 10px; border-radius: 50%; background: var(--primary-color); margin-top: 5px; }
+  /* Creux et bleu : un arrosage se lit dans le journal sans se confondre avec
+     une etape du cycle, qu'il ne fait pas avancer (invariant 6). */
+  .frise-point.eau {
+    background: var(--card-background-color, #fff);
+    border: 2px solid var(--rhizome-eau);
+  }
+  /* Largeur figee : la goutte tient la meme colonne que l'emoji des autres
+     lignes, sinon le journal part en escalier. */
+  .journal-ligne .goutte { flex: 0 0 20px; color: var(--rhizome-eau); --mdc-icon-size: 20px; }
   .frise-barre { flex: 1; width: 2px; background: var(--divider-color); min-height: 14px; }
   .frise-texte { flex: 1; padding-bottom: 14px; font-size: 14px; }
   .frise-texte .date { font-size: 12px; color: var(--secondary-text-color); }
@@ -1282,6 +1360,23 @@ class RhizomePanel extends HTMLElement {
     }
   }
 
+  /** Note un arrosage, et retient quelques secondes que ce clic a ete pris.
+   *
+   *  Sans ca, le seul retour visible est un compte a rebours qui repart : rien
+   *  ne dit que *ce* geste a ete enregistre, ni ou il est parti. La pastille le
+   *  dit, et nomme le journal. */
+  async _arroser(uids) {
+    const reponse = await this._appeler({ type: "rhizome/arroser", uid: uids });
+    if (!reponse) return;
+    this._eauConfirmee = new Set(uids);
+    clearTimeout(this._minuteurEau);
+    this._minuteurEau = setTimeout(() => {
+      this._eauConfirmee = null;
+      this._rendreVue();
+    }, 4000);
+    this._rendreVue();
+  }
+
   _noter(uid, evenement, extra = {}) {
     return this._appeler({ type: "rhizome/noter", uid, evenement, ...extra });
   }
@@ -1425,29 +1520,29 @@ class RhizomePanel extends HTMLElement {
     return `<h2>${T("sectionAArroser", { nombre: besoins.length })}</h2>
       <div class="grille grille-large">${besoins
         .map((b) => {
-          const retard = -b.etat.jours_restants;
-          const quand =
-            retard <= 0
-              ? T("eauCestLeJour")
-              : retard === 1
-              ? T("quandDepuisHier")
-              : T("quandDepuis", { jours: retard });
-          return `<div class="carte action ${retard > 1 ? "urgent" : ""}">
+          const confirme = this._eauConfirmee?.has(b.uid);
+          return `<div class="carte action ${
+            b.etat.jours_restants < -1 && !confirme ? "urgent" : ""
+          }">
             <div class="emoji">${echappe(b.emoji)}</div>
             <div class="corps">
               <div class="titre">${echappe(b.nom)}</div>
-              <div class="detail">
-                <span class="verbe">${quand}</span> · ${echappe(b.zone)} ·
-                ${T("eauTousLesNJours", { jours: b.etat.frequence_jours })}
+              <div class="detail" style="margin-top:4px">
+                ${pastilleEau(b.etat, confirme)}
               </div>
-              <div class="detail">${
-                b.etat.dernier
-                  ? T("eauDernierLe", { date: fmtCourt(b.etat.dernier) })
-                  : T("eauJamais")
-              }</div>
+              <div class="detail">
+                ${echappe(b.zone)} ·
+                ${T("eauTousLesNJours", { jours: b.etat.frequence_jours })} ·
+                ${
+                  b.etat.dernier
+                    ? T("eauDernierLe", { date: fmtCourt(b.etat.dernier) })
+                    : T("eauJamais")
+                }
+              </div>
             </div>
-            <button class="bouton" data-arroser="${b.uid}">
-              <ha-icon icon="mdi:watering-can"></ha-icon> ${T("boutonArrose")}
+            <button class="bouton ${eauAJour(b.etat, confirme) ? "discret" : ""}"
+                    data-arroser="${b.uid}">
+              <ha-icon icon="mdi:watering-can"></ha-icon> ${T("boutonArroser")}
             </button>
           </div>`;
         })
@@ -1590,23 +1685,15 @@ class RhizomePanel extends HTMLElement {
   _pieDArrosage(plante) {
     const eau = plante.arrosage;
     if (!this._jardin?.arrosage_actif || !eau || !eau.concernee) return "";
-
-    const retard = -eau.jours_restants;
-    const texte =
-      retard > 0
-        ? T("eauAArroserDepuis", { jours: retard })
-        : retard === 0
-        ? T("eauAArroserAujourdhui")
-        : T("eauProchainDans", { jours: -retard });
+    const confirme = this._eauConfirmee?.has(plante.uid);
 
     return `<div class="pied-eau">
-        <span class="${eau.a_arroser ? "soif" : ""}">
-          <ha-icon icon="mdi:watering-can" style="--mdc-icon-size:16px"></ha-icon>
-          ${texte}
-        </span>
-        <button class="bouton mini" data-arroser="${plante.uid}"
+        ${pastilleEau(eau, confirme)}
+        <button class="bouton mini ${eauAJour(eau, confirme) ? "discret" : ""}"
+                data-arroser="${plante.uid}"
+                aria-label="${T("noterUnArrosage")}"
                 title="${T("noterUnArrosage")}">
-          ${T("boutonArrose")}
+          ${T("boutonArroser")}
         </button>
       </div>`;
   }
@@ -1892,6 +1979,24 @@ class RhizomePanel extends HTMLElement {
         entrees.push({ ...evt, plante });
       }
     }
+
+    // L'arrosage ne fait pas avancer le cycle (invariant 6), mais c'est un
+    // fait date : il a sa place au journal. Groupe par jour et non par plante,
+    // sinon un ete d'arrosages enterrerait les semis et les recoltes sous des
+    // centaines de lignes identiques.
+    const parJour = new Map();
+    for (const plante of plantes) {
+      for (const arrosage of plante.arrosages || []) {
+        if (!parJour.has(arrosage.date)) parJour.set(arrosage.date, []);
+        parJour.get(arrosage.date).push(plante);
+      }
+    }
+    let nbArrosages = 0;
+    for (const [date, concernees] of parJour) {
+      nbArrosages += concernees.length;
+      entrees.push({ type: "arrosage", eau: true, date, concernees });
+    }
+
     entrees.sort((a, b) => (a.date < b.date ? 1 : -1));
 
     if (!entrees.length) {
@@ -1926,6 +2031,16 @@ class RhizomePanel extends HTMLElement {
           <div class="etiquette">${T("bilanPlantes")}</div>
         </div>
         ${
+          nbArrosages
+            ? `<div class="carte tuile">
+                 <div class="chiffre">${nbArrosages}</div>
+                 <div class="etiquette">${T("bilanArrosages", {
+                   s: pluriel(nbArrosages),
+                 })}</div>
+               </div>`
+            : ""
+        }
+        ${
           pertes.length
             ? `<div class="carte tuile">
                  <div class="chiffre">${pertes.length}</div>
@@ -1952,31 +2067,59 @@ class RhizomePanel extends HTMLElement {
 
       <div class="carte" style="padding:4px 0">
         ${filtrees
-          .map(
-            (e) => `<div class="journal-ligne">
-              <div class="journal-date">${fmtCourt(e.date)}</div>
-              <div style="font-size:20px">${echappe(e.plante.emoji)}</div>
-              <div class="journal-corps">
-                <div><strong>${echappe(e.libelle)}</strong> · ${echappe(
-              e.plante.nom
-            )} <span class="badge">${echappe(e.plante.zone.nom)}</span></div>
-                ${
-                  e.quantite_g
-                    ? `<div class="journal-note">${kg(e.quantite_g)}</div>`
-                    : ""
-                }
-                ${
-                  e.cause
-                    ? `<div class="journal-note">${T("etiquetteCause", {
-                        cause: echappe(e.cause),
-                      })}</div>`
-                    : ""
-                }
-                ${e.note ? `<div class="journal-note">${echappe(e.note)}</div>` : ""}
-              </div>
-            </div>`
-          )
+          .map((e) => (e.eau ? this._ligneJournalEau(e) : this._ligneJournal(e)))
           .join("")}
+      </div>`;
+  }
+
+  _ligneJournal(e) {
+    return `<div class="journal-ligne">
+        <div class="journal-date">${fmtCourt(e.date)}</div>
+        <div style="font-size:20px">${echappe(e.plante.emoji)}</div>
+        <div class="journal-corps">
+          <div><strong>${echappe(e.libelle)}</strong> · ${echappe(
+      e.plante.nom
+    )} <span class="badge">${echappe(e.plante.zone.nom)}</span></div>
+          ${
+            e.quantite_g
+              ? `<div class="journal-note">${kg(e.quantite_g)}</div>`
+              : ""
+          }
+          ${
+            e.cause
+              ? `<div class="journal-note">${T("etiquetteCause", {
+                  cause: echappe(e.cause),
+                })}</div>`
+              : ""
+          }
+          ${e.note ? `<div class="journal-note">${echappe(e.note)}</div>` : ""}
+        </div>
+      </div>`;
+  }
+
+  /** Une journee d'arrosage. L'arrosoir remplace l'emoji de la plante : d'un
+   *  coup d'oeil, la ligne se distingue d'une etape du cycle. */
+  _ligneJournalEau(e) {
+    const seule = e.concernees.length === 1 ? e.concernees[0] : null;
+    return `<div class="journal-ligne">
+        <div class="journal-date">${fmtCourt(e.date)}</div>
+        <ha-icon class="goutte" icon="mdi:watering-can"></ha-icon>
+        <div class="journal-corps">
+          <div><strong>${T("evt_arrosage")}</strong> · ${
+      seule
+        ? `${echappe(seule.nom)} <span class="badge">${echappe(
+            seule.zone.nom
+          )}</span>`
+        : T("journalNPlantes", { nombre: e.concernees.length })
+    }</div>
+          ${
+            seule
+              ? ""
+              : `<div class="journal-note">${e.concernees
+                  .map((plante) => echappe(plante.nom))
+                  .join(" · ")}</div>`
+          }
+        </div>
       </div>`;
   }
 
@@ -2018,7 +2161,7 @@ class RhizomePanel extends HTMLElement {
       el.addEventListener("click", async (ev) => {
         ev.stopPropagation();
         el.disabled = true;
-        await this._appeler({ type: "rhizome/arroser", uid: el.dataset.arroser });
+        await this._arroser([el.dataset.arroser]);
       })
     );
 
@@ -2026,10 +2169,7 @@ class RhizomePanel extends HTMLElement {
       el.addEventListener("click", async (ev) => {
         ev.stopPropagation();
         el.disabled = true;
-        await this._appeler({
-          type: "rhizome/arroser",
-          uid: el.dataset.arroserTout.split(","),
-        });
+        await this._arroser(el.dataset.arroserTout.split(","));
       })
     );
 
@@ -2353,31 +2493,27 @@ class RhizomePanel extends HTMLElement {
   _blocEauFiche(plante) {
     if (!this._jardin?.arrosage_actif) return "";
     const eau = plante.arrosage;
-    const historique = plante.arrosages || [];
+    const confirme = this._eauConfirmee?.has(plante.uid);
 
     return `<div class="carte bloc">
         <h4>${T("blocArrosage")}</h4>
         ${
           eau && eau.concernee
-            ? `<div style="font-size:15px">
-                 ${
-                   eau.a_arroser
-                     ? `<strong style="color:var(--rhizome-eau)">${T(
-                         "eauAArroser"
-                       )}</strong>`
-                     : T("eauProchainLe", {
-                         date: `<strong>${fmtLong(eau.prochain)}</strong>`,
-                       })
-                 }
-               </div>
-               <div style="font-size:13px;color:var(--secondary-text-color);margin-top:4px">
+            ? `<div>${pastilleEau(eau, confirme)}</div>
+               <div style="font-size:13px;color:var(--secondary-text-color);margin-top:8px">
                  ${T("eauTousLesJours", { jours: eau.frequence_jours })} · ${
                  eau.dernier
                    ? T("eauDernierLeLong", { date: fmtLong(eau.dernier) })
                    : T("eauJamaisCourt")
+               }${
+                 eau.prochain && !eau.a_arroser
+                   ? ` · ${T("eauProchainLe", { date: fmtLong(eau.prochain) })}`
+                   : ""
                }
                </div>
-               <button class="bouton" data-arroser="${plante.uid}" style="margin-top:12px">
+               <button class="bouton ${
+                 eauAJour(eau, confirme) ? "discret" : ""
+               }" data-arroser="${plante.uid}" style="margin-top:12px">
                  <ha-icon icon="mdi:watering-can"></ha-icon> ${T(
                    "boutonJeViensDArroser"
                  )}
@@ -2405,48 +2541,90 @@ class RhizomePanel extends HTMLElement {
             ? T("aideFrequenceEauPrecision", { jours: eau.frequence_jours })
             : "",
         })}</p>
-
-        ${
-          historique.length
-            ? `<h4 style="margin-top:16px">${T("blocDerniersArrosages")}</h4>
-               <div class="compagnes">${historique
-                 .slice(0, 12)
-                 .map(
-                   (a) => `<span class="compagne">${fmtCourt(a.date)}</span>`
-                 )
-                 .join("")}</div>`
-            : ""
-        }
       </div>`;
   }
 
+  /** Le journal de la plante : le cycle et les arrosages, meles par date.
+   *
+   *  Les arrosages arrivent groupes par series consecutives. Une tomate
+   *  arrosee tous les deux jours pendant un ete noierait sinon ses cinq
+   *  etapes de cycle sous trente lignes identiques ; une serie tient en une
+   *  ligne, qui porte toutes ses dates. */
+  _entreesFrise(plante) {
+    const brut = [
+      ...(plante.evenements || []).map((evt) => ({ ...evt, eau: false })),
+      ...(plante.arrosages || []).map((a) => ({ ...a, eau: true })),
+    ].sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+
+    const entrees = [];
+    for (const item of brut) {
+      const precedent = entrees[entrees.length - 1];
+      if (item.eau && precedent?.eau) {
+        precedent.dates.push(item.date);
+      } else if (item.eau) {
+        entrees.push({ eau: true, date: item.date, dates: [item.date] });
+      } else {
+        entrees.push(item);
+      }
+    }
+    return entrees;
+  }
+
+  _friseEau(serie) {
+    const nombre = serie.dates.length;
+    const tete = `<strong>
+        <ha-icon icon="mdi:watering-can"
+                 style="--mdc-icon-size:16px;color:var(--rhizome-eau)"></ha-icon>
+        ${nombre === 1 ? T("evt_arrosage") : T("friseArrosages", { nombre })}
+      </strong>`;
+    if (nombre === 1)
+      return `${tete}<div class="date">${fmtLong(serie.dates[0])}</div>`;
+    return `${tete}
+      <div class="date">${T("frisePeriode", {
+        debut: fmtCourt(serie.dates[0]),
+        fin: fmtCourt(serie.dates[nombre - 1]),
+      })}</div>
+      <div class="compagnes" style="margin-top:6px">${serie.dates
+        .map((d) => `<span class="compagne">${fmtCourt(d)}</span>`)
+        .join("")}</div>`;
+  }
+
   _blocFrise(plante) {
-    if (!plante.evenements.length) {
+    const entrees = this._entreesFrise(plante);
+    if (!entrees.length) {
       return `<div class="carte bloc"><h4>${T("blocJournal")}</h4>
         <div style="color:var(--secondary-text-color);font-size:14px">
           ${T("videFrise")}
         </div></div>`;
     }
 
-    const etapes = plante.evenements
+    const etapes = entrees
       .map(
         (evt, index) => `
           <div class="frise-etape">
             <div class="frise-trait">
-              <div class="frise-point"></div>
+              <div class="frise-point ${evt.eau ? "eau" : ""}"></div>
               ${
-                index < plante.evenements.length - 1
+                index < entrees.length - 1
                   ? `<div class="frise-barre"></div>`
                   : ""
               }
             </div>
             <div class="frise-texte">
-              <strong>${echappe(evt.libelle)}</strong>
+              ${
+                evt.eau
+                  ? this._friseEau(evt)
+                  : `<strong>${echappe(evt.libelle)}</strong>
               ${evt.quantite_g ? ` · ${kg(evt.quantite_g)}` : ""}
               <div class="date">${fmtLong(evt.date)}${
-          evt.cause ? ` · ${echappe(evt.cause)}` : ""
-        }</div>
-              ${evt.note ? `<div class="journal-note">${echappe(evt.note)}</div>` : ""}
+                      evt.cause ? ` · ${echappe(evt.cause)}` : ""
+                    }</div>
+              ${
+                evt.note
+                  ? `<div class="journal-note">${echappe(evt.note)}</div>`
+                  : ""
+              }`
+              }
             </div>
           </div>`
       )
@@ -2698,6 +2876,18 @@ class RhizomePanel extends HTMLElement {
     }
     hote.querySelectorAll("[data-fermer]").forEach((el) =>
       el.addEventListener("click", () => this._fermerFiche())
+    );
+
+    // « Je viens d'arroser » n'avait jamais rien fait : la fiche se rend dans
+    // son propre hote, et seul `_brancherVue` ecoutait `[data-arroser]`. Le
+    // clic partait dans le vide, sans erreur ni retour — exactement ce qui
+    // rendait l'arrosage illisible depuis la fiche.
+    hote.querySelectorAll("[data-arroser]").forEach((el) =>
+      el.addEventListener("click", async (ev) => {
+        ev.stopPropagation();
+        el.disabled = true;
+        await this._arroser([el.dataset.arroser]);
+      })
     );
 
     hote.querySelectorAll("[data-fait-fiche]").forEach((el) =>

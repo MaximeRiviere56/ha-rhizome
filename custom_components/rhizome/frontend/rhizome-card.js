@@ -28,8 +28,13 @@ const TEXTES = {
     sectionAFaire: "À faire",
     sectionAArroser: "À arroser · {nombre}",
     sectionProchains: "Prochains arrosages",
-    aArroser: "À arroser",
-    boutonArrose: "Arrosé",
+    // L'etat se lit dans la pastille, au passe quand c'est un fait ; le bouton
+    // ne porte que le geste, a l'imperatif.
+    eauChipRetard: "À arroser · {jours} j de retard",
+    eauChipAujourdhui: "À arroser aujourd'hui",
+    eauChipOk: "Arrosé · prochain dans {jours} j",
+    eauChipFait: "Arrosé · c'est noté",
+    boutonArroser: "Arroser",
     boutonFait: "Fait",
     boutonToutArroser: "Tout arroser ({nombre})",
     tousLesNJours: "tous les {jours} j",
@@ -37,8 +42,6 @@ const TEXTES = {
     quandAujourdhui: "aujourd'hui",
     quandDemain: "demain",
     quandDans: "dans {jours} jours",
-    quandDansCourt: "dans {jours} j",
-    quandDepuisHier: "depuis hier",
     quandDepuis: "depuis {jours} jours",
     rienAFaire: "Rien à faire au potager aujourd'hui 🌿",
     capteurIntrouvable:
@@ -53,8 +56,11 @@ const TEXTES = {
     sectionAFaire: "To do",
     sectionAArroser: "Needs watering · {nombre}",
     sectionProchains: "Next waterings",
-    aArroser: "Needs water",
-    boutonArrose: "Watered",
+    eauChipRetard: "Needs water · {jours} d overdue",
+    eauChipAujourdhui: "Needs water today",
+    eauChipOk: "Watered · next in {jours} d",
+    eauChipFait: "Watered · recorded",
+    boutonArroser: "Water",
     boutonFait: "Done",
     boutonToutArroser: "Water all ({nombre})",
     tousLesNJours: "every {jours} d",
@@ -62,8 +68,6 @@ const TEXTES = {
     quandAujourdhui: "today",
     quandDemain: "tomorrow",
     quandDans: "in {jours} days",
-    quandDansCourt: "in {jours} d",
-    quandDepuisHier: "since yesterday",
     quandDepuis: "{jours} days ago",
     rienAFaire: "Nothing to do in the garden today 🌿",
     capteurIntrouvable:
@@ -135,11 +139,31 @@ const quand = (jours, enCours) => {
   return T("quandDepuis", { jours: Math.abs(jours) });
 };
 
-const quandEau = (jours) => {
-  if (jours > 1) return T("quandDepuis", { jours });
-  if (jours === 1) return T("quandDepuisHier");
-  if (jours === 0) return T("quandAujourdhui");
-  return T("quandDansCourt", { jours: -jours });
+/** Les trois etats d'arrosage, chacun avec son icone et son fond.
+ *
+ *  Un bouton bleu « Arrosé » posait la mauvaise question : etait-ce un constat
+ *  ou une commande ? L'etat vit desormais dans une pastille — au passe quand
+ *  c'est un fait — et le bouton ne porte plus que le geste. L'icone tranche
+ *  sans qu'on lise : alerte, arrosoir, ou coche.
+ *
+ *  `retard` compte les jours de retard, donc l'oppose de `jours_restants` :
+ *  cette carte les a deja inverses en construisant sa liste. */
+const NIVEAUX_EAU = {
+  retard: { icone: "mdi:water-alert", cle: "eauChipRetard" },
+  jour: { icone: "mdi:watering-can", cle: "eauChipAujourdhui" },
+  ok: { icone: "mdi:water-check", cle: "eauChipOk" },
+  fait: { icone: "mdi:check-circle", cle: "eauChipFait" },
+};
+
+const niveauEau = (retard) => (retard > 0 ? "retard" : retard === 0 ? "jour" : "ok");
+
+const pastilleEau = (retard, confirme = false) => {
+  const niveau = confirme ? "fait" : niveauEau(retard);
+  const { icone, cle } = NIVEAUX_EAU[niveau];
+  return `<span class="chip-eau" data-niveau="${niveau}">
+      <ha-icon icon="${icone}"></ha-icon>
+      ${T(cle, { jours: Math.abs(retard) })}
+    </span>`;
 };
 
 class RhizomeCard extends HTMLElement {
@@ -240,6 +264,25 @@ class RhizomeCard extends HTMLElement {
     }
   }
 
+  /** Note l'arrosage, et retient quelques secondes que ce clic a ete pris.
+   *
+   *  Les etats arrivent par le flux de Home Assistant : la ligne va changer
+   *  d'elle-meme, mais avec un simple decalage du compte a rebours, que
+   *  personne ne remarque. La pastille verte, elle, se voit. */
+  async _arroser(uids, bouton) {
+    await this._commander({ type: "rhizome/arroser", uid: uids }, bouton);
+    if (this._erreur) return;
+    this._eauConfirmee = new Set(uids);
+    clearTimeout(this._minuteurEau);
+    this._minuteurEau = setTimeout(() => {
+      this._eauConfirmee = null;
+      this._rendu = false;
+      this._rendre();
+    }, 4000);
+    this._rendu = false;
+    this._rendre();
+  }
+
   _rendre() {
     if (!this._hass || !this._config) return;
 
@@ -252,6 +295,7 @@ class RhizomeCard extends HTMLElement {
     const titre = this._config.titre ?? T("titreDefaut");
     const signature = JSON.stringify([
       actions, aArroser, reste, this._erreur, LANGUE,
+      [...(this._eauConfirmee || [])],
     ]);
     if (this._rendu && signature === this._signature) return;
     this._signature = signature;
@@ -264,21 +308,28 @@ class RhizomeCard extends HTMLElement {
       return;
     }
 
-    const ligneEau = (p) => `
-      <div class="ligne ${p.aFaire ? "urgent" : ""}">
-        <ha-icon icon="mdi:watering-can" class="goutte"></ha-icon>
+    const ligneEau = (p) => {
+      const confirme = this._eauConfirmee?.has(p.uid);
+      return `
+      <div class="ligne">
         <div class="corps">
           <div class="nom">${echappe(p.nom)}</div>
+          <div class="detail etat">
+            ${pastilleEau(p.jours, confirme)}
+          </div>
           <div class="detail">
-            ${
-              p.aFaire ? `<span class="verbe">${T("aArroser")}</span> · ` : ""
-            }${quandEau(p.jours)} · ${echappe(p.zone)}${
-      p.frequence ? ` · ${T("tousLesNJours", { jours: p.frequence })}` : ""
-    }
+            ${echappe(p.zone)}${
+        p.frequence ? ` · ${T("tousLesNJours", { jours: p.frequence })}` : ""
+      }
           </div>
         </div>
-        <button data-eau="${p.uid}">${T("boutonArrose")}</button>
+        <button class="${
+          p.aFaire && !confirme ? "" : "discret"
+        }" data-eau="${p.uid}" aria-label="${T("boutonArroser")}">
+          ${T("boutonArroser")}
+        </button>
       </div>`;
+    };
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -294,7 +345,33 @@ class RhizomeCard extends HTMLElement {
         }
         .section + .ligne { border-top: 0; }
         .emoji { font-size: 24px; line-height: 1; }
-        .goutte { color: var(--rhizome-eau, #29b6f6); }
+        .detail.etat { margin-top: 4px; }
+        /* Trois fonds, trois icones : « c'est fait » et « c'est a faire » ne
+           doivent pas se ressembler. Texte en couleur de premier plan, comme
+           les badges de Home Assistant — teinte sur teinte passe mal en
+           theme sombre. */
+        .chip-eau {
+          display: inline-flex; align-items: center; gap: 5px;
+          font-size: 12px; font-weight: 500; padding: 3px 9px; border-radius: 999px;
+          background: color-mix(in srgb, var(--secondary-text-color) 14%, transparent);
+          color: var(--primary-text-color); white-space: nowrap;
+        }
+        .chip-eau ha-icon {
+          --mdc-icon-size: 15px; color: var(--secondary-text-color); flex: 0 0 auto;
+        }
+        .chip-eau[data-niveau="retard"] {
+          background: color-mix(in srgb, var(--warning-color, #ef6c00) 26%, transparent);
+        }
+        .chip-eau[data-niveau="retard"] ha-icon { color: var(--warning-color, #ef6c00); }
+        .chip-eau[data-niveau="jour"] {
+          background: color-mix(in srgb, var(--rhizome-eau, #29b6f6) 24%, transparent);
+        }
+        .chip-eau[data-niveau="jour"] ha-icon,
+        .chip-eau[data-niveau="ok"] ha-icon { color: var(--rhizome-eau, #29b6f6); }
+        .chip-eau[data-niveau="fait"] {
+          background: color-mix(in srgb, var(--success-color, #7cb342) 30%, transparent);
+        }
+        .chip-eau[data-niveau="fait"] ha-icon { color: var(--success-color, #7cb342); }
         .corps { flex: 1; min-width: 0; }
         .nom { font-size: 15px; }
         .detail { font-size: 12px; color: var(--secondary-text-color); margin-top: 1px; }
@@ -402,20 +479,14 @@ class RhizomeCard extends HTMLElement {
     this.shadowRoot.querySelectorAll("button[data-eau]").forEach((bouton) =>
       bouton.addEventListener("click", () => {
         this._erreur = null;
-        this._commander(
-          { type: "rhizome/arroser", uid: bouton.dataset.eau },
-          bouton
-        );
+        this._arroser([bouton.dataset.eau], bouton);
       })
     );
 
     this.shadowRoot.querySelectorAll("button[data-eau-tout]").forEach((bouton) =>
       bouton.addEventListener("click", () => {
         this._erreur = null;
-        this._commander(
-          { type: "rhizome/arroser", uid: bouton.dataset.eauTout.split(",") },
-          bouton
-        );
+        this._arroser(bouton.dataset.eauTout.split(","), bouton);
       })
     );
   }

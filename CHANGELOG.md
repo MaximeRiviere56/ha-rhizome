@@ -4,6 +4,48 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Versions sous [SemVer](https://semver.org/lang/fr/). Rhizome est en `0.x` :
 l'intérieur peut encore bouger, mais pas vos données.
 
+## Non publié
+
+L'arrosage se lisait mal : un bouton bleu « Arrosé » qui ne disait pas s'il
+constatait ou commandait, et des arrosages notés nulle part de visible.
+
+### Ajouté
+
+- **Les arrosages apparaissent au journal**, de la plante et du potager. Dans
+  la fiche d'une plante, ils se mêlent aux étapes du cycle à leur date, sur un
+  point bleu creux qui les distingue d'un semis ou d'une récolte — l'arrosage
+  reste hors du cycle, il ne le fait pas avancer. Une série d'arrosages
+  consécutifs tient en une ligne qui porte toutes ses dates, sinon un été
+  d'arrosages noierait les cinq étapes de la plante. Dans la vue *Journal*,
+  ils sont groupés par jour, filtrables comme les autres événements, et
+  comptés dans le bilan.
+- **Une pastille d'état d'arrosage**, à trois niveaux et trois icônes : en
+  retard (alerte, orangé), dû aujourd'hui (arrosoir, bleu), à jour (coche,
+  neutre). Elle remplace le texte libre dans le panneau comme dans la carte
+  Lovelace.
+- **Une confirmation après le clic** : la pastille passe au vert et dit
+  « Arrosé · noté au journal » pendant quelques secondes. Le seul retour
+  visible était jusqu'ici un compte à rebours qui repart, que personne ne
+  remarque.
+
+### Modifié
+
+- **Le bouton d'arrosage dit « Arroser », et non plus « Arrosé »** : un bouton
+  porte le geste qu'il déclenche, l'état vit dans la pastille d'à côté. Il
+  reste plein tant que l'eau est due et se fait discret une fois la plante à
+  jour, pour que la couleur pleine ne signale que ce qui attend un geste.
+- **Le panneau reçoit tout l'historique d'arrosage** d'une plante, et non plus
+  ses vingt dernières entrées : le journal les affiche désormais à leur date,
+  et une liste tronquée y ferait un trou sans le dire. Le stockage en borne
+  déjà le nombre.
+
+### Corrigé
+
+- **« Je viens d'arroser », dans la fiche d'une plante, ne faisait rien.** La
+  fiche se rend dans son propre hôte et seul le branchement de la vue écoutait
+  le bouton : le clic partait dans le vide, sans erreur ni retour. Le défaut
+  datait de l'ajout de l'arrosage et n'était visible que depuis la fiche.
+
 ## [0.10.0] — 2026-10-25
 
 Rhizome parle anglais. Interface, catalogue, rappels, calendrier, liste de
