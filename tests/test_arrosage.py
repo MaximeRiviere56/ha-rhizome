@@ -161,6 +161,67 @@ class TestPerennesInstallees(unittest.TestCase):
         self.assertTrue(wa.etat(TOMATE, p, PLEINE_TERRE, GELEES, ETE).concernee)
 
 
+class TestPlantesInterieur(unittest.TestCase):
+    """Les deux exclusions saisonnières ne s'appliquent pas à l'intérieur.
+
+    Ces deux tests gardent un correctif facile à défaire sans s'en apercevoir,
+    parce que son effet ne se voit qu'en décembre, ou deux ans après l'achat
+    de la plante. Dans les deux cas, le symptôme est le même et silencieux :
+    plus aucun rappel, et une plante qui sèche.
+    """
+
+    MONSTERA: ClassVar[dict] = {
+        "id": "monstera",
+        "nom": "Monstera",
+        "categorie": "plante-interieur",
+        "perenne": True,
+        "fenetres": {},
+        "rusticite": {"gel": False, "temp_min_c": 13},
+        "arrosage": {"besoin": "moyen", "frequence_jours": 8, "notes": ""},
+    }
+    SANSEVIERIA: ClassVar[dict] = {
+        **MONSTERA,
+        "id": "sansevieria",
+        "nom": "Sansevieria",
+        "arrosage": {"besoin": "faible", "frequence_jours": 21, "notes": ""},
+    }
+
+    def test_arrosee_l_hiver_meme_en_zone_decouverte(self):
+        """L'hiver est la saison où elle sèche le plus vite, pas l'inverse.
+
+        La zone peut parfaitement ne pas être déclarée abritée — le salon
+        n'est pas une serre — et compter sur cette case cochée ferait
+        dépendre la survie de la plante d'un détail de configuration.
+        """
+        p = plante([("plante", "2026-05-02")])
+        e = wa.etat(self.MONSTERA, p, PLEINE_TERRE, GELEES, HIVER)
+        self.assertTrue(e.concernee, e.motif_exclusion)
+
+    def test_jamais_consideree_comme_installee(self):
+        """Ses racines sont enfermées dans un pot : elles n'iront rien chercher."""
+        p = plante([("plante", "2020-01-15")])
+        e = wa.etat(self.SANSEVIERIA, p, PLEINE_TERRE, GELEES, ETE)
+        self.assertTrue(e.concernee, e.motif_exclusion)
+
+    def test_les_autres_exclusions_valent_toujours(self):
+        """Lever deux règles n'en lève pas une troisième."""
+        pas_en_terre = wa.etat(self.MONSTERA, plante(), PLEINE_TERRE, GELEES, ETE)
+        self.assertFalse(pas_en_terre.concernee)
+
+        coupee = plante([("plante", "2026-05-02")], arrosage_actif=False)
+        self.assertFalse(
+            wa.etat(self.MONSTERA, coupee, PLEINE_TERRE, GELEES, ETE).concernee
+        )
+
+    def test_une_perenne_de_plein_air_reste_exclue(self):
+        """Le contre-exemple : la règle d'origine n'a pas été supprimée."""
+        pommier = {**self.SANSEVIERIA, "id": "pommier", "categorie": "fruitier"}
+        p = plante([("plante", "2020-01-15")])
+        e = wa.etat(pommier, p, PLEINE_TERRE, GELEES, ETE)
+        self.assertFalse(e.concernee)
+        self.assertEqual(e.motif_cle, "eau_exclu_perenne")
+
+
 class TestHistorique(unittest.TestCase):
     def test_l_historique_reste_trie(self):
         p = plante()

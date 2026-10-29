@@ -77,6 +77,8 @@ const TEXTES = {
     cat_fruitier: "Fruitiers",
     "cat_fleur-compagne": "Fleurs compagnes",
     cat_cereale: "Céréales et graines",
+    cat_medicinale: "Médicinales",
+    "cat_plante-interieur": "Plantes d'intérieur",
 
     // Exposition et besoin en eau.
     "expo_plein-soleil": "Plein soleil",
@@ -163,6 +165,7 @@ const TEXTES = {
     marqueurPerpetuelle: " · ♾️ perpétuelle",
     marqueurVivace: " · 🔁 vivace",
     plantationPerenne: "Plantation pérenne",
+    cultureInterieur: "En pot, toute l'année",
 
     // Vue « Calendrier ».
     videCalendrier:
@@ -266,11 +269,13 @@ const TEXTES = {
     cleCycle: "Cycle",
     cycleContinue: "Perpétuelle — récolte quasi continue",
     cycleVivace: "Vivace — elle revient chaque année",
+    cycleInterieur: "Plante d'intérieur — elle ne connaît pas de saison",
     cycleAnnuelle: "Annuelle — à ressemer chaque année",
     cleGel: "Gel",
     gelSupporte: "Supporte",
     gelSupporteJusqua: "Supporte jusqu'à {temperature} °C",
     gelCraint: "Craint le gel",
+    gelInterieurMini: "Jamais en dessous de {temperature} °C",
     cleSol: "Sol",
     cleConseils: "Conseils",
     blocVoisinage: "Voisinage",
@@ -438,6 +443,8 @@ const TEXTES = {
     cat_fruitier: "Fruit trees",
     "cat_fleur-compagne": "Companion flowers",
     cat_cereale: "Cereals and seeds",
+    cat_medicinale: "Medicinal",
+    "cat_plante-interieur": "Houseplants",
 
     "expo_plein-soleil": "Full sun",
     "expo_mi-ombre": "Partial shade",
@@ -511,6 +518,7 @@ const TEXTES = {
     marqueurPerpetuelle: " · ♾️ everbearing",
     marqueurVivace: " · 🔁 perennial",
     plantationPerenne: "Perennial planting",
+    cultureInterieur: "In a pot, all year round",
 
     videCalendrier: "The calendar fills up as soon as you add a crop.",
     calPrevu: "(forecast)",
@@ -607,11 +615,13 @@ const TEXTES = {
     cleCycle: "Cycle",
     cycleContinue: "Everbearing — almost continuous harvest",
     cycleVivace: "Perennial — it comes back every year",
+    cycleInterieur: "Houseplant — it has no seasons",
     cycleAnnuelle: "Annual — to be sown again each year",
     cleGel: "Frost",
     gelSupporte: "Hardy",
     gelSupporteJusqua: "Hardy down to {temperature} °C",
     gelCraint: "Frost-tender",
+    gelInterieurMini: "Never below {temperature} °C",
     cleSol: "Soil",
     cleConseils: "Tips",
     blocVoisinage: "Neighbours",
@@ -767,7 +777,7 @@ const VUES = [
 const CATEGORIES_IDS = [
   "legume-fruit", "legume-racine", "legume-gousse", "legume-bulbe",
   "legume-feuille", "aromatique", "petit-fruit", "fruitier", "fleur-compagne",
-  "cereale",
+  "cereale", "medicinale", "plante-interieur",
 ];
 
 const libelleCategorie = (id) => (id ? T(`cat_${id}`) : "");
@@ -1849,6 +1859,8 @@ class RhizomePanel extends HTMLElement {
               ? `${echappe(culture.prochain_depart.libelle)} : ${fmtCourt(
                   culture.prochain_depart.debut
                 )} → ${fmtCourt(culture.prochain_depart.fin)}`
+              : culture.categorie === "plante-interieur"
+              ? T("cultureInterieur")
               : culture.perenne
               ? T("plantationPerenne")
               : ""
@@ -2786,7 +2798,9 @@ class RhizomePanel extends HTMLElement {
     )}</div></div>
           <div class="fait"><div class="cle">${T("cleCycle")}</div>
             <div class="valeur">${
-              culture.perenne
+              culture.categorie === "plante-interieur"
+                ? T("cycleInterieur")
+                : culture.perenne
                 ? ((culture.cycle || {}).duree_recolte_jours || 0) >=
                   RECOLTE_CONTINUE_JOURS
                   ? T("cycleContinue")
@@ -2795,7 +2809,12 @@ class RhizomePanel extends HTMLElement {
             }</div></div>
           <div class="fait"><div class="cle">${T("cleGel")}</div>
             <div class="valeur">${
-              culture.rusticite.gel
+              culture.categorie === "plante-interieur" &&
+              culture.rusticite.temp_min_c != null
+                ? T("gelInterieurMini", {
+                    temperature: culture.rusticite.temp_min_c,
+                  })
+                : culture.rusticite.gel
                 ? culture.rusticite.temp_min_c != null
                   ? T("gelSupporteJusqua", {
                       temperature: culture.rusticite.temp_min_c,

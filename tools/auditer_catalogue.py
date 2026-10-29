@@ -58,6 +58,15 @@ ESPACEMENTS = {
     "petit-fruit": (30, 500),
     "fruitier": (200, 1200),
     "cereale": (5, 120),
+    # La plage est très large, et c'est le défaut assumé de la catégorie :
+    # « médicinale » décrit un usage, pas un port. Elle contient une camomille
+    # de vingt centimètres et un tilleul de vingt mètres, donc la règle n'y
+    # attrape plus qu'une faute de frappe d'un ordre de grandeur.
+    "medicinale": (10, 1000),
+    # Pour une plante d'interieur, l'espacement n'est pas une distance de
+    # plantation : c'est l'encombrement adulte, ce qu'elle prendra sur le
+    # meuble. La plage va du pilea au ficus lyrata.
+    "plante-interieur": (15, 300),
 }
 
 # Catégories plausibles pour une famille botanique donnée. Le but est
@@ -70,7 +79,9 @@ FAMILLES_ATTENDUES = {
     "Cucurbitacées": {"legume-fruit"},
     "Fabacées": {"legume-gousse", "fleur-compagne"},
     "Amaryllidacées": {"legume-bulbe", "aromatique"},
-    "Rosacées": {"fruitier", "petit-fruit"},
+    # L'aubépine, l'églantier et la reine-des-prés sont des rosacées qu'on
+    # cultive pour la fleur ou la feuille, pas pour le fruit.
+    "Rosacées": {"fruitier", "petit-fruit", "medicinale"},
 }
 
 

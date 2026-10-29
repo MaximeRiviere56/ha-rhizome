@@ -29,26 +29,35 @@ from __future__ import annotations
 
 NOMS = {
     "abricotier": "Apricot tree",
+    "achillee": "Yarrow",
     "ail-blanc": "White garlic",
     "ail-ours": "Wild garlic",
     "ail-rose": "Pink garlic",
+    "aloe-vera": "Aloe vera",
     "amandier": "Almond tree",
     "amarante": "Amaranth",
     "aneth": "Dill",
     "angelique": "Angelica",
     "argousier": "Sea buckthorn",
+    "armoise-absinthe": "Wormwood",
     "arroche": "Orache",
     "artichaut": "Globe artichoke",
     "asperge": "Asparagus",
+    "aspidistra": "Cast-iron plant",
+    "aubepine": "Common hawthorn",
     "aubergine": "Aubergine",
     "avoine": "Oats (green manure)",
+    "bardane": "Greater burdock",
     "basilic": "Basil",
     "betterave": "Beetroot",
     "blette": "Chard",
+    "bouillon-blanc": "Great mullein",
     "bourrache": "Borage",
     "brocoli": "Broccoli",
+    "calathea": "Calathea",
     "camerisier": "Honeyberry",
     "camomille": "Roman chamomile",
+    "camomille-matricaire": "German chamomile",
     "capucine": "Nasturtium",
     "cardon": "Cardoon",
     "carotte": "Carrot",
@@ -62,6 +71,7 @@ NOMS = {
     "chayotte": "Chayote",
     "chervis": "Skirret",
     "chicoree-frisee": "Curly endive",
+    "chlorophytum": "Spider plant",
     "chou-bruxelles": "Brussels sprouts",
     "chou-cabus": "White cabbage",
     "chou-chinois": "Pak choi",
@@ -85,12 +95,17 @@ NOMS = {
     "courge-muscade": "Musquée de Provence squash",
     "courge-spaghetti": "Spaghetti squash",
     "courgette": "Courgette",
+    "crassula": "Jade plant",
     "cresson-alenois": "Garden cress",
     "cresson-fontaine": "Watercress",
     "crosne": "Chinese artichoke",
     "daikon": "Daikon radish",
+    "dieffenbachia": "Dumb cane",
+    "dracaena-marginata": "Madagascar dragon tree",
     "echalote": "Shallot",
+    "echinacee": "Purple coneflower",
     "edamame": "Edamame soybean",
+    "eglantier": "Dog rose",
     "endive": "Belgian endive",
     "epinard": "Spinach",
     "epinard-perpetuel": "Perpetual spinach (Good-King-Henry)",
@@ -98,7 +113,10 @@ NOMS = {
     "fenouil-aromatique": "Herb fennel",
     "fenouil-bulbeux": "Florence fennel",
     "feve": "Broad bean",
+    "ficus-elastica": "Rubber plant",
+    "ficus-lyrata": "Fiddle-leaf fig",
     "figuier": "Fig tree",
+    "fougere-nid": "Bird's nest fern",
     "fraisier": "Strawberry",
     "fraisier-remontant": "Everbearing strawberry",
     "framboisier": "Raspberry",
@@ -107,13 +125,16 @@ NOMS = {
     "gombo": "Okra",
     "groseillier": "Redcurrant",
     "groseillier-maquereau": "Gooseberry",
+    "guimauve": "Marshmallow",
     "haricot-a-rames": "Climbing French bean",
     "haricot-espagne": "Runner bean",
     "haricot-nain": "Dwarf French bean",
     "haricot-sec": "Drying bean",
     "houblon": "Hop",
+    "hoya": "Wax plant",
     "hysope": "Hyssop",
     "kaki": "Persimmon",
+    "kentia": "Kentia palm",
     "kiwi": "Kiwi",
     "laitue": "Lettuce",
     "laitue-hiver": "Winter lettuce",
@@ -124,12 +145,16 @@ NOMS = {
     "mache": "Lamb's lettuce",
     "mais-doux": "Sweetcorn",
     "mais-popcorn": "Popcorn maize",
+    "maranta": "Prayer plant",
     "marjolaine": "Marjoram",
     "mauve": "Common mallow",
     "melisse": "Lemon balm",
     "melon": "Melon",
     "menthe": "Mint",
+    "menthe-poivree": "Peppermint",
+    "millepertuis": "St John's wort",
     "mizuna": "Mizuna",
+    "monstera": "Swiss cheese plant",
     "moutarde-blanche": "White mustard (green manure)",
     "murier": "Blackberry",
     "myrtillier": "Blueberry",
@@ -144,20 +169,29 @@ NOMS = {
     "oignon-jaune": "Yellow onion",
     "oignon-rocambole": "Walking onion",
     "oignon-rouge": "Red onion",
+    "onagre": "Evening primrose",
+    "orchidee-phalaenopsis": "Moth orchid",
     "origan": "Oregano",
+    "ortie": "Stinging nettle",
     "oseille": "Sorrel",
     "pain-de-sucre": "Sugarloaf chicory",
     "panais": "Parsnip",
+    "passiflore": "Purple passionflower",
     "pasteque": "Watermelon",
     "patate-douce": "Sweet potato",
     "patisson": "Pattypan squash",
     "pecher": "Peach tree",
+    "peperomia": "Baby rubber plant",
     "persil": "Parsley",
     "persil-tubereux": "Turnip-rooted parsley",
     "petit-pois": "Garden pea",
     "phacelie": "Phacelia",
+    "philodendron": "Heartleaf philodendron",
     "physalis": "Cape gooseberry",
+    "pilea": "Chinese money plant",
     "piment": "Chilli pepper",
+    "pissenlit": "Dandelion",
+    "plantain-lanceole": "Ribwort plantain",
     "poireau": "Leek",
     "poireau-perpetuel": "Perennial leek",
     "poirier": "Pear tree",
@@ -166,19 +200,23 @@ NOMS = {
     "poivron": "Sweet pepper",
     "pomme-de-terre": "Potato",
     "pommier": "Apple tree",
+    "pothos": "Golden pothos",
     "potimarron": "Red kuri squash",
     "pourpier": "Summer purslane",
+    "prele": "Field horsetail",
     "prunier": "Plum tree",
     "quinoa": "Quinoa",
     "radis": "Radish",
     "radis-noir": "Black winter radish",
     "raifort": "Horseradish",
+    "reine-des-pres": "Meadowsweet",
     "rhubarbe": "Rhubarb",
     "romarin": "Rosemary",
     "roquette": "Rocket",
     "roquette-vivace": "Perennial wall rocket",
     "rutabaga": "Swede",
     "salsifis": "Salsify",
+    "sansevieria": "Snake plant",
     "sarrasin": "Buckwheat (green manure)",
     "sarriette": "Summer savory",
     "sauge": "Sage",
@@ -187,9 +225,12 @@ NOMS = {
     "seigle": "Rye (green manure)",
     "shiso": "Shiso",
     "souci": "Pot marigold",
+    "spathiphyllum": "Peace lily",
     "sureau-noir": "Black elder",
+    "tanaisie": "Tansy",
     "tetragone": "New Zealand spinach",
     "thym": "Thyme",
+    "tilleul": "Small-leaved lime",
     "tomate": "Tomato",
     "tomate-cerise": "Cherry tomato",
     "tomatille": "Tomatillo",
@@ -197,9 +238,11 @@ NOMS = {
     "tournesol": "Sunflower",
     "trefle-incarnat": "Crimson clover (green manure)",
     "trevise": "Radicchio",
+    "valeriane": "Valerian",
     "verveine-citronnelle": "Lemon verbena",
     "vesce": "Winter vetch (green manure)",
     "vigne-table": "Grapevine (table grapes)",
+    "zamioculcas": "ZZ plant",
 }
 
 
@@ -216,7 +259,12 @@ FAMILLES = {
     "Amaranthacées": "Amaranthaceae",
     "Amaryllidacées": "Amaryllidaceae",
     "Apiacées": "Apiaceae",
+    "Apocynacées": "Apocynaceae",
+    "Aracées": "Araceae",
+    "Arécacées": "Arecaceae",
     "Asparagacées": "Asparagaceae",
+    "Asphodélacées": "Asphodelaceae",
+    "Aspléniacées": "Aspleniaceae",
     "Astéracées": "Asteraceae",
     "Boraginacées": "Boraginaceae",
     "Brassicacées": "Brassicaceae",
@@ -224,27 +272,38 @@ FAMILLES = {
     "Cannabacées": "Cannabaceae",
     "Caprifoliacées": "Caprifoliaceae",
     "Convolvulacées": "Convolvulaceae",
+    "Crassulacées": "Crassulaceae",
     "Cucurbitacées": "Cucurbitaceae",
     "Fabacées": "Fabaceae",
     "Fagacées": "Fagaceae",
     "Grossulariacées": "Grossulariaceae",
+    "Hypéricacées": "Hypericaceae",
     "Juglandacées": "Juglandaceae",
     "Lamiacées": "Lamiaceae",
     "Lauracées": "Lauraceae",
     "Malvacées": "Malvaceae",
+    "Marantacées": "Marantaceae",
     "Montiacées": "Montiaceae",
     "Moracées": "Moraceae",
+    "Onagracées": "Onagraceae",
+    "Orchidacées": "Orchidaceae",
     "Oxalidacées": "Oxalidaceae",
+    "Passifloracées": "Passifloraceae",
+    "Pipéracées": "Piperaceae",
+    "Plantaginacées": "Plantaginaceae",
     "Poacées": "Poaceae",
     "Polygonacées": "Polygonaceae",
     "Portulacacées": "Portulacaceae",
     "Rosacées": "Rosaceae",
+    "Scrofulariacées": "Scrophulariaceae",
     "Solanacées": "Solanaceae",
     "Tropaeolacées": "Tropaeolaceae",
+    "Urticacées": "Urticaceae",
     "Verbénacées": "Verbenaceae",
     "Vitacées": "Vitaceae",
     "Ébénacées": "Ebenaceae",
     "Éléagnacées": "Elaeagnaceae",
+    "Équisétacées": "Equisetaceae",
     "Éricacées": "Ericaceae",
 }
 
@@ -270,7 +329,12 @@ SOLS = {
     "toujours détrempé, au bord de l'eau": "permanently wet, at the water's edge",
     "acide (pH 4-5), terre de bruyère": "acid (pH 4-5), ericaceous compost",
     "léger, calcaire, très drainé": "light, chalky, very free draining",
-    "caillouteux, drainé, même pauvre": "stony, free draining, poor is fine",
+    "caillouteux, drainé, même pauvre": "stony, free draining, poor is fine",    "frais, lourd, qui ne sèche jamais": "moist, heavy, never drying out",
+    "terreau de plantes vertes, drainant": "houseplant compost, free draining",
+    "terreau très aéré, écorce et perlite": "very open compost, bark and perlite",
+    "substrat à cactées, sableux et très drainant": "cactus compost, sandy and very free draining",
+    "écorce de pin seule, sans terreau": "pine bark only, no compost",
+
 }
 
 
@@ -640,6 +704,130 @@ EAU_NOTES = {
     "Volume d'eau important, surtout pendant le grossissement.": (
         "Large volumes of water, especially while it is bulking up."
     ),
+    "Très sobre : elle pousse dans les talus que personne n'arrose.": (
+        "Very frugal: it grows on banks nobody waters."
+    ),
+    "Sobre ; il supporte même le piétinement et la sécheresse.": (
+        "Frugal; it even takes trampling and drought."
+    ),
+    "Aime les sols riches en azote et frais ; elle marque les anciens fumiers.": (
+        "Likes soil rich in nitrogen and moist; it marks out old manure heaps."
+    ),
+    "Sobre : trop d'eau le fait pourrir au collet.": (
+        "Frugal: too much water rots it at the collar."
+    ),
+    "Aucun arrosage une fois établie : c'est un arbuste de haie.": (
+        "No watering once established: it is a hedgerow shrub."
+    ),
+    "Jamais à sec : c'est une plante de fossé et de prairie humide.": (
+        "Never dry: this is a plant of ditches and wet meadows."
+    ),
+    "Aime avoir le pied frais tout l'été.": "Likes its feet cool all summer.",
+    "Sobre une fois installée ; craint l'humidité stagnante de l'hiver.": (
+        "Frugal once settled; dislikes standing winter wet."
+    ),
+    "Sol frais en permanence ; elle pousse naturellement au bord des ruisseaux.": (
+        "Permanently moist soil; it grows naturally along streams."
+    ),
+    "Sobre : sa racine pivot va chercher l'eau en profondeur.": (
+        "Frugal: its taproot goes down for water."
+    ),
+    "Régulier la première année, le temps que la racine descende.": (
+        "Regular the first year, while the root goes down."
+    ),
+    "Aucun arrosage : il colonise les gravières et les talus secs.": (
+        "No watering: it colonises gravel pits and dry banks."
+    ),
+    "Sol humide en permanence ; elle signale les terrains mal drainés.": (
+        "Permanently wet soil; it marks out badly drained ground."
+    ),
+    "Très sobre, à la limite de l'indestructible.": (
+        "Very frugal, close to indestructible."
+    ),
+    "Jamais à sec : elle flétrit en une journée de canicule.": (
+        "Never dry: it wilts in a single day of heatwave."
+    ),
+    "Aucun arrosage une fois établi ; le soutenir les deux premiers étés.": (
+        "No watering once established; see it through its first two summers."
+    ),
+    "Aucun arrosage une fois établi : c'est la ronce des haies.": (
+        "No watering once established: it is the bramble of the hedgerows."
+    ),
+    "Très sobre : elle pousse dans les sables et les remblais.": (
+        "Very frugal: it grows in sand and on spoil."
+    ),
+    "Régulier en été ; très réduit l'hiver, quand elle disparaît.": (
+        "Regular in summer; very sparing in winter, when it disappears."
+    ),
+    "Sobre ; elle n'aime pas les sols lourds et détrempés.": (
+        "Frugal; it dislikes heavy, waterlogged soil."
+    ),
+    "Laisser sécher les trois premiers centimètres entre deux arrosages.": (
+        "Let the top three centimetres dry out between waterings."
+    ),
+    "Attendre que le terreau soit sec sur la moitié du pot.": (
+        "Wait until the compost is dry halfway down the pot."
+    ),
+    "Garder le terreau juste humide, jamais détrempé.": (
+        "Keep the compost just moist, never sodden."
+    ),
+    "Elle signale elle-même la soif en s'affaissant, et se relève en deux heures.": (
+        "It announces thirst by drooping, and recovers within two hours."
+    ),
+    "Un arrosage toutes les trois semaines suffit, moitié moins l'hiver.": (
+        "One watering every three weeks is enough, half that in winter."
+    ),
+    "Terreau frais en permanence, mais jamais d'eau dans la soucoupe.": (
+        "Compost moist at all times, but never water left in the saucer."
+    ),
+    "Toutes les trois semaines l'été, une fois par mois l'hiver.": (
+        "Every three weeks in summer, once a month in winter."
+    ),
+    "Laisser sécher la moitié du pot ; elle craint l'eau stagnante.": (
+        "Let the pot dry halfway down; it dislikes standing water."
+    ),
+    "Très sobre, et elle pardonne l'oubli mieux que l'excès.": (
+        "Very frugal, and it forgives neglect better than excess."
+    ),
+    "Terreau frais l'été, plus sec l'hiver ; ses racines charnues stockent l'eau.": (
+        "Compost moist in summer, drier in winter; its fleshy roots store water."
+    ),
+    "Jamais à sec, et à l'eau non calcaire : eau de pluie ou eau filtrée.": (
+        "Never dry, and with lime-free water: rainwater or filtered water."
+    ),
+    "Terreau frais en permanence, à l'eau non calcaire.": (
+        "Compost moist at all times, with lime-free water."
+    ),
+    "Laisser sécher la surface entre deux arrosages ; elle flétrit vite et se remet vite.": (
+        "Let the surface dry between waterings; it wilts fast and recovers fast."
+    ),
+    "Ses feuilles épaisses stockent l'eau : laisser bien sécher entre deux arrosages.": (
+        "Its thick leaves store water: let it dry well between waterings."
+    ),
+    "Laisser sécher complètement entre deux arrosages, surtout l'hiver.": (
+        "Let it dry out completely between waterings, especially in winter."
+    ),
+    "Terreau constamment humide ; arroser sur le bord, jamais dans le cœur.": (
+        "Compost constantly moist; water at the edge, never into the crown."
+    ),
+    "Terreau frais l'été, nettement plus sec l'hiver.": (
+        "Compost moist in summer, distinctly drier in winter."
+    ),
+    "Tremper le pot un quart d'heure puis l'égoutter entièrement ; jamais d'eau résiduelle.": (
+        "Soak the pot for a quarter of an hour then drain it fully; never leave water behind."
+    ),
+    "Arroser abondamment, puis laisser le pot sécher complètement.": (
+        "Water generously, then let the pot dry out completely."
+    ),
+    "Laisser sécher complètement ; presque rien de novembre à mars.": (
+        "Let it dry out completely; almost nothing from November to March."
+    ),
+    "Laisser sécher la moitié du pot entre deux arrosages.": (
+        "Let the pot dry halfway down between waterings."
+    ),
+    "Régulier et modéré : il perd ses feuilles basses à la moindre irrégularité.": (
+        "Regular and moderate: it drops its lower leaves at the least irregularity."
+    ),
 }
 
 
@@ -649,6 +837,10 @@ EAU_NOTES = {
 # sert parfois a deux fiches voisines.
 
 CONSEILS = {
+    "Usage externe seulement : ses alcaloïdes pyrrolizidiniques sont toxiques pour le foie par voie interne": (
+        "External use only: its pyrrolizidine alkaloids are toxic to the liver "
+        "if taken internally"
+    ),
     "Aimant à bourdons : elle fait grimper la pollinisation des courgettes": (
         "A bumblebee magnet: it lifts courgette pollination sharply"
     ),
@@ -1572,5 +1764,458 @@ CONSEILS = {
     ),
     "Étouffe les adventices mieux que tout autre engrais vert": (
         "Smothers weeds better than any other green manure"
+    ),
+    "Déconseillée aux femmes enceintes, et allergisante comme toutes les astéracées": (
+        "Not advised during pregnancy, and an allergen like all daisy-family plants"
+    ),
+    "Ne jamais la cueillir jeune en mélange : ses feuilles ressemblent à celles de la ciguë, mortelle": (
+        "Never gather it young in a mixed handful: its leaves resemble those of hemlock, which is lethal"
+    ),
+    "Couper les sommités fleuries par temps sec, en pleine floraison": (
+        "Cut the flowering tops in dry weather, in full flower"
+    ),
+    "Une bordure d'achillée attire les syrphes, qui mangent les pucerons": (
+        "An edging of yarrow draws in hoverflies, which eat aphids"
+    ),
+    "Aucune confusion dangereuse connue, ce qui en fait une bonne première plante à apprendre": (
+        "No dangerous look-alike known, which makes it a good first plant to learn"
+    ),
+    "Jeunes feuilles comestibles en salade ; les vieilles sont filandreuses": (
+        "Young leaves edible in salad; the old ones are stringy"
+    ),
+    "Pousse spontanément dans toutes les pelouses de France — inutile de l'acheter": (
+        "Grows wild in every lawn in France — no need to buy it"
+    ),
+    "Se ressème seul : supprimer les épis si on ne veut pas qu'il s'étende": (
+        "It self-seeds: remove the spikes if you do not want it spreading"
+    ),
+    "Cueillir avec des gants : les poils urticants tiennent jusqu'à la cuisson": (
+        "Pick it with gloves: the stinging hairs hold until cooking"
+    ),
+    "Ne récolter que les quatre feuilles du sommet, avant la floraison": (
+        "Take only the top four leaves, before it flowers"
+    ),
+    "Elle envahit par ses rhizomes : la cantonner dans un carré, ou en pot": (
+        "It invades by rhizomes: confine it to one bed, or to a pot"
+    ),
+    "Son purin est un engrais azoté ; celui de consoude apporte la potasse": (
+        "Its liquid feed supplies nitrogen; comfrey's supplies potash"
+    ),
+    "Interagit avec beaucoup de médicaments — pilule, anticoagulants, antirétroviraux — en accélérant leur élimination": (
+        "Interacts with many medicines — the pill, anticoagulants, antiretrovirals — by speeding up their elimination"
+    ),
+    "Photosensibilisant : il rend la peau plus sensible au soleil": (
+        "Photosensitising: it makes the skin more sensitive to sun"
+    ),
+    "Reconnaissable aux points translucides de ses feuilles, vues à contre-jour": (
+        "Recognisable by the translucent dots in its leaves, seen against the light"
+    ),
+    "Récolter les sommités fleuries autour du solstice, c'est là qu'elles sont les plus riches": (
+        "Gather the flowering tops around the solstice, when they are at their richest"
+    ),
+    "Ses épines sont longues et cassent sous la peau : tailler gants et manches longues": (
+        "Its thorns are long and snap off under the skin: prune in gloves and long sleeves"
+    ),
+    "Plantation réglementée par endroits : hôte du feu bactérien, se renseigner en pépinière": (
+        "Planting is restricted in some areas: it hosts fireblight, so ask at the nursery"
+    ),
+    "Récolter les fleurs à peine ouvertes, les cynorhodons rouges en automne": (
+        "Gather the flowers barely open, and the red hips in autumn"
+    ),
+    "Une haie d'aubépine abrite les oiseaux insectivores tout l'hiver": (
+        "A hawthorn hedge shelters insect-eating birds all winter"
+    ),
+    "Contient des dérivés salicylés : à éviter en cas d'allergie à l'aspirine": (
+        "Contains salicylates: avoid it if you are allergic to aspirin"
+    ),
+    "Elle meurt de sécheresse avant de mourir de froid : ne la planter qu'en sol frais": (
+        "It dies of drought long before it dies of cold: plant it only in moist soil"
+    ),
+    "Récolter les fleurs blanches en plein épanouissement, elles sentent l'amande": (
+        "Gather the white flowers in full bloom, when they smell of almond"
+    ),
+    "Fleurs, feuilles et racines sont comestibles ; aucune toxicité connue": (
+        "Flowers, leaves and roots are all edible; no known toxicity"
+    ),
+    "Ne récolter les racines qu'à l'automne de la deuxième année": (
+        "Lift the roots only in the autumn of the second year"
+    ),
+    "Sa levée est lente et irrégulière : passer par un plant est plus sûr": (
+        "Germination is slow and uneven: starting from a plant is safer"
+    ),
+    "Allergisante comme toutes les astéracées ; déconseillée en cas de maladie auto-immune": (
+        "An allergen like all daisy-family plants; not advised with an auto-immune condition"
+    ),
+    "Ne rien prélever les deux premières années, le temps que la touffe se fasse": (
+        "Take nothing for the first two years, while the clump builds up"
+    ),
+    "Laisser les capitules secs en place l'hiver : les chardonnerets les vident": (
+        "Leave the dry seed heads standing through winter: goldfinches empty them"
+    ),
+    "Déconseillée avant la conduite : elle agit sur la vigilance": (
+        "Not advised before driving: it acts on alertness"
+    ),
+    "Ses racines sentent fort une fois sèches, et les chats s'y roulent": (
+        "Its roots smell strongly once dried, and cats roll in them"
+    ),
+    "Déterrer les racines à l'automne de la deuxième année, pas avant": (
+        "Dig the roots in the autumn of the second year, not before"
+    ),
+    "Entièrement comestible, sans confusion dangereuse connue en France": (
+        "Entirely edible, with no dangerous look-alike known in France"
+    ),
+    "Ne jamais cueillir au bord d'une route ni sur une pelouse traitée": (
+        "Never pick it by a roadside or on a treated lawn"
+    ),
+    "Blanchir les cœurs sous un pot retourné quinze jours : l'amertume tombe": (
+        "Blanch the hearts under an upturned pot for a fortnight: the bitterness goes"
+    ),
+    "Il remonte le calcium et le potassium des couches profondes du sol": (
+        "It lifts calcium and potassium from the deeper layers of the soil"
+    ),
+    "Allergisante comme les astéracées ; ses capitules s'accrochent aux vêtements et aux animaux": (
+        "An allergen like the daisy family; its burrs catch on clothes and on animals"
+    ),
+    "Racine comestible, récoltée à l'automne de la première année — c'est le gobō japonais": (
+        "Edible root, lifted in the autumn of the first year — this is Japanese gobō"
+    ),
+    "Semer en sol profond et meuble : la racine descend à cinquante centimètres": (
+        "Sow in deep, loose soil: the root goes down fifty centimetres"
+    ),
+    "Supprimer les fleurs de la deuxième année, sinon elle se ressème partout": (
+        "Remove the second-year flowers, or it seeds itself everywhere"
+    ),
+    "Filtrer soigneusement toute infusion : les poils des feuilles irritent la gorge": (
+        "Strain any infusion carefully: the leaf hairs irritate the throat"
+    ),
+    "Bisannuel — rosette la première année, hampe de deux mètres la seconde": (
+        "Biennial — a rosette the first year, a two-metre spike the second"
+    ),
+    "Semer en surface sans recouvrir, la graine a besoin de lumière pour lever": (
+        "Sow on the surface without covering; the seed needs light to germinate"
+    ),
+    "Récolter les fleurs jaunes au fur et à mesure, elles s'ouvrent de bas en haut": (
+        "Gather the yellow flowers as they come, opening from the bottom up"
+    ),
+    "Ne pas la confondre avec la prêle des marais, Equisetum palustre, toxique : chez la prêle des champs, le premier entre-nœud d'un rameau est aussi long ou plus long que la gaine de la tige d'où il part": (
+        "Do not confuse it with marsh horsetail, Equisetum palustre, which is toxic: in field horsetail the first internode of a branch is as long as or longer than the stem sheath it springs from"
+    ),
+    "Ses rhizomes descendent à un mètre et la rendent impossible à éradiquer : la planter en bac": (
+        "Its rhizomes go down a metre and make it impossible to eradicate: plant it in a container"
+    ),
+    "Récolter les tiges stériles vertes de l'été, pas les épis bruns du printemps": (
+        "Gather the green sterile stems of summer, not the brown spring cones"
+    ),
+    "Sa décoction, riche en silice, sert de traitement préventif contre les maladies cryptogamiques": (
+        "Its silica-rich decoction is used as a preventive against fungal disease"
+    ),
+    "Toxique par ingestion à cause de sa thuyone, et interdite aux femmes enceintes : on la cultive pour le jardin, pas pour la tisane": (
+        "Toxic if swallowed, because of its thujone, and barred during pregnancy: it is grown for the garden, not for the teapot"
+    ),
+    "Son purin répulsif est son véritable usage, contre pucerons et altises": (
+        "Its repellent liquid feed is its real use, against aphids and flea beetles"
+    ),
+    "Elle s'étend par rhizomes et prend la place : la diviser tous les trois ans": (
+        "It spreads by rhizomes and takes over: divide it every three years"
+    ),
+    "Neurotoxique à forte dose par sa thuyone, et interdite aux femmes enceintes": (
+        "Neurotoxic in quantity through its thujone, and barred during pregnancy"
+    ),
+    "Elle inhibe la germination de ses voisines : la planter en bout de planche, jamais au milieu": (
+        "It inhibits its neighbours' germination: plant it at the end of a bed, never in the middle"
+    ),
+    "Son purin éloigne les pucerons, les limaces et la piéride du chou": (
+        "Its liquid feed keeps off aphids, slugs and cabbage white caterpillars"
+    ),
+    "Déconseillée aux nourrissons et aux jeunes enfants, par voie interne comme en inhalation": (
+        "Not advised for infants and young children, internally or as an inhalation"
+    ),
+    "Hybride stérile : elle ne se ressème pas, mais ses stolons envahissent tout — la planter en pot enterré": (
+        "A sterile hybrid: it does not self-seed, but its runners take over — plant it in a sunken pot"
+    ),
+    "Rabattre toute la touffe avant la floraison, l'arôme y est au maximum": (
+        "Cut the whole clump back before it flowers, when the aroma is at its peak"
+    ),
+    "Plus poivrée et plus riche en menthol que la menthe verte": (
+        "More peppery and richer in menthol than garden mint"
+    ),
+    "Aucune toxicité connue, ce qui en fait une tisane de tous les âges": (
+        "No known toxicity, which makes it a tea for any age"
+    ),
+    "Arbre de vingt mètres : à ne planter que si la place existe vraiment": (
+        "A twenty-metre tree: plant it only if the room genuinely exists"
+    ),
+    "La fenêtre de récolte des bractées dure dix jours, pas plus": (
+        "The window for gathering the bracts lasts ten days, no more"
+    ),
+    "Récolter en hauteur et jamais en bord de route : ses fleurs captent les poussières": (
+        "Gather high up and never by a road: its flowers catch the dust"
+    ),
+    "Les poils qui entourent les graines du cynorhodon sont irritants : les retirer avant toute préparation": (
+        "The hairs around the seeds inside the hip are irritant: remove them before any preparation"
+    ),
+    "Attendre les premières gelées pour cueillir, le fruit devient blet et sucré": (
+        "Wait for the first frosts to pick: the fruit goes soft and sweet"
+    ),
+    "Son cynorhodon est l'un des fruits les plus riches en vitamine C de la flore française": (
+        "Its hip is one of the richest sources of vitamin C in the French flora"
+    ),
+    "Il sert de porte-greffe aux rosiers de jardin": (
+        "It serves as rootstock for garden roses"
+    ),
+    "Aucune toxicité connue ; sa racine de première année se mange comme un salsifis": (
+        "No known toxicity; its first-year root eats like a salsify"
+    ),
+    "Bisannuelle — rosette la première année, hampe fleurie la seconde": (
+        "Biennial — a rosette the first year, a flowering spike the second"
+    ),
+    "Ses fleurs s'ouvrent au crépuscule en quelques minutes et nourrissent les sphinx": (
+        "Its flowers open at dusk in a matter of minutes and feed the hawkmoths"
+    ),
+    "Elle se ressème abondamment : garder deux ou trois pieds, arracher le reste": (
+        "It self-seeds freely: keep two or three plants, pull the rest"
+    ),
+    "Déconseillée avant la conduite ; ne pas la confondre avec Passiflora caerulea, la passiflore bleue ornementale, dont les fruits ne se consomment pas": (
+        "Not advised before driving; do not confuse it with Passiflora caerulea, the ornamental blue passionflower, whose fruit is not for eating"
+    ),
+    "Elle disparaît complètement l'hiver et repart de souche en mai : ne pas croire qu'elle est morte": (
+        "It vanishes completely in winter and comes back from the crown in May: do not assume it is dead"
+    ),
+    "Ne pas espérer de fruit au nord de la Loire — c'est la partie aérienne qui est récoltée": (
+        "Do not expect fruit north of the Loire — it is the top growth that is gathered"
+    ),
+    "Lui donner un mur au sud et un paillis épais pour passer l'hiver": (
+        "Give it a south-facing wall and a thick mulch to get through winter"
+    ),
+    "Allergisante chez les personnes sensibles aux astéracées": (
+        "An allergen in people sensitive to the daisy family"
+    ),
+    "Annuelle, à ne pas confondre avec la camomille romaine, vivace : son réceptacle est creux quand on le coupe en deux": (
+        "Annual, not to be confused with the perennial Roman chamomile: its receptacle is hollow when you cut one in half"
+    ),
+    "Semer en surface sans recouvrir, la graine est minuscule": (
+        "Sow on the surface without covering; the seed is tiny"
+    ),
+    "Cueillir les capitules un à un, au plus chaud d'une journée sèche": (
+        "Pick the flower heads one by one, at the hottest point of a dry day"
+    ),
+    "Irritante pour la bouche de l'homme et de l'animal : à mettre hors de portée d'un chat ou d'un petit enfant": (
+        "Irritant to the mouth, human or animal: keep it out of reach of a cat or a small child"
+    ),
+    "Ses découpes n'apparaissent qu'avec l'âge et la lumière : une jeune feuille pleine est normale": (
+        "Its splits only appear with age and light: a solid young leaf is normal"
+    ),
+    "Lui donner un tuteur-mousse, ses racines aériennes s'y accrochent": (
+        "Give it a moss pole; its aerial roots take hold on it"
+    ),
+    "Dépoussiérer les feuilles : c'est par elles qu'elle respire": (
+        "Dust the leaves: they are how it breathes"
+    ),
+    "Irritante par ses oxalates : la suspendre hors d'atteinte si un animal grignote": (
+        "Irritant through its oxalates: hang it out of reach if an animal nibbles"
+    ),
+    "La plante la plus indulgente du rayon : elle survit à l'oubli et au fond d'une pièce": (
+        "The most forgiving plant on the shelf: it survives neglect and the back of a room"
+    ),
+    "Une tige coupée sous un nœud racine en deux semaines dans un verre d'eau": (
+        "A stem cut below a node roots within a fortnight in a glass of water"
+    ),
+    "Ses panachures pâlissent dans l'ombre : la rapprocher d'une fenêtre pour les garder": (
+        "Its variegation fades in shade: move it nearer a window to keep it"
+    ),
+    "Irritante par ses oxalates, pour l'homme comme pour l'animal": (
+        "Irritant through its oxalates, for people as much as for animals"
+    ),
+    "Pincer les tiges régulièrement, sans quoi elle file en lianes nues": (
+        "Pinch the stems regularly, or it runs away into bare vines"
+    ),
+    "Le pot doit pouvoir s'égoutter : l'eau stagnante lui pourrit les racines": (
+        "The pot must be able to drain: standing water rots its roots"
+    ),
+    "Irritante par ses oxalates : c'est la plante d'intérieur la plus souvent signalée aux centres antipoison vétérinaires": (
+        "Irritant through its oxalates: it is the houseplant most often reported to veterinary poison centres"
+    ),
+    "Fleurit peu dans l'ombre profonde : lumière vive indirecte, sans soleil direct": (
+        "It flowers little in deep shade: bright indirect light, no direct sun"
+    ),
+    "Ne pas se fier à l'affaissement comme méthode d'arrosage : répété, il abîme les racines": (
+        "Do not use the drooping as a watering method: repeated, it damages the roots"
+    ),
+    "Irritante par ses oxalates et ses saponines, concentrées dans les tiges et les rhizomes": (
+        "Irritant through its oxalates and saponins, concentrated in the stems and rhizomes"
+    ),
+    "Elle meurt bien plus souvent d'excès d'eau que de sécheresse : en cas de doute, ne pas arroser": (
+        "It dies of too much water far more often than of drought: when in doubt, do not water"
+    ),
+    "Ses rhizomes stockent l'eau : elle encaisse un mois d'absence sans broncher": (
+        "Its rhizomes store water: it takes a month's absence without flinching"
+    ),
+    "La plus toxique du rayon : sa sève provoque une douleur buccale intense et un gonflement qui peut gêner la parole — à écarter d'un foyer avec enfant en bas âge ou animal": (
+        "The most toxic on the shelf: its sap causes intense mouth pain and a swelling that can impede speech — keep it out of a home with a toddler or an animal"
+    ),
+    "Porter des gants pour la bouturer, et se laver les mains après": (
+        "Wear gloves to take cuttings, and wash your hands afterwards"
+    ),
+    "Ses feuilles brûlent au soleil direct : lumière tamisée uniquement": (
+        "Its leaves scorch in direct sun: filtered light only"
+    ),
+    "Ses saponines provoquent vomissements et diarrhée chez le chien et le chat ; sans gravité chez l'adulte": (
+        "Its saponins cause vomiting and diarrhoea in dogs and cats; harmless in an adult"
+    ),
+    "Elle supporte tout sauf l'excès d'eau : c'est la seule faute qui la tue": (
+        "It takes anything but too much water: that is the one mistake that kills it"
+    ),
+    "Elle se contente du fond d'une pièce, mais pousse trois fois plus vite près d'une fenêtre": (
+        "It makes do with the back of a room, but grows three times faster near a window"
+    ),
+    "Une feuille coupée en tronçons et plantée dans du sable donne un nouveau pied": (
+        "A leaf cut into sections and set in sand gives a new plant"
+    ),
+    "Ses saponines rendent le chat malade ; les extrémités de feuilles tentent les chats, les mettre en hauteur": (
+        "Its saponins make a cat ill; the leaf tips tempt cats, so put it up high"
+    ),
+    "Les pointes brunes signalent presque toujours un excès de fluor ou de chlore : laisser l'eau reposer une nuit": (
+        "Brown tips nearly always mean too much fluoride or chlorine: let the water stand overnight"
+    ),
+    "Une tige dégarnie peut être étêtée : elle repart en deux ou trois têtes": (
+        "A bare stem can be topped: it comes back as two or three heads"
+    ),
+    "Aucune toxicité connue pour le chien ni le chat": (
+        "No known toxicity to dogs or cats"
+    ),
+    "Surnommée la plante du fer forgé : elle vit dans les coins que rien d'autre ne supporte": (
+        "Nicknamed the cast-iron plant: it lives in corners nothing else will take"
+    ),
+    "Elle tient 5 °C : c'est la seule du rayon qui passe l'hiver dans une cage d'escalier non chauffée": (
+        "It takes 5 °C: the only one here that winters in an unheated stairwell"
+    ),
+    "Sa croissance est très lente — deux ou trois feuilles par an, c'est normal": (
+        "Its growth is very slow — two or three leaves a year is normal"
+    ),
+    "Non toxique pour le chien et le chat selon l'ASPCA — mais les chats s'y intéressent et peuvent vomir d'en avoir trop mangé": (
+        "Non-toxic to dogs and cats per the ASPCA — but cats take an interest and may be sick from eating too much"
+    ),
+    "Ses stolons portent des plantules qui racinent dans un verre d'eau": (
+        "Its runners carry plantlets that root in a glass of water"
+    ),
+    "Les pointes brunes viennent du calcaire de l'eau du robinet": (
+        "Brown tips come from the lime in tap water"
+    ),
+    "Non toxique pour le chien et le chat selon l'ASPCA": (
+        "Non-toxic to dogs and cats per the ASPCA"
+    ),
+    "La plus difficile de cette liste : elle veut 60 % d'humidité et brunit sèchement en appartement chauffé": (
+        "The hardest on this list: it wants 60% humidity and browns off dryly in a heated flat"
+    ),
+    "Le calcaire de l'eau du robinet lui brûle le bord des feuilles : c'est la cause la plus fréquente d'échec": (
+        "The lime in tap water scorches its leaf edges: this is the commonest cause of failure"
+    ),
+    "La poser sur un lit de billes d'argile humides, jamais les pieds dans l'eau": (
+        "Stand it on a bed of damp clay pebbles, never with its feet in water"
+    ),
+    "Elle replie ses feuilles la nuit : c'est son fonctionnement normal, pas un signe de soif": (
+        "It folds its leaves up at night: that is how it works, not a sign of thirst"
+    ),
+    "Plus indulgente que la calathea, pour un feuillage presque aussi beau": (
+        "More forgiving than the calathea, for foliage nearly as good"
+    ),
+    "La tourner d'un quart de tour chaque semaine, sinon elle penche vers la fenêtre": (
+        "Turn it a quarter turn each week, or it leans towards the window"
+    ),
+    "Elle produit des rejets au pied : les détacher avec un peu de racine et les rempoter": (
+        "It makes offsets at the base: detach them with a little root and pot them on"
+    ),
+    "Petite et lente : idéale sur un bureau, elle ne dépassera pas trente centimètres": (
+        "Small and slow: ideal on a desk, it will not pass thirty centimetres"
+    ),
+    "Une feuille piquée dans du terreau humide donne un nouveau pied": (
+        "A leaf pushed into damp compost gives a new plant"
+    ),
+    "Ne jamais couper le pédoncule après la floraison : elle refleurit dessus l'année suivante": (
+        "Never cut the flower stalk after flowering: it blooms again on the same one next year"
+    ),
+    "Elle ne fleurit qu'une fois à l'étroit dans son pot : ne pas la rempoter trop vite": (
+        "It flowers only once snug in its pot: do not pot it on too soon"
+    ),
+    "Il lui faut quelques heures de soleil filtré pour fleurir": (
+        "It needs a few hours of filtered sun to flower"
+    ),
+    "L'eau versée au centre de la rosette la fait pourrir : c'est la faute classique": (
+        "Water poured into the centre of the rosette rots it: that is the classic mistake"
+    ),
+    "Une salle de bains éclairée est son meilleur emplacement en appartement": (
+        "A lit bathroom is its best spot in a flat"
+    ),
+    "Ne jamais lustrer ses frondes : les produits lustrants les brûlent": (
+        "Never polish its fronds: leaf-shine products scorch them"
+    ),
+    "Non toxique pour le chien et le chat selon l'ASPCA : c'est le grand sujet de foyer avec animaux": (
+        "Non-toxic to dogs and cats per the ASPCA: that is the whole question in a home with animals"
+    ),
+    "Croissance très lente : une ou deux palmes par an, et un grand sujet coûte cher pour cette raison": (
+        "Very slow growing: one or two fronds a year, which is why a large specimen costs what it does"
+    ),
+    "Ne jamais couper le sommet d'un stipe : un palmier n'a qu'un bourgeon et ne repartira pas": (
+        "Never cut the top off a stem: a palm has one bud and will not come back"
+    ),
+    "Les araignées rouges l'attaquent en air sec : doucher le feuillage une fois par mois": (
+        "Red spider mite attacks it in dry air: shower the foliage once a month"
+    ),
+    "Jamais de terreau : ses racines sont aériennes et étouffent dedans": (
+        "Never compost: its roots are aerial and suffocate in it"
+    ),
+    "Des racines vertes après arrosage et argentées ensuite indiquent un rythme juste": (
+        "Roots green after watering and silvery afterwards mean the rhythm is right"
+    ),
+    "Après la floraison, couper la hampe un centimètre au-dessus du deuxième œil": (
+        "After flowering, cut the stem a centimetre above the second node"
+    ),
+    "Le latex jaune sous la peau de la feuille est purgatif et rend chiens et chats malades : non toxique ne vaut que pour le gel transparent du cœur": (
+        "The yellow latex under the leaf skin is a purgative and makes dogs and cats ill: non-toxic applies only to the clear gel at the centre"
+    ),
+    "L'erreur fatale est l'arrosage d'hiver : la plante est au repos et pourrit": (
+        "The fatal mistake is watering in winter: the plant is dormant and rots"
+    ),
+    "Il lui faut le rebord de fenêtre le plus ensoleillé de la maison": (
+        "It wants the sunniest windowsill in the house"
+    ),
+    "Elle peut passer l'été dehors, rentrée avant que les nuits descendent sous 10 °C": (
+        "It can spend the summer outdoors, brought in before nights drop below 10 °C"
+    ),
+    "Toxique pour le chien et le chat, qui vomissent et deviennent apathiques": (
+        "Toxic to dogs and cats, which vomit and turn listless"
+    ),
+    "Ses feuilles qui se rident disent la soif mieux que n'importe quel calendrier": (
+        "Its leaves wrinkling tell you it is thirsty better than any calendar"
+    ),
+    "Un pot étroit et lourd l'empêche de verser quand elle grossit": (
+        "A narrow, heavy pot stops it tipping over as it fills out"
+    ),
+    "Elle vit cinquante ans et se transmet : c'est la plante grasse des maisons de famille": (
+        "It lives fifty years and gets handed down: this is the succulent of family houses"
+    ),
+    "Son latex blanc irrite la peau et la bouche, de l'homme comme de l'animal : couper avec des gants": (
+        "Its white latex irritates skin and mouth, human and animal alike: cut it wearing gloves"
+    ),
+    "Il n'aime pas qu'on le déplace : trouver sa place et ne plus y toucher": (
+        "It dislikes being moved: find its place and leave it there"
+    ),
+    "Dépoussiérer les feuilles à l'éponge humide, elles captent beaucoup": (
+        "Dust the leaves with a damp sponge; they catch a great deal"
+    ),
+    "Étêter un sujet trop haut le fait ramifier": (
+        "Topping a specimen that has grown too tall makes it branch"
+    ),
+    "Son latex blanc irrite la peau et la bouche, comme chez tous les ficus": (
+        "Its white latex irritates skin and mouth, as in every ficus"
+    ),
+    "Le plus capricieux des ficus : courant d'air, déplacement ou arrosage irrégulier lui font perdre ses feuilles": (
+        "The most temperamental of the figs: a draught, a move or uneven watering all make it drop leaves"
+    ),
+    "Il veut beaucoup de lumière indirecte, à moins d'un mètre d'une grande fenêtre": (
+        "It wants plenty of indirect light, within a metre of a large window"
+    ),
+    "Les feuilles perdues en bas ne repoussent jamais au même endroit": (
+        "Leaves lost at the bottom never grow back in the same place"
     ),
 }

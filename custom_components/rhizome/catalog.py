@@ -202,7 +202,7 @@ def info_minimale(fiche: dict) -> dict[str, Any]:
 CATEGORIES_VALIDES = {
     "legume-fruit", "legume-racine", "legume-gousse", "legume-bulbe",
     "legume-feuille", "aromatique", "petit-fruit", "fruitier", "fleur-compagne",
-    "cereale",
+    "cereale", "medicinale", "plante-interieur",
 }
 EXPOSITIONS_VALIDES = {"plein-soleil", "mi-ombre", "ombre"}
 BESOINS_EAU_VALIDES = {"faible", "moyen", "eleve"}
