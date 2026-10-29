@@ -118,11 +118,17 @@ def construire(culture_id, zone_id, evenements, surnom=None, arrose_il_y_a=None)
     for type_evt, jour, extra in evenements:
         lc.ajouter_evenement(plante, lc.construire_evenement(type_evt, jour, **extra))
 
+    # Une liste donne une serie, et c'est le seul moyen de voir si le journal
+    # groupe ses arrosages au lieu de noyer les etapes du cycle sous eux.
     if arrose_il_y_a is not None:
-        wa.noter_arrosage(
-            plante,
-            wa.construire_arrosage(AUJ - timedelta(days=arrose_il_y_a)),
+        jours = (
+            [arrose_il_y_a] if isinstance(arrose_il_y_a, int) else list(arrose_il_y_a)
         )
+        for ecart in sorted(jours, reverse=True):
+            wa.noter_arrosage(
+                plante,
+                wa.construire_arrosage(AUJ - timedelta(days=ecart)),
+            )
 
     etapes = ph.prochaines_etapes(fiche, plante, GELEES, zone["decalage_jours"], AUJ)
     infos = lc.resume(plante)
@@ -155,7 +161,7 @@ def construire(culture_id, zone_id, evenements, surnom=None, arrose_il_y_a=None)
         "arrosage_actif": True,
         "arrosage_frequence_jours": None,
         "arrosage": arrosage_dict(etat_eau),
-        "arrosages": list(reversed(plante.get("arrosages") or []))[:20],
+        "arrosages": list(reversed(plante.get("arrosages") or [])),
         "exposition": fiche["exposition"],
     }
 
@@ -184,7 +190,7 @@ def main() -> None:
     # si une vue se casse sur un cas de bord.
     plantes = [
         construire("tomate", "serre", [("seme", il_y_a(40), {"mode": "interieur"})],
-                   "Cœur de bœuf", arrose_il_y_a=3),
+                   "Cœur de bœuf", arrose_il_y_a=[3, 6, 9, 12, 15, 18, 21, 24]),
         construire("radis", "pleine-terre", []),
         construire(
             "courgette",
@@ -194,7 +200,7 @@ def main() -> None:
                 ("recolte", il_y_a(9), {"quantite_g": 620}),
                 ("recolte", il_y_a(2), {"quantite_g": 840, "note": "trois belles"}),
             ],
-            arrose_il_y_a=1,
+            arrose_il_y_a=[1, 4, 11],
         ),
         construire("pommier", "pleine-terre", [("plante", "2024-11-20", {})]),
         construire(

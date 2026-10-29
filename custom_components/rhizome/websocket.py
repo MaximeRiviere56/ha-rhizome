@@ -224,7 +224,11 @@ def _plante_en_dict(entree: dict, coordinator: RhizomeCoordinator) -> dict[str, 
         "arrosage_actif": plante.get("arrosage_actif", True),
         "arrosage_frequence_jours": plante.get("arrosage_frequence_jours"),
         "arrosage": _arrosage_en_dict(entree.get("arrosage"), langue),
-        "arrosages": list(reversed(plante.get("arrosages") or []))[:20],
+        # Tout l'historique conserve, et non les vingt derniers : le
+        # journal les affiche desormais a leur date, et une liste tronquee
+        # y ferait un trou sans le dire. Le stockage en borne deja le
+        # nombre (`watering.HISTORIQUE_MAX`).
+        "arrosages": list(reversed(plante.get("arrosages") or [])),
         "phase": infos["phase"],
         "phase_libelle": libelle_phase(infos["phase"], langue),
         "perenne": bool(fiche.get("perenne")),
