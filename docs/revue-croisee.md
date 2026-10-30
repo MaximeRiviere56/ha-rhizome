@@ -290,18 +290,35 @@ et le piment y passent réellement six semaines — et cette règle attrape une
 incohérence grossière, pas une dérive de quelques jours. Elle vaut surtout
 comme rappel.
 
+## Lot 2 — les légumes les plus cultivés
+
+Sept fiches de plus, chacune sur trois sources : `radis`, `laitue`,
+`haricot-nain`, `petit-pois`, `concombre`, `aubergine`, `poireau`.
+
+**Une correction** : le concombre était espacé de 80 cm, là où la RHS donne
+30, l'Almanac 30–45 et Au Jardin 60. Il passe à **60 cm**, le haut de
+l'enveloppe.
+
+Tout le reste est confirmé. C'est le résultat le plus utile de ce lot, et il
+mérite d'être dit : sur sept cultures et une soixantaine de valeurs, une seule
+sortait de ce que les sources avancent. Le catalogue écrit de mémoire
+horticole tient la route.
+
+Les écarts qui subsistent sont des **décisions assumées**, inscrites dans
+`ECARTS_ASSUMES` avec leur raison — le gros vient des saints de glace, les
+sources anglo-saxonnes disant « après la dernière gelée » sans marge, ce qui
+est vrai ailleurs et imprudent ici.
+
 ## Couverture, dite franchement
 
-**6 fiches sur 215 ont été relevées**, dont 4 sur trois sources ou plus :
-`tomate`, `courgette`, `carotte`, `poivron`, plus `cosmos` et `tournesol` sur
-une source.
+**13 fiches sur 215 ont été relevées**, dont 11 sur trois sources ou plus.
 
 Ce n'est pas la revue complète, et il ne faut pas la présenter comme telle.
 Une passe complète représente de l'ordre de **630 consultations de pages** —
 215 fiches × 3 sources — faites à la main faute d'API. Ce qui est livré ici
-est la **méthode, l'outillage et la première série** : le registre des relevés
-est dans le dépôt avec ses sources, `--tout` liste les fiches qui n'ont pas
-encore été vues, et la revue se reprend par lots sans rien refaire.
+est la **méthode, l'outillage et les deux premiers lots** : le registre des
+relevés est dans le dépôt avec ses sources, `--tout` liste les fiches qui
+n'ont pas encore été vues, et la revue se reprend par lots sans rien refaire.
 
 Ce qui couvre déjà les 215 fiches, en revanche, ce sont les deux règles
 d'audit et les huit règles de cohérence qui existaient : elles ne disent pas
