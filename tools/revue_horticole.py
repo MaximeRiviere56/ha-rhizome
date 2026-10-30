@@ -161,6 +161,169 @@ RELEVES: dict[str, dict[str, dict]] = {
             "temp_min_c": 15,
         },
     },
+    "radis": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/vegetables/radishes/grow-your-own",
+            "espacement_cm": (2.5, 5),
+            "profondeur_cm": (1, 2),
+            "jours_semis_recolte": (28, 42),
+            "besoin_eau": "eleve",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/radishes",
+            "espacement_cm": (2.5, 5),
+            "profondeur_cm": 1.3,
+            "offset_semis_direct": -42,
+            "jours_semis_recolte": (21, 28),
+            "besoin_eau": "moyen",
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/radis.php",
+            "espacement_cm": 3,
+            "profondeur_cm": (1, 2),
+            "jours_semis_recolte": (28, 35),
+            "besoin_eau": "eleve",
+        },
+    },
+    "laitue": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/vegetables/lettuce/grow-your-own",
+            "espacement_cm": (15, 30),
+            "profondeur_cm": 1,
+            "jours_semis_recolte": (28, 98),
+            "besoin_eau": "eleve",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/lettuce",
+            "espacement_cm": (10, 40),
+            "profondeur_cm": (0.3, 0.6),
+            "offset_semis_abri": (-56, -42),
+            "offset_semis_direct": (-28, -14),
+            "besoin_eau": "eleve",
+            "temp_min_c": -2,
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/laitue.php",
+            "jours_semis_recolte": 42,
+            "besoin_eau": "eleve",
+        },
+    },
+    "haricot-nain": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/vegetables/french-beans/grow-your-own",
+            "espacement_cm": 15,
+            "profondeur_cm": 5,
+            "jours_semis_recolte": (56, 70),
+            "besoin_eau": "moyen",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/beans",
+            "espacement_cm": 5,
+            "profondeur_cm": 2.5,
+            "jours_semis_recolte": (50, 55),
+            "temp_min_c": 12,
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/haricot.php",
+            "espacement_cm": 40,
+            "profondeur_cm": 3,
+            "offset_semis_direct": 28,  # « mai dans le nord »
+            "jours_semis_recolte": 90,
+        },
+    },
+    "petit-pois": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/vegetables/peas/grow-your-own",
+            "espacement_cm": 7.5,
+            "profondeur_cm": 5,
+            "jours_semis_recolte": (84, 112),
+            "besoin_eau": "moyen",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/peas",
+            "espacement_cm": 5,
+            "profondeur_cm": 2.5,
+            "offset_semis_direct": (-42, -28),
+            "jours_semis_recolte": (60, 70),
+            "besoin_eau": "moyen",
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/pois.php",
+            "espacement_cm": (2, 3),
+            "profondeur_cm": (5, 8),
+            "jours_semis_recolte": (70, 80),
+            "besoin_eau": "faible",
+        },
+    },
+    "concombre": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/vegetables/cucumbers/grow-your-own",
+            "espacement_cm": 30,
+            "profondeur_cm": (1, 2),
+            "temp_min_c": 12,
+            "besoin_eau": "eleve",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/cucumbers",
+            "espacement_cm": (30, 45),
+            "profondeur_cm": 2.5,
+            "offset_semis_abri": -21,
+            "offset_plantation": 14,
+            "jours_semis_recolte": (50, 70),
+            "besoin_eau": "eleve",
+            "temp_min_c": 10,
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/concombre.php",
+            "espacement_cm": 60,
+            "offset_plantation": (45, 75),
+            "temp_min_c": 10,
+            "besoin_eau": "eleve",
+        },
+    },
+    "aubergine": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/vegetables/aubergines/grow-your-own",
+            "espacement_cm": 60,
+            "besoin_eau": "eleve",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/eggplants",
+            "espacement_cm": (60, 75),
+            "profondeur_cm": 0.6,
+            "offset_semis_abri": (-56, -42),
+            "jours_semis_recolte": (100, 120),
+            "jours_plant_recolte": (65, 80),
+            "besoin_eau": "eleve",
+            "temp_min_c": 13,
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/aubergine.php",
+            "offset_plantation": 28,  # « mai, après la dernière gelée »
+            "temp_min_c": 12,
+            "besoin_eau": "eleve",
+        },
+    },
+    "poireau": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/vegetables/leeks/grow-your-own",
+            "espacement_cm": (15, 20),
+            "profondeur_cm": 1.5,
+            "besoin_eau": "moyen",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/leeks",
+            "profondeur_cm": 0.6,
+            "offset_semis_abri": (-70, -56),
+            "besoin_eau": "moyen",
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/poireau.php",
+            "espacement_cm": 15,
+            "offset_plantation": 30,
+            "besoin_eau": "moyen",
+        },
+    },
     "cosmos": {
         "almanac": {
             "url": "https://www.almanac.com/plant/cosmos",
@@ -190,6 +353,38 @@ TOLERANCE_ABSOLUE = {"profondeur_cm": 0.5, "temp_min_c": 2.0}
 # Une tolerance relative sur une temperature ne veut rien dire : 25 % de 12 °C
 # n'est pas une grandeur horticole. Ces champs n'ont qu'une marge absolue.
 SANS_TOLERANCE_RELATIVE = {"temp_min_c"}
+
+
+# Les ecarts assumes, par (identifiant, champ), avec leur raison. Meme logique
+# que `DIVERGENCES_ASSUMEES` dans `revue_croisee.py` : sans cette table,
+# l'outil signalerait a chaque passage des choix deliberes, et un audit qui
+# echoue toujours est un audit que plus personne ne relance.
+#
+# Le gros du lot vient d'une seule decision : les cultures gelives sortent
+# apres les saints de glace, soit vingt-huit jours apres une derniere gelee
+# moyenne au 15 avril. Les sources anglo-saxonnes disent « apres la derniere
+# gelee » sans marge, ce qui est vrai ailleurs et imprudent ici.
+ECARTS_ASSUMES = {
+    ("tomate", "offset_plantation"): "saints de glace — 13 mai, non +14 j",
+    ("courgette", "offset_plantation"): "saints de glace",
+    ("cosmos", "offset_semis_direct"): "saints de glace",
+    ("tournesol", "offset_semis_direct"): "saints de glace",
+    ("aubergine", "offset_semis_abri"): (
+        "semis avance de 13 j avec la plantation, pour garder le delai en godet"
+    ),
+    # Pratiques francaises, ou la source anglo-saxonne decrit un autre usage.
+    ("carotte", "offset_semis_direct"): (
+        "semis des mars sous chassis en France ; RHS dit fevrier-juillet"
+    ),
+    ("petit-pois", "offset_semis_direct"): (
+        "semis de fevrier en France (Au Jardin), plus tot qu'aux Etats-Unis"
+    ),
+    ("radis", "offset_semis_direct"): "la fiche seme plus tard que l'Almanac, pas plus tot",
+    ("tournesol", "espacement_cm"): (
+        "l'Almanac decrit un semis dense de rang a 15 cm ; 50 cm est l'usage "
+        "francais pour un tournesol de pied"
+    ),
+}
 
 
 def _fourchette(valeur) -> tuple[float, float]:
@@ -292,8 +487,11 @@ def main() -> int:
     croisees = [c for c in RELEVES if len(RELEVES[c]) >= 3]
     print(f"{len(RELEVES)} fiches relevées sur {len(fiches)} "
           f"({len(croisees)} sur trois sources ou plus).")
+    assumes = [e for e in ecarts if (e["id"], e["champ"]) in ECARTS_ASSUMES]
+    ecarts = [e for e in ecarts if (e["id"], e["champ"]) not in ECARTS_ASSUMES]
     fermes = [e for e in ecarts if e.get("n", 0) >= 2]
-    print(f"{len(ecarts)} écart(s), dont {len(fermes)} où au moins deux sources "
+    print(f"{len(assumes)} écart(s) assumé(s), avec leur raison.")
+    print(f"{len(ecarts)} écart(s) restant(s), dont {len(fermes)} où au moins deux sources "
           f"convergent contre la fiche.")
     print("  ! = deux sources ou plus   ~ = une seule, piste à creuser\n")
 
@@ -307,6 +505,17 @@ def main() -> int:
         poids = "!" if e.get("n", 0) >= 2 else "~"
         print(f"{poids} {e['id']:20} {e['champ']:20} fiche={e['fiche']}{etendue}")
         print(f"  {'':20} {'':20} {sources}")
+
+    for e in assumes:
+        print(f"~ {e['id']:20} {e['champ']:20} "
+              f"{ECARTS_ASSUMES[(e['id'], e['champ'])]}")
+
+    # Un écart assumé que les sources ne rapportent plus masquerait une vraie
+    # divergence sur cette fiche : on le dit.
+    vus = {(e["id"], e["champ"]) for e in assumes}
+    for cle in sorted(set(ECARTS_ASSUMES) - vus):
+        if cle[0] in RELEVES:
+            print(f"! {cle[0]} / {cle[1]} : écart assumé devenu sans objet, à retirer")
 
     if args.tout:
         manquantes = sorted(set(fiches) - set(RELEVES))

@@ -145,7 +145,7 @@ C("courgette", "Courgette", "Cucurbita pepo", "Cucurbitacées", "legume-fruit", 
             "Deux plants suffisent pour une famille"])
 
 C("concombre", "Concombre", "Cucumis sativus", "Cucurbitacées", "legume-fruit", "🥒",
-  eau="eleve", freq=2, sol=SOL_RICHE, espacement=80, prof=2, diff=2, gel=False, tmin=12,
+  eau="eleve", freq=2, sol=SOL_RICHE, espacement=60, prof=2, diff=2, gel=False, tmin=12,
   semis_int=(-17, 20), plantation=(28, 30), cycle=(28, 65, 55, 70),
   eau_notes="Un manque d'eau rend les fruits amers.",
   aime=["haricot-a-rames", "laitue", "aneth"], evite=["pomme-de-terre", "courgette"],
