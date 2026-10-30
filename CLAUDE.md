@@ -227,6 +227,11 @@ Deux choses à ne pas défaire là-dessus :
   demande de refaire le raisonnement, pas de supprimer la ligne. Sans elle
   l'outil signalerait huit fiches à chaque passage, et un audit qui échoue
   toujours est un audit que plus personne ne relance.
+- **Les données de culture ont leur propre revue**, `tools/revue_horticole.py`,
+  et elle est **partielle : 6 fiches sur 215**. Elle conserve des relevés
+  sourcés à la main, faute d'API — OpenFarm est mort, Permapeople demande une
+  clé, practicalplants ne répond plus, et je l'ai revérifié. `--tout` liste ce
+  qui reste à voir. Ne présente jamais cette passe comme terminée.
 - **Ne promets pas la même chose aux autres champs.** L'espacement, l'eau, les
   fenêtres et les durées de cycle ne sont pas vérifiables par une revue
   croisée : trois sources donnent trois chiffres pour une carotte, parce que
