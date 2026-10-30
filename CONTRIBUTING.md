@@ -58,6 +58,7 @@ Le script monte l'environnement au besoin (il lui faut
 |---|---|
 | `unittest` | les quatre modules purs, sans aucune dépendance |
 | `tools/auditer_catalogue.py` | cohérence interne des 215 fiches |
+| `tools/revue_croisee.py` | nom scientifique et famille, croisés sur trois bases taxonomiques |
 | `ruff check` | lint et tri des imports |
 | `mypy` | typage de l'intégration |
 | `pytest` | la couche Home Assistant, avec couverture |
@@ -110,6 +111,11 @@ mémoire horticole, ne les présentez jamais comme sourcées. Les 43 autres — 
 médicinales, 22 plantes d'intérieur — le sont, et leurs sources figurent en
 tête de section dans `tools/catalogue_source.py`. Une correction de fiche est
 la bienvenue dans les deux cas ; dites d'où vient votre valeur.
+
+Si vous ajoutez une fiche, **passez-la à `tools/revue_croisee.py`** : il
+croise son nom scientifique et sa famille sur GBIF, World Flora Online et le
+Catalogue of Life. La famille n'est pas cosmétique — `rotation.DELAIS` s'y
+indexe, donc une famille fausse produit un mauvais conseil de rotation.
 
 Si vous ajoutez une médicinale, deux règles sans exception : **aucune
 posologie ni indication thérapeutique**, et **le risque en premier conseil** —

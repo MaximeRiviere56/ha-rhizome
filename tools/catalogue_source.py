@@ -1308,7 +1308,7 @@ C("groseillier-maquereau", "Groseillier à maquereau", "Ribes uva-crispa",
   conseils=["Épineux : tailler en gobelet pour pouvoir cueillir",
             "Se récolte vert pour les tartes, mûr pour le frais"])
 
-C("sureau-noir", "Sureau noir", "Sambucus nigra", "Adoxacées", "petit-fruit", "🫐",
+C("sureau-noir", "Sureau noir", "Sambucus nigra", "Viburnacées", "petit-fruit", "🫐",
   eau="faible", freq=8, sol=SOL_RICHE, espacement=300, diff=1, gel=True, tmin=-25,
   perenne=True, plantation=(-15, 90), anchor_pl="premiere", recolte=("08-20", 30),
   cycle=(None, None, None, 30),
@@ -1818,7 +1818,7 @@ C("passiflore", "Passiflore officinale", "Passiflora incarnata", "Passifloracée
             "Ne pas espérer de fruit au nord de la Loire — c'est la partie aérienne qui est récoltée",
             "Lui donner un mur au sud et un paillis épais pour passer l'hiver"])
 
-C("camomille-matricaire", "Camomille matricaire", "Matricaria recutita", "Astéracées",
+C("camomille-matricaire", "Camomille matricaire", "Matricaria chamomilla", "Astéracées",
   "medicinale", "🌼", eau="faible", freq=8, sol=SOL_LEGER, espacement=20,
   prof=0.2, diff=1, gel=True, tmin=-15, semis_dir=(-30, 90), cycle=(None, 75, None, 60),
   eau_notes="Sobre ; elle n'aime pas les sols lourds et détrempés.",
@@ -2029,7 +2029,7 @@ INT("kentia", "Kentia", "Howea forsteriana", "Arécacées", "🌴",
             "Ne jamais couper le sommet d'un stipe : un palmier n'a qu'un bourgeon et ne repartira pas",
             "Les araignées rouges l'attaquent en air sec : doucher le feuillage une fois par mois"])
 
-INT("orchidee-phalaenopsis", "Orchidée papillon", "Phalaenopsis hybride",
+INT("orchidee-phalaenopsis", "Orchidée papillon", "Phalaenopsis × hybr.",
   "Orchidacées", "🌺", expo="mi-ombre", eau="moyen", freq=7, sol=SOL_ORCHIDEE,
   espacement=40, diff=2, tmin=16,
   eau_notes="Tremper le pot un quart d'heure puis l'égoutter entièrement ; jamais d'eau résiduelle.",

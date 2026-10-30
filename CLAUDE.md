@@ -211,6 +211,28 @@ vérifie que chaque plante d'intérieur dit quelque chose de sa toxicité ; aucu
 test ne peut vérifier que la réponse est juste, seulement que la question est
 posée.
 
+**La nomenclature est vérifiée, depuis la revue du 30/10/2026.** Le nom
+scientifique et la famille des 215 fiches ont été croisés sur GBIF, World
+Flora Online et le Catalogue of Life par `tools/revue_croisee.py` : 207
+confirmées, 8 divergences assumées et justifiées dans le script lui-même, 0 à
+vérifier. Trois fiches ont été corrigées. `docs/revue-croisee.md` porte le
+raisonnement complet, y compris les synonymes horticoles délibérément
+conservés — un utilisateur qui cherche « petit pois » ne doit pas tomber sur
+*Lathyrus oleraceus*.
+
+Deux choses à ne pas défaire là-dessus :
+
+- **La table `DIVERGENCES_ASSUMEES` n'est pas une liste d'exceptions à
+  nettoyer.** Chaque entrée est une décision prise, avec sa raison. La rouvrir
+  demande de refaire le raisonnement, pas de supprimer la ligne. Sans elle
+  l'outil signalerait huit fiches à chaque passage, et un audit qui échoue
+  toujours est un audit que plus personne ne relance.
+- **Ne promets pas la même chose aux autres champs.** L'espacement, l'eau, les
+  fenêtres et les durées de cycle ne sont pas vérifiables par une revue
+  croisée : trois sources donnent trois chiffres pour une carotte, parce que
+  la réponse dépend de la variété, du sol et du climat. Une revue y produirait
+  une fourchette et la liste des désaccords, pas une vérité.
+
 Trois atténuations valent pour tout le catalogue : le réel prime dès le
 premier semis noté ; l'utilisateur peut corriger n'importe quelle fiche, y
 compris livrée ; et `tools/auditer_catalogue.py` prouve qu'aucune fiche n'est

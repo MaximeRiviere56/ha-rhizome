@@ -1534,7 +1534,7 @@
   {
    "id": "camomille-matricaire",
    "nom": "Camomille matricaire",
-   "nom_scientifique": "Matricaria recutita",
+   "nom_scientifique": "Matricaria chamomilla",
    "famille": "Astéracées",
    "categorie": "medicinale",
    "emoji": "🌼",
@@ -7510,7 +7510,7 @@
   {
    "id": "orchidee-phalaenopsis",
    "nom": "Orchidée papillon",
-   "nom_scientifique": "Phalaenopsis hybride",
+   "nom_scientifique": "Phalaenopsis × hybr.",
    "famille": "Orchidacées",
    "categorie": "plante-interieur",
    "emoji": "🌺",
@@ -10562,7 +10562,7 @@
    "id": "sureau-noir",
    "nom": "Sureau noir",
    "nom_scientifique": "Sambucus nigra",
-   "famille": "Adoxacées",
+   "famille": "Viburnacées",
    "categorie": "petit-fruit",
    "emoji": "🫐",
    "difficulte": 1,
@@ -10605,7 +10605,7 @@
    ],
    "perenne": true,
    "nom_en": "Black elder",
-   "famille_en": "Adoxaceae",
+   "famille_en": "Viburnaceae",
    "sol_en": "rich in humus, moist and well drained",
    "conseils_en": [
     "Two harvests: the flowers in June for cordial, the berries in August",

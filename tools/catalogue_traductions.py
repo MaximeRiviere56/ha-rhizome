@@ -254,7 +254,6 @@ NOMS = {
 
 FAMILLES = {
     "Actinidiacées": "Actinidiaceae",
-    "Adoxacées": "Adoxaceae",
     "Aizoacées": "Aizoaceae",
     "Amaranthacées": "Amaranthaceae",
     "Amaryllidacées": "Amaryllidaceae",
@@ -300,6 +299,7 @@ FAMILLES = {
     "Tropaeolacées": "Tropaeolaceae",
     "Urticacées": "Urticaceae",
     "Verbénacées": "Verbenaceae",
+    "Viburnacées": "Viburnaceae",
     "Vitacées": "Vitaceae",
     "Ébénacées": "Ebenaceae",
     "Éléagnacées": "Elaeagnaceae",

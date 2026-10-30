@@ -109,8 +109,24 @@ visible.
   rotation est de même calculé par le vrai module face à son propre jardin,
   au lieu d'annoncer des solanacées devant n'importe quelle fiche.
 
+- **Le nom scientifique et la famille des 215 fiches sont croisés sur trois
+  bases taxonomiques** — GBIF, World Flora Online et le Catalogue of Life — par
+  `tools/revue_croisee.py`, rejouable à tout moment. La famille n'est pas un
+  détail d'affichage : c'est elle qui pilote le délai de rotation, donc une
+  famille fausse donne un mauvais conseil. 207 fiches confirmées, 8 divergences
+  assumées et justifiées, 0 à vérifier. Le raisonnement complet est dans
+  `docs/revue-croisee.md`.
+
 ### Corrigé
 
+- **Le sureau noir était rangé en Adoxacées.** *Viburnaceae* est le nom
+  conservé depuis 2016 ; *Adoxaceae* n'a pas la priorité, et les quatre
+  sources consultées sont d'accord.
+- **La camomille matricaire portait un synonyme** : *Matricaria recutita* au
+  lieu du nom accepté *Matricaria chamomilla*.
+- **L'orchidée papillon portait « Phalaenopsis hybride »**, qui n'est pas un
+  épithète. Ce qu'on achète est un hybride horticole sans nom d'espèce, et
+  *Phalaenopsis* × hybr. le dit.
 - **La fiche consoude ne disait rien de l'usage interne.** Livrée depuis la
   v0.6.0, elle est rangée en fleur compagne pour le purin, mais rien
   n'empêchait d'en faire une tisane : l'Agence européenne du médicament écarte
