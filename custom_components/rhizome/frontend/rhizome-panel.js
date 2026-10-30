@@ -95,7 +95,7 @@ const TEXTES = {
     evt_recolte: "Récolté",
     evt_termine: "Terminé",
     evt_perdu: "Perdu",
-    // L'arrosage n'est pas un evenement du journal (invariant 6) mais il
+    // L'arrosage n'est pas un evenement du journal (invariant 7) mais il
     // s'affiche dedans : c'est un fait date, et le cacher laissait l'utilisateur
     // sans trace de ce qu'il venait de noter.
     evt_arrosage: "Arrosé",
@@ -1232,7 +1232,7 @@ const STYLES = `
   .frise-trait { flex: 0 0 12px; display: flex; flex-direction: column; align-items: center; }
   .frise-point { width: 10px; height: 10px; border-radius: 50%; background: var(--primary-color); margin-top: 5px; }
   /* Creux et bleu : un arrosage se lit dans le journal sans se confondre avec
-     une etape du cycle, qu'il ne fait pas avancer (invariant 6). */
+     une etape du cycle, qu'il ne fait pas avancer (invariant 7). */
   .frise-point.eau {
     background: var(--card-background-color, #fff);
     border: 2px solid var(--rhizome-eau);
@@ -2026,7 +2026,7 @@ class RhizomePanel extends HTMLElement {
       }
     }
 
-    // L'arrosage ne fait pas avancer le cycle (invariant 6), mais c'est un
+    // L'arrosage ne fait pas avancer le cycle (invariant 7), mais c'est un
     // fait date : il a sa place au journal. Groupe par jour et non par plante,
     // sinon un ete d'arrosages enterrerait les semis et les recoltes sous des
     // centaines de lignes identiques.

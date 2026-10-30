@@ -272,6 +272,24 @@ est enterré n'est pas exposé. C'est l'exception que l'audit connaissait déjà
 dernière gelée moyenne au 15 avril plus vingt-huit jours tombe le 13 mai. Le
 seuil n'est pas un arrondi prudent, il est calé sur une date.
 
+### L'effet de bord, et l'invariant qu'il a révélé
+
+Décaler les plantations sans toucher aux semis à l'abri allongeait d'autant
+l'attente du plant en godet : la tomate passait de 75 à 88 jours entre son
+semis et l'ouverture de sa plantation, et un plant qui attend file et
+s'enracine dans son godet. **Les 23 semis à l'abri des mêmes cultures ont donc
+été décalés de treize jours eux aussi**, ce qui rétablit exactement les délais
+d'origine — tomate semée le 27 février, aubergine le 7 février, courgette le
+29 mars.
+
+L'invariant qui n'était écrit nulle part, et qui l'est maintenant : **semis à
+l'abri et plantation se déplacent ensemble.** `auditer_catalogue.py` porte une
+règle qui le rappelle, en signalant un plant qui resterait plus de soixante
+jours en godet après son repiquage. La borne est large à dessein — l'aubergine
+et le piment y passent réellement six semaines — et cette règle attrape une
+incohérence grossière, pas une dérive de quelques jours. Elle vaut surtout
+comme rappel.
+
 ## Couverture, dite franchement
 
 **6 fiches sur 215 ont été relevées**, dont 4 sur trois sources ou plus :

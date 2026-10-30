@@ -76,7 +76,7 @@ CONF_ARROSAGE_ACTIF = "arrosage_actif"
 # sans recevoir une notification de plus chaque matin d'ete.
 #
 # Volontairement en dehors de `ETAPES_NOTIFIABLES` : l'arrosage n'est pas une
-# etape du cycle (invariant 6), et une liste enregistree avant ce reglage ne le
+# etape du cycle (invariant 7), et une liste enregistree avant ce reglage ne le
 # contiendrait pas — les rappels d'eau se seraient tus sans rien dire.
 CONF_NOTIFY_ARROSAGE = "notify_arrosage"
 

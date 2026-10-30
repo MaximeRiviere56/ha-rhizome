@@ -134,7 +134,10 @@ visible.
   dix, en plaine, elle tombe après le 13 mai. La pomme de terre ne bouge pas,
   puisqu'elle est plantée à dix centimètres et que ce qui est enterré n'est
   pas exposé. Un décalage uniforme et non un plancher, pour conserver la
-  gradation du catalogue entre cultures plus ou moins frileuses.
+  gradation du catalogue entre cultures plus ou moins frileuses. Les 23 semis
+  à l'abri de ces mêmes cultures sont décalés d'autant : décaler la plantation
+  seule aurait allongé l'attente du plant en godet, et un plant qui attend
+  file.
 - **Sept cultures gélives sortaient trop tôt.** Tomate et tomate cerise
   ouvraient leur plantation sept jours après la dernière gelée, cosmos,
   tournesol et oca le jour même. Toutes passent à quinze jours, la valeur que

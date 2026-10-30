@@ -69,6 +69,19 @@ FREQUENCES = {
     "faible": (5, 25),
 }
 
+# Combien de jours un plant peut rester en godet après son repiquage, avant
+# que la fenêtre de plantation ne s'ouvre. Au-delà, il file et s'enracine dans
+# son godet.
+#
+# La règle attrape une incohérence grossière, pas une dérive de quelques
+# jours : la borne est large parce que l'aubergine et le piment passent
+# réellement six semaines en godet. Elle existe surtout pour rappeler un
+# invariant que rien d'autre ne porte — **semis à l'abri et plantation se
+# déplacent ensemble**. Décaler l'un sans l'autre allonge silencieusement
+# l'attente du plant, et c'est exactement ce qui est arrivé en décalant les
+# gélives après les saints de glace.
+JOURS_EN_GODET_MAXI = 60
+
 # Espacements plausibles par catégorie, en centimètres. Larges à dessein :
 # on cherche l'aberration, pas le désaccord d'école.
 ESPACEMENTS = {
@@ -248,6 +261,18 @@ def auditer() -> list[tuple[str, str, str]]:
                 f"{eau.get('frequence_jours')} j, hors de la plage "
                 f"{bornes_eau[0]}–{bornes_eau[1]} j",
             ))
+
+        # 6 ter. Un plant semé trop tôt pour sa date de plantation.
+        semis_abri = borne("semis_interieur")
+        if semis_abri and plantation and repiquage:
+            en_godet = (plantation[0] - semis_abri[0]).days - repiquage
+            if en_godet > JOURS_EN_GODET_MAXI:
+                anomalies.append((
+                    "DOUTE", cid,
+                    f"semé {(plantation[0] - semis_abri[0]).days} j avant "
+                    f"l'ouverture de la plantation, dont {en_godet} j en godet "
+                    f"après repiquage — le plant filera",
+                ))
 
         # 7. Famille botanique incompatible avec la catégorie annoncée.
         attendues = FAMILLES_ATTENDUES.get(c["famille"])
