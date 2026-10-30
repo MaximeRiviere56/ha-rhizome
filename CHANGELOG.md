@@ -6,11 +6,41 @@ l'intérieur peut encore bouger, mais pas vos données.
 
 ## Non publié
 
-L'arrosage se lisait mal : un bouton bleu « Arrosé » qui ne disait pas s'il
-constatait ou commandait, et des arrosages notés nulle part de visible.
+Rhizome tient enfin ce que son nom promettait : des plantes d'intérieur à côté
+du potager. Et l'arrosage, qui se lisait mal — un bouton bleu « Arrosé » qui ne
+disait pas s'il constatait ou commandait, et des arrosages notés nulle part de
+visible.
 
 ### Ajouté
 
+- **43 fiches, et le catalogue passe de 172 à 215 cultures.** 21 médicinales
+  et comestibles sauvages — achillée, plantain, ortie, millepertuis, aubépine,
+  reine-des-prés, guimauve, échinacée, valériane, pissenlit, bardane,
+  bouillon-blanc, prêle, tanaisie, absinthe, menthe poivrée, tilleul,
+  églantier, onagre, passiflore, camomille matricaire — et 22 plantes
+  d'intérieur : monstera, pothos, philodendron, spathiphyllum, zamioculcas,
+  dieffenbachia, sansevieria, dragonnier, aspidistra, phalangère, calathea,
+  maranta, pilea, peperomia, hoya, fougère nid d'oiseau, kentia, phalaenopsis,
+  aloe vera, crassula, ficus elastica, ficus lyrata. Deux catégories nouvelles
+  dans le panneau, `Médicinales` et `Plantes d'intérieur`, filtrables comme
+  les autres.
+- **Les plantes d'intérieur n'ont pas de calendrier, et c'est voulu.** Toutes
+  les fenêtres du catalogue sont des décalages par rapport à vos gelées ; une
+  plante qui vit à vingt degrés toute l'année n'en connaît pas. Leur inventer
+  une plantation et une récolte aurait annoncé la récolte d'un monstera au
+  5 juillet. Leur fiche porte la lumière, l'eau, le substrat, l'encombrement
+  adulte, la toxicité et les conseils — et l'arrosage, qui est le seul
+  mécanisme de Rhizome à ne pas dépendre des saisons.
+- **Chaque fiche médicinale dit son risque en premier conseil** : toxicité,
+  confusion dangereuse à la cueillette, interaction médicamenteuse connue.
+  Aucune ne porte de posologie ni d'indication thérapeutique — Rhizome dit
+  comment faire pousser une plante, jamais quoi en faire pour se soigner.
+- **Ces 43 fiches sont les seules du catalogue à être sourcées** :
+  monographies du HMPC de l'Agence européenne du médicament, bulletins de
+  toxicovigilance de l'Anses, fiches de culture de la Royal Horticultural
+  Society, base de l'ASPCA pour la toxicité envers chiens et chats. Les 172
+  autres restent écrites de mémoire horticole, et la nuance est dite dans le
+  README.
 - **Les arrosages apparaissent au journal**, de la plante et du potager. Dans
   la fiche d'une plante, ils se mêlent aux étapes du cycle à leur date, sur un
   point bleu creux qui les distingue d'un semis ou d'une récolte — l'arrosage
@@ -30,6 +60,17 @@ constatait ou commandait, et des arrosages notés nulle part de visible.
 
 ### Modifié
 
+- **Une plante d'intérieur n'est plus privée de rappels d'arrosage l'hiver,
+  ni passé deux ans.** Deux règles existaient pour que les rappels restent
+  crédibles : rien en pleine terre entre les gelées, et rien pour une pérenne
+  sobre installée depuis deux ans. Appliquées à une plante de salon, la
+  première coupait les rappels de novembre à avril — la saison où elle sèche
+  le plus vite, le chauffage abaissant l'humidité de l'air pendant qu'elle
+  continue — et la seconde les coupait définitivement sur un sansevieria,
+  dont les racines sont pourtant enfermées dans un litre de terreau. Les deux
+  sont levées pour cette catégorie, d'après la fiche et non d'après la case
+  « zone abritée » : la survie de la plante ne doit pas dépendre d'un réglage
+  coché. Les règles restent entières pour le jardin.
 - **Le bouton d'arrosage dit « Arroser », et non plus « Arrosé »** : un bouton
   porte le geste qu'il déclenche, l'état vit dans la pastille d'à côté. Il
   reste plein tant que l'eau est due et se fait discret une fois la plante à
@@ -41,6 +82,15 @@ constatait ou commandait, et des arrosages notés nulle part de visible.
 
 ### Corrigé
 
+- **La fiche consoude ne disait rien de l'usage interne.** Livrée depuis la
+  v0.6.0, elle est rangée en fleur compagne pour le purin, mais rien
+  n'empêchait d'en faire une tisane : l'Agence européenne du médicament écarte
+  l'usage interne, ses alcaloïdes pyrrolizidiniques étant toxiques pour le
+  foie. La mise en garde y figure désormais.
+- **Le panneau annonçait « Vivace — elle revient chaque année » sur une plante
+  qui ne part jamais**, et « Craint le gel » là où le chiffre utile est le
+  minimum thermique — c'est lui qui dit si la plante peut passer l'été dehors,
+  et quand la rentrer.
 - **« Je viens d'arroser », dans la fiche d'une plante, ne faisait rien.** La
   fiche se rend dans son propre hôte et seul le branchement de la vue écoutait
   le bouton : le clic partait dans le vide, sans erreur ni retour. Le défaut

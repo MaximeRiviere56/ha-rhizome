@@ -6,8 +6,9 @@ donne ce qui ne se devine pas en lisant le code.
 
 ## Le produit
 
-Un suivi de plantes dans Home Assistant : un catalogue de 172 cultures, un jardin
-virtuel, un panneau latéral, des rappels, et un suivi d'arrosage.
+Un suivi de plantes dans Home Assistant : un catalogue de 215 cultures — dont
+21 médicinales et 22 plantes d'intérieur —, un jardin virtuel, un panneau
+latéral, des rappels, et un suivi d'arrosage.
 
 **L'idée centrale, qui gouverne tout le reste : le calendrier est piloté par ce
 qui s'est vraiment passé, pas par une moyenne saisonnière.** Dès qu'une date
@@ -112,7 +113,7 @@ Quatre endroits à tenir d'accord, et c'est tout :
 | `i18n.py` | tout ce que le **serveur** produit : noms d'entités, rappels, calendrier, tâches, refus |
 | `frontend/rhizome-panel.js`, table `TEXTES` | les libellés du **panneau** |
 | `frontend/rhizome-card.js`, table `TEXTES` | les libellés de la **carte** |
-| `tools/catalogue_traductions.py` | les **172 fiches** : noms, familles, sols, notes d'eau, conseils |
+| `tools/catalogue_traductions.py` | les **215 fiches** : noms, familles, sols, notes d'eau, conseils |
 
 Trois règles qui ne se devinent pas :
 
@@ -173,19 +174,70 @@ sans quoi `build_catalog.py` refuse de compiler.
 
 ## Honnêteté sur les données
 
-**Les 172 fiches n'ont été confrontées à aucune base de référence**, et leur
-traduction anglaise pas davantage — c'est le même contenu dans une autre
-langue, pas une seconde source. Les API du domaine ne fournissent pas de
-calendriers de semis — OpenFarm est mort, Growstuff n'a pas d'API officielle,
-Permapeople ne couvre pas les semis. Le catalogue a été écrit de mémoire
-horticole.
+Le catalogue a **deux régimes de confiance**, et la distinction se perd vite
+si personne ne la tient. Vérifie à quelle moitié tu touches avant d'affirmer
+quoi que ce soit sur une fiche.
 
-Trois atténuations : le réel prime dès le premier semis noté ; l'utilisateur
-peut corriger n'importe quelle fiche, y compris livrée ; et
-`tools/auditer_catalogue.py` prouve qu'aucune fiche n'est *impossible* (huit
-règles de cohérence interne). Les durées de cycle restent hors de portée de
-toute vérification automatique. **Ne présente jamais ces données comme
-sourcées.**
+**172 fiches n'ont été confrontées à aucune base de référence** — potagères,
+aromatiques, fruitiers, fleurs compagnes, céréales — et leur traduction
+anglaise pas davantage : c'est le même contenu dans une autre langue, pas une
+seconde source. Les API du domaine ne fournissent pas de calendriers de semis
+— OpenFarm est mort, Growstuff n'a pas d'API officielle, Permapeople ne couvre
+pas les semis. Elles ont été écrites de mémoire horticole. **Ne présente
+jamais ces données comme sourcées.**
+
+**43 fiches sont sourcées** : les 21 médicinales et les 22 plantes
+d'intérieur. Monographies HMPC de l'Agence européenne du médicament, bulletins
+de toxicovigilance de l'Anses, fiches de culture de la RHS, base ASPCA pour la
+toxicité envers les animaux. Les sources sont en tête de chaque section de
+`tools/catalogue_source.py`, et leur détail dans la PR #8.
+
+Pourquoi cette asymétrie est assumée plutôt que corrigée : sourcer les
+médicinales était une nécessité de sûreté, pas un gain de qualité. Une fiche
+muette sur une interaction médicamenteuse ou sur une confusion mortelle à la
+cueillette peut nuire ; une durée de cycle approximative coûte au pire une
+saison, et le réel la corrige dès le premier semis noté. Sourcer les 172
+autres serait un travail utile, pas un travail urgent — et tant qu'il n'est
+pas fait, ne laisse pas le sourçage des 43 déteindre sur elles dans un texte
+destiné à l'utilisateur.
+
+Deux règles non négociables sur les médicinales, tenues fiche par fiche :
+**aucune posologie, aucune indication thérapeutique** — Rhizome dit comment
+faire pousser une plante, jamais quoi en faire pour se soigner — et **le
+risque dit en clair, toujours en premier conseil**. `tests/test_catalogue.py`
+vérifie que chaque plante d'intérieur dit quelque chose de sa toxicité ; aucun
+test ne peut vérifier que la réponse est juste, seulement que la question est
+posée.
+
+Trois atténuations valent pour tout le catalogue : le réel prime dès le
+premier semis noté ; l'utilisateur peut corriger n'importe quelle fiche, y
+compris livrée ; et `tools/auditer_catalogue.py` prouve qu'aucune fiche n'est
+*impossible* (huit règles de cohérence interne). Les durées de cycle restent
+hors de portée de toute vérification automatique.
+
+## Les plantes d'intérieur
+
+Elles sont le seul endroit où le modèle du potager ne s'applique pas, et la
+tentation de les y ramener reviendra. Trois faits à ne pas défaire :
+
+1. **Elles ne portent aucune fenêtre**, et `build_catalog.py` leur interdit
+   d'en porter. Toutes les fenêtres du catalogue sont des décalages par
+   rapport aux gelées locales (invariant 3) ; une plante qui vit à vingt
+   degrés n'en connaît pas. Leur inventer une plantation et une récolte pour
+   satisfaire le validateur annoncerait la récolte d'un monstera au 5 juillet.
+2. **Elles échappent à deux exclusions d'arrosage** — l'hiver en zone
+   découverte, et la pérenne installée depuis deux ans. Le signal est la
+   catégorie de la fiche, jamais la case « zone abritée » : faire dépendre la
+   survie de la plante d'un réglage coché par l'utilisateur était le mauvais
+   choix. `watering.py` l'explique en tête, et quatre tests le verrouillent,
+   dont un contre-exemple sur un pommier. Les deux symptômes sont silencieux
+   et différés — plus aucun rappel, visible seulement en décembre ou deux ans
+   après l'achat.
+3. **`exposition` et `espacement_cm` changent de sens** : lumière vive
+   indirecte plutôt que mi-ombre, encombrement adulte plutôt que distance de
+   plantation. Documenté en tête de section, et non résolu par de nouvelles
+   valeurs — qui auraient demandé de toucher les filtres du panneau et les
+   deux tables de libellés pour un gain de vocabulaire seulement.
 
 ## Conventions
 
@@ -286,8 +338,9 @@ sur Python 3.9 **et** 3.14.
 Avant : v0.9.0 (deux passes d'audit), puis v0.8.0. L'intégration s'appelait `potager` /
 « Mon Potager » jusqu'à la v0.6.0 ; elle s'appelle `rhizome` / « Rhizome »
 depuis la v0.7.0. Le nom a changé pour que le projet puisse accueillir les
-plantes d'intérieur à côté du jardin — **cette extension n'est pas faite**,
-seul le nom l'anticipe.
+plantes d'intérieur à côté du jardin — **et cette extension est faite depuis
+la PR #8** : 22 fiches d'intérieur, dans une catégorie `plante-interieur` qui
+ne porte aucune fenêtre.
 
 Ce que le renommage a impliqué, et qu'il ne faut pas défaire :
 
@@ -336,7 +389,9 @@ notifications vers `notify.mobile_app_fairphone_6`. Une vue « Rhizome » a ét�
 ajoutée à son tableau de bord `lovelace`, avec deux cartes `custom:rhizome-card`
 et quatre tuiles de plantes **figées** (elles ne suivent pas les ajouts).
 
-Pistes restantes, par ordre de valeur : les plantes d'intérieur, que le nom
-promet désormais ; la sérialisation partagée ci-dessus ; alerte gel via
-l'entité météo (`weather.bouguenais` existe, `rusticite.gel` est dans chaque
-fiche) ; arrosage réellement journalisé par zone ; export du journal.
+Pistes restantes, par ordre de valeur : la sérialisation partagée ci-dessus ;
+alerte gel via l'entité météo (`weather.bouguenais` existe, `rusticite.gel`
+est dans chaque fiche, et les 22 plantes d'intérieur apportent 22 températures
+minimales exploitables — « rentre l'aloe, il fera 8 °C cette nuit » est
+devenu calculable) ; arrosage réellement journalisé par zone ; export du
+journal.
