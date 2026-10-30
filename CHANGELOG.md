@@ -117,8 +117,24 @@ visible.
   assumées et justifiées, 0 à vérifier. Le raisonnement complet est dans
   `docs/revue-croisee.md`.
 
+- **Deux règles d'audit de plus sur les 215 fiches** : une culture gélive dont
+  la mise en terre s'ouvre moins de quinze jours après la dernière gelée est
+  signalée — la dernière gelée est une moyenne, et une année sur dix elle
+  tombe après le 13 mai —, et une fréquence d'arrosage incohérente avec le
+  besoin annoncé l'est aussi.
+
 ### Corrigé
 
+- **Sept cultures gélives sortaient trop tôt.** Tomate et tomate cerise
+  ouvraient leur plantation sept jours après la dernière gelée, cosmos,
+  tournesol et oca le jour même. Toutes passent à quinze jours, la valeur que
+  le catalogue appliquait déjà au reste de ses gélives. Annoncer « c'est le
+  moment » à la date moyenne de dernière gelée, c'est se tromper une fois sur
+  deux, et une tomate perdue ne se rattrape pas dans la saison.
+- **Le poivron souffrait à 12 °C, pas à 10.** Ce n'est pas cosmétique depuis
+  que l'alerte gel existe : `temp_min_c` la pilote, donc une valeur trop basse
+  retardait l'avertissement. Il était par ailleurs le seul des solanacées de
+  saison chaude sous les 12 °C.
 - **Le sureau noir était rangé en Adoxacées.** *Viburnaceae* est le nom
   conservé depuis 2016 ; *Adoxaceae* n'a pas la priorité, et les quatre
   sources consultées sont d'accord.

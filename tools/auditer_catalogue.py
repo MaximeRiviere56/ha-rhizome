@@ -45,6 +45,22 @@ ANNEE = 2026
 DERNIERE_GELEE = date(ANNEE, 4, 15)
 PREMIERE_GELEE = date(ANNEE, 11, 15)
 
+# Marge minimale entre la dernière gelée et la mise dehors d'une gélive. La
+# « dernière gelée » est une moyenne : une année sur dix elle tombe après le
+# 13 mai en plaine. Quinze jours est le minimum que s'applique déjà le
+# catalogue, pas une valeur inventée ici.
+MARGE_GELEE_MINI_JOURS = 15
+
+# Bandes de fréquence d'arrosage plausibles par besoin, en jours. Elles ne
+# disent pas quelle est la bonne fréquence — personne ne le sait sans relevé —
+# mais interdisent qu'un « besoin élevé » soit arrosé moins souvent qu'un
+# « besoin faible », ce qui rendrait les trois niveaux inutiles.
+FREQUENCES = {
+    "eleve": (1, 5),
+    "moyen": (3, 10),
+    "faible": (5, 25),
+}
+
 # Espacements plausibles par catégorie, en centimètres. Larges à dessein :
 # on cherche l'aberration, pas le désaccord d'école.
 ESPACEMENTS = {
@@ -125,6 +141,30 @@ def auditer() -> list[tuple[str, str, str]]:
                     f"avant la dernière gelée du {DERNIERE_GELEE:%d/%m}",
                 ))
 
+        # 1 bis. Une gélive mise dehors trop près de la dernière gelée.
+        #
+        #    La règle 1 ne regarde que l'antériorité, et laisse donc passer une
+        #    tomate plantée le lendemain de la dernière gelée. Or la « dernière
+        #    gelée » est une moyenne, pas une garantie : une année sur dix, en
+        #    plaine, la dernière gelée tombe après le 13 mai, et c'est tout le
+        #    sens des saints de glace. Ouvrir la fenêtre à la date moyenne,
+        #    c'est annoncer « c'est le moment » une fois sur deux trop tôt.
+        #
+        #    Quinze jours est le seuil retenu, et c'est le minimum : c'est la
+        #    valeur que le catalogue emploie déjà pour l'écrasante majorité de
+        #    ses cultures gélives. Voir docs/revue-croisee.md pour la question
+        #    restée ouverte — faut-il aller jusqu'aux saints de glace, soit
+        #    près de quatre semaines.
+        for nom, bornes in (("semis en place", semis_direct), ("plantation", plantation)):
+            if gelive and not enterre and bornes:
+                marge = (bornes[0] - DERNIERE_GELEE).days
+                if 0 <= marge < MARGE_GELEE_MINI_JOURS:
+                    anomalies.append((
+                        "DOUTE", cid,
+                        f"gélive, {nom} ouvert {marge} j après la dernière gelée — "
+                        f"moins que les {MARGE_GELEE_MINI_JOURS} j de marge usuels",
+                    ))
+
         # 2. Semer dehors une gélive après la première gelée n'a aucun sens.
         if gelive and semis_direct and semis_direct[0] > PREMIERE_GELEE:
             anomalies.append((
@@ -190,6 +230,17 @@ def auditer() -> list[tuple[str, str, str]]:
                 "DOUTE", cid,
                 f"espacement de {c['espacement_cm']} cm hors de la plage "
                 f"{mini}–{maxi} attendue pour « {c['categorie']} »",
+            ))
+
+        # 6 bis. Fréquence d'arrosage incohérente avec le besoin annoncé.
+        eau = c.get("arrosage") or {}
+        bornes_eau = FREQUENCES.get(eau.get("besoin"))
+        if bornes_eau and not bornes_eau[0] <= eau.get("frequence_jours", 0) <= bornes_eau[1]:
+            anomalies.append((
+                "DOUTE", cid,
+                f"besoin en eau « {eau.get('besoin')} » mais arrosage tous les "
+                f"{eau.get('frequence_jours')} j, hors de la plage "
+                f"{bornes_eau[0]}–{bornes_eau[1]} j",
             ))
 
         # 7. Famille botanique incompatible avec la catégorie annoncée.

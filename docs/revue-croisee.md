@@ -159,3 +159,114 @@ Le script rend 0 quand tout concorde ou que les divergences sont celles qui
 sont assumées, 1 dès qu'une fiche sort du lot. Comptez une dizaine de minutes
 pour le catalogue entier : il se limite à trois requêtes par seconde, parce
 qu'on est invité sur ces services et non client.
+
+---
+
+# Seconde passe : les données de culture
+
+**30 octobre 2026.** Là où la première passe portait sur la nomenclature, qui
+se tranche, celle-ci porte sur l'arrosage, les espacements et les périodes —
+qui ne se tranchent pas.
+
+## Pourquoi ce n'est pas le même travail
+
+Aucune API ne sert de calendriers de culture. Je l'ai revérifié plutôt que de
+le supposer : **OpenFarm** redirige dans le vide, **Permapeople** demande une
+clé, **practicalplants** ne répond plus, et les bases taxonomiques ignorent
+l'horticulture. La vérification se fait donc page par page, à la main.
+
+Et surtout : **ces champs n'ont pas de valeur vraie.** Trois sources sérieuses
+donnent trois espacements différents pour une carotte — la RHS 5–7,5 cm,
+l'Almanac 3–4 cm, Au Jardin 6–7 cm — parce que la réponse dépend de la
+variété, du sol et de la densité voulue. Ce qu'une revue croisée établit est
+plus modeste : une **enveloppe plausible**, et le constat qu'une valeur de
+fiche en sort. C'est une alerte, pas un verdict.
+
+`tools/revue_horticole.py` conserve les relevés avec leurs sources et fait
+cette comparaison. Il distingue deux poids : `!` quand au moins deux sources
+convergent contre la fiche, `~` quand une seule diverge — l'Almanac donne
+15 cm entre tournesols, qui est un semis dense de rang, là où la pratique
+française est 50. Croire la première source venue remplacerait une valeur
+discutable par une autre.
+
+## Ce qui a été trouvé, et corrigé
+
+### Des fenêtres ouvertes trop près de la dernière gelée — 7 fiches
+
+C'est le constat le plus important de cette passe, et il est **systématique,
+pas anecdotique**.
+
+La « dernière gelée » du réglage est une moyenne, pas une garantie :
+**une année sur dix, en plaine, la dernière gelée tombe après le 13 mai**, et
+c'est tout le sens des saints de glace. Ouvrir la fenêtre d'une culture gélive
+à la date moyenne, c'est annoncer « c'est le moment » une fois sur deux trop
+tôt — et une tomate perdue ne se rattrape pas dans la saison.
+
+Sept fiches ouvraient leur fenêtre de mise en terre entre 0 et 10 jours après
+la dernière gelée. Elles passent à 15 jours, qui est la valeur que le
+catalogue applique déjà à l'écrasante majorité de ses cultures gélives :
+
+| Fiche | Avant | Après | Source |
+|---|---|---|---|
+| `tomate`, `tomate-cerise` | +7 j | **+15 j** | Au Jardin « fin avril, début mai » ; Almanac « 2 semaines après » |
+| `cosmos` | +0 j | **+15 j** | Almanac « once the danger of frost has passed » |
+| `tournesol` | +0 j | **+15 j** | Almanac « after the danger of spring frost has passed », sol ≥ 10 °C |
+| `amarante` | +5 j | **+15 j** | gélive semée en surface, même principe |
+| `capucine` | +10 j | **+15 j** | idem |
+| `oca-perou` | +0 j | **+15 j** | tubercule à 6 cm, sous le seuil d'enfouissement protecteur |
+
+### `poivron` : minimum thermique à 12 °C et non 10 °C
+
+La RHS donne 12 °C comme minimum, Au Jardin 15 °C pour la mise en place. Ce
+n'est pas cosmétique : `temp_min_c` **pilote l'alerte gel** depuis qu'elle
+existe, donc une valeur trop basse retarde l'avertissement. Le poivron était
+par ailleurs le seul des solanacées de saison chaude à 10 °C, aubergine et
+basilic étant déjà à 12.
+
+## Deux règles d'audit, qui couvrent les 215 fiches
+
+Les corrections ci-dessus sont ponctuelles ; les règles, elles, valent pour
+tout le catalogue et pour tout ce qu'on y ajoutera.
+
+1. **Une gélive mise dehors moins de 15 jours après la dernière gelée** est
+   signalée. La règle existante ne regardait que l'antériorité, et laissait
+   donc passer une tomate plantée le lendemain de la dernière gelée.
+2. **Une fréquence d'arrosage incohérente avec le besoin annoncé** est
+   signalée — un « besoin élevé » arrosé moins souvent qu'un « besoin faible »
+   rendrait les trois niveaux inutiles. Le catalogue est déjà sain sur ce
+   point (élevé 1–5 j, moyen 3–10 j, faible 5–21 j, sans chevauchement) ; la
+   règle verrouille cet état.
+
+Les deux ont été vérifiées en les faisant échouer volontairement : une règle
+qui ne se déclenche jamais ne prouve rien.
+
+## La question laissée ouverte
+
+**Faut-il aller jusqu'aux saints de glace ?** Les 15 jours retenus ci-dessus
+sont le minimum que le catalogue s'appliquait déjà. Mais les sources
+françaises sont plus prudentes : elles placent la mise en terre des légumes
+d'été après le 11–13 mai, soit **près de quatre semaines** après une dernière
+gelée moyenne au 15 avril, et certains vignerons attendaient le 25 mai.
+
+Passer les 24 cultures gélives de +15 à +28 décalerait le calendrier de tout
+un pan du potager. C'est une décision de produit, pas une correction : elle
+dépend de la façon dont on veut que l'utilisateur lise le réglage « dernière
+gelée de printemps » — date moyenne, ou date après laquelle il ne gèle plus.
+Elle est laissée au propriétaire.
+
+## Couverture, dite franchement
+
+**6 fiches sur 215 ont été relevées**, dont 4 sur trois sources ou plus :
+`tomate`, `courgette`, `carotte`, `poivron`, plus `cosmos` et `tournesol` sur
+une source.
+
+Ce n'est pas la revue complète, et il ne faut pas la présenter comme telle.
+Une passe complète représente de l'ordre de **630 consultations de pages** —
+215 fiches × 3 sources — faites à la main faute d'API. Ce qui est livré ici
+est la **méthode, l'outillage et la première série** : le registre des relevés
+est dans le dépôt avec ses sources, `--tout` liste les fiches qui n'ont pas
+encore été vues, et la revue se reprend par lots sans rien refaire.
+
+Ce qui couvre déjà les 215 fiches, en revanche, ce sont les deux règles
+d'audit et les huit règles de cohérence qui existaient : elles ne disent pas
+qu'une fiche est juste, elles disent qu'elle n'est pas absurde.

@@ -467,7 +467,7 @@
    "fenetres": {
     "semis_direct": {
      "ancrage": "gelees_derniere",
-     "offset_jours": 5,
+     "offset_jours": 15,
      "duree_jours": 60
     }
    },
@@ -1716,7 +1716,7 @@
    "fenetres": {
     "semis_direct": {
      "ancrage": "gelees_derniere",
-     "offset_jours": 10,
+     "offset_jours": 15,
      "duree_jours": 60
     }
    },
@@ -3356,7 +3356,7 @@
    "fenetres": {
     "semis_direct": {
      "ancrage": "gelees_derniere",
-     "offset_jours": 0,
+     "offset_jours": 15,
      "duree_jours": 75
     }
    },
@@ -7202,7 +7202,7 @@
    "fenetres": {
     "plantation": {
      "ancrage": "gelees_derniere",
-     "offset_jours": 0,
+     "offset_jours": 15,
      "duree_jours": 40
     }
    },
@@ -8879,7 +8879,7 @@
    "espacement_cm": 50,
    "rusticite": {
     "gel": false,
-    "temp_min_c": 10
+    "temp_min_c": 12
    },
    "fenetres": {
     "semis_interieur": {
@@ -10814,7 +10814,7 @@
     },
     "plantation": {
      "ancrage": "gelees_derniere",
-     "offset_jours": 7,
+     "offset_jours": 15,
      "duree_jours": 30
     }
    },
@@ -10881,7 +10881,7 @@
     },
     "plantation": {
      "ancrage": "gelees_derniere",
-     "offset_jours": 7,
+     "offset_jours": 15,
      "duree_jours": 30
     }
    },
@@ -11056,7 +11056,7 @@
    "fenetres": {
     "semis_direct": {
      "ancrage": "gelees_derniere",
-     "offset_jours": 0,
+     "offset_jours": 15,
      "duree_jours": 60
     }
    },
