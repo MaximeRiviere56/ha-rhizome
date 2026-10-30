@@ -31,7 +31,16 @@ CATEGORIES = {
     "fruitier",
     "fleur-compagne",
     "cereale",
+    "medicinale",
+    "plante-interieur",
 }
+
+# Les plantes d'interieur sont le seul cas ou le modele du potager ne
+# s'applique pas : pas de semis cale sur les gelees, pas de recolte. Leur
+# fiche ne porte que la lumiere, l'eau, le substrat et les conseils, et le
+# validateur cesse donc d'exiger ce qui n'existe pas. Inventer une fenetre
+# pour satisfaire le controle aurait affiche des etapes absurdes.
+CATEGORIE_INTERIEUR = "plante-interieur"
 EXPOSITIONS = {"plein-soleil", "mi-ombre", "ombre"}
 BESOINS_EAU = {"faible", "moyen", "eleve"}
 ANCRAGES = {"gelees_derniere", "gelees_premiere", "date_fixe"}
@@ -81,9 +90,15 @@ def valider(cultures: list[dict]) -> list[str]:
                         f"'{autre}'"
                     )
 
+        interieur = c.get("categorie") == CATEGORIE_INTERIEUR
         fenetres = c.get("fenetres") or {}
-        if not fenetres:
+        if not fenetres and not interieur:
             problemes.append(f"{cid} : aucune fenetre, la culture serait injouable")
+        if fenetres and interieur:
+            problemes.append(
+                f"{cid} : plante d'interieur avec des fenetres — elles sont "
+                f"calees sur les gelees, qu'elle ne connait pas"
+            )
         for type_fenetre, fenetre in fenetres.items():
             ancrage = fenetre.get("ancrage")
             if ancrage not in ANCRAGES:
@@ -107,6 +122,11 @@ def _valider_coherence(c: dict, fenetres: dict) -> list[str]:
     semis_int = "semis_interieur" in fenetres
     semis_dir = "semis_direct" in fenetres
     recolte_explicite = "recolte" in fenetres
+
+    # Une plante d'interieur est perenne sans rien produire : lui demander une
+    # recolte reviendrait a inventer une date.
+    if c.get("categorie") == CATEGORIE_INTERIEUR:
+        return soucis
 
     if c.get("perenne"):
         if not recolte_explicite:

@@ -56,6 +56,128 @@
    ]
   },
   {
+   "id": "armoise-absinthe",
+   "nom": "Absinthe",
+   "nom_scientifique": "Artemisia absinthium",
+   "famille": "Astéracées",
+   "categorie": "medicinale",
+   "emoji": "🌿",
+   "difficulte": 1,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 12,
+    "notes": "Aucun arrosage : elle meurt d'excès d'eau, jamais de sécheresse.",
+    "notes_en": "No watering: it dies of too much water, never of drought."
+   },
+   "sol": "pauvre, caillouteux, très drainé",
+   "espacement_cm": 60,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -25
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -15,
+     "duree_jours": 60
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "07-15",
+     "duree_jours": 60
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 60
+   },
+   "associations": {
+    "aime": [
+     "chou-cabus",
+     "carotte"
+    ],
+    "evite": [
+     "aneth",
+     "coriandre",
+     "fenouil-aromatique"
+    ]
+   },
+   "conseils": [
+    "Neurotoxique à forte dose par sa thuyone, et interdite aux femmes enceintes",
+    "Elle inhibe la germination de ses voisines : la planter en bout de planche, jamais au milieu",
+    "Son purin éloigne les pucerons, les limaces et la piéride du chou"
+   ],
+   "perenne": true,
+   "nom_en": "Wormwood",
+   "famille_en": "Asteraceae",
+   "sol_en": "poor, stony, very free draining",
+   "conseils_en": [
+    "Neurotoxic in quantity through its thujone, and barred during pregnancy",
+    "It inhibits its neighbours' germination: plant it at the end of a bed, never in the middle",
+    "Its liquid feed keeps off aphids, slugs and cabbage white caterpillars"
+   ]
+  },
+  {
+   "id": "achillee",
+   "nom": "Achillée millefeuille",
+   "nom_scientifique": "Achillea millefolium",
+   "famille": "Astéracées",
+   "categorie": "medicinale",
+   "emoji": "🌿",
+   "difficulte": 1,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 10,
+    "notes": "Très sobre : elle pousse dans les talus que personne n'arrose.",
+    "notes_en": "Very frugal: it grows on banks nobody waters."
+   },
+   "sol": "ordinaire, bien drainé",
+   "espacement_cm": 40,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -25
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -30,
+     "duree_jours": 75
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "06-01",
+     "duree_jours": 105
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 105
+   },
+   "associations": {
+    "aime": [
+     "aubepine"
+    ],
+    "evite": []
+   },
+   "conseils": [
+    "Déconseillée aux femmes enceintes, et allergisante comme toutes les astéracées",
+    "Ne jamais la cueillir jeune en mélange : ses feuilles ressemblent à celles de la ciguë, mortelle",
+    "Couper les sommités fleuries par temps sec, en pleine floraison",
+    "Une bordure d'achillée attire les syrphes, qui mangent les pucerons"
+   ],
+   "profondeur_semis_cm": 0.5,
+   "perenne": true,
+   "nom_en": "Yarrow",
+   "famille_en": "Asteraceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Not advised during pregnancy, and an allergen like all daisy-family plants",
+    "Never gather it young in a mixed handful: its leaves resemble those of hemlock, which is lethal",
+    "Cut the flowering tops in dry weather, in full flower",
+    "An edging of yarrow draws in hoverflies, which eat aphids"
+   ]
+  },
+  {
    "id": "ail-blanc",
    "nom": "Ail blanc",
    "nom_scientifique": "Allium sativum",
@@ -220,6 +342,52 @@
    "sol_en": "light, loose, free of stones",
    "conseils_en": [
     "Planted in February, unlike white garlic"
+   ]
+  },
+  {
+   "id": "aloe-vera",
+   "nom": "Aloe vera",
+   "nom_scientifique": "Aloe vera",
+   "famille": "Asphodélacées",
+   "categorie": "plante-interieur",
+   "emoji": "🌵",
+   "difficulte": 1,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 21,
+    "notes": "Arroser abondamment, puis laisser le pot sécher complètement.",
+    "notes_en": "Water generously, then let the pot dry out completely."
+   },
+   "sol": "substrat à cactées, sableux et très drainant",
+   "espacement_cm": 50,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 10
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Le latex jaune sous la peau de la feuille est purgatif et rend chiens et chats malades : non toxique ne vaut que pour le gel transparent du cœur",
+    "L'erreur fatale est l'arrosage d'hiver : la plante est au repos et pourrit",
+    "Il lui faut le rebord de fenêtre le plus ensoleillé de la maison",
+    "Elle peut passer l'été dehors, rentrée avant que les nuits descendent sous 10 °C"
+   ],
+   "perenne": true,
+   "nom_en": "Aloe vera",
+   "famille_en": "Asphodelaceae",
+   "sol_en": "cactus compost, sandy and very free draining",
+   "conseils_en": [
+    "The yellow latex under the leaf skin is a purgative and makes dogs and cats ill: non-toxic applies only to the clear gel at the centre",
+    "The fatal mistake is watering in winter: the plant is dormant and rots",
+    "It wants the sunniest windowsill in the house",
+    "It can spend the summer outdoors, brought in before nights drop below 10 °C"
    ]
   },
   {
@@ -436,6 +604,52 @@
    "conseils_en": [
     "Biennial: it flowers and dies in the second year, but self-seeds",
     "Reaches 2 m: put it at the back, it would shade everything else"
+   ]
+  },
+  {
+   "id": "crassula",
+   "nom": "Arbre de jade",
+   "nom_scientifique": "Crassula ovata",
+   "famille": "Crassulacées",
+   "categorie": "plante-interieur",
+   "emoji": "🪴",
+   "difficulte": 1,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 18,
+    "notes": "Laisser sécher complètement ; presque rien de novembre à mars.",
+    "notes_en": "Let it dry out completely; almost nothing from November to March."
+   },
+   "sol": "substrat à cactées, sableux et très drainant",
+   "espacement_cm": 60,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 7
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Toxique pour le chien et le chat, qui vomissent et deviennent apathiques",
+    "Ses feuilles qui se rident disent la soif mieux que n'importe quel calendrier",
+    "Un pot étroit et lourd l'empêche de verser quand elle grossit",
+    "Elle vit cinquante ans et se transmet : c'est la plante grasse des maisons de famille"
+   ],
+   "perenne": true,
+   "nom_en": "Jade plant",
+   "famille_en": "Crassulaceae",
+   "sol_en": "cactus compost, sandy and very free draining",
+   "conseils_en": [
+    "Toxic to dogs and cats, which vomit and turn listless",
+    "Its leaves wrinkling tell you it is thirsty better than any calendar",
+    "A narrow, heavy pot stops it tipping over as it fills out",
+    "It lives fifty years and gets handed down: this is the succulent of family houses"
    ]
   },
   {
@@ -661,6 +875,52 @@
    ]
   },
   {
+   "id": "aspidistra",
+   "nom": "Aspidistra",
+   "nom_scientifique": "Aspidistra elatior",
+   "famille": "Asparagacées",
+   "categorie": "plante-interieur",
+   "emoji": "🌿",
+   "difficulte": 1,
+   "exposition": "ombre",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 14,
+    "notes": "Très sobre, et elle pardonne l'oubli mieux que l'excès.",
+    "notes_en": "Very frugal, and it forgives neglect better than excess."
+   },
+   "sol": "terreau de plantes vertes, drainant",
+   "espacement_cm": 60,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 5
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Aucune toxicité connue pour le chien ni le chat",
+    "Surnommée la plante du fer forgé : elle vit dans les coins que rien d'autre ne supporte",
+    "Elle tient 5 °C : c'est la seule du rayon qui passe l'hiver dans une cage d'escalier non chauffée",
+    "Sa croissance est très lente — deux ou trois feuilles par an, c'est normal"
+   ],
+   "perenne": true,
+   "nom_en": "Cast-iron plant",
+   "famille_en": "Asparagaceae",
+   "sol_en": "houseplant compost, free draining",
+   "conseils_en": [
+    "No known toxicity to dogs or cats",
+    "Nicknamed the cast-iron plant: it lives in corners nothing else will take",
+    "It takes 5 °C: the only one here that winters in an unheated stairwell",
+    "Its growth is very slow — two or three leaves a year is normal"
+   ]
+  },
+  {
    "id": "aubergine",
    "nom": "Aubergine",
    "nom_scientifique": "Solanum melongena",
@@ -720,6 +980,65 @@
    "conseils_en": [
     "Stake it: the fruit is heavy",
     "Limit it to four or five fruits per plant"
+   ]
+  },
+  {
+   "id": "aubepine",
+   "nom": "Aubépine monogyne",
+   "nom_scientifique": "Crataegus monogyna",
+   "famille": "Rosacées",
+   "categorie": "medicinale",
+   "emoji": "🌸",
+   "difficulte": 1,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 12,
+    "notes": "Aucun arrosage une fois établie : c'est un arbuste de haie.",
+    "notes_en": "No watering once established: it is a hedgerow shrub."
+   },
+   "sol": "ordinaire, bien drainé",
+   "espacement_cm": 200,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -30
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_premiere",
+     "offset_jours": -15,
+     "duree_jours": 75
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "05-01",
+     "duree_jours": 30
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 30
+   },
+   "associations": {
+    "aime": [
+     "achillee"
+    ],
+    "evite": []
+   },
+   "conseils": [
+    "Ses épines sont longues et cassent sous la peau : tailler gants et manches longues",
+    "Plantation réglementée par endroits : hôte du feu bactérien, se renseigner en pépinière",
+    "Récolter les fleurs à peine ouvertes, les cynorhodons rouges en automne",
+    "Une haie d'aubépine abrite les oiseaux insectivores tout l'hiver"
+   ],
+   "perenne": true,
+   "nom_en": "Common hawthorn",
+   "famille_en": "Rosaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Its thorns are long and snap off under the skin: prune in gloves and long sleeves",
+    "Planting is restricted in some areas: it hosts fireblight, so ask at the nursery",
+    "Gather the flowers barely open, and the red hips in autumn",
+    "A hawthorn hedge shelters insect-eating birds all winter"
    ]
   },
   {
@@ -947,6 +1266,59 @@
    ]
   },
   {
+   "id": "bouillon-blanc",
+   "nom": "Bouillon-blanc",
+   "nom_scientifique": "Verbascum thapsus",
+   "famille": "Scrofulariacées",
+   "categorie": "medicinale",
+   "emoji": "🌼",
+   "difficulte": 1,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 12,
+    "notes": "Aucun arrosage : il colonise les gravières et les talus secs.",
+    "notes_en": "No watering: it colonises gravel pits and dry banks."
+   },
+   "sol": "pauvre, caillouteux, très drainé",
+   "espacement_cm": 60,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -25
+   },
+   "fenetres": {
+    "semis_direct": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -15,
+     "duree_jours": 90
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 75,
+    "jours_semis_a_recolte": 150
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Filtrer soigneusement toute infusion : les poils des feuilles irritent la gorge",
+    "Bisannuel — rosette la première année, hampe de deux mètres la seconde",
+    "Semer en surface sans recouvrir, la graine a besoin de lumière pour lever",
+    "Récolter les fleurs jaunes au fur et à mesure, elles s'ouvrent de bas en haut"
+   ],
+   "profondeur_semis_cm": 0.2,
+   "nom_en": "Great mullein",
+   "famille_en": "Scrophulariaceae",
+   "sol_en": "poor, stony, very free draining",
+   "conseils_en": [
+    "Strain any infusion carefully: the leaf hairs irritate the throat",
+    "Biennial — a rosette the first year, a two-metre spike the second",
+    "Sow on the surface without covering; the seed needs light to germinate",
+    "Gather the yellow flowers as they come, opening from the bottom up"
+   ]
+  },
+  {
    "id": "bourrache",
    "nom": "Bourrache",
    "nom_scientifique": "Borago officinalis",
@@ -1061,6 +1433,52 @@
    ]
   },
   {
+   "id": "calathea",
+   "nom": "Calathea",
+   "nom_scientifique": "Calathea orbifolia",
+   "famille": "Marantacées",
+   "categorie": "plante-interieur",
+   "emoji": "🍃",
+   "difficulte": 3,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "eleve",
+    "frequence_jours": 4,
+    "notes": "Jamais à sec, et à l'eau non calcaire : eau de pluie ou eau filtrée.",
+    "notes_en": "Never dry, and with lime-free water: rainwater or filtered water."
+   },
+   "sol": "terreau très aéré, écorce et perlite",
+   "espacement_cm": 60,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 18
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Non toxique pour le chien et le chat selon l'ASPCA",
+    "La plus difficile de cette liste : elle veut 60 % d'humidité et brunit sèchement en appartement chauffé",
+    "Le calcaire de l'eau du robinet lui brûle le bord des feuilles : c'est la cause la plus fréquente d'échec",
+    "La poser sur un lit de billes d'argile humides, jamais les pieds dans l'eau"
+   ],
+   "perenne": true,
+   "nom_en": "Calathea",
+   "famille_en": "Marantaceae",
+   "sol_en": "very open compost, bark and perlite",
+   "conseils_en": [
+    "Non-toxic to dogs and cats per the ASPCA",
+    "The hardest on this list: it wants 60% humidity and browns off dryly in a heated flat",
+    "The lime in tap water scorches its leaf edges: this is the commonest cause of failure",
+    "Stand it on a bed of damp clay pebbles, never with its feet in water"
+   ]
+  },
+  {
    "id": "camerisier",
    "nom": "Camerisier (baie de mai)",
    "nom_scientifique": "Lonicera caerulea",
@@ -1111,6 +1529,64 @@
    "conseils_en": [
     "The very first fruit of the year, even before strawberries",
     "Two different varieties are essential for it to set fruit"
+   ]
+  },
+  {
+   "id": "camomille-matricaire",
+   "nom": "Camomille matricaire",
+   "nom_scientifique": "Matricaria recutita",
+   "famille": "Astéracées",
+   "categorie": "medicinale",
+   "emoji": "🌼",
+   "difficulte": 1,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 8,
+    "notes": "Sobre ; elle n'aime pas les sols lourds et détrempés.",
+    "notes_en": "Frugal; it dislikes heavy, waterlogged soil."
+   },
+   "sol": "léger, meuble, sans cailloux",
+   "espacement_cm": 20,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -15
+   },
+   "fenetres": {
+    "semis_direct": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -30,
+     "duree_jours": 90
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 60,
+    "jours_semis_a_recolte": 75
+   },
+   "associations": {
+    "aime": [
+     "chou-cabus",
+     "oignon-jaune"
+    ],
+    "evite": [
+     "menthe-poivree"
+    ]
+   },
+   "conseils": [
+    "Allergisante chez les personnes sensibles aux astéracées",
+    "Annuelle, à ne pas confondre avec la camomille romaine, vivace : son réceptacle est creux quand on le coupe en deux",
+    "Semer en surface sans recouvrir, la graine est minuscule",
+    "Cueillir les capitules un à un, au plus chaud d'une journée sèche"
+   ],
+   "profondeur_semis_cm": 0.2,
+   "nom_en": "German chamomile",
+   "famille_en": "Asteraceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "An allergen in people sensitive to the daisy family",
+    "Annual, not to be confused with the perennial Roman chamomile: its receptacle is hollow when you cut one in half",
+    "Sow on the surface without covering; the seed is tiny",
+    "Pick the flower heads one by one, at the hottest point of a dry day"
    ]
   },
   {
@@ -1168,6 +1644,52 @@
    "sol_en": "light, loose, free of stones",
    "conseils_en": [
     "Harvested in flower, to be dried in the shade"
+   ]
+  },
+  {
+   "id": "ficus-elastica",
+   "nom": "Caoutchouc",
+   "nom_scientifique": "Ficus elastica",
+   "famille": "Moracées",
+   "categorie": "plante-interieur",
+   "emoji": "🌳",
+   "difficulte": 1,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 10,
+    "notes": "Laisser sécher la moitié du pot entre deux arrosages.",
+    "notes_en": "Let the pot dry halfway down between waterings."
+   },
+   "sol": "terreau de plantes vertes, drainant",
+   "espacement_cm": 120,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 13
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Son latex blanc irrite la peau et la bouche, de l'homme comme de l'animal : couper avec des gants",
+    "Il n'aime pas qu'on le déplace : trouver sa place et ne plus y toucher",
+    "Dépoussiérer les feuilles à l'éponge humide, elles captent beaucoup",
+    "Étêter un sujet trop haut le fait ramifier"
+   ],
+   "perenne": true,
+   "nom_en": "Rubber plant",
+   "famille_en": "Moraceae",
+   "sol_en": "houseplant compost, free draining",
+   "conseils_en": [
+    "Its white latex irritates skin and mouth, human and animal alike: cut it wearing gloves",
+    "It dislikes being moved: find its place and leave it there",
+    "Dust the leaves with a damp sponge; they catch a great deal",
+    "Topping a specimen that has grown too tall makes it branch"
    ]
   },
   {
@@ -2684,6 +3206,7 @@
     "evite": []
    },
    "conseils": [
+    "Usage externe seulement : ses alcaloïdes pyrrolizidiniques sont toxiques pour le foie par voie interne",
     "Trois à quatre coupes par an pour le purin, riche en potasse",
     "Choisir la variété Bocking 14, stérile : les autres envahissent tout",
     "Ses racines descendent à deux mètres et remontent les minéraux"
@@ -2693,6 +3216,7 @@
    "famille_en": "Boraginaceae",
    "sol_en": "rich in humus, moist and well drained",
    "conseils_en": [
+    "External use only: its pyrrolizidine alkaloids are toxic to the liver if taken internally",
     "Three or four cuts a year for liquid feed, rich in potash",
     "Choose the sterile Bocking 14: the others take over everything",
     "Its roots go down two metres and bring minerals back up"
@@ -3503,6 +4027,94 @@
    ]
   },
   {
+   "id": "dieffenbachia",
+   "nom": "Dieffenbachia",
+   "nom_scientifique": "Dieffenbachia seguine",
+   "famille": "Aracées",
+   "categorie": "plante-interieur",
+   "emoji": "🪴",
+   "difficulte": 2,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 7,
+    "notes": "Terreau frais en permanence, mais jamais d'eau dans la soucoupe.",
+    "notes_en": "Compost moist at all times, but never water left in the saucer."
+   },
+   "sol": "terreau de plantes vertes, drainant",
+   "espacement_cm": 70,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 16
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "La plus toxique du rayon : sa sève provoque une douleur buccale intense et un gonflement qui peut gêner la parole — à écarter d'un foyer avec enfant en bas âge ou animal",
+    "Porter des gants pour la bouturer, et se laver les mains après",
+    "Ses feuilles brûlent au soleil direct : lumière tamisée uniquement"
+   ],
+   "perenne": true,
+   "nom_en": "Dumb cane",
+   "famille_en": "Araceae",
+   "sol_en": "houseplant compost, free draining",
+   "conseils_en": [
+    "The most toxic on the shelf: its sap causes intense mouth pain and a swelling that can impede speech — keep it out of a home with a toddler or an animal",
+    "Wear gloves to take cuttings, and wash your hands afterwards",
+    "Its leaves scorch in direct sun: filtered light only"
+   ]
+  },
+  {
+   "id": "dracaena-marginata",
+   "nom": "Dragonnier de Madagascar",
+   "nom_scientifique": "Dracaena marginata",
+   "famille": "Asparagacées",
+   "categorie": "plante-interieur",
+   "emoji": "🌴",
+   "difficulte": 1,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 12,
+    "notes": "Laisser sécher la moitié du pot ; elle craint l'eau stagnante.",
+    "notes_en": "Let the pot dry halfway down; it dislikes standing water."
+   },
+   "sol": "terreau de plantes vertes, drainant",
+   "espacement_cm": 80,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 15
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Ses saponines rendent le chat malade ; les extrémités de feuilles tentent les chats, les mettre en hauteur",
+    "Les pointes brunes signalent presque toujours un excès de fluor ou de chlore : laisser l'eau reposer une nuit",
+    "Une tige dégarnie peut être étêtée : elle repart en deux ou trois têtes"
+   ],
+   "perenne": true,
+   "nom_en": "Madagascar dragon tree",
+   "famille_en": "Asparagaceae",
+   "sol_en": "houseplant compost, free draining",
+   "conseils_en": [
+    "Its saponins make a cat ill; the leaf tips tempt cats, so put it up high",
+    "Brown tips nearly always mean too much fluoride or chlorine: let the water stand overnight",
+    "A bare stem can be topped: it comes back as two or three heads"
+   ]
+  },
+  {
    "id": "endive",
    "nom": "Endive (chicon)",
    "nom_scientifique": "Cichorium intybus",
@@ -3779,6 +4391,188 @@
    "conseils_en": [
     "Happy against a south wall, with its roots confined",
     "Perfectly suited to the Loire-Atlantique climate"
+   ]
+  },
+  {
+   "id": "ficus-lyrata",
+   "nom": "Figuier lyre",
+   "nom_scientifique": "Ficus lyrata",
+   "famille": "Moracées",
+   "categorie": "plante-interieur",
+   "emoji": "🌳",
+   "difficulte": 3,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 9,
+    "notes": "Régulier et modéré : il perd ses feuilles basses à la moindre irrégularité.",
+    "notes_en": "Regular and moderate: it drops its lower leaves at the least irregularity."
+   },
+   "sol": "terreau très aéré, écorce et perlite",
+   "espacement_cm": 120,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 15
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Son latex blanc irrite la peau et la bouche, comme chez tous les ficus",
+    "Le plus capricieux des ficus : courant d'air, déplacement ou arrosage irrégulier lui font perdre ses feuilles",
+    "Il veut beaucoup de lumière indirecte, à moins d'un mètre d'une grande fenêtre",
+    "Les feuilles perdues en bas ne repoussent jamais au même endroit"
+   ],
+   "perenne": true,
+   "nom_en": "Fiddle-leaf fig",
+   "famille_en": "Moraceae",
+   "sol_en": "very open compost, bark and perlite",
+   "conseils_en": [
+    "Its white latex irritates skin and mouth, as in every ficus",
+    "The most temperamental of the figs: a draught, a move or uneven watering all make it drop leaves",
+    "It wants plenty of indirect light, within a metre of a large window",
+    "Leaves lost at the bottom never grow back in the same place"
+   ]
+  },
+  {
+   "id": "spathiphyllum",
+   "nom": "Fleur de lune",
+   "nom_scientifique": "Spathiphyllum wallisii",
+   "famille": "Aracées",
+   "categorie": "plante-interieur",
+   "emoji": "🤍",
+   "difficulte": 1,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "eleve",
+    "frequence_jours": 5,
+    "notes": "Elle signale elle-même la soif en s'affaissant, et se relève en deux heures.",
+    "notes_en": "It announces thirst by drooping, and recovers within two hours."
+   },
+   "sol": "terreau de plantes vertes, drainant",
+   "espacement_cm": 50,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 15
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Irritante par ses oxalates : c'est la plante d'intérieur la plus souvent signalée aux centres antipoison vétérinaires",
+    "Fleurit peu dans l'ombre profonde : lumière vive indirecte, sans soleil direct",
+    "Ne pas se fier à l'affaissement comme méthode d'arrosage : répété, il abîme les racines"
+   ],
+   "perenne": true,
+   "nom_en": "Peace lily",
+   "famille_en": "Araceae",
+   "sol_en": "houseplant compost, free draining",
+   "conseils_en": [
+    "Irritant through its oxalates: it is the houseplant most often reported to veterinary poison centres",
+    "It flowers little in deep shade: bright indirect light, no direct sun",
+    "Do not use the drooping as a watering method: repeated, it damages the roots"
+   ]
+  },
+  {
+   "id": "hoya",
+   "nom": "Fleur de porcelaine",
+   "nom_scientifique": "Hoya carnosa",
+   "famille": "Apocynacées",
+   "categorie": "plante-interieur",
+   "emoji": "🌸",
+   "difficulte": 2,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 14,
+    "notes": "Laisser sécher complètement entre deux arrosages, surtout l'hiver.",
+    "notes_en": "Let it dry out completely between waterings, especially in winter."
+   },
+   "sol": "terreau très aéré, écorce et perlite",
+   "espacement_cm": 100,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 12
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Aucune toxicité connue pour le chien ni le chat",
+    "Ne jamais couper le pédoncule après la floraison : elle refleurit dessus l'année suivante",
+    "Elle ne fleurit qu'une fois à l'étroit dans son pot : ne pas la rempoter trop vite",
+    "Il lui faut quelques heures de soleil filtré pour fleurir"
+   ],
+   "perenne": true,
+   "nom_en": "Wax plant",
+   "famille_en": "Apocynaceae",
+   "sol_en": "very open compost, bark and perlite",
+   "conseils_en": [
+    "No known toxicity to dogs or cats",
+    "Never cut the flower stalk after flowering: it blooms again on the same one next year",
+    "It flowers only once snug in its pot: do not pot it on too soon",
+    "It needs a few hours of filtered sun to flower"
+   ]
+  },
+  {
+   "id": "fougere-nid",
+   "nom": "Fougère nid d'oiseau",
+   "nom_scientifique": "Asplenium nidus",
+   "famille": "Aspléniacées",
+   "categorie": "plante-interieur",
+   "emoji": "🌿",
+   "difficulte": 2,
+   "exposition": "ombre",
+   "arrosage": {
+    "besoin": "eleve",
+    "frequence_jours": 4,
+    "notes": "Terreau constamment humide ; arroser sur le bord, jamais dans le cœur.",
+    "notes_en": "Compost constantly moist; water at the edge, never into the crown."
+   },
+   "sol": "terreau très aéré, écorce et perlite",
+   "espacement_cm": 70,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 16
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Non toxique pour le chien et le chat selon l'ASPCA",
+    "L'eau versée au centre de la rosette la fait pourrir : c'est la faute classique",
+    "Une salle de bains éclairée est son meilleur emplacement en appartement",
+    "Ne jamais lustrer ses frondes : les produits lustrants les brûlent"
+   ],
+   "perenne": true,
+   "nom_en": "Bird's nest fern",
+   "famille_en": "Aspleniaceae",
+   "sol_en": "very open compost, bark and perlite",
+   "conseils_en": [
+    "Non-toxic to dogs and cats per the ASPCA",
+    "Water poured into the centre of the rosette rots it: that is the classic mistake",
+    "A lit bathroom is its best spot in a flat",
+    "Never polish its fronds: leaf-shine products scorch them"
    ]
   },
   {
@@ -4189,6 +4983,59 @@
    ]
   },
   {
+   "id": "bardane",
+   "nom": "Grande bardane",
+   "nom_scientifique": "Arctium lappa",
+   "famille": "Astéracées",
+   "categorie": "medicinale",
+   "emoji": "🌿",
+   "difficulte": 2,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 6,
+    "notes": "Régulier la première année, le temps que la racine descende.",
+    "notes_en": "Regular the first year, while the root goes down."
+   },
+   "sol": "léger, meuble, sans cailloux",
+   "espacement_cm": 70,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -20
+   },
+   "fenetres": {
+    "semis_direct": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -15,
+     "duree_jours": 60
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 60,
+    "jours_semis_a_recolte": 150
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Allergisante comme les astéracées ; ses capitules s'accrochent aux vêtements et aux animaux",
+    "Racine comestible, récoltée à l'automne de la première année — c'est le gobō japonais",
+    "Semer en sol profond et meuble : la racine descend à cinquante centimètres",
+    "Supprimer les fleurs de la deuxième année, sinon elle se ressème partout"
+   ],
+   "profondeur_semis_cm": 2,
+   "nom_en": "Greater burdock",
+   "famille_en": "Asteraceae",
+   "sol_en": "light, loose, free of stones",
+   "conseils_en": [
+    "An allergen like the daisy family; its burrs catch on clothes and on animals",
+    "Edible root, lifted in the autumn of the first year — this is Japanese gobō",
+    "Sow in deep, loose soil: the root goes down fifty centimetres",
+    "Remove the second-year flowers, or it seeds itself everywhere"
+   ]
+  },
+  {
    "id": "groseillier",
    "nom": "Groseillier",
    "nom_scientifique": "Ribes rubrum",
@@ -4296,6 +5143,64 @@
    "conseils_en": [
     "Thorny: prune to an open goblet so you can pick",
     "Picked green for tarts, ripe for eating fresh"
+   ]
+  },
+  {
+   "id": "guimauve",
+   "nom": "Guimauve officinale",
+   "nom_scientifique": "Althaea officinalis",
+   "famille": "Malvacées",
+   "categorie": "medicinale",
+   "emoji": "🌸",
+   "difficulte": 2,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 5,
+    "notes": "Aime avoir le pied frais tout l'été.",
+    "notes_en": "Likes its feet cool all summer."
+   },
+   "sol": "frais, lourd, qui ne sèche jamais",
+   "espacement_cm": 60,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -20
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -15,
+     "duree_jours": 60
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "07-01",
+     "duree_jours": 75
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 75
+   },
+   "associations": {
+    "aime": [
+     "mauve"
+    ],
+    "evite": []
+   },
+   "conseils": [
+    "Fleurs, feuilles et racines sont comestibles ; aucune toxicité connue",
+    "Ne récolter les racines qu'à l'automne de la deuxième année",
+    "Sa levée est lente et irrégulière : passer par un plant est plus sûr"
+   ],
+   "profondeur_semis_cm": 1,
+   "perenne": true,
+   "nom_en": "Marshmallow",
+   "famille_en": "Malvaceae",
+   "sol_en": "moist, heavy, never drying out",
+   "conseils_en": [
+    "Flowers, leaves and roots are all edible; no known toxicity",
+    "Lift the roots only in the autumn of the second year",
+    "Germination is slow and uneven: starting from a plant is safer"
    ]
   },
   {
@@ -4690,6 +5595,52 @@
    ]
   },
   {
+   "id": "kentia",
+   "nom": "Kentia",
+   "nom_scientifique": "Howea forsteriana",
+   "famille": "Arécacées",
+   "categorie": "plante-interieur",
+   "emoji": "🌴",
+   "difficulte": 2,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 8,
+    "notes": "Terreau frais l'été, nettement plus sec l'hiver.",
+    "notes_en": "Compost moist in summer, distinctly drier in winter."
+   },
+   "sol": "terreau de plantes vertes, drainant",
+   "espacement_cm": 150,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 12
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Non toxique pour le chien et le chat selon l'ASPCA : c'est le grand sujet de foyer avec animaux",
+    "Croissance très lente : une ou deux palmes par an, et un grand sujet coûte cher pour cette raison",
+    "Ne jamais couper le sommet d'un stipe : un palmier n'a qu'un bourgeon et ne repartira pas",
+    "Les araignées rouges l'attaquent en air sec : doucher le feuillage une fois par mois"
+   ],
+   "perenne": true,
+   "nom_en": "Kentia palm",
+   "famille_en": "Arecaceae",
+   "sol_en": "houseplant compost, free draining",
+   "conseils_en": [
+    "Non-toxic to dogs and cats per the ASPCA: that is the whole question in a home with animals",
+    "Very slow growing: one or two fronds a year, which is why a large specimen costs what it does",
+    "Never cut the top off a stem: a palm has one bud and will not come back",
+    "Red spider mite attacks it in dry air: shower the foliage once a month"
+   ]
+  },
+  {
    "id": "kiwi",
    "nom": "Kiwi (actinidia)",
    "nom_scientifique": "Actinidia deliciosa",
@@ -5077,6 +6028,50 @@
    ]
   },
   {
+   "id": "maranta",
+   "nom": "Maranta",
+   "nom_scientifique": "Maranta leuconeura",
+   "famille": "Marantacées",
+   "categorie": "plante-interieur",
+   "emoji": "🍃",
+   "difficulte": 2,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "eleve",
+    "frequence_jours": 4,
+    "notes": "Terreau frais en permanence, à l'eau non calcaire.",
+    "notes_en": "Compost moist at all times, with lime-free water."
+   },
+   "sol": "terreau très aéré, écorce et perlite",
+   "espacement_cm": 40,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 16
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Non toxique pour le chien et le chat selon l'ASPCA",
+    "Elle replie ses feuilles la nuit : c'est son fonctionnement normal, pas un signe de soif",
+    "Plus indulgente que la calathea, pour un feuillage presque aussi beau"
+   ],
+   "perenne": true,
+   "nom_en": "Prayer plant",
+   "famille_en": "Marantaceae",
+   "sol_en": "very open compost, bark and perlite",
+   "conseils_en": [
+    "Non-toxic to dogs and cats per the ASPCA",
+    "It folds its leaves up at night: that is how it works, not a sign of thirst",
+    "More forgiving than the calathea, for foliage nearly as good"
+   ]
+  },
+  {
    "id": "marjolaine",
    "nom": "Marjolaine",
    "nom_scientifique": "Origanum majorana",
@@ -5424,6 +6419,126 @@
    ]
   },
   {
+   "id": "menthe-poivree",
+   "nom": "Menthe poivrée",
+   "nom_scientifique": "Mentha × piperita",
+   "famille": "Lamiacées",
+   "categorie": "medicinale",
+   "emoji": "🌿",
+   "difficulte": 1,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "eleve",
+    "frequence_jours": 3,
+    "notes": "Jamais à sec : elle flétrit en une journée de canicule.",
+    "notes_en": "Never dry: it wilts in a single day of heatwave."
+   },
+   "sol": "riche en humus, frais et bien drainé",
+   "espacement_cm": 40,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -20
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -15,
+     "duree_jours": 90
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "06-01",
+     "duree_jours": 120
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 120
+   },
+   "associations": {
+    "aime": [
+     "chou-cabus",
+     "tomate"
+    ],
+    "evite": [
+     "camomille",
+     "persil"
+    ]
+   },
+   "conseils": [
+    "Déconseillée aux nourrissons et aux jeunes enfants, par voie interne comme en inhalation",
+    "Hybride stérile : elle ne se ressème pas, mais ses stolons envahissent tout — la planter en pot enterré",
+    "Rabattre toute la touffe avant la floraison, l'arôme y est au maximum",
+    "Plus poivrée et plus riche en menthol que la menthe verte"
+   ],
+   "perenne": true,
+   "nom_en": "Peppermint",
+   "famille_en": "Lamiaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Not advised for infants and young children, internally or as an inhalation",
+    "A sterile hybrid: it does not self-seed, but its runners take over — plant it in a sunken pot",
+    "Cut the whole clump back before it flowers, when the aroma is at its peak",
+    "More peppery and richer in menthol than garden mint"
+   ]
+  },
+  {
+   "id": "millepertuis",
+   "nom": "Millepertuis perforé",
+   "nom_scientifique": "Hypericum perforatum",
+   "famille": "Hypéricacées",
+   "categorie": "medicinale",
+   "emoji": "🌼",
+   "difficulte": 1,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 10,
+    "notes": "Sobre : trop d'eau le fait pourrir au collet.",
+    "notes_en": "Frugal: too much water rots it at the collar."
+   },
+   "sol": "pauvre, caillouteux, très drainé",
+   "espacement_cm": 40,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -20
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -30,
+     "duree_jours": 60
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "06-21",
+     "duree_jours": 60
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 60
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Interagit avec beaucoup de médicaments — pilule, anticoagulants, antirétroviraux — en accélérant leur élimination",
+    "Photosensibilisant : il rend la peau plus sensible au soleil",
+    "Reconnaissable aux points translucides de ses feuilles, vues à contre-jour",
+    "Récolter les sommités fleuries autour du solstice, c'est là qu'elles sont les plus riches"
+   ],
+   "perenne": true,
+   "nom_en": "St John's wort",
+   "famille_en": "Hypericaceae",
+   "sol_en": "poor, stony, very free draining",
+   "conseils_en": [
+    "Interacts with many medicines — the pill, anticoagulants, antiretrovirals — by speeding up their elimination",
+    "Photosensitising: it makes the skin more sensitive to sun",
+    "Recognisable by the translucent dots in its leaves, seen against the light",
+    "Gather the flowering tops around the solstice, when they are at their richest"
+   ]
+  },
+  {
    "id": "mizuna",
    "nom": "Mizuna (moutarde japonaise)",
    "nom_scientifique": "Brassica rapa var. nipposinica",
@@ -5475,6 +6590,52 @@
    "conseils_en": [
     "Cut and come again three or four times",
     "Stands cold far better than rocket"
+   ]
+  },
+  {
+   "id": "monstera",
+   "nom": "Monstera",
+   "nom_scientifique": "Monstera deliciosa",
+   "famille": "Aracées",
+   "categorie": "plante-interieur",
+   "emoji": "🪴",
+   "difficulte": 1,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 8,
+    "notes": "Laisser sécher les trois premiers centimètres entre deux arrosages.",
+    "notes_en": "Let the top three centimetres dry out between waterings."
+   },
+   "sol": "terreau très aéré, écorce et perlite",
+   "espacement_cm": 150,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 13
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Irritante pour la bouche de l'homme et de l'animal : à mettre hors de portée d'un chat ou d'un petit enfant",
+    "Ses découpes n'apparaissent qu'avec l'âge et la lumière : une jeune feuille pleine est normale",
+    "Lui donner un tuteur-mousse, ses racines aériennes s'y accrochent",
+    "Dépoussiérer les feuilles : c'est par elles qu'elle respire"
+   ],
+   "perenne": true,
+   "nom_en": "Swiss cheese plant",
+   "famille_en": "Araceae",
+   "sol_en": "very open compost, bark and perlite",
+   "conseils_en": [
+    "Irritant to the mouth, human or animal: keep it out of reach of a cat or a small child",
+    "Its splits only appear with age and light: a solid young leaf is normal",
+    "Give it a moss pole; its aerial roots take hold on it",
+    "Dust the leaves: they are how it breathes"
    ]
   },
   {
@@ -6294,6 +7455,105 @@
    ]
   },
   {
+   "id": "onagre",
+   "nom": "Onagre bisannuelle",
+   "nom_scientifique": "Oenothera biennis",
+   "famille": "Onagracées",
+   "categorie": "medicinale",
+   "emoji": "🌼",
+   "difficulte": 1,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 10,
+    "notes": "Très sobre : elle pousse dans les sables et les remblais.",
+    "notes_en": "Very frugal: it grows in sand and on spoil."
+   },
+   "sol": "pauvre, sableux, très drainé",
+   "espacement_cm": 50,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -25
+   },
+   "fenetres": {
+    "semis_direct": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -15,
+     "duree_jours": 90
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 60,
+    "jours_semis_a_recolte": 150
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Aucune toxicité connue ; sa racine de première année se mange comme un salsifis",
+    "Bisannuelle — rosette la première année, hampe fleurie la seconde",
+    "Ses fleurs s'ouvrent au crépuscule en quelques minutes et nourrissent les sphinx",
+    "Elle se ressème abondamment : garder deux ou trois pieds, arracher le reste"
+   ],
+   "profondeur_semis_cm": 0.5,
+   "nom_en": "Evening primrose",
+   "famille_en": "Onagraceae",
+   "sol_en": "poor, sandy, very free draining",
+   "conseils_en": [
+    "No known toxicity; its first-year root eats like a salsify",
+    "Biennial — a rosette the first year, a flowering spike the second",
+    "Its flowers open at dusk in a matter of minutes and feed the hawkmoths",
+    "It self-seeds freely: keep two or three plants, pull the rest"
+   ]
+  },
+  {
+   "id": "orchidee-phalaenopsis",
+   "nom": "Orchidée papillon",
+   "nom_scientifique": "Phalaenopsis hybride",
+   "famille": "Orchidacées",
+   "categorie": "plante-interieur",
+   "emoji": "🌺",
+   "difficulte": 2,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 7,
+    "notes": "Tremper le pot un quart d'heure puis l'égoutter entièrement ; jamais d'eau résiduelle.",
+    "notes_en": "Soak the pot for a quarter of an hour then drain it fully; never leave water behind."
+   },
+   "sol": "écorce de pin seule, sans terreau",
+   "espacement_cm": 40,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 16
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Non toxique pour le chien et le chat selon l'ASPCA",
+    "Jamais de terreau : ses racines sont aériennes et étouffent dedans",
+    "Des racines vertes après arrosage et argentées ensuite indiquent un rythme juste",
+    "Après la floraison, couper la hampe un centimètre au-dessus du deuxième œil"
+   ],
+   "perenne": true,
+   "nom_en": "Moth orchid",
+   "famille_en": "Orchidaceae",
+   "sol_en": "pine bark only, no compost",
+   "conseils_en": [
+    "Non-toxic to dogs and cats per the ASPCA",
+    "Never compost: its roots are aerial and suffocate in it",
+    "Roots green after watering and silvery afterwards mean the rhythm is right",
+    "After flowering, cut the stem a centimetre above the second node"
+   ]
+  },
+  {
    "id": "origan",
    "nom": "Origan",
    "nom_scientifique": "Origanum vulgare",
@@ -6346,6 +7606,66 @@
    "sol_en": "light, loose, free of stones",
    "conseils_en": [
     "At its most fragrant just before flowering: that is the moment to dry it"
+   ]
+  },
+  {
+   "id": "ortie",
+   "nom": "Ortie dioïque",
+   "nom_scientifique": "Urtica dioica",
+   "famille": "Urticacées",
+   "categorie": "medicinale",
+   "emoji": "🌿",
+   "difficulte": 1,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 5,
+    "notes": "Aime les sols riches en azote et frais ; elle marque les anciens fumiers.",
+    "notes_en": "Likes soil rich in nitrogen and moist; it marks out old manure heaps."
+   },
+   "sol": "riche en humus, frais et bien drainé",
+   "espacement_cm": 50,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -25
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -30,
+     "duree_jours": 75
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "04-01",
+     "duree_jours": 120
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 120
+   },
+   "associations": {
+    "aime": [
+     "tomate",
+     "menthe-poivree"
+    ],
+    "evite": []
+   },
+   "conseils": [
+    "Cueillir avec des gants : les poils urticants tiennent jusqu'à la cuisson",
+    "Ne récolter que les quatre feuilles du sommet, avant la floraison",
+    "Elle envahit par ses rhizomes : la cantonner dans un carré, ou en pot",
+    "Son purin est un engrais azoté ; celui de consoude apporte la potasse"
+   ],
+   "perenne": true,
+   "nom_en": "Stinging nettle",
+   "famille_en": "Urticaceae",
+   "sol_en": "rich in humus, moist and well drained",
+   "conseils_en": [
+    "Pick it with gloves: the stinging hairs hold until cooking",
+    "Take only the top four leaves, before it flowers",
+    "It invades by rhizomes: confine it to one bed, or to a pot",
+    "Its liquid feed supplies nitrogen; comfrey's supplies potash"
    ]
   },
   {
@@ -6458,6 +7778,63 @@
    ]
   },
   {
+   "id": "passiflore",
+   "nom": "Passiflore officinale",
+   "nom_scientifique": "Passiflora incarnata",
+   "famille": "Passifloracées",
+   "categorie": "medicinale",
+   "emoji": "🌸",
+   "difficulte": 3,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 5,
+    "notes": "Régulier en été ; très réduit l'hiver, quand elle disparaît.",
+    "notes_en": "Regular in summer; very sparing in winter, when it disappears."
+   },
+   "sol": "ordinaire, bien drainé",
+   "espacement_cm": 120,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -15
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": 15,
+     "duree_jours": 45
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "07-01",
+     "duree_jours": 75
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 75
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Déconseillée avant la conduite ; ne pas la confondre avec Passiflora caerulea, la passiflore bleue ornementale, dont les fruits ne se consomment pas",
+    "Elle disparaît complètement l'hiver et repart de souche en mai : ne pas croire qu'elle est morte",
+    "Ne pas espérer de fruit au nord de la Loire — c'est la partie aérienne qui est récoltée",
+    "Lui donner un mur au sud et un paillis épais pour passer l'hiver"
+   ],
+   "perenne": true,
+   "nom_en": "Purple passionflower",
+   "famille_en": "Passifloraceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Not advised before driving; do not confuse it with Passiflora caerulea, the ornamental blue passionflower, whose fruit is not for eating",
+    "It vanishes completely in winter and comes back from the crown in May: do not assume it is dead",
+    "Do not expect fruit north of the Loire — it is the top growth that is gathered",
+    "Give it a south-facing wall and a thick mulch to get through winter"
+   ]
+  },
+  {
    "id": "pasteque",
    "nom": "Pastèque",
    "nom_scientifique": "Citrullus lanatus",
@@ -6565,6 +7942,50 @@
    "conseils_en": [
     "Plant the slips when the soil reaches 15 °C",
     "Harvest before the first frosts, the foliage is very tender"
+   ]
+  },
+  {
+   "id": "peperomia",
+   "nom": "Peperomia",
+   "nom_scientifique": "Peperomia obtusifolia",
+   "famille": "Pipéracées",
+   "categorie": "plante-interieur",
+   "emoji": "🌿",
+   "difficulte": 1,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 12,
+    "notes": "Ses feuilles épaisses stockent l'eau : laisser bien sécher entre deux arrosages.",
+    "notes_en": "Its thick leaves store water: let it dry well between waterings."
+   },
+   "sol": "terreau très aéré, écorce et perlite",
+   "espacement_cm": 30,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 15
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Non toxique pour le chien et le chat selon l'ASPCA",
+    "Petite et lente : idéale sur un bureau, elle ne dépassera pas trente centimètres",
+    "Une feuille piquée dans du terreau humide donne un nouveau pied"
+   ],
+   "perenne": true,
+   "nom_en": "Baby rubber plant",
+   "famille_en": "Piperaceae",
+   "sol_en": "very open compost, bark and perlite",
+   "conseils_en": [
+    "Non-toxic to dogs and cats per the ASPCA",
+    "Small and slow: ideal on a desk, it will not pass thirty centimetres",
+    "A leaf pushed into damp compost gives a new plant"
    ]
   },
   {
@@ -6786,6 +8207,94 @@
    ]
   },
   {
+   "id": "chlorophytum",
+   "nom": "Phalangère",
+   "nom_scientifique": "Chlorophytum comosum",
+   "famille": "Asparagacées",
+   "categorie": "plante-interieur",
+   "emoji": "🌱",
+   "difficulte": 1,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 7,
+    "notes": "Terreau frais l'été, plus sec l'hiver ; ses racines charnues stockent l'eau.",
+    "notes_en": "Compost moist in summer, drier in winter; its fleshy roots store water."
+   },
+   "sol": "terreau de plantes vertes, drainant",
+   "espacement_cm": 45,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 10
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Non toxique pour le chien et le chat selon l'ASPCA — mais les chats s'y intéressent et peuvent vomir d'en avoir trop mangé",
+    "Ses stolons portent des plantules qui racinent dans un verre d'eau",
+    "Les pointes brunes viennent du calcaire de l'eau du robinet"
+   ],
+   "perenne": true,
+   "nom_en": "Spider plant",
+   "famille_en": "Asparagaceae",
+   "sol_en": "houseplant compost, free draining",
+   "conseils_en": [
+    "Non-toxic to dogs and cats per the ASPCA — but cats take an interest and may be sick from eating too much",
+    "Its runners carry plantlets that root in a glass of water",
+    "Brown tips come from the lime in tap water"
+   ]
+  },
+  {
+   "id": "philodendron",
+   "nom": "Philodendron grimpant",
+   "nom_scientifique": "Philodendron hederaceum",
+   "famille": "Aracées",
+   "categorie": "plante-interieur",
+   "emoji": "🌿",
+   "difficulte": 1,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 8,
+    "notes": "Garder le terreau juste humide, jamais détrempé.",
+    "notes_en": "Keep the compost just moist, never sodden."
+   },
+   "sol": "terreau très aéré, écorce et perlite",
+   "espacement_cm": 80,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 15
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Irritante par ses oxalates, pour l'homme comme pour l'animal",
+    "Pincer les tiges régulièrement, sans quoi elle file en lianes nues",
+    "Le pot doit pouvoir s'égoutter : l'eau stagnante lui pourrit les racines"
+   ],
+   "perenne": true,
+   "nom_en": "Heartleaf philodendron",
+   "famille_en": "Araceae",
+   "sol_en": "very open compost, bark and perlite",
+   "conseils_en": [
+    "Irritant through its oxalates, for people as much as for animals",
+    "Pinch the stems regularly, or it runs away into bare vines",
+    "The pot must be able to drain: standing water rots its roots"
+   ]
+  },
+  {
    "id": "physalis",
    "nom": "Physalis",
    "nom_scientifique": "Physalis peruviana",
@@ -6901,6 +8410,166 @@
    "conseils_en": [
     "A very early sowing is essential at our latitudes",
     "Grows very well in a pot to bring in over winter"
+   ]
+  },
+  {
+   "id": "pissenlit",
+   "nom": "Pissenlit",
+   "nom_scientifique": "Taraxacum officinale",
+   "famille": "Astéracées",
+   "categorie": "medicinale",
+   "emoji": "🌼",
+   "difficulte": 1,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 8,
+    "notes": "Sobre : sa racine pivot va chercher l'eau en profondeur.",
+    "notes_en": "Frugal: its taproot goes down for water."
+   },
+   "sol": "ordinaire, bien drainé",
+   "espacement_cm": 30,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -25
+   },
+   "fenetres": {
+    "semis_direct": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -30,
+     "duree_jours": 90
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "03-01",
+     "duree_jours": 180
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 180
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Entièrement comestible, sans confusion dangereuse connue en France",
+    "Ne jamais cueillir au bord d'une route ni sur une pelouse traitée",
+    "Blanchir les cœurs sous un pot retourné quinze jours : l'amertume tombe",
+    "Il remonte le calcium et le potassium des couches profondes du sol"
+   ],
+   "profondeur_semis_cm": 0.5,
+   "perenne": true,
+   "nom_en": "Dandelion",
+   "famille_en": "Asteraceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Entirely edible, with no dangerous look-alike known in France",
+    "Never pick it by a roadside or on a treated lawn",
+    "Blanch the hearts under an upturned pot for a fortnight: the bitterness goes",
+    "It lifts calcium and potassium from the deeper layers of the soil"
+   ]
+  },
+  {
+   "id": "plantain-lanceole",
+   "nom": "Plantain lancéolé",
+   "nom_scientifique": "Plantago lanceolata",
+   "famille": "Plantaginacées",
+   "categorie": "medicinale",
+   "emoji": "🌿",
+   "difficulte": 1,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 8,
+    "notes": "Sobre ; il supporte même le piétinement et la sécheresse.",
+    "notes_en": "Frugal; it even takes trampling and drought."
+   },
+   "sol": "ordinaire, bien drainé",
+   "espacement_cm": 25,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -25
+   },
+   "fenetres": {
+    "semis_direct": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -15,
+     "duree_jours": 90
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "05-01",
+     "duree_jours": 150
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 150
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Aucune confusion dangereuse connue, ce qui en fait une bonne première plante à apprendre",
+    "Jeunes feuilles comestibles en salade ; les vieilles sont filandreuses",
+    "Pousse spontanément dans toutes les pelouses de France — inutile de l'acheter",
+    "Se ressème seul : supprimer les épis si on ne veut pas qu'il s'étende"
+   ],
+   "profondeur_semis_cm": 0.5,
+   "perenne": true,
+   "nom_en": "Ribwort plantain",
+   "famille_en": "Plantaginaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "No dangerous look-alike known, which makes it a good first plant to learn",
+    "Young leaves edible in salad; the old ones are stringy",
+    "Grows wild in every lawn in France — no need to buy it",
+    "It self-seeds: remove the spikes if you do not want it spreading"
+   ]
+  },
+  {
+   "id": "pilea",
+   "nom": "Plante à monnaie chinoise",
+   "nom_scientifique": "Pilea peperomioides",
+   "famille": "Urticacées",
+   "categorie": "plante-interieur",
+   "emoji": "🪙",
+   "difficulte": 1,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 8,
+    "notes": "Laisser sécher la surface entre deux arrosages ; elle flétrit vite et se remet vite.",
+    "notes_en": "Let the surface dry between waterings; it wilts fast and recovers fast."
+   },
+   "sol": "terreau de plantes vertes, drainant",
+   "espacement_cm": 35,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 13
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Aucune toxicité connue pour le chien ni le chat",
+    "La tourner d'un quart de tour chaque semaine, sinon elle penche vers la fenêtre",
+    "Elle produit des rejets au pied : les détacher avec un peu de racine et les rempoter"
+   ],
+   "perenne": true,
+   "nom_en": "Chinese money plant",
+   "famille_en": "Urticaceae",
+   "sol_en": "houseplant compost, free draining",
+   "conseils_en": [
+    "No known toxicity to dogs or cats",
+    "Turn it a quarter turn each week, or it leans towards the window",
+    "It makes offsets at the base: detach them with a little root and pot them on"
    ]
   },
   {
@@ -7372,6 +9041,52 @@
    ]
   },
   {
+   "id": "pothos",
+   "nom": "Pothos",
+   "nom_scientifique": "Epipremnum aureum",
+   "famille": "Aracées",
+   "categorie": "plante-interieur",
+   "emoji": "🌿",
+   "difficulte": 1,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 9,
+    "notes": "Attendre que le terreau soit sec sur la moitié du pot.",
+    "notes_en": "Wait until the compost is dry halfway down the pot."
+   },
+   "sol": "terreau de plantes vertes, drainant",
+   "espacement_cm": 60,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 13
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Irritante par ses oxalates : la suspendre hors d'atteinte si un animal grignote",
+    "La plante la plus indulgente du rayon : elle survit à l'oubli et au fond d'une pièce",
+    "Une tige coupée sous un nœud racine en deux semaines dans un verre d'eau",
+    "Ses panachures pâlissent dans l'ombre : la rapprocher d'une fenêtre pour les garder"
+   ],
+   "perenne": true,
+   "nom_en": "Golden pothos",
+   "famille_en": "Araceae",
+   "sol_en": "houseplant compost, free draining",
+   "conseils_en": [
+    "Irritant through its oxalates: hang it out of reach if an animal nibbles",
+    "The most forgiving plant on the shelf: it survives neglect and the back of a room",
+    "A stem cut below a node roots within a fortnight in a glass of water",
+    "Its variegation fades in shade: move it nearer a window to keep it"
+   ]
+  },
+  {
    "id": "potimarron",
    "nom": "Potimarron",
    "nom_scientifique": "Cucurbita maxima",
@@ -7531,6 +9246,66 @@
    "conseils_en": [
     "The easiest stone fruit in a maritime climate",
     "Prop up the laden branches, they break"
+   ]
+  },
+  {
+   "id": "prele",
+   "nom": "Prêle des champs",
+   "nom_scientifique": "Equisetum arvense",
+   "famille": "Équisétacées",
+   "categorie": "medicinale",
+   "emoji": "🌿",
+   "difficulte": 2,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "eleve",
+    "frequence_jours": 4,
+    "notes": "Sol humide en permanence ; elle signale les terrains mal drainés.",
+    "notes_en": "Permanently wet soil; it marks out badly drained ground."
+   },
+   "sol": "frais, lourd, qui ne sèche jamais",
+   "espacement_cm": 40,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -25
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -30,
+     "duree_jours": 75
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "06-01",
+     "duree_jours": 90
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 90
+   },
+   "associations": {
+    "aime": [
+     "pommier",
+     "tomate"
+    ],
+    "evite": []
+   },
+   "conseils": [
+    "Ne pas la confondre avec la prêle des marais, Equisetum palustre, toxique : chez la prêle des champs, le premier entre-nœud d'un rameau est aussi long ou plus long que la gaine de la tige d'où il part",
+    "Ses rhizomes descendent à un mètre et la rendent impossible à éradiquer : la planter en bac",
+    "Récolter les tiges stériles vertes de l'été, pas les épis bruns du printemps",
+    "Sa décoction, riche en silice, sert de traitement préventif contre les maladies cryptogamiques"
+   ],
+   "perenne": true,
+   "nom_en": "Field horsetail",
+   "famille_en": "Equisetaceae",
+   "sol_en": "moist, heavy, never drying out",
+   "conseils_en": [
+    "Do not confuse it with marsh horsetail, Equisetum palustre, which is toxic: in field horsetail the first internode of a branch is as long as or longer than the stem sheath it springs from",
+    "Its rhizomes go down a metre and make it impossible to eradicate: plant it in a container",
+    "Gather the green sterile stems of summer, not the brown spring cones",
+    "Its silica-rich decoction is used as a preventive against fungal disease"
    ]
   },
   {
@@ -7875,6 +9650,61 @@
    ]
   },
   {
+   "id": "reine-des-pres",
+   "nom": "Reine-des-prés",
+   "nom_scientifique": "Filipendula ulmaria",
+   "famille": "Rosacées",
+   "categorie": "medicinale",
+   "emoji": "🌼",
+   "difficulte": 1,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "eleve",
+    "frequence_jours": 3,
+    "notes": "Jamais à sec : c'est une plante de fossé et de prairie humide.",
+    "notes_en": "Never dry: this is a plant of ditches and wet meadows."
+   },
+   "sol": "frais, lourd, qui ne sèche jamais",
+   "espacement_cm": 60,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -25
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -30,
+     "duree_jours": 75
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "06-15",
+     "duree_jours": 60
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 60
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Contient des dérivés salicylés : à éviter en cas d'allergie à l'aspirine",
+    "Elle meurt de sécheresse avant de mourir de froid : ne la planter qu'en sol frais",
+    "Récolter les fleurs blanches en plein épanouissement, elles sentent l'amande"
+   ],
+   "perenne": true,
+   "nom_en": "Meadowsweet",
+   "famille_en": "Rosaceae",
+   "sol_en": "moist, heavy, never drying out",
+   "conseils_en": [
+    "Contains salicylates: avoid it if you are allergic to aspirin",
+    "It dies of drought long before it dies of cold: plant it only in moist soil",
+    "Gather the white flowers in full bloom, when they smell of almond"
+   ]
+  },
+  {
    "id": "rhubarbe",
    "nom": "Rhubarbe",
    "nom_scientifique": "Rheum rhabarbarum",
@@ -8197,6 +10027,52 @@
    "sol_en": "light, loose, free of stones",
    "conseils_en": [
     "Harvested from November to March, as you need it"
+   ]
+  },
+  {
+   "id": "sansevieria",
+   "nom": "Sansevieria",
+   "nom_scientifique": "Dracaena trifasciata",
+   "famille": "Asparagacées",
+   "categorie": "plante-interieur",
+   "emoji": "🌵",
+   "difficulte": 1,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 21,
+    "notes": "Toutes les trois semaines l'été, une fois par mois l'hiver.",
+    "notes_en": "Every three weeks in summer, once a month in winter."
+   },
+   "sol": "substrat à cactées, sableux et très drainant",
+   "espacement_cm": 40,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 12
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Ses saponines provoquent vomissements et diarrhée chez le chien et le chat ; sans gravité chez l'adulte",
+    "Elle supporte tout sauf l'excès d'eau : c'est la seule faute qui la tue",
+    "Elle se contente du fond d'une pièce, mais pousse trois fois plus vite près d'une fenêtre",
+    "Une feuille coupée en tronçons et plantée dans du sable donne un nouveau pied"
+   ],
+   "perenne": true,
+   "nom_en": "Snake plant",
+   "famille_en": "Asparagaceae",
+   "sol_en": "cactus compost, sandy and very free draining",
+   "conseils_en": [
+    "Its saponins cause vomiting and diarrhoea in dogs and cats; harmless in an adult",
+    "It takes anything but too much water: that is the one mistake that kills it",
+    "It makes do with the back of a room, but grows three times faster near a window",
+    "A leaf cut into sections and set in sand gives a new plant"
    ]
   },
   {
@@ -8738,6 +10614,64 @@
    ]
   },
   {
+   "id": "tanaisie",
+   "nom": "Tanaisie commune",
+   "nom_scientifique": "Tanacetum vulgare",
+   "famille": "Astéracées",
+   "categorie": "medicinale",
+   "emoji": "🌼",
+   "difficulte": 1,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 10,
+    "notes": "Très sobre, à la limite de l'indestructible.",
+    "notes_en": "Very frugal, close to indestructible."
+   },
+   "sol": "ordinaire, bien drainé",
+   "espacement_cm": 60,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -25
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -30,
+     "duree_jours": 75
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "07-01",
+     "duree_jours": 75
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 75
+   },
+   "associations": {
+    "aime": [
+     "chou-cabus",
+     "pomme-de-terre"
+    ],
+    "evite": []
+   },
+   "conseils": [
+    "Toxique par ingestion à cause de sa thuyone, et interdite aux femmes enceintes : on la cultive pour le jardin, pas pour la tisane",
+    "Son purin répulsif est son véritable usage, contre pucerons et altises",
+    "Elle s'étend par rhizomes et prend la place : la diviser tous les trois ans"
+   ],
+   "perenne": true,
+   "nom_en": "Tansy",
+   "famille_en": "Asteraceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "Toxic if swallowed, because of its thujone, and barred during pregnancy: it is grown for the garden, not for the teapot",
+    "Its repellent liquid feed is its real use, against aphids and flea beetles",
+    "It spreads by rhizomes and takes over: divide it every three years"
+   ]
+  },
+  {
    "id": "thym",
    "nom": "Thym",
    "nom_scientifique": "Thymus vulgaris",
@@ -8792,6 +10726,63 @@
    "conseils_en": [
     "Thyme's worst enemy is the watering can",
     "Prune after flowering to stop it going bare"
+   ]
+  },
+  {
+   "id": "tilleul",
+   "nom": "Tilleul à petites feuilles",
+   "nom_scientifique": "Tilia cordata",
+   "famille": "Malvacées",
+   "categorie": "medicinale",
+   "emoji": "🌳",
+   "difficulte": 1,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 14,
+    "notes": "Aucun arrosage une fois établi ; le soutenir les deux premiers étés.",
+    "notes_en": "No watering once established; see it through its first two summers."
+   },
+   "sol": "ordinaire, bien drainé",
+   "espacement_cm": 800,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -30
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_premiere",
+     "offset_jours": -15,
+     "duree_jours": 75
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "06-10",
+     "duree_jours": 20
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 20
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Aucune toxicité connue, ce qui en fait une tisane de tous les âges",
+    "Arbre de vingt mètres : à ne planter que si la place existe vraiment",
+    "La fenêtre de récolte des bractées dure dix jours, pas plus",
+    "Récolter en hauteur et jamais en bord de route : ses fleurs captent les poussières"
+   ],
+   "perenne": true,
+   "nom_en": "Small-leaved lime",
+   "famille_en": "Malvaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "No known toxicity, which makes it a tea for any age",
+    "A twenty-metre tree: plant it only if the room genuinely exists",
+    "The window for gathering the bracts lasts ten days, no more",
+    "Gather high up and never by a road: its flowers catch the dust"
    ]
   },
   {
@@ -9249,6 +11240,62 @@
    ]
   },
   {
+   "id": "valeriane",
+   "nom": "Valériane officinale",
+   "nom_scientifique": "Valeriana officinalis",
+   "famille": "Caprifoliacées",
+   "categorie": "medicinale",
+   "emoji": "🌼",
+   "difficulte": 2,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "moyen",
+    "frequence_jours": 4,
+    "notes": "Sol frais en permanence ; elle pousse naturellement au bord des ruisseaux.",
+    "notes_en": "Permanently moist soil; it grows naturally along streams."
+   },
+   "sol": "frais, lourd, qui ne sèche jamais",
+   "espacement_cm": 50,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -25
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": -15,
+     "duree_jours": 60
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "10-01",
+     "duree_jours": 45
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 45
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Déconseillée avant la conduite : elle agit sur la vigilance",
+    "Ses racines sentent fort une fois sèches, et les chats s'y roulent",
+    "Déterrer les racines à l'automne de la deuxième année, pas avant"
+   ],
+   "profondeur_semis_cm": 0.5,
+   "perenne": true,
+   "nom_en": "Valerian",
+   "famille_en": "Caprifoliaceae",
+   "sol_en": "moist, heavy, never drying out",
+   "conseils_en": [
+    "Not advised before driving: it acts on alertness",
+    "Its roots smell strongly once dried, and cats roll in them",
+    "Dig the roots in the autumn of the second year, not before"
+   ]
+  },
+  {
    "id": "verveine-citronnelle",
    "nom": "Verveine citronnelle",
    "nom_scientifique": "Aloysia citrodora",
@@ -9406,6 +11453,50 @@
    ]
   },
   {
+   "id": "zamioculcas",
+   "nom": "Zamioculcas",
+   "nom_scientifique": "Zamioculcas zamiifolia",
+   "famille": "Aracées",
+   "categorie": "plante-interieur",
+   "emoji": "🪴",
+   "difficulte": 1,
+   "exposition": "mi-ombre",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 21,
+    "notes": "Un arrosage toutes les trois semaines suffit, moitié moins l'hiver.",
+    "notes_en": "One watering every three weeks is enough, half that in winter."
+   },
+   "sol": "substrat à cactées, sableux et très drainant",
+   "espacement_cm": 70,
+   "rusticite": {
+    "gel": false,
+    "temp_min_c": 15
+   },
+   "fenetres": {},
+   "cycle": {
+    "duree_recolte_jours": 0
+   },
+   "associations": {
+    "aime": [],
+    "evite": []
+   },
+   "conseils": [
+    "Irritante par ses oxalates et ses saponines, concentrées dans les tiges et les rhizomes",
+    "Elle meurt bien plus souvent d'excès d'eau que de sécheresse : en cas de doute, ne pas arroser",
+    "Ses rhizomes stockent l'eau : elle encaisse un mois d'absence sans broncher"
+   ],
+   "perenne": true,
+   "nom_en": "ZZ plant",
+   "famille_en": "Araceae",
+   "sol_en": "cactus compost, sandy and very free draining",
+   "conseils_en": [
+    "Irritant through its oxalates and saponins, concentrated in the stems and rhizomes",
+    "It dies of too much water far more often than of drought: when in doubt, do not water",
+    "Its rhizomes store water: it takes a month's absence without flinching"
+   ]
+  },
+  {
    "id": "echalote",
    "nom": "Échalote",
    "nom_scientifique": "Allium cepa var. aggregatum",
@@ -9460,6 +11551,123 @@
    "conseils_en": [
     "A reliable saying: planted in February, harvested in July",
     "Do not bury the tip, it must sit at the surface"
+   ]
+  },
+  {
+   "id": "echinacee",
+   "nom": "Échinacée pourpre",
+   "nom_scientifique": "Echinacea purpurea",
+   "famille": "Astéracées",
+   "categorie": "medicinale",
+   "emoji": "🌸",
+   "difficulte": 2,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 8,
+    "notes": "Sobre une fois installée ; craint l'humidité stagnante de l'hiver.",
+    "notes_en": "Frugal once settled; dislikes standing winter wet."
+   },
+   "sol": "ordinaire, bien drainé",
+   "espacement_cm": 45,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -25
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_derniere",
+     "offset_jours": 0,
+     "duree_jours": 60
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "07-15",
+     "duree_jours": 75
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 75
+   },
+   "associations": {
+    "aime": [
+     "tournesol"
+    ],
+    "evite": []
+   },
+   "conseils": [
+    "Allergisante comme toutes les astéracées ; déconseillée en cas de maladie auto-immune",
+    "Ne rien prélever les deux premières années, le temps que la touffe se fasse",
+    "Laisser les capitules secs en place l'hiver : les chardonnerets les vident"
+   ],
+   "profondeur_semis_cm": 0.5,
+   "perenne": true,
+   "nom_en": "Purple coneflower",
+   "famille_en": "Asteraceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "An allergen like all daisy-family plants; not advised with an auto-immune condition",
+    "Take nothing for the first two years, while the clump builds up",
+    "Leave the dry seed heads standing through winter: goldfinches empty them"
+   ]
+  },
+  {
+   "id": "eglantier",
+   "nom": "Églantier",
+   "nom_scientifique": "Rosa canina",
+   "famille": "Rosacées",
+   "categorie": "medicinale",
+   "emoji": "🌹",
+   "difficulte": 1,
+   "exposition": "plein-soleil",
+   "arrosage": {
+    "besoin": "faible",
+    "frequence_jours": 12,
+    "notes": "Aucun arrosage une fois établi : c'est la ronce des haies.",
+    "notes_en": "No watering once established: it is the bramble of the hedgerows."
+   },
+   "sol": "ordinaire, bien drainé",
+   "espacement_cm": 180,
+   "rusticite": {
+    "gel": true,
+    "temp_min_c": -30
+   },
+   "fenetres": {
+    "plantation": {
+     "ancrage": "gelees_premiere",
+     "offset_jours": -15,
+     "duree_jours": 75
+    },
+    "recolte": {
+     "ancrage": "date_fixe",
+     "date": "10-01",
+     "duree_jours": 60
+    }
+   },
+   "cycle": {
+    "duree_recolte_jours": 60
+   },
+   "associations": {
+    "aime": [
+     "aubepine"
+    ],
+    "evite": []
+   },
+   "conseils": [
+    "Les poils qui entourent les graines du cynorhodon sont irritants : les retirer avant toute préparation",
+    "Attendre les premières gelées pour cueillir, le fruit devient blet et sucré",
+    "Son cynorhodon est l'un des fruits les plus riches en vitamine C de la flore française",
+    "Il sert de porte-greffe aux rosiers de jardin"
+   ],
+   "perenne": true,
+   "nom_en": "Dog rose",
+   "famille_en": "Rosaceae",
+   "sol_en": "ordinary, well drained",
+   "conseils_en": [
+    "The hairs around the seeds inside the hip are irritant: remove them before any preparation",
+    "Wait for the first frosts to pick: the fruit goes soft and sweet",
+    "Its hip is one of the richest sources of vitamin C in the French flora",
+    "It serves as rootstock for garden roses"
    ]
   },
   {

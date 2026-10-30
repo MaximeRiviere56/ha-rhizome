@@ -57,7 +57,7 @@ Le script monte l'environnement au besoin (il lui faut
 | Étape | Ce qu'elle couvre |
 |---|---|
 | `unittest` | les quatre modules purs, sans aucune dépendance |
-| `tools/auditer_catalogue.py` | cohérence interne des 172 fiches |
+| `tools/auditer_catalogue.py` | cohérence interne des 215 fiches |
 | `ruff check` | lint et tri des imports |
 | `mypy` | typage de l'intégration |
 | `pytest` | la couche Home Assistant, avec couverture |
@@ -104,9 +104,17 @@ son nom anglais, sa famille, son sol, sa note d'arrosage ou ses conseils
 traduits. C'est délibéré — une fiche à moitié traduite ne se remarque qu'une
 fois sous les yeux d'un utilisateur anglophone.
 
-**Les 172 fiches n'ont été confrontées à aucune base de référence** — elles
-sont écrites de mémoire horticole. Ne les présentez jamais comme sourcées. Une
-correction de fiche est la bienvenue ; dites d'où vient votre valeur.
+**172 des 215 fiches n'ont été confrontées à aucune base de référence** —
+potagères, aromatiques, fruitiers, fleurs compagnes : elles sont écrites de
+mémoire horticole, ne les présentez jamais comme sourcées. Les 43 autres — 21
+médicinales, 22 plantes d'intérieur — le sont, et leurs sources figurent en
+tête de section dans `tools/catalogue_source.py`. Une correction de fiche est
+la bienvenue dans les deux cas ; dites d'où vient votre valeur.
+
+Si vous ajoutez une médicinale, deux règles sans exception : **aucune
+posologie ni indication thérapeutique**, et **le risque en premier conseil** —
+toxicité, confusion dangereuse à la cueillette, interaction médicamenteuse
+connue. C'est le seul endroit du catalogue où une fiche muette peut nuire.
 
 ## Conventions
 
