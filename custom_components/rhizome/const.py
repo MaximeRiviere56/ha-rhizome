@@ -51,6 +51,20 @@ CONF_NOTIFY_RECOLTE_RECURRENCE = "notify_recolte_recurrence"
 # Masquer les plantes terminees ou perdues dans « Mon potager ».
 CONF_MASQUER_TERMINEES = "masquer_terminees"
 
+# --- Alerte gel ---------------------------------------------------------------
+#
+# L'entite meteo a consulter. Vide = alerte desactivee, et c'est le defaut :
+# aucune integration ne doit se mettre a lire une entite que l'utilisateur ne
+# lui a pas designee.
+CONF_METEO_ENTITE = "meteo_entite"
+
+# Un second passage, en soiree, distinct du rappel quotidien. L'alerte gel est
+# la seule notification de Rhizome qui porte sur une echeance de quelques
+# heures : envoyee avec les autres a 8 h, elle arriverait apres la nuit
+# qu'elle devait prevenir.
+CONF_NOTIFY_GEL = "notify_gel"
+CONF_NOTIFY_GEL_HEURE = "notify_gel_heure"
+
 # --- Arrosage -----------------------------------------------------------------
 
 # Le suivi d'arrosage s'active globalement. Un potager entierement en pleine
@@ -76,6 +90,11 @@ DEFAUT_NOTIFY_RESUME = False
 DEFAUT_MASQUER_TERMINEES = False
 DEFAUT_ARROSAGE_ACTIF = True
 DEFAUT_NOTIFY_ARROSAGE = True
+DEFAUT_METEO_ENTITE = ""
+DEFAUT_NOTIFY_GEL = True
+# 18 h : assez tot pour rentrer des pots avant la nuit, assez tard pour que la
+# prevision du soir ait remplace celle du matin.
+DEFAUT_NOTIFY_GEL_HEURE = "18:00:00"
 
 # « auto » plutot que « fr » : une installation anglophone n'a aucune raison
 # d'afficher du francais, et une installation existante ne change pas de langue

@@ -26,8 +26,10 @@ from .const import (
     CONF_GELEES_PREMIERE,
     CONF_LANGUE,
     CONF_MASQUER_TERMINEES,
+    CONF_METEO_ENTITE,
     CONF_NOTIFY_ARROSAGE,
     CONF_NOTIFY_ETAPES,
+    CONF_NOTIFY_GEL,
     CONF_NOTIFY_RECOLTE_RECURRENCE,
     CONF_NOTIFY_RESUME,
     CONF_RAPPEL_JOURS,
@@ -36,7 +38,9 @@ from .const import (
     DEFAUT_GELEES_PREMIERE,
     DEFAUT_LANGUE,
     DEFAUT_MASQUER_TERMINEES,
+    DEFAUT_METEO_ENTITE,
     DEFAUT_NOTIFY_ARROSAGE,
+    DEFAUT_NOTIFY_GEL,
     DEFAUT_NOTIFY_RECOLTE_RECURRENCE,
     DEFAUT_NOTIFY_RESUME,
     DEFAUT_RAPPEL_JOURS,
@@ -184,6 +188,119 @@ class RhizomeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         return bool(
             self.entry.options.get(CONF_MASQUER_TERMINEES, DEFAUT_MASQUER_TERMINEES)
         )
+
+    @property
+    def meteo_entite(self) -> str:
+        """Entite meteo a consulter pour l'alerte gel. Vide = pas d'alerte."""
+        return str(
+            self.entry.options.get(CONF_METEO_ENTITE, DEFAUT_METEO_ENTITE) or ""
+        ).strip()
+
+    @property
+    def notify_gel(self) -> bool:
+        return bool(self.entry.options.get(CONF_NOTIFY_GEL, DEFAUT_NOTIFY_GEL))
+
+    async def async_minimum_cette_nuit(self) -> float | None:
+        """La temperature la plus basse annoncee d'ici demain matin, ou None.
+
+        None veut dire « on ne sait pas », et le notifieur se tait : inventer
+        une valeur de repli ferait soit une alerte fausse, soit un silence
+        qui coute une plante. Le mutisme est le seul comportement honnete
+        quand la meteo manque.
+
+        Les previsions horaires sont preferees quand l'entite en fournit :
+        elles donnent le creux de la nuit, la ou `templow` donne un minimum de
+        journee qui peut tomber a une autre heure. Repli sur les previsions
+        quotidiennes sinon, parce que toutes les entites meteo ne servent pas
+        l'horaire.
+        """
+        entite = self.meteo_entite
+        if not entite:
+            return None
+
+        maintenant = dt_util.now()
+        # Jusqu'a 9 h demain : c'est la nuit qui vient, et le lever du jour
+        # est le moment ou le risque retombe.
+        fin = (maintenant + timedelta(days=1)).replace(
+            hour=9, minute=0, second=0, microsecond=0
+        )
+
+        for genre in ("hourly", "daily"):
+            previsions = await self._async_previsions(entite, genre)
+            if not previsions:
+                continue
+            minima = [
+                valeur
+                for prevision in previsions
+                for valeur in (self._minimum_prevision(prevision, maintenant, fin),)
+                if valeur is not None
+            ]
+            if minima:
+                return min(minima)
+
+        _LOGGER.debug("Aucune prevision exploitable sur %s.", entite)
+        return None
+
+    async def _async_previsions(self, entite: str, genre: str) -> list[dict]:
+        """Les previsions d'une entite meteo, ou une liste vide.
+
+        Toute erreur est avalee a dessein : une meteo indisponible ne doit
+        jamais empecher le reste des rappels de partir.
+        """
+        try:
+            reponse = await self.hass.services.async_call(
+                "weather",
+                "get_forecasts",
+                {"type": genre},
+                target={"entity_id": entite},
+                blocking=True,
+                return_response=True,
+            )
+        except Exception:  # Volontairement large : voir la docstring.
+            _LOGGER.debug(
+                "Previsions %s indisponibles sur %s.", genre, entite, exc_info=True
+            )
+            return []
+        # La reponse d'un service n'est pas typee, et l'integration meteo qui
+        # la produit n'est pas la notre : chaque niveau est verifie plutot que
+        # suppose. Une forme inattendue doit rendre une liste vide, pas lever.
+        if not isinstance(reponse, dict):
+            return []
+        donnees = reponse.get(entite)
+        if not isinstance(donnees, dict):
+            return []
+        previsions = donnees.get("forecast")
+        if not isinstance(previsions, list):
+            return []
+        return [p for p in previsions if isinstance(p, dict)]
+
+    @staticmethod
+    def _minimum_prevision(prevision: dict, debut, fin) -> float | None:
+        """Le minimum qu'annonce une prevision, si elle tombe dans la nuit."""
+        horodatage = prevision.get("datetime")
+        instant = dt_util.parse_datetime(horodatage) if horodatage else None
+        if instant is None:
+            return None
+        instant = dt_util.as_local(instant)
+        # Une prevision quotidienne porte la date du jour : on garde celle du
+        # jour meme et celle du lendemain, dont la nuit nous concerne.
+        if instant < debut.replace(hour=0, minute=0, second=0, microsecond=0):
+            return None
+        if instant > fin:
+            return None
+
+        valeurs = [
+            prevision.get(cle)
+            for cle in ("native_templow", "templow", "native_temperature", "temperature")
+        ]
+        nombres = []
+        for valeur in valeurs:
+            try:
+                if valeur is not None:
+                    nombres.append(float(valeur))
+            except (TypeError, ValueError):
+                continue
+        return min(nombres) if nombres else None
 
     def rappel_pour(self, plante: dict) -> int:
         """Le reglage de la plante prime sur le reglage global."""

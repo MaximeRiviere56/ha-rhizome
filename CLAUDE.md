@@ -35,6 +35,7 @@ ne réclame plus jamais de la semer. Toute évolution doit préserver ça.
 | `rotation.py` | avertissement de rotation des cultures |
 | `watering.py` | arrosage : fréquence, échéance, exclusions |
 | `i18n.py` | langue de l'interface : résolution, textes du serveur, dates |
+| `gel.py` | alerte gel : qui souffrira d'une température annoncée |
 | `serialisation.py` | ce que le panneau reçoit : la vue calculée, mise en dictionnaires |
 
 **C'est la convention la plus importante du projet.** Toute logique métier non
@@ -406,8 +407,19 @@ notifications vers `notify.mobile_app_fairphone_6`. Une vue « Rhizome » a ét�
 ajoutée à son tableau de bord `lovelace`, avec deux cartes `custom:rhizome-card`
 et quatre tuiles de plantes **figées** (elles ne suivent pas les ajouts).
 
-Pistes restantes, par ordre de valeur : alerte gel via l'entité météo
-(`weather.bouguenais` existe, `rusticite.gel` est dans chaque fiche, et les 22
-plantes d'intérieur apportent 22 températures minimales exploitables —
-« rentre l'aloe, il fera 8 °C cette nuit » est devenu calculable) ; arrosage
-réellement journalisé par zone ; export du journal.
+Pistes restantes, par ordre de valeur : arrosage réellement journalisé par
+zone ; export du journal. Le propriétaire a écarté les deux pour l'instant.
+
+L'**alerte gel est faite**. `gel.py` décide, le coordinateur lit la météo par
+`weather.get_forecasts`, le notifieur envoie à 18 h. Trois choses à ne pas
+défaire :
+
+- **Le seuil est celui de la fiche, jamais zéro.** C'est ce qui justifie
+  d'avoir 215 fiches : une alerte unique « il gèle » serait tardive pour un
+  aloe vera (10 °C) et inutile pour un pommier (−20 °C).
+- **Le second passage du soir est la raison d'être du réglage d'heure.**
+  L'alerte gel est la seule notification qui porte sur une échéance de
+  quelques heures ; la replier sur le passage de 8 h la rendrait inutile.
+- **Une météo absente ou illisible rend `None`, et le notifieur se tait.**
+  Inventer une valeur de repli ferait soit une alerte fausse, soit un silence
+  qui coûte une plante — le mutisme est le seul comportement honnête.

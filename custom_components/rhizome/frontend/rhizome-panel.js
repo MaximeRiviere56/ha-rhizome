@@ -333,6 +333,23 @@ const TEXTES = {
       "Le réglage par plante reste prioritaire&nbsp;: chaque plante a son interrupteur de rappels et peut avoir son propre délai, dans sa fiche.",
 
     titreArrosage: "Arrosage",
+    titreGel: "Alerte gel",
+    champEntiteMeteo: "Entité météo",
+    champMeteoAucune: "Aucune — alerte désactivée",
+    champAlerterGel: "Prévenir quand la nuit menace une plante",
+    champHeureGel: "Heure de l'alerte",
+    aideGelSeuil:
+      "Le seuil est celui de chaque fiche, pas zéro degré : un aloe vera " +
+      "souffre à 10 °C et un pommier tient −20 °C.",
+    aideGelPerimetre:
+      "Seules les plantes en terre et en zone non abritée sont concernées. " +
+      "Une serre ou un châssis protège, et l'alerte le sait.",
+    aideGelSoir:
+      "Le soir, et non avec les autres rappels du matin : une alerte gel à " +
+      "8 h arriverait après la nuit qu'elle devait prévenir.",
+    aideGelSansMeteo:
+      "Sans entité météo désignée, Rhizome ne lit aucune prévision et " +
+      "n'envoie aucune alerte.",
     champSuivreArrosage: "Suivre l'arrosage",
     aideArrosageCoupe:
       "Décoché, l'eau disparaît entièrement de l'application. Pour garder le suivi mais sans notification, laissez coché ici et décochez «&nbsp;Arroser&nbsp;» dans <strong>Rappels&nbsp;· Quoi</strong>.",
@@ -677,6 +694,23 @@ const TEXTES = {
       "The per-plant setting still wins&nbsp;: each plant has its own reminder switch and can have its own lead time, on its card.",
 
     titreArrosage: "Watering",
+    titreGel: "Frost alert",
+    champEntiteMeteo: "Weather entity",
+    champMeteoAucune: "None — alert disabled",
+    champAlerterGel: "Warn me when the night threatens a plant",
+    champHeureGel: "Alert time",
+    aideGelSeuil:
+      "The threshold comes from each entry, not from zero: an aloe vera " +
+      "suffers at 10 °C where an apple tree takes −20 °C.",
+    aideGelPerimetre:
+      "Only plants in the ground, in an unsheltered zone, are considered. " +
+      "A greenhouse or a cold frame protects, and the alert knows it.",
+    aideGelSoir:
+      "In the evening, not with the morning reminders: a frost alert at " +
+      "8 am would arrive after the night it was meant to warn about.",
+    aideGelSansMeteo:
+      "With no weather entity set, Rhizome reads no forecast and sends no " +
+      "alert.",
     champSuivreArrosage: "Track watering",
     aideArrosageCoupe:
       "Unticked, water disappears from the application entirely. To keep the tracking without notifications, leave this ticked and untick «&nbsp;Water&nbsp;» under <strong>Reminders&nbsp;· What</strong>.",
@@ -3117,6 +3151,7 @@ class RhizomePanel extends HTMLElement {
       ${this._blocLangue(o)}
       ${this._blocNotifs(o)}
       ${this._blocEauReglages(o)}
+      ${this._blocGelReglages(o)}
       ${this._blocZones()}
       ${this._blocCataloguePerso()}
       ${this._blocAffichage(o)}`;
@@ -3315,6 +3350,45 @@ class RhizomePanel extends HTMLElement {
         <p class="aide">${T("aideArrosageCoupe")}</p>
         <p class="aide">${T("aideArrosageTheorique")}</p>
         <p class="aide">${T("aideArrosageGardeFous")}</p>
+      </div>`;
+  }
+
+  _blocGelReglages(o) {
+    const entites = this._reglages?.meteo_possibles || [];
+    const choisie = o.meteo_entite || "";
+    const options = [
+      `<option value=""${choisie ? "" : " selected"}>${T(
+        "champMeteoAucune"
+      )}</option>`,
+      ...entites.map(
+        (e) =>
+          `<option value="${echappe(e.value)}"${
+            e.value === choisie ? " selected" : ""
+          }>${echappe(e.label)}</option>`
+      ),
+    ].join("");
+
+    return `
+      <h2>${T("titreGel")}</h2>
+      <div class="carte bloc">
+        <div class="reglage">
+          <label for="meteo-entite">${T("champEntiteMeteo")}</label>
+          <select id="meteo-entite">${options}</select>
+        </div>
+        <p class="aide">${T("aideGelSansMeteo")}</p>
+        <label class="case">
+          <input type="checkbox" id="notify-gel"
+                 ${o.notify_gel !== false ? "checked" : ""}>
+          <span>${T("champAlerterGel")}</span>
+        </label>
+        <div class="reglage">
+          <label for="heure-gel">${T("champHeureGel")}</label>
+          <input id="heure-gel" type="time"
+                 value="${(o.notify_gel_heure || "18:00:00").slice(0, 5)}">
+        </div>
+        <p class="aide">${T("aideGelSoir")}</p>
+        <p class="aide">${T("aideGelSeuil")}</p>
+        <p class="aide">${T("aideGelPerimetre")}</p>
       </div>`;
   }
 
@@ -3806,6 +3880,20 @@ class RhizomePanel extends HTMLElement {
     const masquer = hote.querySelector("#masquer-terminees");
     masquer?.addEventListener("change", () =>
       this._enregistrerReglages({ masquer_terminees: masquer.checked })
+    );
+
+    // --- Alerte gel
+    const meteo = hote.querySelector("#meteo-entite");
+    meteo?.addEventListener("change", () =>
+      this._enregistrerReglages({ meteo_entite: meteo.value })
+    );
+    const notifGel = hote.querySelector("#notify-gel");
+    notifGel?.addEventListener("change", () =>
+      this._enregistrerReglages({ notify_gel: notifGel.checked })
+    );
+    const heureGel = hote.querySelector("#heure-gel");
+    heureGel?.addEventListener("change", () =>
+      this._enregistrerReglages({ notify_gel_heure: `${heureGel.value}:00` })
     );
 
     // --- Zones

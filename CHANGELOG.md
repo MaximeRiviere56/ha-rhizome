@@ -58,6 +58,20 @@ visible.
   visible était jusqu'ici un compte à rebours qui repart, que personne ne
   remarque.
 
+- **Une alerte gel, le soir, d'après votre météo.** Désignez une entité météo
+  dans *Réglages · Alerte gel*, et Rhizome vous prévient à 18 h quand la nuit
+  qui vient menace une plante. **Le seuil est celui de chaque fiche, pas zéro
+  degré** : un aloe vera souffre à 10 °C quand un pommier tient −20 °C, donc
+  une alerte unique « il gèle cette nuit » serait tardive pour l'un et inutile
+  pour l'autre. Seules les plantes en terre et en zone non abritée sont
+  concernées — une serre protège, et l'alerte le sait — et le message dit le
+  geste : rentrer ce qui est en pot, voiler ce qui est en terre. Un seul
+  message pour tout le jardin, une seule fois par nuit.
+- **L'heure de l'alerte gel est un réglage à part**, à 18 h par défaut, et
+  c'est délibéré : c'est la seule notification de Rhizome qui porte sur une
+  échéance de quelques heures. Envoyée à 8 h avec les autres rappels, elle
+  arriverait après la nuit qu'elle devait prévenir.
+
 ### Modifié
 
 - **Une plante d'intérieur n'est plus privée de rappels d'arrosage l'hiver,
