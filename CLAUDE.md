@@ -387,6 +387,16 @@ le harnais rapide : `tests/test_serialisation.py`, dix tests, sans instance.
 **Ne refais pas cette copie.** Si une donnée manque au banc, elle manque à
 `serialisation.plante_en_dict`, et c'est là qu'il faut l'ajouter.
 
+Deux réponses du banc étaient par ailleurs **uniques** là où l'instance les
+calcule par culture : `rhizome/culture` servait la fiche de la tomate quelle
+que soit la carte cliquée — toute la vue détail échappait donc au banc — et
+`rhizome/rotation` annonçait des solanacées devant n'importe quelle fiche, un
+peperomia compris. Les deux sont désormais indexées, et l'avertissement de
+rotation sort du vrai module face au vrai jardin du banc. C'est pour cela
+qu'une aubergine terminée y occupe la pleine terre : sans antécédent réel,
+l'avertissement ne se déclencherait plus du tout et la vue perdrait sa
+couverture.
+
 Depuis l'audit du 25/10/2026, `tests/ha/test_websocket.py` tape sur les vraies
 commandes et rejoue les trois défauts de la v0.6.0. Le banc garde sa valeur
 pour l'œil, plus pour la preuve.

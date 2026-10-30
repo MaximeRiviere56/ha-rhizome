@@ -90,6 +90,10 @@ visible.
   elle avait pris du retard sur un champ. Le banc appelle désormais le même
   code que l'instance, et cette sérialisation gagne dix tests qui n'étaient
   pas possibles auparavant.
+- **Le banc d'essai sert une fiche de détail par culture**, et non plus
+  toujours la même : toute la vue détail lui échappait. Son avertissement de
+  rotation est de même calculé par le vrai module face à son propre jardin,
+  au lieu d'annoncer des solanacées devant n'importe quelle fiche.
 
 ### Corrigé
 
