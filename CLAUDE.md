@@ -35,6 +35,7 @@ ne réclame plus jamais de la semer. Toute évolution doit préserver ça.
 | `rotation.py` | avertissement de rotation des cultures |
 | `watering.py` | arrosage : fréquence, échéance, exclusions |
 | `i18n.py` | langue de l'interface : résolution, textes du serveur, dates |
+| `serialisation.py` | ce que le panneau reçoit : la vue calculée, mise en dictionnaires |
 
 **C'est la convention la plus importante du projet.** Toute logique métier non
 triviale va dans un module pur et arrive avec ses tests. Home Assistant ne peut
@@ -370,15 +371,31 @@ poste de développement. À lire avant de toucher à cette zone :
   étape du cycle (invariant 6), et une liste enregistrée avant ce réglage ne
   l'aurait pas contenu, taisant les rappels sans rien dire.
 
-### Angle mort connu du banc d'essai
+### L'angle mort du banc, comblé
 
-`tools/banc_fixture.py` **réimplémente à la main** la sérialisation que fait
+`tools/banc_fixture.py` **réimplémentait à la main** la sérialisation que fait
 `websocket.py`, parce que ce dernier importe Home Assistant. Le banc a donc
 montré un arrosage par plante qui fonctionnait alors qu'il était cassé en
-production. Sa promesse — « le panneau face à ce qu'il recevra réellement » —
-ne tient que tant que les deux ne divergent pas. Extraire `_plante_en_dict` et
-`_arrosage_en_dict` dans un module pur partagé par les deux serait la vraie
-correction ; elle reste à faire.
+production, et sa copie avait déjà pris du retard : elle n'envoyait pas
+`echelonnement_jours`.
+
+C'est réparé. `serialisation.py` est un module pur, et le banc l'appelle au
+lieu de le recopier — le panneau voit donc littéralement ce que l'instance lui
+enverra. Le gain secondaire est que cette sérialisation devient testable par
+le harnais rapide : `tests/test_serialisation.py`, dix tests, sans instance.
+
+**Ne refais pas cette copie.** Si une donnée manque au banc, elle manque à
+`serialisation.plante_en_dict`, et c'est là qu'il faut l'ajouter.
+
+Deux réponses du banc étaient par ailleurs **uniques** là où l'instance les
+calcule par culture : `rhizome/culture` servait la fiche de la tomate quelle
+que soit la carte cliquée — toute la vue détail échappait donc au banc — et
+`rhizome/rotation` annonçait des solanacées devant n'importe quelle fiche, un
+peperomia compris. Les deux sont désormais indexées, et l'avertissement de
+rotation sort du vrai module face au vrai jardin du banc. C'est pour cela
+qu'une aubergine terminée y occupe la pleine terre : sans antécédent réel,
+l'avertissement ne se déclencherait plus du tout et la vue perdrait sa
+couverture.
 
 Depuis l'audit du 25/10/2026, `tests/ha/test_websocket.py` tape sur les vraies
 commandes et rejoue les trois défauts de la v0.6.0. Le banc garde sa valeur
@@ -389,9 +406,8 @@ notifications vers `notify.mobile_app_fairphone_6`. Une vue « Rhizome » a ét�
 ajoutée à son tableau de bord `lovelace`, avec deux cartes `custom:rhizome-card`
 et quatre tuiles de plantes **figées** (elles ne suivent pas les ajouts).
 
-Pistes restantes, par ordre de valeur : la sérialisation partagée ci-dessus ;
-alerte gel via l'entité météo (`weather.bouguenais` existe, `rusticite.gel`
-est dans chaque fiche, et les 22 plantes d'intérieur apportent 22 températures
-minimales exploitables — « rentre l'aloe, il fera 8 °C cette nuit » est
-devenu calculable) ; arrosage réellement journalisé par zone ; export du
-journal.
+Pistes restantes, par ordre de valeur : alerte gel via l'entité météo
+(`weather.bouguenais` existe, `rusticite.gel` est dans chaque fiche, et les 22
+plantes d'intérieur apportent 22 températures minimales exploitables —
+« rentre l'aloe, il fera 8 °C cette nuit » est devenu calculable) ; arrosage
+réellement journalisé par zone ; export du journal.

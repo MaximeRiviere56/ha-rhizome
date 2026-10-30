@@ -13,8 +13,9 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from . import i18n
 from .catalog import localiser, nom_localise
-from .coordinator import RhizomeCoordinator, libelle_phase
+from .coordinator import RhizomeCoordinator
 from .entity import RhizomeEntity, RhizomePlanteEntity, suivre_les_plantes
+from .serialisation import libelle_phase
 
 PLATEFORME = "sensor"
 SUFFIXE = "etat"

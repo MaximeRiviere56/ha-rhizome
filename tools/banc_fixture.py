@@ -43,6 +43,8 @@ lc = _charger("lifecycle")
 ph = _charger("phenology")
 cat = _charger("catalog")
 wa = _charger("watering")
+rot = _charger("rotation")
+ser = _charger("serialisation")
 
 GELEES = ph.Gelees("04-15", "11-15")
 AUJ = date.today()
@@ -71,36 +73,6 @@ ZONES = [
 def fiche_localisee(culture_id: str) -> dict:
     """La fiche telle que `websocket.py` la servira, dans la langue du banc."""
     return cat.localiser(cat.culture(culture_id), LANGUE)
-
-
-def etape_dict(etape) -> dict:
-    return {
-        "type": etape.type,
-        "debut": etape.debut.isoformat(),
-        "fin": etape.fin.isoformat(),
-        "source": etape.source,
-        "libelle": i18n.libelle_etape(LANGUE, etape.type),
-        "reelle": etape.reelle,
-    }
-
-
-def arrosage_dict(etat) -> dict | None:
-    if etat is None:
-        return None
-    return {
-        "concernee": etat.concernee,
-        "dernier": etat.dernier.isoformat() if etat.dernier else None,
-        "prochain": etat.prochain.isoformat() if etat.prochain else None,
-        "frequence_jours": etat.frequence_jours,
-        "jours_restants": etat.jours_restants,
-        "a_arroser": etat.a_arroser,
-        "en_retard": etat.en_retard,
-        "motif_exclusion": (
-            i18n.t(LANGUE, etat.motif_cle)
-            if etat.motif_cle
-            else etat.motif_exclusion
-        ),
-    }
 
 
 def construire(culture_id, zone_id, evenements, surnom=None, arrose_il_y_a=None) -> dict:
@@ -133,37 +105,23 @@ def construire(culture_id, zone_id, evenements, surnom=None, arrose_il_y_a=None)
     etapes = ph.prochaines_etapes(fiche, plante, GELEES, zone["decalage_jours"], AUJ)
     infos = lc.resume(plante)
     etat_eau = wa.etat(fiche, plante, zone, GELEES, AUJ)
-    return {
+    # La vue calculee du coordinateur, telle que `coordinator.py` la construit.
+    # Le banc la fabrique, mais ne serialise plus lui-meme : c'est
+    # `serialisation.plante_en_dict` qui s'en charge, le meme code que
+    # l'instance. Cette copie manuelle avait deja montre un arrosage par
+    # plante qui fonctionnait au banc alors qu'il etait casse en production.
+    entree = {
         "uid": plante["uid"],
-        "culture_id": culture_id,
-        "nom": f"{fiche['nom']} ({surnom})" if surnom else fiche["nom"],
-        "emoji": fiche["emoji"],
-        "categorie": fiche["categorie"],
-        "surnom": surnom,
+        "plante": plante,
+        "culture": fiche,
         "zone": zone,
-        "notifs": True,
-        "rappel_jours": None,
-        "phase": infos["phase"],
-        "phase_libelle": i18n.libelle_phase(LANGUE, infos["phase"]),
-        "perenne": bool(fiche.get("perenne")),
-        "prochaine": etape_dict(etapes[0]) if etapes else None,
-        "etapes": [etape_dict(e) for e in etapes],
-        "date_semis": infos["date_semis"].isoformat() if infos["date_semis"] else None,
-        "date_mise_en_place": (
-            infos["date_mise_en_place"].isoformat() if infos["date_mise_en_place"] else None
-        ),
-        "nb_recoltes": infos["nb_recoltes"],
-        "total_recolte_g": infos["total_recolte_g"],
-        "evenements": [
-            {**e, "libelle": i18n.libelle_evenement(LANGUE, e["type"])}
-            for e in plante["evenements"]
-        ],
-        "arrosage_actif": True,
-        "arrosage_frequence_jours": None,
-        "arrosage": arrosage_dict(etat_eau),
-        "arrosages": list(reversed(plante.get("arrosages") or [])),
-        "exposition": fiche["exposition"],
+        "etapes": etapes,
+        "prochaine": etapes[0] if etapes else None,
+        "resume": infos,
+        "nom_affiche": f"{fiche['nom']} ({surnom})" if surnom else fiche["nom"],
+        "arrosage": etat_eau,
     }
+    return ser.plante_en_dict(entree, LANGUE)
 
 
 def depart(fiche) -> dict:
@@ -179,7 +137,7 @@ def depart(fiche) -> dict:
     ouverte = next((e for e in candidates if e.contient(AUJ)), None)
     return {
         "semable_maintenant": ouverte is not None,
-        "prochain_depart": etape_dict(ouverte or candidates[0]),
+        "prochain_depart": ser.etape_en_dict(ouverte or candidates[0], LANGUE),
     }
 
 
@@ -203,6 +161,14 @@ def main() -> None:
             arrose_il_y_a=[1, 4, 11],
         ),
         construire("pommier", "pleine-terre", [("plante", "2024-11-20", {})]),
+        # Terminee, mais elle a occupe la pleine terre cette annee : c'est
+        # elle qui declenche pour de vrai l'avertissement de rotation sur
+        # toute solanacee, au lieu qu'il soit ecrit a la main.
+        construire(
+            "aubergine",
+            "pleine-terre",
+            [("plante", il_y_a(150), {}), ("termine", il_y_a(20), {})],
+        ),
         construire(
             "laitue",
             "balcon",
@@ -272,28 +238,34 @@ def main() -> None:
         "total": len(cat.toutes()),
     }
 
-    # Un avertissement de rotation realiste : la tomate apres l'aubergine.
-    aubergine = fiche_localisee("aubergine")
-    rotation = {
-        "avertissement": {
-            "famille": aubergine["famille"],
-            "delai_ans": 4,
-            "precedents": [
-                {
-                    "nom": aubergine["nom"],
-                    "annee": AUJ.year,
-                    "culture_id": "aubergine",
-                }
-            ],
-            "message": i18n.t(
-                LANGUE,
-                "rotation_message",
-                famille=aubergine["famille"],
-                precedents=f"{aubergine['nom']} ({AUJ.year})",
-                delai=4,
-            ),
-        }
-    }
+    # L'avertissement de rotation, calcule pour de vrai et par culture. Le
+    # banc en servait un seul, ecrit a la main : il annoncait des solanacees
+    # devant n'importe quelle fiche, un peperomia compris. Tant que la vue
+    # detail servait elle aussi une reponse unique, cela ne se voyait pas.
+    index_cultures = {cid: cat.localiser(f, LANGUE) for cid, f in cat.charger().items()}
+    plantes_brutes = [
+        {"culture_id": p["culture_id"], "zone": p["zone"]["id"],
+         "evenements": p["evenements"]}
+        for p in plantes
+    ]
+    rotations = {}
+    for cid, fiche in index_cultures.items():
+        for zone in ZONES:
+            avis = rot.verifier(fiche, zone["id"], plantes_brutes, index_cultures, AUJ)
+            if avis is None:
+                continue
+            avis = {
+                **avis,
+                "message": i18n.t(
+                    LANGUE,
+                    "rotation_message",
+                    famille=fiche["famille"],
+                    precedents=avis["precedents_libelle"],
+                    delai=avis["delai_ans"],
+                ),
+            }
+            rotations[f"{cid}|{zone['id']}"] = {"avertissement": avis}
+
     reglages = {
         "options": {
             "preset_climat": "oceanique",
@@ -356,7 +328,7 @@ def main() -> None:
                 "emoji": plante["emoji"],
                 "zone": plante["zone"]["nom"],
                 "prevues": [
-                    etape_dict(e)
+                    ser.etape_en_dict(e, LANGUE)
                     for e in ph.fenetres_theoriques(
                         fiche_culture, GELEES, zone["decalage_jours"], AUJ.year
                     )
@@ -370,14 +342,27 @@ def main() -> None:
         )
     calendrier = {"annee": AUJ.year, "lignes": lignes}
 
-    tomate = fiche_localisee("tomate")
-    fiche = {
-        "culture": tomate,
-        "compagnes": {
-            cle: [cat.info_minimale(cat.localiser(x, LANGUE)) for x in valeur]
-            for cle, valeur in cat.compagnes("tomate").items()
-        },
-        "fenetres": [etape_dict(e) for e in ph.fenetres_theoriques(tomate, GELEES)],
+    # Une fiche de detail par culture, et non la seule tomate. Le banc servait
+    # la meme reponse quelle que soit la carte cliquee : toute la vue detail
+    # lui echappait donc, y compris ce qu'elle montre d'une plante d'interieur
+    # — qui n'a aucune fenetre et ne doit afficher aucun calendrier. Les 429 Ko
+    # que cela ajoute a `fixture.js` ne coutent rien : le fichier est local,
+    # genere, et jamais versionne.
+    fiches = {
+        cid: {
+            "culture": fiche,
+            "compagnes": {
+                cle: [cat.info_minimale(cat.localiser(x, LANGUE)) for x in valeur]
+                for cle, valeur in cat.compagnes(cid).items()
+            },
+            "fenetres": [
+                ser.etape_en_dict(e, LANGUE)
+                for e in ph.fenetres_theoriques(fiche, GELEES)
+            ],
+        }
+        for cid, fiche in (
+            (cid, fiche_localisee(cid)) for cid in sorted(cat.charger())
+        )
     }
 
     sortie = RACINE / "tools" / "fixture.js"
@@ -387,12 +372,20 @@ def main() -> None:
         "    const reponses = {\n"
         f'      "rhizome/jardin": {json.dumps(jardin, ensure_ascii=False)},\n'
         f'      "rhizome/catalogue": {json.dumps(catalogue, ensure_ascii=False)},\n'
-        f'      "rhizome/culture": {json.dumps(fiche, ensure_ascii=False)},\n'
         f'      "rhizome/reglages": {json.dumps(reglages, ensure_ascii=False)},\n'
         f'      "rhizome/cultures_perso": {json.dumps(cultures_perso, ensure_ascii=False)},\n'
         f'      "rhizome/calendrier": {json.dumps(calendrier, ensure_ascii=False)},\n'
-        f'      "rhizome/rotation": {json.dumps(rotation, ensure_ascii=False)},\n'
         "    };\n"
+        f'    const fiches = {json.dumps(fiches, ensure_ascii=False)};\n'
+        f'    const rotations = {json.dumps(rotations, ensure_ascii=False)};\n'
+        '    if (msg.type === "rhizome/rotation") {\n'
+        '      return rotations[msg.culture_id + "|" + msg.zone] || { avertissement: null };\n'
+        '    }\n'
+        '    if (msg.type === "rhizome/culture") {\n'
+        '      const fiche = fiches[msg.culture_id];\n'
+        '      if (!fiche) throw new Error("fiche inconnue : " + msg.culture_id);\n'
+        '      return fiche;\n'
+        '    }\n'
         "    if (msg.type in reponses) return reponses[msg.type];\n"
         "    // Les commandes d'ecriture n'ont rien a simuler : le banc verifie\n"
         "    // que l'interface les emet, pas qu'elles aboutissent.\n"

@@ -8,7 +8,6 @@ basculer les etapes au passage de minuit.
 
 from __future__ import annotations
 
-from dataclasses import asdict
 from datetime import date, timedelta
 import logging
 import re
@@ -439,23 +438,3 @@ def nom_affiche(plante: dict, fiche: dict, langue: str = "fr") -> str:
     nom = nom_localise(fiche, langue)
     surnom = plante.get("surnom")
     return f"{nom} ({surnom})" if surnom else nom
-
-
-def etape_en_dict(etape, langue: str = "fr") -> dict | None:
-    """Serialise une etape pour le panneau et les attributs d'entite.
-
-    `libelle` est traduit ici et non cote panneau : les attributs d'entite
-    passent par le meme chemin, et la carte Lovelace les lit tels quels.
-    """
-    if etape is None:
-        return None
-    donnees = asdict(etape)
-    donnees["debut"] = etape.debut.isoformat()
-    donnees["fin"] = etape.fin.isoformat()
-    donnees["libelle"] = i18n.libelle_etape(langue, etape.type)
-    donnees["reelle"] = etape.reelle
-    return donnees
-
-
-def libelle_phase(phase: str, langue: str = "fr") -> str:
-    return i18n.libelle_phase(langue, phase)
