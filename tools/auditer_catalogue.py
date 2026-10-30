@@ -45,11 +45,19 @@ ANNEE = 2026
 DERNIERE_GELEE = date(ANNEE, 4, 15)
 PREMIERE_GELEE = date(ANNEE, 11, 15)
 
-# Marge minimale entre la dernière gelée et la mise dehors d'une gélive. La
-# « dernière gelée » est une moyenne : une année sur dix elle tombe après le
-# 13 mai en plaine. Quinze jours est le minimum que s'applique déjà le
-# catalogue, pas une valeur inventée ici.
-MARGE_GELEE_MINI_JOURS = 15
+# Marge minimale entre la dernière gelée et la mise dehors d'une gélive.
+#
+# Vingt-huit jours, et c'est une valeur française : une dernière gelée moyenne
+# au 15 avril plus vingt-huit jours tombe le 13 mai, jour de Saint Servais,
+# dernier des saints de glace. La « dernière gelée » du réglage est une
+# moyenne, pas une garantie — une année sur dix, en plaine, elle tombe après
+# le 13 mai —, et c'est précisément ce que la tradition encode.
+#
+# Le seuil n'est donc pas un arrondi prudent : il est calé sur la seule règle
+# que le jardinage français applique vraiment, et le catalogue s'y conforme
+# depuis la revue horticole du 30/10/2026. Les cultures les plus frileuses
+# vont au-delà — le gombo à +38, soit le 23 mai, jour de Saint Didier.
+MARGE_GELEE_MINI_JOURS = 28
 
 # Bandes de fréquence d'arrosage plausibles par besoin, en jours. Elles ne
 # disent pas quelle est la bonne fréquence — personne ne le sait sans relevé —
@@ -150,11 +158,9 @@ def auditer() -> list[tuple[str, str, str]]:
         #    sens des saints de glace. Ouvrir la fenêtre à la date moyenne,
         #    c'est annoncer « c'est le moment » une fois sur deux trop tôt.
         #
-        #    Quinze jours est le seuil retenu, et c'est le minimum : c'est la
-        #    valeur que le catalogue emploie déjà pour l'écrasante majorité de
-        #    ses cultures gélives. Voir docs/revue-croisee.md pour la question
-        #    restée ouverte — faut-il aller jusqu'aux saints de glace, soit
-        #    près de quatre semaines.
+        #    Le seuil retenu est celui des saints de glace — voir
+        #    MARGE_GELEE_MINI_JOURS, qui explique pourquoi vingt-huit jours et
+        #    pas un arrondi.
         for nom, bornes in (("semis en place", semis_direct), ("plantation", plantation)):
             if gelive and not enterre and bornes:
                 marge = (bornes[0] - DERNIERE_GELEE).days

@@ -125,6 +125,16 @@ visible.
 
 ### Corrigé
 
+- **Les cultures gélives sortent désormais après les saints de glace.** Les
+  43 fenêtres de mise en terre des cultures gélives sont décalées de treize
+  jours : pour une dernière gelée au 15 avril, tomate, courgette, haricot,
+  maïs et poivron se plantent le 13 mai — Saint Servais —, l'aubergine le 16,
+  le melon le 18, la pastèque le 20 et le gombo le 23 mai, jour de Saint
+  Didier. La « dernière gelée » du réglage est une moyenne : une année sur
+  dix, en plaine, elle tombe après le 13 mai. La pomme de terre ne bouge pas,
+  puisqu'elle est plantée à dix centimètres et que ce qui est enterré n'est
+  pas exposé. Un décalage uniforme et non un plancher, pour conserver la
+  gradation du catalogue entre cultures plus ou moins frileuses.
 - **Sept cultures gélives sortaient trop tôt.** Tomate et tomate cerise
   ouvraient leur plantation sept jours après la dernière gelée, cosmos,
   tournesol et oca le jour même. Toutes passent à quinze jours, la valeur que

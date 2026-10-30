@@ -98,7 +98,7 @@ SOL_ORDINAIRE = "ordinaire, bien drainé"
 
 C("tomate", "Tomate", "Solanum lycopersicum", "Solanacées", "legume-fruit", "🍅",
   eau="eleve", freq=2, sol=SOL_RICHE, espacement=60, prof=0.5, diff=2, gel=False, tmin=5,
-  semis_int=(-60, 30), plantation=(15, 30), cycle=(45, 110, 75, 90),
+  semis_int=(-60, 30), plantation=(28, 30), cycle=(45, 110, 75, 90),
   eau_notes="Au pied, jamais sur le feuillage : c'est ainsi qu'arrive le mildiou.",
   aime=["basilic", "oeillet-inde", "carotte", "persil"],
   evite=["pomme-de-terre", "fenouil-bulbeux", "chou-cabus"],
@@ -108,14 +108,14 @@ C("tomate", "Tomate", "Solanum lycopersicum", "Solanacées", "legume-fruit", "�
 
 C("tomate-cerise", "Tomate cerise", "Solanum lycopersicum var. cerasiforme", "Solanacées",
   "legume-fruit", "🍅", eau="eleve", freq=2, sol=SOL_RICHE, espacement=50, prof=0.5,
-  diff=1, gel=False, tmin=5, semis_int=(-60, 30), plantation=(15, 30), cycle=(45, 100, 70, 100),
+  diff=1, gel=False, tmin=5, semis_int=(-60, 30), plantation=(28, 30), cycle=(45, 100, 70, 100),
   eau_notes="Plus tolérante que la grosse tomate, mais garder le sol frais.",
   aime=["basilic", "oeillet-inde"], evite=["pomme-de-terre", "fenouil-bulbeux"],
   conseils=["Se passe de taille si elle est bien tuteurée", "Idéale en pot sur un balcon"])
 
 C("poivron", "Poivron", "Capsicum annuum", "Solanacées", "legume-fruit", "🫑",
   eau="moyen", freq=3, sol=SOL_RICHE, espacement=50, prof=0.5, diff=3, gel=False, tmin=12,
-  semis_int=(-75, 30), plantation=(15, 25), cycle=(55, 130, 90, 70),
+  semis_int=(-75, 30), plantation=(28, 25), cycle=(55, 130, 90, 70),
   eau_notes="Régulier et sans excès ; craint l'eau stagnante.",
   aime=["basilic", "carotte", "oignon-jaune"], evite=["haricot-nain", "fenouil-bulbeux"],
   conseils=["Chaleur indispensable : attendre un sol à 15 °C",
@@ -123,7 +123,7 @@ C("poivron", "Poivron", "Capsicum annuum", "Solanacées", "legume-fruit", "🫑"
 
 C("piment", "Piment", "Capsicum annuum", "Solanacées", "legume-fruit", "🌶️",
   eau="moyen", freq=3, sol=SOL_RICHE, espacement=45, prof=0.5, diff=3, gel=False, tmin=10,
-  semis_int=(-80, 30), plantation=(18, 25), cycle=(55, 135, 95, 80),
+  semis_int=(-80, 30), plantation=(31, 25), cycle=(55, 135, 95, 80),
   eau_notes="Laisser sécher légèrement entre deux arrosages : le piment gagne en force.",
   aime=["basilic", "tomate"], evite=["fenouil-bulbeux"],
   conseils=["Semis très précoce indispensable sous nos latitudes",
@@ -131,14 +131,14 @@ C("piment", "Piment", "Capsicum annuum", "Solanacées", "legume-fruit", "🌶️
 
 C("aubergine", "Aubergine", "Solanum melongena", "Solanacées", "legume-fruit", "🍆",
   eau="eleve", freq=2, sol=SOL_RICHE, espacement=60, prof=0.5, diff=3, gel=False, tmin=12,
-  semis_int=(-80, 30), plantation=(18, 25), cycle=(55, 140, 95, 70),
+  semis_int=(-80, 30), plantation=(31, 25), cycle=(55, 140, 95, 70),
   eau_notes="Gourmande en eau dès la formation des fruits.",
   aime=["haricot-nain", "thym", "oeillet-inde"], evite=["pomme-de-terre"],
   conseils=["Tuteurer : les fruits sont lourds", "Limiter à 4-5 fruits par plant"])
 
 C("courgette", "Courgette", "Cucurbita pepo", "Cucurbitacées", "legume-fruit", "🥒",
   eau="eleve", freq=2, sol=SOL_RICHE, espacement=100, prof=2, diff=1, gel=False, tmin=10,
-  semis_int=(-30, 20), semis_dir=(15, 45), plantation=(15, 30), cycle=(28, 60, 50, 90),
+  semis_int=(-30, 20), semis_dir=(28, 45), plantation=(28, 30), cycle=(28, 60, 50, 90),
   eau_notes="Beaucoup d'eau, au pied, sans mouiller les feuilles.",
   aime=["haricot-nain", "mais-doux", "capucine"], evite=["pomme-de-terre", "concombre"],
   conseils=["Récolter jeune et souvent : un plant freine dès qu'un fruit grossit",
@@ -146,21 +146,21 @@ C("courgette", "Courgette", "Cucurbita pepo", "Cucurbitacées", "legume-fruit", 
 
 C("concombre", "Concombre", "Cucumis sativus", "Cucurbitacées", "legume-fruit", "🥒",
   eau="eleve", freq=2, sol=SOL_RICHE, espacement=80, prof=2, diff=2, gel=False, tmin=12,
-  semis_int=(-30, 20), plantation=(15, 30), cycle=(28, 65, 55, 70),
+  semis_int=(-30, 20), plantation=(28, 30), cycle=(28, 65, 55, 70),
   eau_notes="Un manque d'eau rend les fruits amers.",
   aime=["haricot-a-rames", "laitue", "aneth"], evite=["pomme-de-terre", "courgette"],
   conseils=["Palisser à la verticale : fruits plus droits, moins de maladies"])
 
 C("cornichon", "Cornichon", "Cucumis sativus", "Cucurbitacées", "legume-fruit", "🥒",
   eau="eleve", freq=2, sol=SOL_RICHE, espacement=70, prof=2, diff=2, gel=False, tmin=12,
-  semis_int=(-25, 20), semis_dir=(15, 40), cycle=(25, 60, 50, 60),
+  semis_int=(-25, 20), semis_dir=(28, 40), cycle=(25, 60, 50, 60),
   eau_notes="Arrosage régulier, sinon les fruits avortent.",
   aime=["aneth", "haricot-nain"], evite=["pomme-de-terre"],
   conseils=["Cueillir tous les deux jours au plus fort de la production"])
 
 C("courge-butternut", "Courge butternut", "Cucurbita moschata", "Cucurbitacées",
   "legume-fruit", "🎃", eau="moyen", freq=4, sol=SOL_RICHE, espacement=120, prof=3,
-  diff=1, gel=False, tmin=10, semis_int=(-30, 20), plantation=(15, 30), cycle=(28, 120, 100, 45),
+  diff=1, gel=False, tmin=10, semis_int=(-30, 20), plantation=(28, 30), cycle=(28, 120, 100, 45),
   eau_notes="Arrosages copieux mais espacés ; couper l'eau à l'approche de la récolte.",
   aime=["mais-doux", "haricot-a-rames", "capucine"], evite=["pomme-de-terre"],
   conseils=["Récolter quand le pédoncule est sec et liégeux",
@@ -168,21 +168,21 @@ C("courge-butternut", "Courge butternut", "Cucurbita moschata", "Cucurbitacées"
 
 C("potimarron", "Potimarron", "Cucurbita maxima", "Cucurbitacées", "legume-fruit", "🎃",
   eau="moyen", freq=4, sol=SOL_RICHE, espacement=120, prof=3, diff=1, gel=False, tmin=10,
-  semis_int=(-30, 20), plantation=(15, 30), cycle=(28, 110, 95, 45),
+  semis_int=(-30, 20), plantation=(28, 30), cycle=(28, 110, 95, 45),
   eau_notes="Comme la butternut : copieux et espacés.",
   aime=["mais-doux", "haricot-a-rames"], evite=["pomme-de-terre"],
   conseils=["Se conserve tout l'hiver dans une pièce fraîche et sèche"])
 
 C("citrouille", "Citrouille", "Cucurbita maxima", "Cucurbitacées", "legume-fruit", "🎃",
   eau="moyen", freq=4, sol=SOL_RICHE, espacement=150, prof=3, diff=1, gel=False, tmin=10,
-  semis_int=(-30, 20), plantation=(15, 30), cycle=(28, 115, 100, 45),
+  semis_int=(-30, 20), plantation=(28, 30), cycle=(28, 115, 100, 45),
   eau_notes="Volume d'eau important, surtout pendant le grossissement.",
   aime=["mais-doux", "capucine"], evite=["pomme-de-terre"],
   conseils=["Glisser une planchette sous le fruit pour éviter qu'il pourrisse"])
 
 C("melon", "Melon", "Cucumis melo", "Cucurbitacées", "legume-fruit", "🍈",
   eau="moyen", freq=3, sol=SOL_RICHE, espacement=100, prof=2, diff=3, gel=False, tmin=14,
-  semis_int=(-45, 25), plantation=(20, 25), cycle=(35, 115, 90, 40),
+  semis_int=(-45, 25), plantation=(33, 25), cycle=(35, 115, 90, 40),
   eau_notes="Réduire fortement l'eau dix jours avant la récolte : c'est ce qui fait le sucre.",
   aime=["mais-doux", "capucine"], evite=["concombre", "pomme-de-terre"],
   conseils=["Pailler avec une bâche ou de l'ardoise pour accumuler la chaleur",
@@ -190,14 +190,14 @@ C("melon", "Melon", "Cucumis melo", "Cucurbitacées", "legume-fruit", "🍈",
 
 C("pasteque", "Pastèque", "Citrullus lanatus", "Cucurbitacées", "legume-fruit", "🍉",
   eau="moyen", freq=3, sol=SOL_RICHE, espacement=140, prof=2, diff=3, gel=False, tmin=15,
-  semis_int=(-45, 25), plantation=(22, 25), cycle=(35, 125, 100, 35),
+  semis_int=(-45, 25), plantation=(35, 25), cycle=(35, 125, 100, 35),
   eau_notes="Comme le melon : couper l'eau en fin de cycle.",
   aime=["mais-doux"], evite=["pomme-de-terre"],
   conseils=["Exige un été chaud : réserver la place la plus abritée du jardin"])
 
 C("mais-doux", "Maïs doux", "Zea mays", "Poacées", "legume-fruit", "🌽",
   eau="eleve", freq=3, sol=SOL_RICHE, espacement=40, prof=3, diff=1, gel=False, tmin=10,
-  semis_dir=(15, 45), cycle=(None, 90, None, 25),
+  semis_dir=(28, 45), cycle=(None, 90, None, 25),
   eau_notes="Très assoiffé à la floraison : ne jamais laisser sécher à ce stade.",
   aime=["courgette", "haricot-a-rames", "potimarron"], evite=["betterave", "celeri-branche"],
   conseils=["Semer en bloc carré, jamais en ligne unique : la pollinisation en dépend",
@@ -205,7 +205,7 @@ C("mais-doux", "Maïs doux", "Zea mays", "Poacées", "legume-fruit", "🌽",
 
 C("physalis", "Physalis", "Physalis peruviana", "Solanacées", "legume-fruit", "🏮",
   eau="moyen", freq=3, sol=SOL_ORDINAIRE, espacement=80, prof=0.5, diff=2, gel=False, tmin=8,
-  semis_int=(-60, 30), plantation=(15, 25), cycle=(45, 130, 95, 60),
+  semis_int=(-60, 30), plantation=(28, 25), cycle=(45, 130, 95, 60),
   eau_notes="Supporte bien un léger stress hydrique.",
   aime=["tomate", "basilic"], evite=[],
   conseils=["Les fruits sont mûrs quand le calice est sec et qu'ils tombent seuls"])
@@ -216,7 +216,7 @@ C("physalis", "Physalis", "Physalis peruviana", "Solanacées", "legume-fruit", "
 
 C("haricot-nain", "Haricot vert nain", "Phaseolus vulgaris", "Fabacées", "legume-gousse", "🫘",
   eau="moyen", freq=3, sol=SOL_ORDINAIRE, espacement=10, prof=3, diff=1, gel=False, tmin=10,
-  semis_dir=(15, 90), cycle=(None, 55, None, 40),
+  semis_dir=(28, 90), cycle=(None, 55, None, 40),
   eau_notes="Ne pas arroser avant la levée, puis régulièrement à la floraison.",
   aime=["carotte", "laitue", "courgette", "fraisier"], evite=["ail-blanc", "oignon-jaune", "echalote", "poireau"],
   conseils=["Semer tous les 15 jours jusqu'en juillet pour étaler la récolte",
@@ -224,14 +224,14 @@ C("haricot-nain", "Haricot vert nain", "Phaseolus vulgaris", "Fabacées", "legum
 
 C("haricot-a-rames", "Haricot à rames", "Phaseolus vulgaris", "Fabacées", "legume-gousse", "🫘",
   eau="moyen", freq=3, sol=SOL_ORDINAIRE, espacement=15, prof=3, diff=1, gel=False, tmin=10,
-  semis_dir=(20, 75), cycle=(None, 65, None, 60),
+  semis_dir=(33, 75), cycle=(None, 65, None, 60),
   eau_notes="Régulier dès la floraison.",
   aime=["mais-doux", "courgette", "laitue"], evite=["ail-blanc", "oignon-jaune", "poireau", "betterave"],
   conseils=["Installer les tuteurs avant de semer", "Produit plus longtemps que le nain"])
 
 C("haricot-sec", "Haricot sec", "Phaseolus vulgaris", "Fabacées", "legume-gousse", "🫘",
   eau="faible", freq=6, sol=SOL_ORDINAIRE, espacement=12, prof=3, diff=1, gel=False, tmin=10,
-  semis_dir=(20, 60), cycle=(None, 95, None, 25),
+  semis_dir=(33, 60), cycle=(None, 95, None, 25),
   eau_notes="Sobre ; arrêter l'arrosage dès que les gousses jaunissent.",
   aime=["carotte", "mais-doux"], evite=["ail-blanc", "oignon-jaune"],
   conseils=["Arracher les plants entiers et les faire sécher tête en bas"])
@@ -340,7 +340,7 @@ C("pomme-de-terre", "Pomme de terre", "Solanum tuberosum", "Solanacées", "legum
 
 C("patate-douce", "Patate douce", "Ipomoea batatas", "Convolvulacées", "legume-racine", "🍠",
   eau="moyen", freq=4, sol=SOL_LEGER, espacement=80, diff=2, gel=False, tmin=12,
-  plantation=(20, 30), cycle=(None, None, 130, 30),
+  plantation=(33, 30), cycle=(None, None, 130, 30),
   eau_notes="Supporte le sec une fois installée.",
   aime=["haricot-nain"], evite=["pomme-de-terre"],
   conseils=["Planter les boutures quand le sol atteint 15 °C",
@@ -568,14 +568,14 @@ C("cresson-alenois", "Cresson alénois", "Lepidium sativum", "Brassicacées", "l
 
 C("pourpier", "Pourpier d'été", "Portulaca oleracea", "Portulacacées", "legume-feuille", "🌿",
   eau="faible", freq=6, sol=SOL_LEGER, espacement=15, prof=0.5, diff=1, gel=False, tmin=8,
-  semis_dir=(15, 90), cycle=(None, 50, None, 60),
+  semis_dir=(28, 90), cycle=(None, 50, None, 60),
   eau_notes="Supporte très bien la sécheresse : c'est une plante grasse.",
   aime=["carotte", "tomate"], evite=[],
   conseils=["Pousse là où rien ne pousse, en plein cagnard"])
 
 C("tetragone", "Tétragone (épinard d'été)", "Tetragonia tetragonoides", "Aizoacées",
   "legume-feuille", "🥬", eau="moyen", freq=4, sol=SOL_ORDINAIRE, espacement=50, prof=2,
-  diff=1, gel=False, tmin=8, semis_dir=(15, 45), cycle=(None, 60, None, 120),
+  diff=1, gel=False, tmin=8, semis_dir=(28, 45), cycle=(None, 60, None, 120),
   eau_notes="Modéré, bien plus tolérante que l'épinard.",
   aime=["tomate", "haricot-nain"], evite=[],
   conseils=["La solution à l'épinard qui monte en été : elle ne monte pas"])
@@ -632,7 +632,7 @@ C("cardon", "Cardon", "Cynara cardunculus", "Astéracées", "legume-feuille", "�
 
 C("basilic", "Basilic", "Ocimum basilicum", "Lamiacées", "aromatique", "🌿",
   eau="eleve", freq=2, sol=SOL_RICHE, espacement=25, prof=0.5, diff=1, gel=False, tmin=12,
-  semis_int=(-45, 30), plantation=(20, 40), cycle=(35, 70, 45, 120),
+  semis_int=(-45, 30), plantation=(33, 40), cycle=(35, 70, 45, 120),
   eau_notes="Le matin, au pied ; jamais le soir, l'humidité nocturne le fait noircir.",
   aime=["tomate", "poivron", "courgette"], evite=["concombre"],
   conseils=["Pincer les fleurs dès qu'elles apparaissent : elles arrêtent la production de feuilles",
@@ -669,7 +669,7 @@ C("cerfeuil", "Cerfeuil", "Anthriscus cerefolium", "Apiacées", "aromatique", "�
 
 C("sarriette", "Sarriette", "Satureja hortensis", "Lamiacées", "aromatique", "🌿",
   eau="faible", freq=6, sol=SOL_LEGER, espacement=20, prof=0.5, diff=1, gel=False, tmin=5,
-  semis_dir=(15, 45), cycle=(None, 60, None, 90),
+  semis_dir=(28, 45), cycle=(None, 60, None, 90),
   eau_notes="Sobre, comme toutes les méditerranéennes.",
   aime=["haricot-nain", "oignon-jaune", "pois-chiche"], evite=[],
   conseils=["Plantée près des haricots, elle éloigne les pucerons noirs"])
@@ -914,7 +914,7 @@ C("noyer", "Noyer", "Juglans regia", "Juglandacées", "fruitier", "🌰",
 
 C("oeillet-inde", "Œillet d'Inde", "Tagetes patula", "Astéracées", "fleur-compagne", "🌼",
   eau="moyen", freq=4, sol=SOL_ORDINAIRE, espacement=25, prof=0.5, diff=1, gel=False, tmin=5,
-  semis_int=(-45, 30), semis_dir=(15, 60), cycle=(30, 70, 55, 150),
+  semis_int=(-45, 30), semis_dir=(28, 60), cycle=(30, 70, 55, 150),
   eau_notes="Modéré ; très tolérant.",
   aime=["tomate", "aubergine", "framboisier", "pomme-de-terre"], evite=[],
   conseils=["Ses racines assainissent le sol des nématodes : le compagnon numéro un de la tomate",
@@ -923,7 +923,7 @@ C("oeillet-inde", "Œillet d'Inde", "Tagetes patula", "Astéracées", "fleur-com
 C("capucine", "Capucine", "Tropaeolum majus", "Tropaeolacées", "fleur-compagne", "🌼",
   eau="faible", freq=5, sol="pauvre, sinon elle fait des feuilles et pas de fleurs",
   espacement=40, prof=2, diff=1, gel=False, tmin=5,
-  semis_dir=(15, 60), cycle=(None, 55, None, 150),
+  semis_dir=(28, 60), cycle=(None, 55, None, 150),
   eau_notes="Sobre ; trop d'eau et d'engrais la font monter en feuilles.",
   aime=["courgette", "citrouille", "pommier", "poirier", "pecher", "haricot-a-rames"], evite=[],
   conseils=["Plante-piège à pucerons : ils s'y installent plutôt que sur vos légumes",
@@ -966,7 +966,7 @@ C("camomille", "Camomille romaine", "Chamaemelum nobile", "Astéracées", "aroma
 
 C("courge-spaghetti", "Courge spaghetti", "Cucurbita pepo", "Cucurbitacées",
   "legume-fruit", "🎃", eau="moyen", freq=4, sol=SOL_RICHE, espacement=110, prof=3,
-  diff=1, gel=False, tmin=10, semis_int=(-30, 20), plantation=(15, 30),
+  diff=1, gel=False, tmin=10, semis_int=(-30, 20), plantation=(28, 30),
   cycle=(28, 110, 95, 45),
   eau_notes="Copieux mais espacés ; couper l'eau à l'approche de la récolte.",
   aime=["mais-doux", "capucine", "bourrache"], evite=["pomme-de-terre"],
@@ -975,7 +975,7 @@ C("courge-spaghetti", "Courge spaghetti", "Cucurbita pepo", "Cucurbitacées",
 
 C("patisson", "Pâtisson", "Cucurbita pepo", "Cucurbitacées", "legume-fruit", "🎃",
   eau="eleve", freq=2, sol=SOL_RICHE, espacement=90, prof=3, diff=1, gel=False, tmin=10,
-  semis_int=(-30, 20), semis_dir=(15, 40), plantation=(15, 30), cycle=(28, 70, 55, 75),
+  semis_int=(-30, 20), semis_dir=(28, 40), plantation=(28, 30), cycle=(28, 70, 55, 75),
   eau_notes="Comme la courgette : beaucoup d'eau au pied.",
   aime=["mais-doux", "haricot-nain", "capucine"], evite=["pomme-de-terre"],
   conseils=["Se cueille jeune, à la taille d'une soucoupe",
@@ -984,7 +984,7 @@ C("patisson", "Pâtisson", "Cucurbita pepo", "Cucurbitacées", "legume-fruit", "
 C("courge-muscade", "Courge muscade de Provence", "Cucurbita moschata",
   "Cucurbitacées", "legume-fruit", "🎃", eau="moyen", freq=4, sol=SOL_RICHE,
   espacement=150, prof=3, diff=2, gel=False, tmin=12, semis_int=(-30, 20),
-  plantation=(18, 30), cycle=(28, 125, 110, 45),
+  plantation=(31, 30), cycle=(28, 125, 110, 45),
   eau_notes="Gros buveur en été, à sevrer en fin de cycle.",
   aime=["mais-doux", "bourrache"], evite=["pomme-de-terre", "courgette"],
   conseils=["Exige une longue saison chaude : à réserver aux étés francs",
@@ -992,7 +992,7 @@ C("courge-muscade", "Courge muscade de Provence", "Cucurbita moschata",
 
 C("tomatille", "Tomatille", "Physalis philadelphica", "Solanacées", "legume-fruit", "🫒",
   eau="moyen", freq=3, sol=SOL_ORDINAIRE, espacement=80, prof=0.5, diff=2,
-  gel=False, tmin=8, semis_int=(-60, 30), plantation=(15, 25), cycle=(45, 120, 80, 70),
+  gel=False, tmin=8, semis_int=(-60, 30), plantation=(28, 25), cycle=(45, 120, 80, 70),
   eau_notes="Supporte le sec mieux que la tomate.",
   aime=["basilic", "oeillet-inde", "capucine"], evite=["pomme-de-terre"],
   conseils=["Deux pieds minimum : elle ne se féconde pas elle-même",
@@ -1000,7 +1000,7 @@ C("tomatille", "Tomatille", "Physalis philadelphica", "Solanacées", "legume-fru
 
 C("gombo", "Gombo (okra)", "Abelmoschus esculentus", "Malvacées", "legume-fruit", "🫑",
   eau="moyen", freq=3, sol=SOL_RICHE, espacement=50, prof=2, diff=3, gel=False, tmin=15,
-  semis_int=(-45, 25), plantation=(25, 25), cycle=(40, 110, 70, 60),
+  semis_int=(-45, 25), plantation=(38, 25), cycle=(40, 110, 70, 60),
   eau_notes="Régulier, mais il déteste les pieds mouillés.",
   aime=["basilic", "poivron"], evite=[],
   conseils=["Demande une vraie chaleur : serre ou mur plein sud sous climat océanique",
@@ -1008,7 +1008,7 @@ C("gombo", "Gombo (okra)", "Abelmoschus esculentus", "Malvacées", "legume-fruit
 
 C("chayotte", "Chayotte (christophine)", "Sechium edule", "Cucurbitacées",
   "legume-fruit", "🥒", eau="eleve", freq=3, sol=SOL_RICHE, espacement=200,
-  diff=3, gel=False, tmin=10, perenne=True, plantation=(20, 30),
+  diff=3, gel=False, tmin=10, perenne=True, plantation=(33, 30),
   recolte=("09-20", 50), cycle=(None, None, None, 50),
   eau_notes="Très gourmande en eau pendant toute la végétation.",
   aime=[], evite=[],
@@ -1057,7 +1057,7 @@ C("persil-tubereux", "Persil tubéreux", "Petroselinum crispum var. tuberosum",
 
 C("oca-perou", "Oca du Pérou", "Oxalis tuberosa", "Oxalidacées", "legume-racine", "🥔",
   eau="moyen", freq=4, sol=SOL_LEGER, espacement=40, prof=6, diff=2, gel=False, tmin=2,
-  plantation=(15, 40), cycle=(None, None, 210, 45),
+  plantation=(28, 40), cycle=(None, None, 210, 45),
   eau_notes="Modéré ; elle grossit surtout à l'automne.",
   aime=["pomme-de-terre"], evite=[],
   conseils=["Les tubercules ne se forment qu'aux jours courts, en octobre",
@@ -1069,7 +1069,7 @@ C("oca-perou", "Oca du Pérou", "Oxalis tuberosa", "Oxalidacées", "legume-racin
 
 C("haricot-espagne", "Haricot d'Espagne", "Phaseolus coccineus", "Fabacées",
   "legume-gousse", "🫘", eau="moyen", freq=3, sol=SOL_ORDINAIRE, espacement=20,
-  prof=4, diff=1, gel=False, tmin=8, semis_dir=(15, 60), cycle=(None, 80, None, 70),
+  prof=4, diff=1, gel=False, tmin=8, semis_dir=(28, 60), cycle=(None, 80, None, 70),
   eau_notes="Régulier à la floraison.",
   aime=["mais-doux", "courgette"], evite=["ail-blanc", "oignon-jaune"],
   conseils=["Fleurs rouges très décoratives, et comestibles",
@@ -1085,7 +1085,7 @@ C("lentille", "Lentille", "Lens culinaris", "Fabacées", "legume-gousse", "🫘"
 
 C("edamame", "Soja edamame", "Glycine max", "Fabacées", "legume-gousse", "🫛",
   eau="moyen", freq=3, sol=SOL_ORDINAIRE, espacement=15, prof=3, diff=2,
-  gel=False, tmin=10, semis_dir=(20, 45), cycle=(None, 95, None, 25),
+  gel=False, tmin=10, semis_dir=(33, 45), cycle=(None, 95, None, 25),
   eau_notes="Soutenu à la formation des gousses.",
   aime=["mais-doux", "concombre"], evite=["ail-blanc", "oignon-jaune"],
   conseils=["Se récolte vert, quand les gousses sont pleines mais encore tendres",
@@ -1244,7 +1244,7 @@ C("hysope", "Hysope", "Hyssopus officinalis", "Lamiacées", "aromatique", "🌿"
 
 C("marjolaine", "Marjolaine", "Origanum majorana", "Lamiacées", "aromatique", "🌿",
   eau="faible", freq=6, sol=SOL_LEGER, espacement=25, prof=0.5, diff=1,
-  gel=False, tmin=3, semis_int=(-45, 30), plantation=(15, 40), cycle=(35, 90, 60, 120),
+  gel=False, tmin=3, semis_int=(-45, 30), plantation=(28, 40), cycle=(35, 90, 60, 120),
   eau_notes="Sobre.",
   aime=["tomate", "courgette"], evite=[],
   conseils=["Plus douce et plus fine que l'origan, mais gélive : à rentrer ou ressemer",
@@ -1279,7 +1279,7 @@ C("fenouil-aromatique", "Fenouil aromatique", "Foeniculum vulgare", "Apiacées",
 
 C("shiso", "Shiso (périlla)", "Perilla frutescens", "Lamiacées", "aromatique", "🌿",
   eau="moyen", freq=3, sol=SOL_RICHE, espacement=35, prof=0.5, diff=1,
-  gel=False, tmin=8, semis_int=(-45, 30), plantation=(15, 40), cycle=(35, 85, 55, 120),
+  gel=False, tmin=8, semis_int=(-45, 30), plantation=(28, 40), cycle=(35, 85, 55, 120),
   eau_notes="Régulier ; il flétrit vite au sec.",
   aime=["tomate", "concombre"], evite=[],
   conseils=["Goût entre la menthe et le cumin : la feuille des sushis",
@@ -1432,7 +1432,7 @@ C("moutarde-blanche", "Moutarde blanche (engrais vert)", "Sinapis alba",
 
 C("sarrasin", "Sarrasin (engrais vert)", "Fagopyrum esculentum", "Polygonacées",
   "fleur-compagne", "🌼", eau="faible", freq=8, sol="pauvre, même ingrat",
-  espacement=10, prof=3, diff=1, gel=False, tmin=2, semis_dir=(15, 90),
+  espacement=10, prof=3, diff=1, gel=False, tmin=2, semis_dir=(28, 90),
   cycle=(None, 45, None, 30),
   eau_notes="Aucun arrosage.",
   aime=[], evite=[],
@@ -1460,7 +1460,7 @@ C("vesce", "Vesce d'hiver (engrais vert)", "Vicia villosa", "Fabacées",
 C("cosmos", "Cosmos", "Cosmos bipinnatus", "Astéracées", "fleur-compagne", "🌼",
   eau="faible", freq=6, sol="pauvre : trop riche, il ne fait que des feuilles",
   espacement=40, prof=1, diff=1, gel=False, tmin=4,
-  semis_dir=(15, 75), cycle=(None, 70, None, 120),
+  semis_dir=(28, 75), cycle=(None, 70, None, 120),
   eau_notes="Sobre.",
   aime=["tomate", "courgette"], evite=[],
   conseils=["Aimant à syrphes et à chrysopes, dont les larves mangent les pucerons",
@@ -1482,7 +1482,7 @@ C("mauve", "Mauve sylvestre", "Malva sylvestris", "Malvacées", "fleur-compagne"
 
 C("tournesol", "Tournesol", "Helianthus annuus", "Astéracées", "cereale", "🌻",
   eau="moyen", freq=5, sol=SOL_ORDINAIRE, espacement=50, prof=3, diff=1,
-  gel=False, tmin=6, semis_dir=(15, 60), cycle=(None, 110, None, 30),
+  gel=False, tmin=6, semis_dir=(28, 60), cycle=(None, 110, None, 30),
   eau_notes="Modéré ; ses racines descendent chercher loin.",
   aime=["concombre", "courgette", "mais-doux"], evite=["pomme-de-terre", "haricot-a-rames"],
   conseils=["Récolter quand le dos du capitule jaunit et que les graines se détachent",
@@ -1491,7 +1491,7 @@ C("tournesol", "Tournesol", "Helianthus annuus", "Astéracées", "cereale", "�
 
 C("mais-popcorn", "Maïs à pop-corn", "Zea mays var. everta", "Poacées", "cereale", "🌽",
   eau="moyen", freq=4, sol=SOL_RICHE, espacement=35, prof=3, diff=1, gel=False, tmin=10,
-  semis_dir=(15, 45), cycle=(None, 115, None, 30),
+  semis_dir=(28, 45), cycle=(None, 115, None, 30),
   eau_notes="Assoiffé à la floraison, comme le maïs doux.",
   aime=["courgette", "haricot-a-rames"], evite=["betterave", "mais-doux"],
   conseils=["Se récolte sec, à l'inverse du maïs doux : attendre que les tiges brunissent",
@@ -1509,7 +1509,7 @@ C("quinoa", "Quinoa", "Chenopodium quinoa", "Amaranthacées", "cereale", "🌾",
 
 C("amarante", "Amarante", "Amaranthus caudatus", "Amaranthacées", "cereale", "🌾",
   eau="faible", freq=6, sol=SOL_ORDINAIRE, espacement=40, prof=0.5, diff=1,
-  gel=False, tmin=6, semis_dir=(15, 60), cycle=(None, 110, None, 40),
+  gel=False, tmin=6, semis_dir=(28, 60), cycle=(None, 110, None, 40),
   eau_notes="Supporte très bien la sécheresse.",
   aime=["mais-doux", "tournesol"], evite=["betterave"],
   conseils=["Double usage : feuilles en épinard tout l'été, graines à l'automne",
