@@ -43,6 +43,7 @@ lc = _charger("lifecycle")
 ph = _charger("phenology")
 cat = _charger("catalog")
 wa = _charger("watering")
+ser = _charger("serialisation")
 
 GELEES = ph.Gelees("04-15", "11-15")
 AUJ = date.today()
@@ -71,36 +72,6 @@ ZONES = [
 def fiche_localisee(culture_id: str) -> dict:
     """La fiche telle que `websocket.py` la servira, dans la langue du banc."""
     return cat.localiser(cat.culture(culture_id), LANGUE)
-
-
-def etape_dict(etape) -> dict:
-    return {
-        "type": etape.type,
-        "debut": etape.debut.isoformat(),
-        "fin": etape.fin.isoformat(),
-        "source": etape.source,
-        "libelle": i18n.libelle_etape(LANGUE, etape.type),
-        "reelle": etape.reelle,
-    }
-
-
-def arrosage_dict(etat) -> dict | None:
-    if etat is None:
-        return None
-    return {
-        "concernee": etat.concernee,
-        "dernier": etat.dernier.isoformat() if etat.dernier else None,
-        "prochain": etat.prochain.isoformat() if etat.prochain else None,
-        "frequence_jours": etat.frequence_jours,
-        "jours_restants": etat.jours_restants,
-        "a_arroser": etat.a_arroser,
-        "en_retard": etat.en_retard,
-        "motif_exclusion": (
-            i18n.t(LANGUE, etat.motif_cle)
-            if etat.motif_cle
-            else etat.motif_exclusion
-        ),
-    }
 
 
 def construire(culture_id, zone_id, evenements, surnom=None, arrose_il_y_a=None) -> dict:
@@ -133,37 +104,23 @@ def construire(culture_id, zone_id, evenements, surnom=None, arrose_il_y_a=None)
     etapes = ph.prochaines_etapes(fiche, plante, GELEES, zone["decalage_jours"], AUJ)
     infos = lc.resume(plante)
     etat_eau = wa.etat(fiche, plante, zone, GELEES, AUJ)
-    return {
+    # La vue calculee du coordinateur, telle que `coordinator.py` la construit.
+    # Le banc la fabrique, mais ne serialise plus lui-meme : c'est
+    # `serialisation.plante_en_dict` qui s'en charge, le meme code que
+    # l'instance. Cette copie manuelle avait deja montre un arrosage par
+    # plante qui fonctionnait au banc alors qu'il etait casse en production.
+    entree = {
         "uid": plante["uid"],
-        "culture_id": culture_id,
-        "nom": f"{fiche['nom']} ({surnom})" if surnom else fiche["nom"],
-        "emoji": fiche["emoji"],
-        "categorie": fiche["categorie"],
-        "surnom": surnom,
+        "plante": plante,
+        "culture": fiche,
         "zone": zone,
-        "notifs": True,
-        "rappel_jours": None,
-        "phase": infos["phase"],
-        "phase_libelle": i18n.libelle_phase(LANGUE, infos["phase"]),
-        "perenne": bool(fiche.get("perenne")),
-        "prochaine": etape_dict(etapes[0]) if etapes else None,
-        "etapes": [etape_dict(e) for e in etapes],
-        "date_semis": infos["date_semis"].isoformat() if infos["date_semis"] else None,
-        "date_mise_en_place": (
-            infos["date_mise_en_place"].isoformat() if infos["date_mise_en_place"] else None
-        ),
-        "nb_recoltes": infos["nb_recoltes"],
-        "total_recolte_g": infos["total_recolte_g"],
-        "evenements": [
-            {**e, "libelle": i18n.libelle_evenement(LANGUE, e["type"])}
-            for e in plante["evenements"]
-        ],
-        "arrosage_actif": True,
-        "arrosage_frequence_jours": None,
-        "arrosage": arrosage_dict(etat_eau),
-        "arrosages": list(reversed(plante.get("arrosages") or [])),
-        "exposition": fiche["exposition"],
+        "etapes": etapes,
+        "prochaine": etapes[0] if etapes else None,
+        "resume": infos,
+        "nom_affiche": f"{fiche['nom']} ({surnom})" if surnom else fiche["nom"],
+        "arrosage": etat_eau,
     }
+    return ser.plante_en_dict(entree, LANGUE)
 
 
 def depart(fiche) -> dict:
@@ -179,7 +136,7 @@ def depart(fiche) -> dict:
     ouverte = next((e for e in candidates if e.contient(AUJ)), None)
     return {
         "semable_maintenant": ouverte is not None,
-        "prochain_depart": etape_dict(ouverte or candidates[0]),
+        "prochain_depart": ser.etape_en_dict(ouverte or candidates[0], LANGUE),
     }
 
 
@@ -356,7 +313,7 @@ def main() -> None:
                 "emoji": plante["emoji"],
                 "zone": plante["zone"]["nom"],
                 "prevues": [
-                    etape_dict(e)
+                    ser.etape_en_dict(e, LANGUE)
                     for e in ph.fenetres_theoriques(
                         fiche_culture, GELEES, zone["decalage_jours"], AUJ.year
                     )
@@ -377,7 +334,10 @@ def main() -> None:
             cle: [cat.info_minimale(cat.localiser(x, LANGUE)) for x in valeur]
             for cle, valeur in cat.compagnes("tomate").items()
         },
-        "fenetres": [etape_dict(e) for e in ph.fenetres_theoriques(tomate, GELEES)],
+        "fenetres": [
+            ser.etape_en_dict(e, LANGUE)
+            for e in ph.fenetres_theoriques(tomate, GELEES)
+        ],
     }
 
     sortie = RACINE / "tools" / "fixture.js"

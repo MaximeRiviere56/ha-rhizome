@@ -80,6 +80,17 @@ visible.
   et une liste tronquée y ferait un trou sans le dire. Le stockage en borne
   déjà le nombre.
 
+### Interne
+
+- **La sérialisation envoyée au panneau vit dans un module pur**,
+  `serialisation.py`. Elle était écrite dans `websocket.py`, qui importe Home
+  Assistant : le banc d'essai, qui monte le frontend hors d'une instance, la
+  réimplémentait donc à la main. Cette copie avait déjà montré un arrosage par
+  plante qui fonctionnait au banc alors qu'il était cassé en production, et
+  elle avait pris du retard sur un champ. Le banc appelle désormais le même
+  code que l'instance, et cette sérialisation gagne dix tests qui n'étaient
+  pas possibles auparavant.
+
 ### Corrigé
 
 - **La fiche consoude ne disait rien de l'usage interne.** Livrée depuis la
