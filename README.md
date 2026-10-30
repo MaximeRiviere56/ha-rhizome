@@ -430,7 +430,15 @@ aucune indication thérapeutique** — Rhizome dit comment faire pousser une
 plante, jamais quoi en faire pour se soigner — et **le risque dit en clair, en
 premier conseil**.
 
-Trois garde-fous compensent, par ordre d'efficacité.
+**La nomenclature, elle, est vérifiée.** Le nom scientifique et la famille
+botanique des 215 fiches ont été croisés sur GBIF, World Flora Online et le
+Catalogue of Life : 207 confirmées, 8 divergences assumées et documentées, 0 à
+vérifier. La famille n'est pas un détail d'affichage — c'est elle qui pilote
+le délai de rotation, donc une famille fausse donne un mauvais conseil. Le
+détail est dans [docs/revue-croisee.md](docs/revue-croisee.md), et la revue se
+rejoue par `python3 tools/revue_croisee.py`.
+
+Trois garde-fous compensent pour le reste, par ordre d'efficacité.
 
 **Le réel prime, toujours.** Dès que vous notez un semis, l'estimation ne sert
 plus : la récolte se calcule depuis votre date. Mes chiffres ne pilotent que la
@@ -458,9 +466,13 @@ vérifiables sans connaissance extérieure. **Au dernier passage : 0 impossible,
 ajoute aucune autorité : c'est le même contenu, dans une autre langue. Le nom
 latin reste sur chaque fiche pour trancher quand le nom commun est ambigu.
 
-Ce qui reste hors de portée, ce sont les durées de cycle — elles varient de
-plusieurs semaines selon la variété, et seul un relevé au jardin peut trancher.
-C'est précisément ce que la correction de fiche permet de rattraper.
+Ce qui reste hors de portée, ce sont **l'espacement, la fréquence d'arrosage,
+les fenêtres de semis et surtout les durées de cycle**. Aucune revue croisée
+ne les tranchera : trois sources sérieuses donnent trois chiffres différents
+pour une carotte, parce que la réponse dépend de la variété, du sol et du
+climat. Ce ne sont pas des faits avec une valeur vraie, ce sont des jugements
+horticoles — et c'est précisément ce que la correction de fiche permet de
+rattraper.
 
 ### Ajouter une culture
 
