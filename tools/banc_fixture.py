@@ -281,6 +281,9 @@ def main() -> None:
             "notify_recolte_recurrence": 2,
             "masquer_terminees": False,
             "arrosage_actif": True,
+            "meteo_entite": "weather.bouguenais",
+            "notify_gel": True,
+            "notify_gel_heure": "18:00:00",
             "langue": LANGUE,
         },
         "cibles_possibles": [
@@ -288,6 +291,10 @@ def main() -> None:
             {"value": "notify.mobile_app_maxime", "label": "Maxime", "mobile": True},
             {"value": "persistent_notification",
              "label": i18n.t(LANGUE, "cible_persistante"), "mobile": False},
+        ],
+        "meteo_possibles": [
+            {"value": "weather.bouguenais", "label": "Bouguenais"},
+            {"value": "weather.forecast_maison", "label": "Maison"},
         ],
         "presets": {},
         "etapes_notifiables": [

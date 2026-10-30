@@ -23,8 +23,11 @@ from .const import (
     CONF_GELEES_PREMIERE,
     CONF_LANGUE,
     CONF_MASQUER_TERMINEES,
+    CONF_METEO_ENTITE,
     CONF_NOTIFY_ARROSAGE,
     CONF_NOTIFY_ETAPES,
+    CONF_NOTIFY_GEL,
+    CONF_NOTIFY_GEL_HEURE,
     CONF_NOTIFY_HEURE,
     CONF_NOTIFY_RECOLTE_RECURRENCE,
     CONF_NOTIFY_RESUME,
@@ -32,6 +35,7 @@ from .const import (
     CONF_PRESET_CLIMAT,
     CONF_RAPPEL_JOURS,
     DEFAUT_LANGUE,
+    DEFAUT_NOTIFY_GEL_HEURE,
     DEFAUT_NOTIFY_HEURE,
     DOMAIN,
     ETAPES_NOTIFIABLES,
@@ -139,6 +143,24 @@ def _cibles_possibles(hass: HomeAssistant) -> list[dict[str, Any]]:
         }
     )
     return cibles
+
+
+def _meteo_possibles(hass: HomeAssistant) -> list[dict[str, Any]]:
+    """Entites meteo proposables, et seules acceptables.
+
+    Memes raisons que pour les destinataires de rappel : cette valeur devient
+    une entite interrogee chaque soir, et accepter une chaine libre reviendrait
+    a appeler un service sur n'importe quoi.
+    """
+    return [
+        {
+            "value": etat.entity_id,
+            "label": etat.name or etat.entity_id,
+        }
+        for etat in sorted(
+            hass.states.async_all("weather"), key=lambda e: e.entity_id
+        )
+    ]
 
 
 def _coordinateur(hass: HomeAssistant) -> RhizomeCoordinator | None:
@@ -665,8 +687,14 @@ def reglages(hass, connection, msg) -> None:
                 # panneau doit montrer ce qui a ete choisi, pas seulement ce
                 # qui en a ete deduit.
                 CONF_LANGUE: options.get(CONF_LANGUE, DEFAUT_LANGUE),
+                CONF_METEO_ENTITE: coordinator.meteo_entite,
+                CONF_NOTIFY_GEL: coordinator.notify_gel,
+                CONF_NOTIFY_GEL_HEURE: options.get(
+                    CONF_NOTIFY_GEL_HEURE, DEFAUT_NOTIFY_GEL_HEURE
+                ),
             },
             "cibles_possibles": cibles,
+            "meteo_possibles": _meteo_possibles(hass),
             "presets": PRESETS_CLIMAT,
             "etapes_notifiables": list(ETAPES_NOTIFIABLES),
             # La langue reellement appliquee, « auto » resolu. C'est elle que le
@@ -701,6 +729,11 @@ SCHEMA_REGLAGES = vol.Schema(
         vol.Optional(CONF_MASQUER_TERMINEES): bool,
         vol.Optional(CONF_ARROSAGE_ACTIF): bool,
         vol.Optional(CONF_NOTIFY_ARROSAGE): bool,
+        # Une chaine vide est une valeur legitime : c'est ainsi qu'on coupe
+        # l'alerte gel sans avoir a decocher autre chose.
+        vol.Optional(CONF_METEO_ENTITE): vol.Any("", str),
+        vol.Optional(CONF_NOTIFY_GEL): bool,
+        vol.Optional(CONF_NOTIFY_GEL_HEURE): _HEURE,
         # Borne stricte : cette valeur decide de la langue des noms d'entites,
         # relus a chaque montage. Une chaine libre y produirait une interface
         # a moitie francaise sans rien signaler.
@@ -750,6 +783,17 @@ async def definir_reglages(coordinator, msg) -> dict:
                 f"Destinataire de notification inconnu : {', '.join(refusees)}.",
                 cle="err_cible_notif",
                 cibles=", ".join(refusees),
+            )
+
+    # Meme garde que pour les destinataires : cette entite sera interrogee
+    # par un appel de service, elle ne peut pas etre une chaine quelconque.
+    if propose.get(CONF_METEO_ENTITE):
+        connues = {m["value"] for m in _meteo_possibles(coordinator.hass)}
+        if propose[CONF_METEO_ENTITE] not in connues:
+            raise ErreurJournal(
+                f"Entité météo inconnue : {propose[CONF_METEO_ENTITE]}.",
+                cle="err_meteo_inconnue",
+                entite=propose[CONF_METEO_ENTITE],
             )
 
     fusion = {**coordinator.entry.options, **propose}
