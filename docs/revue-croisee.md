@@ -240,19 +240,55 @@ tout le catalogue et pour tout ce qu'on y ajoutera.
 Les deux ont été vérifiées en les faisant échouer volontairement : une règle
 qui ne se déclenche jamais ne prouve rien.
 
-## La question laissée ouverte
+## Les saints de glace, tranchés
 
-**Faut-il aller jusqu'aux saints de glace ?** Les 15 jours retenus ci-dessus
-sont le minimum que le catalogue s'appliquait déjà. Mais les sources
-françaises sont plus prudentes : elles placent la mise en terre des légumes
-d'été après le 11–13 mai, soit **près de quatre semaines** après une dernière
-gelée moyenne au 15 avril, et certains vignerons attendaient le 25 mai.
+La question était ouverte à la rédaction de cette section : fallait-il se
+contenter de quinze jours, ou aller jusqu'aux saints de glace ? **Le
+propriétaire a tranché pour les saints de glace** — le jardin est en France,
+et c'est la règle que le jardinage français applique réellement.
 
-Passer les 24 cultures gélives de +15 à +28 décalerait le calendrier de tout
-un pan du potager. C'est une décision de produit, pas une correction : elle
-dépend de la façon dont on veut que l'utilisateur lise le réglage « dernière
-gelée de printemps » — date moyenne, ou date après laquelle il ne gèle plus.
-Elle est laissée au propriétaire.
+Les 43 fenêtres de mise en terre des cultures gélives ont donc été décalées de
+**treize jours**, uniformément. Un décalage uniforme plutôt qu'un plancher,
+pour une raison précise : le catalogue gradue déjà ses décalages selon la
+frilosité de chaque culture — +15 pour la tomate, +25 pour le gombo — et un
+plancher aurait écrasé cette gradation en alignant tout le monde sur la même
+date. Le décalage la conserve, et place la plus précoce exactement au bon
+jour.
+
+Ce que ça donne, pour une dernière gelée au 15 avril :
+
+| Culture | Mise en terre |
+|---|---|
+| tomate, courgette, haricot, maïs, poivron, concombre… | **13 mai** — Saint Servais, dernier des saints de glace |
+| aubergine, piment, courge musquée | 16 mai |
+| basilic, melon, patate douce, haricot à rames | 18 mai |
+| pastèque | 20 mai |
+| gombo | **23 mai** — Saint Didier, la date des anciens pour les plus frileuses |
+
+La pomme de terre ne bouge pas : elle est plantée à dix centimètres, et ce qui
+est enterré n'est pas exposé. C'est l'exception que l'audit connaissait déjà.
+
+`MARGE_GELEE_MINI_JOURS` passe de 15 à 28 dans `auditer_catalogue.py` : une
+dernière gelée moyenne au 15 avril plus vingt-huit jours tombe le 13 mai. Le
+seuil n'est pas un arrondi prudent, il est calé sur une date.
+
+### L'effet de bord, et l'invariant qu'il a révélé
+
+Décaler les plantations sans toucher aux semis à l'abri allongeait d'autant
+l'attente du plant en godet : la tomate passait de 75 à 88 jours entre son
+semis et l'ouverture de sa plantation, et un plant qui attend file et
+s'enracine dans son godet. **Les 23 semis à l'abri des mêmes cultures ont donc
+été décalés de treize jours eux aussi**, ce qui rétablit exactement les délais
+d'origine — tomate semée le 27 février, aubergine le 7 février, courgette le
+29 mars.
+
+L'invariant qui n'était écrit nulle part, et qui l'est maintenant : **semis à
+l'abri et plantation se déplacent ensemble.** `auditer_catalogue.py` porte une
+règle qui le rappelle, en signalant un plant qui resterait plus de soixante
+jours en godet après son repiquage. La borne est large à dessein — l'aubergine
+et le piment y passent réellement six semaines — et cette règle attrape une
+incohérence grossière, pas une dérive de quelques jours. Elle vaut surtout
+comme rappel.
 
 ## Couverture, dite franchement
 

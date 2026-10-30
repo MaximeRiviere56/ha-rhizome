@@ -63,14 +63,20 @@ servi est celui qu'on lit. Ne pas introduire de bundler.
 3. **Aucune date en dur dans le catalogue.** Chaque fenêtre est un décalage en
    jours par rapport aux gelées locales de l'utilisateur. Seules les pérennes
    déclarent une récolte à date fixe.
-4. **La phase se déduit toujours du journal par repli**, jamais stockée comme
+4. **Semis à l'abri et plantation se déplacent ensemble.** Décaler l'un sans
+   l'autre allonge silencieusement l'attente du plant en godet, et un plant
+   qui attend file. C'est arrivé en décalant les gélives après les saints de
+   glace : la tomate est passée de 75 à 88 jours entre semis et plantation
+   avant que ce ne soit rattrapé. `auditer_catalogue.py` le rappelle, mais sa
+   borne est large : elle attrape le grossier, pas la dérive.
+5. **La phase se déduit toujours du journal par repli**, jamais stockée comme
    fait indépendant. C'est ce qui rend l'annulation fiable.
-5. **Toute mutation passe par `coordinator.async_appliquer`**, qui écrit sur
+6. **Toute mutation passe par `coordinator.async_appliquer`**, qui écrit sur
    disque *et attend* avant de rendre la main. Une sauvegarde différée a déjà
    coûté un jardin entier au redémarrage.
-6. **L'arrosage n'est pas un événement du journal.** Il ne fait pas avancer le
+7. **L'arrosage n'est pas un événement du journal.** Il ne fait pas avancer le
    cycle et se répète trop souvent : liste séparée `arrosages`.
-7. **Un rappel qu'on ignore discrédite tous les autres.** Chaque garde-fou
+8. **Un rappel qu'on ignore discrédite tous les autres.** Chaque garde-fou
    existant (plante pas en terre, hiver en pleine terre, pérenne installée)
    est là pour ça.
 
@@ -396,7 +402,7 @@ poste de développement. À lire avant de toucher à cette zone :
 - Rappeler l'arrosage n'avait pas de réglage propre : seul `arrosage_actif`
   existait, et il coupait le suivi entier. D'où `CONF_NOTIFY_ARROSAGE`,
   volontairement **hors** de `ETAPES_NOTIFIABLES` — l'arrosage n'est pas une
-  étape du cycle (invariant 6), et une liste enregistrée avant ce réglage ne
+  étape du cycle (invariant 7), et une liste enregistrée avant ce réglage ne
   l'aurait pas contenu, taisant les rappels sans rien dire.
 
 ### L'angle mort du banc, comblé
