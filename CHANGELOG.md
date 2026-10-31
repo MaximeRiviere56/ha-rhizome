@@ -4,12 +4,11 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Versions sous [SemVer](https://semver.org/lang/fr/). Rhizome est en `0.x` :
 l'intérieur peut encore bouger, mais pas vos données.
 
-## [0.11.0] — 2026-10-29
+## Non publié
 
-Rhizome tient enfin ce que son nom promettait : des plantes d'intérieur à côté
-du potager. Et l'arrosage, qui se lisait mal — un bouton bleu « Arrosé » qui ne
-disait pas s'il constatait ou commandait, et des arrosages notés nulle part de
-visible.
+Rhizome tient enfin ce que son nom promettait : des plantes d'intérieur à
+côté du potager. Et le catalogue, qui n'avait jamais été confronté à une
+source extérieure, l'a été.
 
 ### Ajouté
 
@@ -41,23 +40,6 @@ visible.
   Society, base de l'ASPCA pour la toxicité envers chiens et chats. Les 172
   autres restent écrites de mémoire horticole, et la nuance est dite dans le
   README.
-- **Les arrosages apparaissent au journal**, de la plante et du potager. Dans
-  la fiche d'une plante, ils se mêlent aux étapes du cycle à leur date, sur un
-  point bleu creux qui les distingue d'un semis ou d'une récolte — l'arrosage
-  reste hors du cycle, il ne le fait pas avancer. Une série d'arrosages
-  consécutifs tient en une ligne qui porte toutes ses dates, sinon un été
-  d'arrosages noierait les cinq étapes de la plante. Dans la vue *Journal*,
-  ils sont groupés par jour, filtrables comme les autres événements, et
-  comptés dans le bilan.
-- **Une pastille d'état d'arrosage**, à trois niveaux et trois icônes : en
-  retard (alerte, orangé), dû aujourd'hui (arrosoir, bleu), à jour (coche,
-  neutre). Elle remplace le texte libre dans le panneau comme dans la carte
-  Lovelace.
-- **Une confirmation après le clic** : la pastille passe au vert et dit
-  « Arrosé · noté au journal » pendant quelques secondes. Le seul retour
-  visible était jusqu'ici un compte à rebours qui repart, que personne ne
-  remarque.
-
 - **Une alerte gel, le soir, d'après votre météo.** Désignez une entité météo
   dans *Réglages · Alerte gel*, et Rhizome vous prévient à 18 h quand la nuit
   qui vient menace une plante. **Le seuil est celui de chaque fiche, pas zéro
@@ -85,14 +67,6 @@ visible.
   sont levées pour cette catégorie, d'après la fiche et non d'après la case
   « zone abritée » : la survie de la plante ne doit pas dépendre d'un réglage
   coché. Les règles restent entières pour le jardin.
-- **Le bouton d'arrosage dit « Arroser », et non plus « Arrosé »** : un bouton
-  porte le geste qu'il déclenche, l'état vit dans la pastille d'à côté. Il
-  reste plein tant que l'eau est due et se fait discret une fois la plante à
-  jour, pour que la couleur pleine ne signale que ce qui attend un geste.
-- **Le panneau reçoit tout l'historique d'arrosage** d'une plante, et non plus
-  ses vingt dernières entrées : le journal les affiche désormais à leur date,
-  et une liste tronquée y ferait un trou sans le dire. Le stockage en borne
-  déjà le nombre.
 
 ### Interne
 
@@ -108,7 +82,6 @@ visible.
   toujours la même : toute la vue détail lui échappait. Son avertissement de
   rotation est de même calculé par le vrai module face à son propre jardin,
   au lieu d'annoncer des solanacées devant n'importe quelle fiche.
-
 - **Le nom scientifique et la famille des 215 fiches sont croisés sur trois
   bases taxonomiques** — GBIF, World Flora Online et le Catalogue of Life — par
   `tools/revue_croisee.py`, rejouable à tout moment. La famille n'est pas un
@@ -116,7 +89,6 @@ visible.
   famille fausse donne un mauvais conseil. 207 fiches confirmées, 8 divergences
   assumées et justifiées, 0 à vérifier. Le raisonnement complet est dans
   `docs/revue-croisee.md`.
-
 - **Deux règles d'audit de plus sur les 215 fiches** : une culture gélive dont
   la mise en terre s'ouvre moins de quinze jours après la dernière gelée est
   signalée — la dernière gelée est une moyenne, et une année sur dix elle
@@ -170,6 +142,44 @@ visible.
   qui ne part jamais**, et « Craint le gel » là où le chiffre utile est le
   minimum thermique — c'est lui qui dit si la plante peut passer l'été dehors,
   et quand la rentrer.
+
+## [0.11.0] — 2026-10-29
+
+L'arrosage se lisait mal : un bouton bleu « Arrosé » qui ne disait pas s'il
+constatait ou commandait, et des arrosages notés nulle part de visible.
+
+### Ajouté
+
+- **Les arrosages apparaissent au journal**, de la plante et du potager. Dans
+  la fiche d'une plante, ils se mêlent aux étapes du cycle à leur date, sur un
+  point bleu creux qui les distingue d'un semis ou d'une récolte — l'arrosage
+  reste hors du cycle, il ne le fait pas avancer. Une série d'arrosages
+  consécutifs tient en une ligne qui porte toutes ses dates, sinon un été
+  d'arrosages noierait les cinq étapes de la plante. Dans la vue *Journal*,
+  ils sont groupés par jour, filtrables comme les autres événements, et
+  comptés dans le bilan.
+- **Une pastille d'état d'arrosage**, à trois niveaux et trois icônes : en
+  retard (alerte, orangé), dû aujourd'hui (arrosoir, bleu), à jour (coche,
+  neutre). Elle remplace le texte libre dans le panneau comme dans la carte
+  Lovelace.
+- **Une confirmation après le clic** : la pastille passe au vert et dit
+  « Arrosé · noté au journal » pendant quelques secondes. Le seul retour
+  visible était jusqu'ici un compte à rebours qui repart, que personne ne
+  remarque.
+
+### Modifié
+
+- **Le bouton d'arrosage dit « Arroser », et non plus « Arrosé »** : un bouton
+  porte le geste qu'il déclenche, l'état vit dans la pastille d'à côté. Il
+  reste plein tant que l'eau est due et se fait discret une fois la plante à
+  jour, pour que la couleur pleine ne signale que ce qui attend un geste.
+- **Le panneau reçoit tout l'historique d'arrosage** d'une plante, et non plus
+  ses vingt dernières entrées : le journal les affiche désormais à leur date,
+  et une liste tronquée y ferait un trou sans le dire. Le stockage en borne
+  déjà le nombre.
+
+### Corrigé
+
 - **« Je viens d'arroser », dans la fiche d'une plante, ne faisait rien.** La
   fiche se rend dans son propre hôte et seul le branchement de la vue écoutait
   le bouton : le clic partait dans le vide, sans erreur ni retour. Le défaut
