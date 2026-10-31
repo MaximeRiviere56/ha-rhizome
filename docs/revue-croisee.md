@@ -450,9 +450,37 @@ précision de nommage** — elle ne dit pas de quelle plante elle parle aussi
 clairement qu'une fiche dédiée. C'est le prix du levier, et il se paie en
 vérifications ciblées sur les valeurs qui dépassent.
 
+## Lot 8 — dix plantes d'intérieur
+
+Pour elles, la **cote de rusticité RHS** est le seul chiffre comparable qui
+existe : H1a au-dessus de 15 °C, H1b de 10 à 15, H1c de 5 à 10, H2 de 1 à 5.
+Les fiches RHS donnent aussi l'exposition, l'eau et l'envergure adulte — ce
+qui couvre tout ce qu'une fiche d'intérieur affirme, puisqu'elle n'a ni
+fenêtre, ni cycle, ni profondeur de semis.
+
+**Une correction** : le `kentia` était donné à 12 °C quand la RHS le classe
+H1a, c'est-à-dire au-dessus de 15. Il passe à **15**. C'est le sens risqué de
+l'erreur — celui qui retarde l'alerte gel —, le même cas que le poivron et le
+romarin.
+
+### Les deux sens de l'erreur, encore
+
+Deux autres fiches divergent sur `temp_min_c`, mais dans l'autre sens : le
+`hoya` est donné à 12 °C quand la RHS le classe H2 (1–5), le `pilea` à 13
+quand elle le classe H1c (5–10). **On ne corrige pas** : une fiche plus
+frileuse que sa source avance l'alerte au lieu de la retarder.
+
+### Un milieu qui n'est pas le même
+
+Trois fiches arrosent plus souvent que la RHS ne le demande. Elle décrit un
+sujet **sous verre**, en atmosphère humide et sans chauffage central ; un
+appartement français chauffé sèche plus vite. Arroser trop souvent reste un
+défaut — mais le corriger à l'aveugle sur une source qui ne décrit pas le même
+milieu serait pire que de l'assumer en le disant.
+
 ## Couverture, dite franchement
 
-**84 fiches sur 215 ont été relevées**, dont 30 sur trois sources ou plus.
+**94 fiches sur 215 ont été relevées**, dont 30 sur trois sources ou plus.
 
 Ce n'est pas la revue complète, et il ne faut pas la présenter comme telle.
 Une passe complète représente de l'ordre de **630 consultations de pages** —

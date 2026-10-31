@@ -2022,7 +2022,7 @@ INT("fougere-nid", "Fougère nid d'oiseau", "Asplenium nidus", "Aspléniacées",
             "Ne jamais lustrer ses frondes : les produits lustrants les brûlent"])
 
 INT("kentia", "Kentia", "Howea forsteriana", "Arécacées", "🌴",
-  expo="mi-ombre", eau="moyen", freq=8, espacement=150, diff=2, tmin=12,
+  expo="mi-ombre", eau="moyen", freq=8, espacement=150, diff=2, tmin=15,
   eau_notes="Terreau frais l'été, nettement plus sec l'hiver.",
   conseils=["Non toxique pour le chien et le chat selon l'ASPCA : c'est le grand sujet de foyer avec animaux",
             "Croissance très lente : une ou deux palmes par an, et un grand sujet coûte cher pour cette raison",

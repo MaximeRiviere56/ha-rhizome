@@ -96,7 +96,71 @@ SOURCES = {
 PLAN = "https://plandejardin-jardinbiologique.com/distance-pantation-legume-au-potager.html"
 GERB = "https://www.gerbeaud.com/jardin/fiches/bonne-distance-plantation,1308.html"
 
+# Pour les plantes d'interieur, la cote de rusticite RHS est le seul chiffre
+# comparable qui existe : H1a au-dessus de 15 °C, H1b de 10 a 15, H1c de 5 a
+# 10, H2 de 1 a 5. Les fiches RHS donnent aussi l'exposition, l'eau et
+# l'envergure adulte, ce qui couvre tout ce que la fiche affirme d'elles —
+# elles n'ont ni fenetre, ni cycle, ni profondeur de semis.
 RELEVES: dict[str, dict[str, dict]] = {
+    "monstera": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/11192/monstera-deliciosa-f/details",
+                # cote H1b
+                "temp_min_c": (10, 15), "besoin_eau": "moyen",
+                "espacement_cm": (150, 250)},
+    },
+    "pothos": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/91403/epipremnum-aureum/details",
+                # cote H1b
+                "temp_min_c": (10, 15), "besoin_eau": "moyen",
+                "espacement_cm": (100, 150)},
+    },
+    "zamioculcas": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/19185/zamioculcas-zamiifolia/details",
+                # cote H1b
+                "temp_min_c": (10, 15), "besoin_eau": "faible",
+                "espacement_cm": (50, 100)},
+    },
+    "philodendron": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/514461/philodendron-hederaceum/details",
+                # cote H1a
+                "temp_min_c": (15, 20), "besoin_eau": "moyen",
+                "espacement_cm": (50, 100)},
+    },
+    "maranta": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/119598/maranta-leuconeura/details",
+                # cote H1b
+                "temp_min_c": (10, 15), "besoin_eau": "moyen",
+                "espacement_cm": (10, 50)},
+    },
+    "pilea": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/13015/i-pilea-peperomioides-i/details",
+                # cote H1c
+                "temp_min_c": (5, 10), "besoin_eau": "faible",
+                "espacement_cm": (10, 50)},
+    },
+    "peperomia": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/106212/peperomia-obtusifolia/details",
+                # cote H1b
+                "temp_min_c": (10, 15), "besoin_eau": "faible",
+                "espacement_cm": (10, 50)},
+    },
+    "hoya": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/8852/hoya-carnosa/details",
+                # cote H2
+                "temp_min_c": (1, 5), "besoin_eau": "faible",
+                "espacement_cm": (100, 150)},
+    },
+    "fougere-nid": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/1728/asplenium-nidus/details",
+                # cote H1b
+                "temp_min_c": (10, 15), "besoin_eau": "moyen",
+                "espacement_cm": (50, 100)},
+    },
+    "kentia": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/8845/howea-forsteriana/details",
+                # cote H1a
+                "temp_min_c": (15, 20), "besoin_eau": "moyen"},
+    },
     "ail-blanc": {
         "plandejardin": {"url": PLAN, "espacement_cm": (12, 15)},
         "gerbeaud": {"url": GERB, "espacement_cm": 15},
@@ -971,6 +1035,28 @@ ECARTS_ASSUMES = {
     # Le releve ne sait pas exprimer un plancher : « at least 15cm » devient
     # 15, donc un plafond. Les 20 cm de la fiche respectent la RHS ; seul
     # l'Almanac diverge vraiment, et c'est une source.
+    # Sur `temp_min_c`, la fiche plus frileuse que la source avance l'alerte
+    # gel : c'est le bon sens de l'erreur, on ne la corrige pas. Voir origan.
+    ("hoya", "temp_min_c"): (
+        "la RHS la classe H2 (1-5 °C) ; la fiche s'arrête à 12, donc elle "
+        "alerte plus tôt"
+    ),
+    ("pilea", "temp_min_c"): (
+        "la RHS la classe H1c (5-10 °C) ; la fiche s'arrête à 13, donc elle "
+        "alerte plus tôt"
+    ),
+    # L'eau : trois fiches arrosent plus souvent que la RHS ne le demande. La
+    # RHS decrit un sujet sous verre, en atmosphere humide et sans chauffage
+    # central ; un appartement francais chauffe seche plus vite. Arroser trop
+    # souvent reste un defaut — mais le corriger a l'aveugle sur une source
+    # qui ne decrit pas le meme milieu serait pire.
+    ("fougere-nid", "besoin_eau"): "la RHS décrit un sujet sous verre, pas en appartement chauffé",
+    ("maranta", "besoin_eau"): "la RHS décrit un sujet sous verre, pas en appartement chauffé",
+    ("pilea", "besoin_eau"): "la RHS décrit un sujet sous verre, pas en appartement chauffé",
+    ("pothos", "espacement_cm"): (
+        "la RHS donne l'envergure d'un sujet grimpant mature ; la fiche donne "
+        "l'encombrement d'une suspension, qui est la façon dont il se cultive"
+    ),
     ("ciboulette", "espacement_cm"): (
         "la RHS dit « at least 15cm apart » — un plancher que 20 cm respecte, "
         "pas un plafond ; l'Almanac seul donne 10-15"

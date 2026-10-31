@@ -5613,7 +5613,7 @@
    "espacement_cm": 150,
    "rusticite": {
     "gel": false,
-    "temp_min_c": 12
+    "temp_min_c": 15
    },
    "fenetres": {},
    "cycle": {

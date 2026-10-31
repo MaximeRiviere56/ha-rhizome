@@ -116,6 +116,9 @@ source extérieure, l'a été.
   le catalogue appliquait déjà au reste de ses gélives. Annoncer « c'est le
   moment » à la date moyenne de dernière gelée, c'est se tromper une fois sur
   deux, et une tomate perdue ne se rattrape pas dans la saison.
+- **Le kentia était donné à 12 °C**, quand la Royal Horticultural Society le
+  classe au-dessus de 15. Il passe à 15 : une valeur trop basse retarde
+  l'alerte gel, et c'est le troisième cas après le poivron et le romarin.
 - **Le romarin était donné rustique jusqu'à −12 °C**, là où la RHS s'arrête à
   −8 et l'Almanac à −10. Il passe à −10 : comme pour le poivron, une valeur
   trop optimiste retarde l'alerte gel.
