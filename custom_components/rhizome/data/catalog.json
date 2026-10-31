@@ -9776,7 +9776,7 @@
    "espacement_cm": 80,
    "rusticite": {
     "gel": true,
-    "temp_min_c": -12
+    "temp_min_c": -10
    },
    "fenetres": {
     "plantation": {

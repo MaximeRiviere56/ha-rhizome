@@ -144,6 +144,9 @@ visible.
   le catalogue appliquait déjà au reste de ses gélives. Annoncer « c'est le
   moment » à la date moyenne de dernière gelée, c'est se tromper une fois sur
   deux, et une tomate perdue ne se rattrape pas dans la saison.
+- **Le romarin était donné rustique jusqu'à −12 °C**, là où la RHS s'arrête à
+  −8 et l'Almanac à −10. Il passe à −10 : comme pour le poivron, une valeur
+  trop optimiste retarde l'alerte gel.
 - **Le concombre était espacé de 80 cm**, là où la RHS donne 30, l'Almanac
   30–45 et Au Jardin 60. Il passe à 60.
 - **Le poivron souffrait à 12 °C, pas à 10.** Ce n'est pas cosmétique depuis

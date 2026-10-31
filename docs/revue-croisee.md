@@ -309,9 +309,45 @@ Les écarts qui subsistent sont des **décisions assumées**, inscrites dans
 sources anglo-saxonnes disant « après la dernière gelée » sans marge, ce qui
 est vrai ailleurs et imprudent ici.
 
+## Lot 3 — les pérennes
+
+Dix fiches de plus : `framboisier`, `cassissier`, `groseillier`, `myrtillier`,
+`fraisier`, `menthe`, `romarin`, `thym`, `sauge`, `origan`. Les pérennes
+d'abord, parce qu'une erreur d'espacement sur un framboisier se paie des
+années quand celle d'un radis se paie un mois.
+
+**Une correction** : le romarin était donné rustique jusqu'à −12 °C, là où la
+RHS s'arrête à −8 et l'Almanac à −10/−5. Il passe à **−10**. Comme pour le
+poivron, ce n'est pas cosmétique : `temp_min_c` déclenche l'alerte gel, et une
+valeur trop optimiste la retarde.
+
+Tout le reste est confirmé — y compris des valeurs qui m'avaient fait tiquer,
+comme les 80 cm du romarin, que les trois sources encadrent (45 à 100).
+
+### Un principe qui s'est dégagé sur `temp_min_c`
+
+Au Jardin donne l'origan rustique à −28 °C, la fiche s'arrête à −15. **On ne
+corrige pas.** Sur ce champ, se tromper vers le haut est sans danger et se
+tromper vers le bas coûte la plante : une fiche plus frileuse que la source
+avance l'alerte au lieu de la retarder. La prudence dans le bon sens n'est pas
+une erreur à redresser.
+
+### Le piège des pages, rencontré trois fois
+
+Une URL construite par analogie rend parfois une page de garde, ou pire, une
+autre plante. Gerbeaud a servi la fiche de **l'agérate** pour une demande sur
+la tomate, et la page « groseillier » d'Au Jardin décrit un **groseillier à
+fleurs** — elle dit son fruit « sans intérêt », ce qui ne laisse aucun doute.
+
+**Une source qui se trompe de plante est pire qu'une source absente : elle
+vote.** Chaque relevé commence donc par faire confirmer à la page de quelle
+plante elle parle, et trois fiches de ce lot n'ont que deux sources parce que
+la troisième n'existait pas — mieux vaut deux sources sûres que trois dont une
+ment.
+
 ## Couverture, dite franchement
 
-**13 fiches sur 215 ont été relevées**, dont 11 sur trois sources ou plus.
+**23 fiches sur 215 ont été relevées**, dont 18 sur trois sources ou plus.
 
 Ce n'est pas la revue complète, et il ne faut pas la présenter comme telle.
 Une passe complète représente de l'ordre de **630 consultations de pages** —

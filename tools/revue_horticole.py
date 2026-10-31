@@ -25,6 +25,14 @@ Les offsets sont exprimes en jours par rapport a la derniere gelee, comme dans
 le catalogue : une source qui dit « fin avril » pour une derniere gelee au
 15 avril vaut +15.
 
+**Verifie toujours que la page recuperee parle bien de la plante.** Le piege
+s'est presente trois fois sur une vingtaine de fiches, et il est silencieux :
+une URL construite par analogie rend une page de garde, ou pire, une autre
+plante. Gerbeaud a servi la fiche de l'agerate pour une demande sur la tomate,
+et la page « groseillier » d'Au Jardin decrit un groseillier a fleurs — elle
+dit le fruit « sans interet », ce qui ne laisse aucun doute. Une source qui se
+trompe de plante est pire qu'une source absente : elle vote.
+
 Usage : python3 tools/revue_horticole.py [--tout]
 """
 
@@ -324,6 +332,165 @@ RELEVES: dict[str, dict[str, dict]] = {
             "besoin_eau": "moyen",
         },
     },
+    "framboisier": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/fruit/raspberries/grow-your-own",
+            "espacement_cm": (40, 60),
+            "besoin_eau": "moyen",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/raspberries",
+            "espacement_cm": 45,
+            "besoin_eau": "moyen",
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/framboisier.php",
+            "espacement_cm": 100,
+            "besoin_eau": "moyen",
+        },
+    },
+    "cassissier": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/fruit/blackcurrants/grow-your-own",
+            "espacement_cm": (150, 180),
+            "besoin_eau": "moyen",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/currants",
+            "espacement_cm": (90, 150),
+            "besoin_eau": "moyen",
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/cassissier.php",
+            "espacement_cm": 100,
+            "besoin_eau": "moyen",
+        },
+    },
+    # Deux sources seulement : la page « groseillier » d'Au Jardin decrit un
+    # groseillier a fleurs, dont elle dit le fruit « sans interet ». Ce n'est
+    # pas la meme plante, et on ne la compte pas.
+    "groseillier": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/fruit/redcurrants/grow-your-own",
+            "espacement_cm": (120, 150),
+            "besoin_eau": "moyen",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/currants",
+            "espacement_cm": (90, 150),
+            "besoin_eau": "moyen",
+        },
+    },
+    # Deux sources : Au Jardin n'a pas de fiche myrtillier.
+    "myrtillier": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/fruit/blueberries/grow-your-own",
+            "espacement_cm": (100, 200),
+            "besoin_eau": "eleve",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/blueberries",
+            "espacement_cm": (120, 150),
+            "besoin_eau": "eleve",
+        },
+    },
+    "fraisier": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/fruit/strawberries/grow-your-own",
+            "espacement_cm": (35, 40),
+            "besoin_eau": "eleve",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/strawberries",
+            "espacement_cm": 45,
+            "besoin_eau": "moyen",
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/fraisier.php",
+            "besoin_eau": "eleve",
+        },
+    },
+    "menthe": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/herbs/mint/grow-your-own",
+            "besoin_eau": "moyen",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/mint",
+            "espacement_cm": 60,
+            "besoin_eau": "moyen",
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/menthe.php",
+            "besoin_eau": "moyen",
+        },
+    },
+    "romarin": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/herbs/rosemary/grow-your-own",
+            "espacement_cm": 45,
+            "besoin_eau": "faible",
+            "temp_min_c": -8,
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/rosemary",
+            "espacement_cm": (60, 90),
+            "besoin_eau": "faible",
+            "temp_min_c": (-10, -5),
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/romarin.php",
+            "espacement_cm": 100,
+            "besoin_eau": "faible",
+        },
+    },
+    "thym": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/herbs/thyme/grow-your-own",
+            "espacement_cm": (20, 30),
+            "besoin_eau": "faible",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/thyme",
+            "espacement_cm": (12, 24),
+            "besoin_eau": "faible",
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/thym.php",
+            "espacement_cm": (20, 40),
+            "besoin_eau": "faible",
+        },
+    },
+    # Deux sources : Au Jardin n'expose pas de fiche sous ce nom.
+    "sauge": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/herbs/sage/grow-your-own",
+            "espacement_cm": 30,
+            "besoin_eau": "faible",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/sage",
+            "espacement_cm": 60,
+            "besoin_eau": "moyen",
+        },
+    },
+    "origan": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/herbs/oregano/grow-your-own",
+            "espacement_cm": (20, 30),
+            "besoin_eau": "faible",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/oregano",
+            "espacement_cm": (20, 25),
+            "besoin_eau": "faible",
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/origan.php",
+            "besoin_eau": "faible",
+            "temp_min_c": -28,
+        },
+    },
     "cosmos": {
         "almanac": {
             "url": "https://www.almanac.com/plant/cosmos",
@@ -380,6 +547,19 @@ ECARTS_ASSUMES = {
         "semis de fevrier en France (Au Jardin), plus tot qu'aux Etats-Unis"
     ),
     ("radis", "offset_semis_direct"): "la fiche seme plus tard que l'Almanac, pas plus tot",
+    # Sur `temp_min_c`, se tromper vers le haut est sans danger et se tromper
+    # vers le bas coute la plante : c'est ce champ qui declenche l'alerte gel,
+    # donc une fiche plus frileuse que la source avertit plus tot. On ne
+    # « corrige » pas une prudence dans le bon sens.
+    ("origan", "temp_min_c"): (
+        "Au Jardin le donne rustique a -28 °C ; la fiche s'arrete a -15, "
+        "ce qui avance l'alerte gel au lieu de la retarder"
+    ),
+    ("menthe", "besoin_eau"): (
+        "les trois sources disent d'elever la menthe en pot, pour la contenir ; "
+        "un pot seche en deux jours l'ete, d'ou « eleve » et non « moyen »"
+    ),
+    ("menthe", "espacement_cm"): "une seule source, et la menthe se cultive en pot",
     ("tournesol", "espacement_cm"): (
         "l'Almanac decrit un semis dense de rang a 15 cm ; 50 cm est l'usage "
         "francais pour un tournesol de pied"

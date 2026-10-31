@@ -693,7 +693,7 @@ C("thym", "Thym", "Thymus vulgaris", "Lamiacées", "aromatique", "🌿",
 
 C("romarin", "Romarin", "Salvia rosmarinus", "Lamiacées", "aromatique", "🌿",
   eau="faible", freq=12, sol="pauvre, caillouteux, très drainé", espacement=80,
-  diff=1, gel=True, tmin=-12, perenne=True,
+  diff=1, gel=True, tmin=-10, perenne=True,
   plantation=(-15, 60), recolte=("01-01", 364), cycle=(None, None, None, 364),
   eau_notes="Aucun arrosage une fois installé.",
   aime=["chou-cabus", "carotte"], evite=[],
