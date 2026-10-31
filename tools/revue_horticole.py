@@ -712,6 +712,47 @@ RELEVES: dict[str, dict[str, dict]] = {
         "biogarten": {"url": "https://www.biogarten.ch/fr-ch/conseils/service/instructions-de-plantation-et-soins/fruits/instruction-soins-chataigniers-noisetiers",
                       "espacement_cm": (150, 200)},
     },
+    "basilic": {
+        "rhs": {"url": "https://www.rhs.org.uk/herbs/basil/grow-your-own",
+                "espacement_cm": (10, 20), "besoin_eau": "eleve",
+                "temp_min_c": 10},
+        "almanac": {"url": "https://www.almanac.com/plant/basil",
+                    "espacement_cm": (25, 30), "profondeur_cm": 0.6,
+                    "offset_semis_abri": (-56, -42), "besoin_eau": "moyen",
+                    "temp_min_c": 10},
+        "aujardin": {"url": "https://www.aujardin.info/plantes/basilic.php",
+                     "espacement_cm": 25, "offset_plantation": (15, 45),
+                     "besoin_eau": "eleve", "temp_min_c": 15},
+    },
+    "persil": {
+        "rhs": {"url": "https://www.rhs.org.uk/herbs/parsley/grow-your-own",
+                "espacement_cm": (15, 30), "profondeur_cm": 1,
+                "besoin_eau": "moyen"},
+        "almanac": {"url": "https://www.almanac.com/plant/parsley",
+                    "espacement_cm": (6, 10), "profondeur_cm": 0.6,
+                    "offset_semis_direct": (-28, -21),
+                    "jours_semis_recolte": (70, 90), "besoin_eau": "moyen"},
+        "aujardin": {"url": "https://www.aujardin.info/plantes/persil.php",
+                     "espacement_cm": 20, "profondeur_cm": 1,
+                     "besoin_eau": "moyen"},
+    },
+    # Deux sources : la RHS classe la lavande en ornementale, pas en aromatique.
+    "lavande": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/lavender/growing-guide",
+                "espacement_cm": (30, 90), "besoin_eau": "faible"},
+        "aujardin": {"url": "https://www.aujardin.info/plantes/lavande.php",
+                     "espacement_cm": (40, 50), "besoin_eau": "faible",
+                     "temp_min_c": -15},
+    },
+    # Deux sources : Au Jardin n'expose pas de fiche ciboulette.
+    "ciboulette": {
+        "rhs": {"url": "https://www.rhs.org.uk/herbs/chives/grow-your-own",
+                "espacement_cm": 15, "profondeur_cm": (0.5, 1),
+                "besoin_eau": "moyen"},
+        "almanac": {"url": "https://www.almanac.com/plant/chives",
+                    "espacement_cm": (10, 15), "profondeur_cm": 0.6,
+                    "besoin_eau": "moyen"},
+    },
     "cosmos": {
         "almanac": {
             "url": "https://www.almanac.com/plant/cosmos",
@@ -772,6 +813,13 @@ ECARTS_ASSUMES = {
     # vers le bas coute la plante : c'est ce champ qui declenche l'alerte gel,
     # donc une fiche plus frileuse que la source avertit plus tot. On ne
     # « corrige » pas une prudence dans le bon sens.
+    # Le releve ne sait pas exprimer un plancher : « at least 15cm » devient
+    # 15, donc un plafond. Les 20 cm de la fiche respectent la RHS ; seul
+    # l'Almanac diverge vraiment, et c'est une source.
+    ("ciboulette", "espacement_cm"): (
+        "la RHS dit « at least 15cm apart » — un plancher que 20 cm respecte, "
+        "pas un plafond ; l'Almanac seul donne 10-15"
+    ),
     ("figuier", "besoin_eau"): (
         "les deux sources parlent d'un figuier jeune ou aux racines contraintes — "
         "Au Jardin precise « attention a la secheresse pendant les premieres "

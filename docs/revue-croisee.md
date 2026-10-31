@@ -405,9 +405,27 @@ pistes par l'outil, sans être ni corrigées ni excusées. **Une piste à une
 source n'est pas une erreur, et ne doit pas disparaître dans la table des
 écarts assumés.**
 
+## Lot 6 — aromatiques
+
+Basilic, persil, lavande, ciboulette. **Aucune correction.**
+
+### Un relevé qui ne sait pas dire « au moins »
+
+La ciboulette a été signalée comme écart ferme : 20 cm dans la fiche contre
+10–15 dans les sources. Mais la RHS écrit « **at least** 15cm apart » — un
+plancher, que 20 cm respecte. Mon relevé l'a enregistré comme un point, donc
+comme un plafond, et l'a transformé en reproche.
+
+C'est la deuxième fois qu'un écart vient du relevé et non de la fiche, après
+le chou cabus. La leçon n'est pas la même dans les deux cas : là, le relevé
+était **incomplet** et il suffisait de le compléter ; ici il est **inexact par
+construction**, parce que la structure ne sait pas exprimer une borne ouverte.
+Faute de pouvoir l'encoder sans inventer un plafond, l'écart est assumé avec
+la citation exacte.
+
 ## Couverture, dite franchement
 
-**43 fiches sur 215 ont été relevées**, dont 28 sur trois sources ou plus.
+**47 fiches sur 215 ont été relevées**, dont 30 sur trois sources ou plus.
 
 Ce n'est pas la revue complète, et il ne faut pas la présenter comme telle.
 Une passe complète représente de l'ordre de **630 consultations de pages** —
