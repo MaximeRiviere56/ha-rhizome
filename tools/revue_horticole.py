@@ -55,6 +55,15 @@ SOURCES = {
     "ema": ("Agence europeenne du medicament, monographies HMPC",
             "https://www.ema.europa.eu"),
     "aspca": ("ASPCA — plantes toxiques", "https://www.aspca.org"),
+    # Pour les fruitiers, les tables de pepinieristes valent mieux qu'une
+    # fiche par espece : elles donnent la distance *par porte-greffe et par
+    # forme*, qui est la seule facon honnete de repondre — un pommier sur M7
+    # et un pommier sur franc ne se plantent pas a la meme distance.
+    "pepins": ("Pépins & Cie, pépiniériste", "https://pepinsetcie.fr"),
+    "willemse": ("Willemse France", "https://conseils-jardin.willemsefrance.fr"),
+    "monjardin": ("Mon Jardin Paysager", "https://monjardinpaysager.fr"),
+    "biogarten": ("Biogarten", "https://www.biogarten.ch"),
+    "senura": ("Senura, station de recherche sur la noix", "https://senura.com"),
 }
 
 # Les champs relevables, et ce que chacun signifie ici.
@@ -597,6 +606,112 @@ RELEVES: dict[str, dict[str, dict]] = {
             "temp_min_c": -10,
         },
     },
+    # --- Fruitiers ------------------------------------------------------------
+    #
+    # Releves depuis trois tables de pepinieristes francais plutot que fiche
+    # par fiche : elles couvrent tout le verger d'un coup, et surtout elles
+    # distinguent le porte-greffe et la forme, ce qu'une fiche generique ne
+    # fait pas. Les fourchettes sont donc larges a dessein — un pommier va de
+    # 2 m en palisse a 10 m en plein vent, et le catalogue vise la demi-tige
+    # de jardin.
+    "pommier": {
+        "pepins": {"url": "https://pepinsetcie.fr/quelle-distance-de-plantation-pour-les-arbres-fruitiers/",
+                   "espacement_cm": (250, 1000)},
+        "monjardin": {"url": "https://monjardinpaysager.fr/distance-plantation-arbres-fruitiers/",
+                      "espacement_cm": (200, 1000)},
+        "almanac": {"url": "https://www.almanac.com/plant/apples",
+                    "espacement_cm": (120, 550), "besoin_eau": "moyen"},
+        "rhs": {"url": "https://www.rhs.org.uk/fruit/apples/grow-your-own",
+                "besoin_eau": "faible"},
+    },
+    "poirier": {
+        "pepins": {"url": "https://pepinsetcie.fr/quelle-distance-de-plantation-pour-les-arbres-fruitiers/",
+                   "espacement_cm": (200, 1000)},
+        "willemse": {"url": "https://conseils-jardin.willemsefrance.fr/quelles-distances-de-plantation-entre-les-arbres-fruitiers/",
+                     "espacement_cm": (100, 800)},
+    },
+    "cerisier": {
+        "pepins": {"url": "https://pepinsetcie.fr/quelle-distance-de-plantation-pour-les-arbres-fruitiers/",
+                   "espacement_cm": (500, 800)},
+        "monjardin": {"url": "https://monjardinpaysager.fr/distance-plantation-arbres-fruitiers/",
+                      "espacement_cm": (400, 1000)},
+        "willemse": {"url": "https://conseils-jardin.willemsefrance.fr/quelles-distances-de-plantation-entre-les-arbres-fruitiers/",
+                     "espacement_cm": (600, 1200)},
+    },
+    "prunier": {
+        "pepins": {"url": "https://pepinsetcie.fr/quelle-distance-de-plantation-pour-les-arbres-fruitiers/",
+                   "espacement_cm": (400, 500)},
+        "monjardin": {"url": "https://monjardinpaysager.fr/distance-plantation-arbres-fruitiers/",
+                      "espacement_cm": (300, 500)},
+        "willemse": {"url": "https://conseils-jardin.willemsefrance.fr/quelles-distances-de-plantation-entre-les-arbres-fruitiers/",
+                     "espacement_cm": (700, 1000)},
+    },
+    "pecher": {
+        "pepins": {"url": "https://pepinsetcie.fr/quelle-distance-de-plantation-pour-les-arbres-fruitiers/",
+                   "espacement_cm": 400},
+        "monjardin": {"url": "https://monjardinpaysager.fr/distance-plantation-arbres-fruitiers/",
+                      "espacement_cm": (300, 400)},
+        "willemse": {"url": "https://conseils-jardin.willemsefrance.fr/quelles-distances-de-plantation-entre-les-arbres-fruitiers/",
+                     "espacement_cm": (300, 500)},
+    },
+    "abricotier": {
+        "pepins": {"url": "https://pepinsetcie.fr/quelle-distance-de-plantation-pour-les-arbres-fruitiers/",
+                   "espacement_cm": 500},
+        "monjardin": {"url": "https://monjardinpaysager.fr/distance-plantation-arbres-fruitiers/",
+                      "espacement_cm": (400, 600)},
+        "willemse": {"url": "https://conseils-jardin.willemsefrance.fr/quelles-distances-de-plantation-entre-les-arbres-fruitiers/",
+                     "espacement_cm": (500, 700)},
+    },
+    "amandier": {
+        "pepins": {"url": "https://pepinsetcie.fr/quelle-distance-de-plantation-pour-les-arbres-fruitiers/",
+                   "espacement_cm": (500, 700)},
+        "willemse": {"url": "https://conseils-jardin.willemsefrance.fr/quelles-distances-de-plantation-entre-les-arbres-fruitiers/",
+                     "espacement_cm": (400, 700)},
+    },
+    "cognassier": {
+        "pepins": {"url": "https://pepinsetcie.fr/quelle-distance-de-plantation-pour-les-arbres-fruitiers/",
+                   "espacement_cm": (400, 600)},
+    },
+    "figuier": {
+        "pepins": {"url": "https://pepinsetcie.fr/quelle-distance-de-plantation-pour-les-arbres-fruitiers/",
+                   "espacement_cm": (600, 700)},
+        "willemse": {"url": "https://conseils-jardin.willemsefrance.fr/quelles-distances-de-plantation-entre-les-arbres-fruitiers/",
+                     "espacement_cm": (500, 800)},
+        "rhs": {"url": "https://www.rhs.org.uk/fruit/figs/grow-your-own",
+                "espacement_cm": 350, "besoin_eau": "moyen"},
+        "aujardin": {"url": "https://www.aujardin.info/plantes/figuier.php",
+                     "besoin_eau": "moyen", "temp_min_c": -15},
+    },
+    "kaki": {
+        "pepins": {"url": "https://pepinsetcie.fr/quelle-distance-de-plantation-pour-les-arbres-fruitiers/",
+                   "espacement_cm": (500, 700)},
+        "willemse": {"url": "https://conseils-jardin.willemsefrance.fr/quelles-distances-de-plantation-entre-les-arbres-fruitiers/",
+                     "espacement_cm": (400, 600)},
+    },
+    "nashi": {
+        "pepins": {"url": "https://pepinsetcie.fr/quelle-distance-de-plantation-pour-les-arbres-fruitiers/",
+                   "espacement_cm": (200, 500)},
+    },
+    "noyer": {
+        "senura": {"url": "https://senura.com/le-noyer/itineraire-technique",
+                   "espacement_cm": (600, 1400)},
+        "willemse": {"url": "https://conseils-jardin.willemsefrance.fr/quelles-distances-de-plantation-entre-les-arbres-fruitiers/",
+                     "espacement_cm": (700, 1000)},
+    },
+    "chataignier": {
+        "biogarten": {"url": "https://www.biogarten.ch/fr-ch/conseils/service/instructions-de-plantation-et-soins/fruits/instruction-soins-chataigniers-noisetiers",
+                      "espacement_cm": (700, 800)},
+        "willemse": {"url": "https://conseils-jardin.willemsefrance.fr/quelles-distances-de-plantation-entre-les-arbres-fruitiers/",
+                     "espacement_cm": (700, 1000)},
+    },
+    "neflier": {
+        "willemse": {"url": "https://conseils-jardin.willemsefrance.fr/quelles-distances-de-plantation-entre-les-arbres-fruitiers/",
+                     "espacement_cm": (500, 600)},
+    },
+    "noisetier": {
+        "biogarten": {"url": "https://www.biogarten.ch/fr-ch/conseils/service/instructions-de-plantation-et-soins/fruits/instruction-soins-chataigniers-noisetiers",
+                      "espacement_cm": (150, 200)},
+    },
     "cosmos": {
         "almanac": {
             "url": "https://www.almanac.com/plant/cosmos",
@@ -657,6 +772,13 @@ ECARTS_ASSUMES = {
     # vers le bas coute la plante : c'est ce champ qui declenche l'alerte gel,
     # donc une fiche plus frileuse que la source avertit plus tot. On ne
     # « corrige » pas une prudence dans le bon sens.
+    ("figuier", "besoin_eau"): (
+        "les deux sources parlent d'un figuier jeune ou aux racines contraintes — "
+        "Au Jardin precise « attention a la secheresse pendant les premieres "
+        "annees », et la RHS decrit un sujet palisse dont elle conseille "
+        "elle-meme de restreindre les racines. Un figuier etabli en pleine "
+        "terre est sobre, et la fiche le dit : trop d'eau dilue le gout."
+    ),
     ("brocoli", "offset_semis_abri"): (
         "la fiche seme plus tard que l'Almanac, et suit la RHS : mars-avril "
         "a l'abri"

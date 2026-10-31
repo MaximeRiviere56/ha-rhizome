@@ -374,9 +374,40 @@ s'applique dans les deux sens :
   et les variétés d'hiver tiennent plus bas. Abaisser le seuil contredirait sa
   propre fenêtre de semis.
 
+## Lot 5 — les fruitiers, et un changement de méthode
+
+Les quinze fruitiers d'un coup, et pas fiche par fiche : pour un verger, **les
+tables de pépiniéristes valent mieux qu'une fiche par espèce**, parce qu'elles
+donnent la distance *par porte-greffe et par forme*. C'est la seule façon
+honnête de répondre — un pommier sur M7 et un pommier sur franc ne se plantent
+pas à la même distance, et une source qui donne un seul chiffre cache ce
+choix. Trois tables croisées : Pépins & Cie, Willemse France, Mon Jardin
+Paysager, plus la RHS et l'Almanac pour l'eau et la rusticité.
+
+**Aucune correction.** Les quinze espacements tombent dans les fourchettes,
+souvent au centre : le pêcher à 400 cm quand Pépins & Cie dit exactement 4 m,
+le noyer à 1000 cm quand la Senura donne 6 à 14 m selon la variété.
+
+### Une suspicion que la revue a démentie
+
+Le figuier à 400 cm m'avait paru bas face aux 600–700 de Pépins & Cie. La RHS
+donne **3,5 m pour un sujet palissé**, qui est une forme de jardin courante en
+France aussi. Les 400 cm de la fiche tiennent entre la palmette et l'arbre
+libre, et la valeur reste. **Une suspicion n'est pas un constat** — c'est
+précisément pour ça que le seuil est à deux sources concordantes.
+
+### Deux fiches restent à confirmer
+
+`noisetier` (400 cm) et `neflier` (350 cm) n'ont qu'une source chacun, et elle
+les contredit — Biogarten donne 150–200 cm pour le noisetier, mais c'est un
+espacement de haie et non de sujet fruitier. Elles restent affichées comme
+pistes par l'outil, sans être ni corrigées ni excusées. **Une piste à une
+source n'est pas une erreur, et ne doit pas disparaître dans la table des
+écarts assumés.**
+
 ## Couverture, dite franchement
 
-**28 fiches sur 215 ont été relevées**, dont 22 sur trois sources ou plus.
+**43 fiches sur 215 ont été relevées**, dont 28 sur trois sources ou plus.
 
 Ce n'est pas la revue complète, et il ne faut pas la présenter comme telle.
 Une passe complète représente de l'ordre de **630 consultations de pages** —
