@@ -423,9 +423,36 @@ construction**, parce que la structure ne sait pas exprimer une borne ouverte.
 Faute de pouvoir l'encoder sans inventer un plafond, l'écart est assumé avec
 la citation exacte.
 
+## Lot 7 — trente-sept légumes d'un coup
+
+Même levier que pour les fruitiers : deux **tables françaises d'écartement au
+potager** couvrent à elles seules une trentaine de légumes. Les interroger une
+à une aurait coûté trente fois plus pour la même donnée, et une table est plus
+cohérente avec elle-même qu'une collection de pages écrites séparément.
+
+**Aucune correction** sur les trente-sept.
+
+### Trois fiches que la table accusait à tort
+
+Trois valeurs sortaient de la table, et toutes trois ont été confirmées par
+une vérification individuelle qui a tranché **contre la source consolidée** :
+
+| Fiche | Catalogue | Table | Vérification |
+|---|---|---|---|
+| `panais` | 15 cm | 25 cm | RHS : **15 cm** — exactement la fiche |
+| `mais-doux` | 40 cm | 20–30 cm | RHS : **34–45 cm** |
+| `endive` | 12 cm | 25–30 cm | RHS : **15 cm** pour les variétés à forcer |
+
+Le cas de l'endive explique les trois : la table française range sous
+« endive » des chicorées à feuilles, là où le catalogue décrit la witloof que
+l'on force. **Une table consolidée gagne en couverture ce qu'elle perd en
+précision de nommage** — elle ne dit pas de quelle plante elle parle aussi
+clairement qu'une fiche dédiée. C'est le prix du levier, et il se paie en
+vérifications ciblées sur les valeurs qui dépassent.
+
 ## Couverture, dite franchement
 
-**47 fiches sur 215 ont été relevées**, dont 30 sur trois sources ou plus.
+**84 fiches sur 215 ont été relevées**, dont 30 sur trois sources ou plus.
 
 Ce n'est pas la revue complète, et il ne faut pas la présenter comme telle.
 Une passe complète représente de l'ordre de **630 consultations de pages** —

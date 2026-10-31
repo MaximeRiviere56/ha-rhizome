@@ -55,6 +55,8 @@ SOURCES = {
     "ema": ("Agence europeenne du medicament, monographies HMPC",
             "https://www.ema.europa.eu"),
     "aspca": ("ASPCA — plantes toxiques", "https://www.aspca.org"),
+    "plandejardin": ("Plan de jardin — jardin biologique",
+                     "https://plandejardin-jardinbiologique.com"),
     # Pour les fruitiers, les tables de pepinieristes valent mieux qu'une
     # fiche par espece : elles donnent la distance *par porte-greffe et par
     # forme*, qui est la seule facon honnete de repondre — un pommier sur M7
@@ -86,7 +88,160 @@ SOURCES = {
 # Une valeur peut etre un nombre ou un couple (mini, maxi) quand la source
 # donne une fourchette — et elle en donne presque toujours une.
 
+# Deux tables francaises d'ecartement au potager, qui couvrent a elles seules
+# une trentaine de legumes. Memes raisons que les tables de pepinieristes pour
+# les fruitiers : interroger trente fiches une a une aurait coute trente fois
+# plus pour la meme donnee, et une table est plus coherente avec elle-meme
+# qu'une collection de pages ecrites separement.
+PLAN = "https://plandejardin-jardinbiologique.com/distance-pantation-legume-au-potager.html"
+GERB = "https://www.gerbeaud.com/jardin/fiches/bonne-distance-plantation,1308.html"
+
 RELEVES: dict[str, dict[str, dict]] = {
+    "ail-blanc": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (12, 15)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 15},
+    },
+    "ail-rose": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (12, 15)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 15},
+    },
+    "artichaut": {
+        "gerbeaud": {"url": GERB, "espacement_cm": 80},
+    },
+    "blette": {
+        "plandejardin": {"url": PLAN, "espacement_cm": 15},
+        "gerbeaud": {"url": GERB, "espacement_cm": 40},
+    },
+    "chicoree-frisee": {
+        "plandejardin": {"url": PLAN, "espacement_cm": 30},
+    },
+    "chou-bruxelles": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (40, 60)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 70},
+    },
+    "chou-chinois": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (30, 45)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 70},
+    },
+    "chou-kale": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (50, 60)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 70},
+    },
+    "chou-milan": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (30, 45)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 70},
+    },
+    "chou-rave": {
+        "plandejardin": {"url": PLAN, "espacement_cm": 15},
+        "gerbeaud": {"url": GERB, "espacement_cm": 70},
+    },
+    "chou-rouge": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (30, 45)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 70},
+    },
+    "citrouille": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (90, 150)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 100},
+    },
+    "cornichon": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (40, 50)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 60},
+    },
+    "courge-butternut": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (90, 150)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 100},
+    },
+    "courge-muscade": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (90, 150)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 100},
+    },
+    "courge-spaghetti": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (90, 150)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 100},
+    },
+    "echalote": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (5, 10)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 15},
+    },
+    "endive": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (25, 30)},
+        "rhs": {"url": "https://www.rhs.org.uk/vegetables/chicory/grow-your-own",
+                "espacement_cm": 15, "profondeur_cm": 1, "besoin_eau": "moyen"},
+    },
+    "fraisier-remontant": {
+        "gerbeaud": {"url": GERB, "espacement_cm": 30},
+    },
+    "haricot-a-rames": {
+        "plandejardin": {"url": PLAN, "espacement_cm": 10},
+        "gerbeaud": {"url": GERB, "espacement_cm": 40},
+    },
+    "haricot-sec": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (15, 20)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 40},
+    },
+    "laitue-hiver": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (25, 30)},
+        "gerbeaud": {"url": GERB, "espacement_cm": (30, 40)},
+    },
+    "mais-doux": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (20, 30)},
+        "rhs": {"url": "https://www.rhs.org.uk/vegetables/sweetcorn/grow-your-own",
+                "espacement_cm": (34, 45), "profondeur_cm": 2.5,
+                "temp_min_c": 10},
+    },
+    "melon": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (30, 40)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 100},
+    },
+    "navet": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (5, 15)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 10},
+    },
+    "oignon-blanc": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (5, 10)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 15},
+    },
+    "oignon-jaune": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (5, 10)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 15},
+    },
+    "oignon-rouge": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (5, 10)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 15},
+    },
+    "panais": {
+        "plandejardin": {"url": PLAN, "espacement_cm": 25},
+        "rhs": {"url": "https://www.rhs.org.uk/vegetables/parsnips/grow-your-own",
+                "espacement_cm": 15, "profondeur_cm": 1, "besoin_eau": "moyen"},
+    },
+    "pasteque": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (150, 200)},
+    },
+    "patisson": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (60, 100)},
+    },
+    "piment": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (30, 60)},
+    },
+    "pois-mange-tout": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (5, 10)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 3},
+    },
+    "pomme-de-terre": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (20, 30)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 40},
+    },
+    "potimarron": {
+        "plandejardin": {"url": PLAN, "espacement_cm": (90, 150)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 100},
+    },
+    "salsifis": {
+        "plandejardin": {"url": PLAN, "espacement_cm": 10},
+    },
+    "scarole": {
+        "plandejardin": {"url": PLAN, "espacement_cm": 30},
+    },
+
     "tomate": {
         "rhs": {
             "url": "https://www.rhs.org.uk/vegetables/tomatoes/grow-your-own",
