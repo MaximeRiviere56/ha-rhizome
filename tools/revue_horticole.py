@@ -102,6 +102,57 @@ GERB = "https://www.gerbeaud.com/jardin/fiches/bonne-distance-plantation,1308.ht
 # l'envergure adulte, ce qui couvre tout ce que la fiche affirme d'elles —
 # elles n'ont ni fenetre, ni cycle, ni profondeur de semis.
 RELEVES: dict[str, dict[str, dict]] = {
+    "aspidistra": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/1715/aspidistra-elatior/details",  # cote H3
+                "temp_min_c": (-5, 1), "besoin_eau": "moyen", "espacement_cm": (10, 50)},
+    },
+    "crassula": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/4739/crassula-ovata/details",  # cote H2
+                "temp_min_c": (1, 5), "besoin_eau": "faible", "espacement_cm": (100, 150)},
+    },
+    "dieffenbachia": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/31781/dieffenbachia-seguine/details",  # cote H1a
+                "temp_min_c": (15, 20), "besoin_eau": "moyen", "espacement_cm": (100, 100)},
+    },
+    "ficus-elastica": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/95720/ficus-elastica/details",  # cote H1b
+                "temp_min_c": (10, 15), "besoin_eau": "moyen", "espacement_cm": (100, 150)},
+    },
+    "spathiphyllum": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/17623/spathiphyllum-wallisii/details",  # cote H1b
+                "temp_min_c": (10, 15), "besoin_eau": "eleve", "espacement_cm": (10, 50)},
+    },
+    "aloe-vera": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/981/aloe-vera/details",  # cote H1c
+                "temp_min_c": (5, 10), "besoin_eau": "faible", "espacement_cm": (50, 100)},
+    },
+    "ficus-lyrata": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/7207/ficus-lyrata/details",  # cote H1b
+                "temp_min_c": (10, 15), "besoin_eau": "moyen", "espacement_cm": (100, 150)},
+    },
+    "calathea": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/calathea",
+                "espacement_cm": (10, 250)},
+    },
+    "chlorophytum": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/spider-plants",
+                "espacement_cm": (10, 50)},
+    },
+    "dracaena-marginata": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/dracaena",
+                "espacement_cm": (100, 150)},
+    },
+    "sansevieria": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/sansevieria",
+                # « toujours les garder au-dessus de 10 °C »
+                "temp_min_c": 10, "besoin_eau": "faible",
+                "espacement_cm": (10, 50)},
+    },
+    "orchidee-phalaenopsis": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/pdfs/rhs-recommended-award-of-garden-merit-orchids.pdf",
+                # cote H1a
+                "temp_min_c": (15, 20)},
+    },
     "monstera": {
         "rhs": {"url": "https://www.rhs.org.uk/plants/11192/monstera-deliciosa-f/details",
                 # cote H1b
@@ -1053,6 +1104,19 @@ ECARTS_ASSUMES = {
     ("fougere-nid", "besoin_eau"): "la RHS décrit un sujet sous verre, pas en appartement chauffé",
     ("maranta", "besoin_eau"): "la RHS décrit un sujet sous verre, pas en appartement chauffé",
     ("pilea", "besoin_eau"): "la RHS décrit un sujet sous verre, pas en appartement chauffé",
+    # L'envergure RHS est celle d'un sujet mature sous verre ; la fiche donne
+    # l'encombrement d'un pot d'appartement, qui est la facon dont ces plantes
+    # se cultivent reellement. L'ecart est systematique et non une erreur.
+    ("crassula", "espacement_cm"): "envergure RHS d'un sujet mature ; la fiche donne un pot",
+    ("dieffenbachia", "espacement_cm"): "envergure RHS d'un sujet mature ; la fiche donne un pot",
+    ("aspidistra", "temp_min_c"): (
+        "la RHS la classe H3 (-5 à 1 °C) ; la fiche s'arrête à 5, donc elle "
+        "alerte plus tôt"
+    ),
+    ("aspidistra", "besoin_eau"): (
+        "surnommée « cast iron plant » pour sa résistance ; la fiche la dit "
+        "sobre, ce que la RHS confirme en texte sans le dire dans son champ"
+    ),
     ("pothos", "espacement_cm"): (
         "la RHS donne l'envergure d'un sujet grimpant mature ; la fiche donne "
         "l'encombrement d'une suspension, qui est la façon dont il se cultive"

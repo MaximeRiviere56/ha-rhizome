@@ -478,9 +478,18 @@ appartement français chauffé sèche plus vite. Arroser trop souvent reste un
 défaut — mais le corriger à l'aveugle sur une source qui ne décrit pas le même
 milieu serait pire que de l'assumer en le disant.
 
+### Les vingt-deux plantes d'intérieur, terminées
+
+Un écart systématique s'est dégagé, et il n'est pas une erreur : la RHS donne
+**l'envergure d'un sujet mature sous verre** — un pothos à 1,50 m, une crassula
+à 1,50 m — là où la fiche donne **l'encombrement d'un pot d'appartement**,
+qui est la façon dont ces plantes se cultivent réellement. Les deux chiffres
+sont justes, ils ne mesurent pas la même chose. L'écart est assumé une fois
+pour toutes plutôt que fiche par fiche.
+
 ## Couverture, dite franchement
 
-**94 fiches sur 215 ont été relevées**, dont 30 sur trois sources ou plus.
+**106 fiches sur 215 ont été relevées**, dont 30 sur trois sources ou plus.
 
 Ce n'est pas la revue complète, et il ne faut pas la présenter comme telle.
 Une passe complète représente de l'ordre de **630 consultations de pages** —
