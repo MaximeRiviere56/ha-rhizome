@@ -491,6 +491,112 @@ RELEVES: dict[str, dict[str, dict]] = {
             "temp_min_c": -28,
         },
     },
+    "chou-cabus": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/vegetables/cabbages/grow-your-own",
+            "espacement_cm": (30, 45),
+            "profondeur_cm": 2,
+            "jours_plant_recolte": (120, 180),  # « quatre à six mois »
+            "besoin_eau": "eleve",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/cabbage",
+            "espacement_cm": (18, 30),
+            "profondeur_cm": 0.6,
+            "offset_semis_abri": (-56, -42),
+            "jours_plant_recolte": 70,
+            "besoin_eau": "eleve",
+            "temp_min_c": -8,
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/chou-pomme.php",
+            "espacement_cm": 50,
+            "besoin_eau": "eleve",
+        },
+    },
+    "chou-fleur": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/vegetables/cauliflower/grow-your-own",
+            "espacement_cm": (45, 70),
+            "profondeur_cm": 1.5,
+            "besoin_eau": "eleve",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/cauliflower",
+            "espacement_cm": (46, 61),
+            "profondeur_cm": 1.3,
+            "offset_semis_abri": (-35, -28),
+            "jours_plant_recolte": (50, 100),
+            "besoin_eau": "eleve",
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/chou-fleur.php",
+            "espacement_cm": 70,
+            "profondeur_cm": 2,
+            "besoin_eau": "eleve",
+        },
+    },
+    # Deux sources : Au Jardin n'expose pas de fiche brocoli.
+    "brocoli": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/vegetables/calabrese/grow-your-own",
+            "espacement_cm": (30, 45),
+            "profondeur_cm": 2,
+            "besoin_eau": "eleve",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/broccoli",
+            "espacement_cm": (30, 51),
+            "offset_semis_abri": (-56, -42),
+            "besoin_eau": "eleve",
+        },
+    },
+    "epinard": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/vegetables/spinach/grow-your-own",
+            "espacement_cm": 15,
+            "profondeur_cm": 2.5,
+            "jours_semis_recolte": (30, 60),
+            "besoin_eau": "eleve",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/spinach",
+            "espacement_cm": (7, 10),
+            "profondeur_cm": 1.25,
+            "besoin_eau": "eleve",
+            "temp_min_c": -9,
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/epinard.php",
+            "espacement_cm": 15,
+            "jours_semis_recolte": (45, 60),
+            "besoin_eau": "eleve",
+        },
+    },
+    "betterave": {
+        "rhs": {
+            "url": "https://www.rhs.org.uk/vegetables/beetroot/grow-your-own",
+            "espacement_cm": (10, 15),
+            "profondeur_cm": 2.5,
+            "jours_semis_recolte": (40, 60),
+            "besoin_eau": "moyen",
+        },
+        "almanac": {
+            "url": "https://www.almanac.com/plant/beets",
+            "espacement_cm": (7.5, 10),
+            "profondeur_cm": 1.3,
+            "jours_semis_recolte": (55, 70),
+            "besoin_eau": "moyen",
+        },
+        "aujardin": {
+            "url": "https://www.aujardin.info/plantes/betterave.php",
+            "espacement_cm": 10,
+            "profondeur_cm": 5,
+            "jours_semis_recolte": 75,
+            "besoin_eau": "moyen",
+            "temp_min_c": -10,
+        },
+    },
     "cosmos": {
         "almanac": {
             "url": "https://www.almanac.com/plant/cosmos",
@@ -551,6 +657,20 @@ ECARTS_ASSUMES = {
     # vers le bas coute la plante : c'est ce champ qui declenche l'alerte gel,
     # donc une fiche plus frileuse que la source avertit plus tot. On ne
     # « corrige » pas une prudence dans le bon sens.
+    ("brocoli", "offset_semis_abri"): (
+        "la fiche seme plus tard que l'Almanac, et suit la RHS : mars-avril "
+        "a l'abri"
+    ),
+    ("brocoli", "profondeur_cm"): "1 cm contre 2 a la RHS, une seule source",
+    ("epinard", "temp_min_c"): (
+        "l'Almanac donne -9 °C, mais la fiche seme des fin janvier et compte "
+        "donc sur un hivernage : les varietes d'hiver tiennent plus bas, et "
+        "abaisser le seuil contredirait sa propre fenetre de semis"
+    ),
+    ("betterave", "temp_min_c"): (
+        "Au Jardin la donne a -10 °C, la fiche s'arrete a -4 : prudence dans "
+        "le bon sens, l'alerte gel part plus tot"
+    ),
     ("origan", "temp_min_c"): (
         "Au Jardin le donne rustique a -28 °C ; la fiche s'arrete a -15, "
         "ce qui avance l'alerte gel au lieu de la retarder"

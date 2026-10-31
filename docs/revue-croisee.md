@@ -345,9 +345,38 @@ plante elle parle, et trois fiches de ce lot n'ont que deux sources parce que
 la troisième n'existait pas — mieux vaut deux sources sûres que trois dont une
 ment.
 
+## Lot 4 — choux et légumes-feuilles
+
+Cinq fiches : `chou-cabus`, `chou-fleur`, `brocoli`, `epinard`, `betterave`.
+
+**Aucune correction.** Les cinq sont confirmées, et le chou cabus l'est au
+centimètre : Au Jardin donne 50 cm entre plants, exactement la valeur de la
+fiche.
+
+Les cinq écarts restants sont tous à une seule source et sont inscrits avec
+leur raison. L'un d'eux ne venait pas de la fiche mais de moi : j'avais relevé
+l'espacement et la profondeur de la RHS pour le chou cabus sans relever son
+délai plantation→récolte, et les 90 jours de la fiche paraissaient donc sortir
+des 70 de l'Almanac. La RHS dit « quatre à six mois » : c'est le relevé qui
+était incomplet, pas la fiche. **Compléter un relevé vaut toujours mieux que
+l'excuser dans la table des écarts assumés.**
+
+### Deux cas opposés sur `temp_min_c`
+
+Ils méritent d'être lus ensemble, parce qu'ils montrent comment le principe
+s'applique dans les deux sens :
+
+- **Betterave** : Au Jardin la donne à −10 °C, la fiche s'arrête à −4. On
+  garde — prudence dans le bon sens, l'alerte part plus tôt.
+- **Épinard** : l'Almanac donne −9 °C, la fiche descend à −12. C'est le sens
+  risqué, et il demandait donc une justification et non une excuse. Elle
+  existe : la fiche sème dès fin janvier, donc elle compte sur un hivernage,
+  et les variétés d'hiver tiennent plus bas. Abaisser le seuil contredirait sa
+  propre fenêtre de semis.
+
 ## Couverture, dite franchement
 
-**23 fiches sur 215 ont été relevées**, dont 18 sur trois sources ou plus.
+**28 fiches sur 215 ont été relevées**, dont 22 sur trois sources ou plus.
 
 Ce n'est pas la revue complète, et il ne faut pas la présenter comme telle.
 Une passe complète représente de l'ordre de **630 consultations de pages** —
