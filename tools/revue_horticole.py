@@ -106,8 +106,65 @@ GERB = "https://www.gerbeaud.com/jardin/fiches/bonne-distance-plantation,1308.ht
 # rendait introuvables : l'URL devinee depuis le nom francais rend une page
 # d'accueil, sans le dire.
 AJ = "https://www.aujardin.info/plantes"
+R = "https://www.rhs.org.uk/herbs"
 
 RELEVES: dict[str, dict[str, dict]] = {
+    "aneth": {
+        "rhs": {"url": f"{R}/dill/grow-your-own", "espacement_cm": 20, "profondeur_cm": 1, "besoin_eau": "moyen"},
+    },
+    "coriandre": {
+        "rhs": {"url": f"{R}/coriander/grow-your-own", "espacement_cm": (5, 20), "besoin_eau": "moyen"},
+    },
+    "cerfeuil": {
+        "rhs": {"url": f"{R}/chervil/grow-your-own", "espacement_cm": 15, "profondeur_cm": 1, "besoin_eau": "moyen"},
+    },
+    "estragon": {
+        "rhs": {"url": f"{R}/tarragon/grow-your-own", "espacement_cm": (20, 30), "besoin_eau": "faible"},
+    },
+    "laurier-sauce": {
+        "rhs": {"url": f"{R}/bay/grow-your-own", "besoin_eau": "faible"},
+    },
+    "marjolaine": {
+        "rhs": {"url": f"{R}/marjoram/grow-your-own", "espacement_cm": (20, 50), "besoin_eau": "faible"},
+    },
+    "melisse": {
+        "rhs": {"url": f"{R}/lemon-balm/grow-your-own", "besoin_eau": "faible"},
+    },
+    "sarriette": {
+        "rhs": {"url": f"{R}/savory/grow-your-own", "espacement_cm": (20, 30), "besoin_eau": "faible"},
+    },
+    "liveche": {
+        "rhs": {"url": f"{R}/lovage/grow-your-own", "espacement_cm": (30, 100), "besoin_eau": "moyen"},
+    },
+    "groseillier-maquereau": {
+        "rhs": {"url": "https://www.rhs.org.uk/fruit/gooseberries/grow-your-own",
+                "espacement_cm": (120, 150), "besoin_eau": "faible"},
+    },
+    "vigne-table": {
+        "rhs": {"url": "https://www.rhs.org.uk/fruit/grapes/grow-your-own",
+                "espacement_cm": (120, 150), "besoin_eau": "faible"},
+    },
+    "camerisier": {
+        "rhs": {"url": "https://www.rhs.org.uk/fruit/honeyberry/grow-your-own",
+                "temp_min_c": -40},
+    },
+    # Memes especes que `framboisier` et `fraisier`, dont les sources traitent
+    # explicitement les varietes remontantes : la RHS decrit les
+    # « autumn-fruiting raspberries » dans la meme page, et Au Jardin les
+    # fraisiers remontants dans la sienne. On reutilise donc les memes relevés
+    # plutot que d'en inventer.
+    "framboisier-remontant": {
+        "rhs": {"url": "https://www.rhs.org.uk/fruit/raspberries/grow-your-own",
+                "espacement_cm": (40, 60), "besoin_eau": "moyen"},
+        "almanac": {"url": "https://www.almanac.com/plant/raspberries",
+                    "espacement_cm": 45, "besoin_eau": "moyen"},
+    },
+    "fraisier-remontant": {
+        "rhs": {"url": "https://www.rhs.org.uk/fruit/strawberries/grow-your-own",
+                "espacement_cm": (35, 40), "besoin_eau": "eleve"},
+        "aujardin": {"url": "https://www.aujardin.info/plantes/fraisier.php",
+                     "besoin_eau": "eleve"},
+    },
     "artichaut": {
         "aujardin": {"url": f"{AJ}/artichaut.php",
                      "besoin_eau": "moyen", "temp_min_c": (-12, -10)},
