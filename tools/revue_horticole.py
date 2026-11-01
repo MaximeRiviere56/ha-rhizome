@@ -121,18 +121,26 @@ RELEVES: dict[str, dict[str, dict]] = {
     },
     "chou-rave": {
         "rhs": {"url": f"{V}/kohl-rabi/grow-your-own", "espacement_cm": 15, "profondeur_cm": 1.5, "besoin_eau": "moyen", "jours_semis_recolte": (42, 84)},
+        "plandejardin": {"url": PLAN, "espacement_cm": 15},
+        "gerbeaud": {"url": GERB, "espacement_cm": 70},
     },
     "patate-douce": {
         "rhs": {"url": f"{V}/sweet-potatoes/grow-your-own", "espacement_cm": 30, "besoin_eau": "eleve", "jours_plant_recolte": (120, 150)},
     },
     "chou-kale": {
         "rhs": {"url": f"{V}/kale/grow-your-own", "espacement_cm": (30, 60), "profondeur_cm": 1, "besoin_eau": "moyen"},
+        "plandejardin": {"url": PLAN, "espacement_cm": (50, 60)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 70},
     },
     "chou-bruxelles": {
         "rhs": {"url": f"{V}/brussels-sprouts/grow-your-own", "espacement_cm": 60, "profondeur_cm": 2, "besoin_eau": "moyen"},
+        "plandejardin": {"url": PLAN, "espacement_cm": (40, 60)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 70},
     },
     "blette": {
         "rhs": {"url": f"{V}/chard/grow-your-own", "espacement_cm": 30, "profondeur_cm": 2.5, "besoin_eau": "moyen"},
+        "plandejardin": {"url": PLAN, "espacement_cm": 15},
+        "gerbeaud": {"url": GERB, "espacement_cm": 40},
     },
     "roquette": {
         "rhs": {"url": f"{V}/rocket/grow-your-own", "espacement_cm": 15, "profondeur_cm": 1, "besoin_eau": "moyen", "jours_semis_recolte": (28, 42)},
@@ -142,6 +150,8 @@ RELEVES: dict[str, dict[str, dict]] = {
     },
     "navet": {
         "rhs": {"url": f"{V}/turnips/grow-your-own", "espacement_cm": (15, 23), "profondeur_cm": 1, "besoin_eau": "moyen", "jours_semis_recolte": (42, 70)},
+        "plandejardin": {"url": PLAN, "espacement_cm": (5, 15)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 10},
     },
     "aneth": {
         "rhs": {"url": f"{R}/dill/grow-your-own", "espacement_cm": 20, "profondeur_cm": 1, "besoin_eau": "moyen"},
@@ -182,11 +192,6 @@ RELEVES: dict[str, dict[str, dict]] = {
         "rhs": {"url": "https://www.rhs.org.uk/fruit/honeyberry/grow-your-own",
                 "temp_min_c": -40},
     },
-    # Memes especes que `framboisier` et `fraisier`, dont les sources traitent
-    # explicitement les varietes remontantes : la RHS decrit les
-    # « autumn-fruiting raspberries » dans la meme page, et Au Jardin les
-    # fraisiers remontants dans la sienne. On reutilise donc les memes relevés
-    # plutot que d'en inventer.
     "framboisier-remontant": {
         "rhs": {"url": "https://www.rhs.org.uk/fruit/raspberries/grow-your-own",
                 "espacement_cm": (40, 60), "besoin_eau": "moyen"},
@@ -231,9 +236,6 @@ RELEVES: dict[str, dict[str, dict]] = {
         # mon erreur, pas celle de la fiche.
         "aujardin": {"url": f"{AJ}/ortie.php", "besoin_eau": "moyen"},
     },
-    # Page de genre : Au Jardin traite les trois cents especes d'Hypericum
-    # ensemble, pas H. perforatum en particulier. On n'en retient donc que ce
-    # qui vaut pour le genre — l'eau — et surtout pas une valeur chiffree.
     "millepertuis": {
         "aujardin": {"url": f"{AJ}/millepertuis.php", "besoin_eau": "faible"},
     },
@@ -411,31 +413,15 @@ RELEVES: dict[str, dict[str, dict]] = {
         "plandejardin": {"url": PLAN, "espacement_cm": (12, 15)},
         "gerbeaud": {"url": GERB, "espacement_cm": 15},
     },
-    "blette": {
-        "plandejardin": {"url": PLAN, "espacement_cm": 15},
-        "gerbeaud": {"url": GERB, "espacement_cm": 40},
-    },
     "chicoree-frisee": {
         "plandejardin": {"url": PLAN, "espacement_cm": 30},
-    },
-    "chou-bruxelles": {
-        "plandejardin": {"url": PLAN, "espacement_cm": (40, 60)},
-        "gerbeaud": {"url": GERB, "espacement_cm": 70},
     },
     "chou-chinois": {
         "plandejardin": {"url": PLAN, "espacement_cm": (30, 45)},
         "gerbeaud": {"url": GERB, "espacement_cm": 70},
     },
-    "chou-kale": {
-        "plandejardin": {"url": PLAN, "espacement_cm": (50, 60)},
-        "gerbeaud": {"url": GERB, "espacement_cm": 70},
-    },
     "chou-milan": {
         "plandejardin": {"url": PLAN, "espacement_cm": (30, 45)},
-        "gerbeaud": {"url": GERB, "espacement_cm": 70},
-    },
-    "chou-rave": {
-        "plandejardin": {"url": PLAN, "espacement_cm": 15},
         "gerbeaud": {"url": GERB, "espacement_cm": 70},
     },
     "chou-rouge": {
@@ -493,10 +479,6 @@ RELEVES: dict[str, dict[str, dict]] = {
         "plandejardin": {"url": PLAN, "espacement_cm": (30, 40)},
         "gerbeaud": {"url": GERB, "espacement_cm": 100},
     },
-    "navet": {
-        "plandejardin": {"url": PLAN, "espacement_cm": (5, 15)},
-        "gerbeaud": {"url": GERB, "espacement_cm": 10},
-    },
     "oignon-blanc": {
         "plandejardin": {"url": PLAN, "espacement_cm": (5, 10)},
         "gerbeaud": {"url": GERB, "espacement_cm": 15},
@@ -541,7 +523,6 @@ RELEVES: dict[str, dict[str, dict]] = {
     "scarole": {
         "plandejardin": {"url": PLAN, "espacement_cm": 30},
     },
-
     "tomate": {
         "rhs": {
             "url": "https://www.rhs.org.uk/vegetables/tomatoes/grow-your-own",
@@ -830,9 +811,6 @@ RELEVES: dict[str, dict[str, dict]] = {
             "besoin_eau": "moyen",
         },
     },
-    # Deux sources seulement : la page « groseillier » d'Au Jardin decrit un
-    # groseillier a fleurs, dont elle dit le fruit « sans interet ». Ce n'est
-    # pas la meme plante, et on ne la compte pas.
     "groseillier": {
         "rhs": {
             "url": "https://www.rhs.org.uk/fruit/redcurrants/grow-your-own",
@@ -845,7 +823,6 @@ RELEVES: dict[str, dict[str, dict]] = {
             "besoin_eau": "moyen",
         },
     },
-    # Deux sources : Au Jardin n'a pas de fiche myrtillier.
     "myrtillier": {
         "rhs": {
             "url": "https://www.rhs.org.uk/fruit/blueberries/grow-your-own",
@@ -925,7 +902,6 @@ RELEVES: dict[str, dict[str, dict]] = {
             "besoin_eau": "faible",
         },
     },
-    # Deux sources : Au Jardin n'expose pas de fiche sous ce nom.
     "sauge": {
         "rhs": {
             "url": "https://www.rhs.org.uk/herbs/sage/grow-your-own",
@@ -1000,7 +976,6 @@ RELEVES: dict[str, dict[str, dict]] = {
             "besoin_eau": "eleve",
         },
     },
-    # Deux sources : Au Jardin n'expose pas de fiche brocoli.
     "brocoli": {
         "rhs": {
             "url": "https://www.rhs.org.uk/vegetables/calabrese/grow-your-own",
@@ -1061,14 +1036,6 @@ RELEVES: dict[str, dict[str, dict]] = {
             "temp_min_c": -10,
         },
     },
-    # --- Fruitiers ------------------------------------------------------------
-    #
-    # Releves depuis trois tables de pepinieristes francais plutot que fiche
-    # par fiche : elles couvrent tout le verger d'un coup, et surtout elles
-    # distinguent le porte-greffe et la forme, ce qu'une fiche generique ne
-    # fait pas. Les fourchettes sont donc larges a dessein — un pommier va de
-    # 2 m en palisse a 10 m en plein vent, et le catalogue vise la demi-tige
-    # de jardin.
     "pommier": {
         "pepins": {"url": "https://pepinsetcie.fr/quelle-distance-de-plantation-pour-les-arbres-fruitiers/",
                    "espacement_cm": (250, 1000)},
@@ -1191,7 +1158,6 @@ RELEVES: dict[str, dict[str, dict]] = {
                      "espacement_cm": 20, "profondeur_cm": 1,
                      "besoin_eau": "moyen"},
     },
-    # Deux sources : la RHS classe la lavande en ornementale, pas en aromatique.
     "lavande": {
         "rhs": {"url": "https://www.rhs.org.uk/plants/lavender/growing-guide",
                 "espacement_cm": (30, 90), "besoin_eau": "faible"},
@@ -1199,7 +1165,6 @@ RELEVES: dict[str, dict[str, dict]] = {
                      "espacement_cm": (40, 50), "besoin_eau": "faible",
                      "temp_min_c": -15},
     },
-    # Deux sources : Au Jardin n'expose pas de fiche ciboulette.
     "ciboulette": {
         "rhs": {"url": "https://www.rhs.org.uk/herbs/chives/grow-your-own",
                 "espacement_cm": 15, "profondeur_cm": (0.5, 1),
@@ -1225,6 +1190,31 @@ RELEVES: dict[str, dict[str, dict]] = {
             "offset_semis_direct": 15,  # « after the danger of frost has passed »
         },
     },
+    # Memes especes que `framboisier` et `fraisier`, dont les sources traitent
+    # explicitement les varietes remontantes : la RHS decrit les
+    # « autumn-fruiting raspberries » dans la meme page, et Au Jardin les
+    # fraisiers remontants dans la sienne. On reutilise donc les memes relevés
+    # plutot que d'en inventer.
+    # Page de genre : Au Jardin traite les trois cents especes d'Hypericum
+    # ensemble, pas H. perforatum en particulier. On n'en retient donc que ce
+    # qui vaut pour le genre — l'eau — et surtout pas une valeur chiffree.
+
+    # Deux sources seulement : la page « groseillier » d'Au Jardin decrit un
+    # groseillier a fleurs, dont elle dit le fruit « sans interet ». Ce n'est
+    # pas la meme plante, et on ne la compte pas.
+    # Deux sources : Au Jardin n'a pas de fiche myrtillier.
+    # Deux sources : Au Jardin n'expose pas de fiche sous ce nom.
+    # Deux sources : Au Jardin n'expose pas de fiche brocoli.
+    # --- Fruitiers ------------------------------------------------------------
+    #
+    # Releves depuis trois tables de pepinieristes francais plutot que fiche
+    # par fiche : elles couvrent tout le verger d'un coup, et surtout elles
+    # distinguent le porte-greffe et la forme, ce qu'une fiche generique ne
+    # fait pas. Les fourchettes sont donc larges a dessein — un pommier va de
+    # 2 m en palisse a 10 m en plein vent, et le catalogue vise la demi-tige
+    # de jardin.
+    # Deux sources : la RHS classe la lavande en ornementale, pas en aromatique.
+    # Deux sources : Au Jardin n'expose pas de fiche ciboulette.
 }
 
 
