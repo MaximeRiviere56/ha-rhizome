@@ -118,6 +118,26 @@ V = "https://www.rhs.org.uk/vegetables"
 GM = "https://www.rhs.org.uk/soil-composts-mulches/green-manures"
 
 RELEVES: dict[str, dict[str, dict]] = {
+    "arroche": {
+        "aujardin": {"url": f"{AJ}/atriplex-hortensis.php", "besoin_eau": "moyen"},
+    },
+    "chayotte": {
+        "aujardin": {"url": f"{AJ}/sechium-edule.php",
+                     "besoin_eau": "moyen", "temp_min_c": -3},
+    },
+    "edamame": {
+        "aujardin": {"url": f"{AJ}/glycine-max.php",
+                     "besoin_eau": "moyen", "espacement_cm": 10},
+    },
+    "cresson-alenois": {
+        "aujardin": {"url": f"{AJ}/lepidium-sativum.php",
+                     "besoin_eau": "eleve", "temp_min_c": -12},
+    },
+    "chervis": {
+        "aujardin": {"url": f"{AJ}/sium-sisarum.php",
+                     "besoin_eau": "eleve", "temp_min_c": -20,
+                     "espacement_cm": 40},
+    },
     "ciboule": {
         "aujardin": {"url": f"{AJ}/allium-fistulosum.php",
                      "besoin_eau": "moyen", "espacement_cm": 10},
