@@ -45,6 +45,43 @@ ANNEE = 2026
 DERNIERE_GELEE = date(ANNEE, 4, 15)
 PREMIERE_GELEE = date(ANNEE, 11, 15)
 
+# Marge minimale entre la dernière gelée et la mise dehors d'une gélive.
+#
+# Vingt-huit jours, et c'est une valeur française : une dernière gelée moyenne
+# au 15 avril plus vingt-huit jours tombe le 13 mai, jour de Saint Servais,
+# dernier des saints de glace. La « dernière gelée » du réglage est une
+# moyenne, pas une garantie — une année sur dix, en plaine, elle tombe après
+# le 13 mai —, et c'est précisément ce que la tradition encode.
+#
+# Le seuil n'est donc pas un arrondi prudent : il est calé sur la seule règle
+# que le jardinage français applique vraiment, et le catalogue s'y conforme
+# depuis la revue horticole du 30/10/2026. Les cultures les plus frileuses
+# vont au-delà — le gombo à +38, soit le 23 mai, jour de Saint Didier.
+MARGE_GELEE_MINI_JOURS = 28
+
+# Bandes de fréquence d'arrosage plausibles par besoin, en jours. Elles ne
+# disent pas quelle est la bonne fréquence — personne ne le sait sans relevé —
+# mais interdisent qu'un « besoin élevé » soit arrosé moins souvent qu'un
+# « besoin faible », ce qui rendrait les trois niveaux inutiles.
+FREQUENCES = {
+    "eleve": (1, 5),
+    "moyen": (3, 10),
+    "faible": (5, 25),
+}
+
+# Combien de jours un plant peut rester en godet après son repiquage, avant
+# que la fenêtre de plantation ne s'ouvre. Au-delà, il file et s'enracine dans
+# son godet.
+#
+# La règle attrape une incohérence grossière, pas une dérive de quelques
+# jours : la borne est large parce que l'aubergine et le piment passent
+# réellement six semaines en godet. Elle existe surtout pour rappeler un
+# invariant que rien d'autre ne porte — **semis à l'abri et plantation se
+# déplacent ensemble**. Décaler l'un sans l'autre allonge silencieusement
+# l'attente du plant, et c'est exactement ce qui est arrivé en décalant les
+# gélives après les saints de glace.
+JOURS_EN_GODET_MAXI = 60
+
 # Espacements plausibles par catégorie, en centimètres. Larges à dessein :
 # on cherche l'aberration, pas le désaccord d'école.
 ESPACEMENTS = {
@@ -58,6 +95,15 @@ ESPACEMENTS = {
     "petit-fruit": (30, 500),
     "fruitier": (200, 1200),
     "cereale": (5, 120),
+    # La plage est très large, et c'est le défaut assumé de la catégorie :
+    # « médicinale » décrit un usage, pas un port. Elle contient une camomille
+    # de vingt centimètres et un tilleul de vingt mètres, donc la règle n'y
+    # attrape plus qu'une faute de frappe d'un ordre de grandeur.
+    "medicinale": (10, 1000),
+    # Pour une plante d'interieur, l'espacement n'est pas une distance de
+    # plantation : c'est l'encombrement adulte, ce qu'elle prendra sur le
+    # meuble. La plage va du pilea au ficus lyrata.
+    "plante-interieur": (15, 300),
 }
 
 # Catégories plausibles pour une famille botanique donnée. Le but est
@@ -70,7 +116,9 @@ FAMILLES_ATTENDUES = {
     "Cucurbitacées": {"legume-fruit"},
     "Fabacées": {"legume-gousse", "fleur-compagne"},
     "Amaryllidacées": {"legume-bulbe", "aromatique"},
-    "Rosacées": {"fruitier", "petit-fruit"},
+    # L'aubépine, l'églantier et la reine-des-prés sont des rosacées qu'on
+    # cultive pour la fleur ou la feuille, pas pour le fruit.
+    "Rosacées": {"fruitier", "petit-fruit", "medicinale"},
 }
 
 
@@ -113,6 +161,28 @@ def auditer() -> list[tuple[str, str, str]]:
                     f"gélive, mais {nom} commence le {bornes[0]:%d/%m}, "
                     f"avant la dernière gelée du {DERNIERE_GELEE:%d/%m}",
                 ))
+
+        # 1 bis. Une gélive mise dehors trop près de la dernière gelée.
+        #
+        #    La règle 1 ne regarde que l'antériorité, et laisse donc passer une
+        #    tomate plantée le lendemain de la dernière gelée. Or la « dernière
+        #    gelée » est une moyenne, pas une garantie : une année sur dix, en
+        #    plaine, la dernière gelée tombe après le 13 mai, et c'est tout le
+        #    sens des saints de glace. Ouvrir la fenêtre à la date moyenne,
+        #    c'est annoncer « c'est le moment » une fois sur deux trop tôt.
+        #
+        #    Le seuil retenu est celui des saints de glace — voir
+        #    MARGE_GELEE_MINI_JOURS, qui explique pourquoi vingt-huit jours et
+        #    pas un arrondi.
+        for nom, bornes in (("semis en place", semis_direct), ("plantation", plantation)):
+            if gelive and not enterre and bornes:
+                marge = (bornes[0] - DERNIERE_GELEE).days
+                if 0 <= marge < MARGE_GELEE_MINI_JOURS:
+                    anomalies.append((
+                        "DOUTE", cid,
+                        f"gélive, {nom} ouvert {marge} j après la dernière gelée — "
+                        f"moins que les {MARGE_GELEE_MINI_JOURS} j de marge usuels",
+                    ))
 
         # 2. Semer dehors une gélive après la première gelée n'a aucun sens.
         if gelive and semis_direct and semis_direct[0] > PREMIERE_GELEE:
@@ -180,6 +250,29 @@ def auditer() -> list[tuple[str, str, str]]:
                 f"espacement de {c['espacement_cm']} cm hors de la plage "
                 f"{mini}–{maxi} attendue pour « {c['categorie']} »",
             ))
+
+        # 6 bis. Fréquence d'arrosage incohérente avec le besoin annoncé.
+        eau = c.get("arrosage") or {}
+        bornes_eau = FREQUENCES.get(eau.get("besoin"))
+        if bornes_eau and not bornes_eau[0] <= eau.get("frequence_jours", 0) <= bornes_eau[1]:
+            anomalies.append((
+                "DOUTE", cid,
+                f"besoin en eau « {eau.get('besoin')} » mais arrosage tous les "
+                f"{eau.get('frequence_jours')} j, hors de la plage "
+                f"{bornes_eau[0]}–{bornes_eau[1]} j",
+            ))
+
+        # 6 ter. Un plant semé trop tôt pour sa date de plantation.
+        semis_abri = borne("semis_interieur")
+        if semis_abri and plantation and repiquage:
+            en_godet = (plantation[0] - semis_abri[0]).days - repiquage
+            if en_godet > JOURS_EN_GODET_MAXI:
+                anomalies.append((
+                    "DOUTE", cid,
+                    f"semé {(plantation[0] - semis_abri[0]).days} j avant "
+                    f"l'ouverture de la plantation, dont {en_godet} j en godet "
+                    f"après repiquage — le plant filera",
+                ))
 
         # 7. Famille botanique incompatible avec la catégorie annoncée.
         attendues = FAMILLES_ATTENDUES.get(c["famille"])

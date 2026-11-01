@@ -10,7 +10,8 @@
 [![Ajouter le dépôt à HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=MaximeRiviere56&repository=ha-rhizome&category=integration)
 
 Une intégration Home Assistant pour gérer un potager : choisir ses légumes dans
-un catalogue de 172 cultures, les suivre dans un jardin virtuel, et recevoir au
+un catalogue de 215 cultures — potagères, médicinales et d'intérieur —, les
+suivre dans un jardin virtuel, et recevoir au
 bon moment un rappel pour semer, repiquer ou récolter.
 
 > **L'idée centrale.** Le calendrier n'est pas une fiche théorique figée : il
@@ -40,7 +41,7 @@ progression se remplit pendant la fenêtre en cours.
 
 ![Le catalogue](docs/catalogue.png)
 
-Les 172 fiches, filtrables. Le filtre **Semable maintenant** répond à la seule
+Les 215 fiches, filtrables. Le filtre **Semable maintenant** répond à la seule
 question qui compte devant un catalogue de cette taille : qu'est-ce que je peux
 mettre en terre ce week-end ? Les dates affichées sont calculées depuis vos
 propres gelées, pas depuis une moyenne nationale.
@@ -194,7 +195,7 @@ pages de configuration de Home Assistant.
 
 Les deux dates qui calent **tout** le calendrier. Un préréglage climatique
 (Ouest océanique, Nord et Est, Midi, Montagne) les remplit, ou vous saisissez
-les vôtres. Les modifier redessine immédiatement les 172 fiches.
+les vôtres. Les modifier redessine immédiatement les fiches de plein air.
 
 ### Langue
 
@@ -203,7 +204,7 @@ suit la langue de Home Assistant.
 
 Le réglage ne touche pas que le panneau. Il décide aussi de la langue des
 rappels, des événements du calendrier, de la liste de tâches, du catalogue
-(les 172 fiches sont traduites : noms, familles, sols, conseils) et des **noms
+(les 215 fiches sont traduites : noms, familles, sols, conseils) et des **noms
 affichés** des entités.
 
 Trois conséquences, qu'il vaut mieux connaître avant de changer :
@@ -349,14 +350,17 @@ Tout cela se modifie ensuite depuis l'onglet **Réglages** du panneau.
 
 ## Le catalogue
 
-172 cultures. Chaque fiche porte l'exposition, les besoins en eau, le sol,
+215 cultures. Chaque fiche porte l'exposition, les besoins en eau, le sol,
 l'espacement, la rusticité, les bons et mauvais voisins, des conseils, et ses
-fenêtres culturales.
+fenêtres culturales — sauf les plantes d'intérieur, qui n'en ont pas et disent
+pourquoi plus bas.
 
 | Famille | Nombre |
 |---|---|
 | Feuilles | 38 |
 | Aromatiques | 26 |
+| Plantes d'intérieur | 22 |
+| Médicinales | 21 |
 | Légumes-fruits | 21 |
 | Racines et tubercules | 19 |
 | Fruitiers | 15 |
@@ -366,7 +370,7 @@ fenêtres culturales.
 | Gousses | 10 |
 | Céréales et graines | 4 |
 
-**65 sont vivaces** : plantées une fois, elles reviennent seules. Six d'entre
+**104 sont vivaces** : plantées une fois, elles reviennent seules. Six d'entre
 elles se récoltent quasiment toute l'année — poireau perpétuel, chou
 Daubenton, roquette vivace, thym, romarin, laurier. Le catalogue se filtre sur
 ce critère : `🔁 Vivace`, `♾️ Récolte toute l'année`, `↻ Annuelle`.
@@ -385,8 +389,8 @@ Permapeople ne fournit pas de calendrier de semis.
 Une culture gélive voit sa fenêtre de récolte plafonnée à la première gelée :
 une courgette ne se récolte pas en janvier.
 
-Le catalogue existe **dans les deux langues** : les 172 noms, les 36 familles,
-les descriptions de sol, les notes d'arrosage et les 318 conseils sont
+Le catalogue existe **dans les deux langues** : les 215 noms, les 52 familles,
+les descriptions de sol, les notes d'arrosage et les 477 conseils sont
 traduits. Le français reste la version de référence — c'est lui qui sert de
 clé, notamment pour le délai de rotation d'une famille — et la construction du
 catalogue échoue si une fiche arrive sans sa traduction, plutôt que de la
@@ -398,13 +402,43 @@ le poireau sur une interface française.
 
 ### Peut-on s'y fier ?
 
-Autant le dire franchement : **ces 172 fiches n'ont été confrontées à aucune
-base de référence.** Les API du domaine n'offrent pas ce qu'il faudrait —
+Le catalogue a **deux régimes de confiance**, et mieux vaut les connaître.
+
+**172 fiches n'ont été confrontées à aucune base de référence.** Ce sont les
+potagères, les aromatiques, les fruitiers et les fleurs compagnes — le
+catalogue d'origine. Les API du domaine n'offrent pas ce qu'il faudrait —
 OpenFarm est mort, Growstuff n'a pas d'API officielle, et Permapeople ne
-fournit pas de calendriers de semis. Le catalogue a donc été écrit de mémoire
+fournit pas de calendriers de semis. Elles ont donc été écrites de mémoire
 horticole.
 
-Trois garde-fous compensent, par ordre d'efficacité.
+**43 fiches sont sourcées** : les 21 médicinales et les 22 plantes
+d'intérieur, ajoutées plus tard. Monographies du HMPC de l'Agence européenne
+du médicament pour les contre-indications, bulletins de toxicovigilance de
+l'Anses pour les confusions de cueillette, fiches de culture de la Royal
+Horticultural Society pour la lumière et l'eau, base de l'ASPCA pour la
+toxicité envers chiens et chats. Les sources exactes sont en tête de chaque
+section de `tools/catalogue_source.py`.
+
+Cette asymétrie est assumée plutôt que corrigée : sourcer les médicinales
+était une nécessité — une fiche muette sur une interaction médicamenteuse ou
+sur une confusion mortelle peut nuire, là où une durée de cycle approximative
+coûte au pire une saison. Elle ne rend pas les 172 autres moins fiables
+qu'avant, mais elle ne les rend pas sourcées non plus.
+
+Sur les médicinales, deux règles tenues sans exception : **aucune posologie,
+aucune indication thérapeutique** — Rhizome dit comment faire pousser une
+plante, jamais quoi en faire pour se soigner — et **le risque dit en clair, en
+premier conseil**.
+
+**La nomenclature, elle, est vérifiée.** Le nom scientifique et la famille
+botanique des 215 fiches ont été croisés sur GBIF, World Flora Online et le
+Catalogue of Life : 207 confirmées, 8 divergences assumées et documentées, 0 à
+vérifier. La famille n'est pas un détail d'affichage — c'est elle qui pilote
+le délai de rotation, donc une famille fausse donne un mauvais conseil. Le
+détail est dans [docs/revue-croisee.md](docs/revue-croisee.md), et la revue se
+rejoue par `python3 tools/revue_croisee.py`.
+
+Trois garde-fous compensent pour le reste, par ordre d'efficacité.
 
 **Le réel prime, toujours.** Dès que vous notez un semis, l'estimation ne sert
 plus : la récolte se calcule depuis votre date. Mes chiffres ne pilotent que la
@@ -415,7 +449,7 @@ C'est la raison d'être du suivi réel.
 catalogue. Vos valeurs remplacent les miennes et les plantes déjà au jardin
 suivent la correction.
 
-**Un audit de cohérence** passe les 172 fiches au crible :
+**Un audit de cohérence** passe les 215 fiches au crible :
 
 ```bash
 python3 tools/auditer_catalogue.py
@@ -432,9 +466,13 @@ vérifiables sans connaissance extérieure. **Au dernier passage : 0 impossible,
 ajoute aucune autorité : c'est le même contenu, dans une autre langue. Le nom
 latin reste sur chaque fiche pour trancher quand le nom commun est ambigu.
 
-Ce qui reste hors de portée, ce sont les durées de cycle — elles varient de
-plusieurs semaines selon la variété, et seul un relevé au jardin peut trancher.
-C'est précisément ce que la correction de fiche permet de rattraper.
+Ce qui reste hors de portée, ce sont **l'espacement, la fréquence d'arrosage,
+les fenêtres de semis et surtout les durées de cycle**. Aucune revue croisée
+ne les tranchera : trois sources sérieuses donnent trois chiffres différents
+pour une carotte, parce que la réponse dépend de la variété, du sol et du
+climat. Ce ne sont pas des faits avec une valeur vraie, ce sont des jugements
+horticoles — et c'est précisément ce que la correction de fiche permet de
+rattraper.
 
 ### Ajouter une culture
 
@@ -615,7 +653,7 @@ propriété vérifiable :
 
 - `manifest.json` ne déclare **aucune dépendance** (`"requirements": []`) ;
 - le code n'embarque aucun client HTTP et ne fait aucun appel sortant ;
-- le catalogue des 172 cultures est **livré avec l'intégration** : aucune API à
+- le catalogue des 215 cultures est **livré avec l'intégration** : aucune API à
   interroger, aucun compte, aucun service susceptible de disparaître ;
 - rien ne demande votre position. Les gelées se saisissent, ou se choisissent
   dans une préselection climatique.
@@ -707,11 +745,16 @@ revanche une piste ouverte.
 
 Dites franchement, pour qu'elles ne soient pas découvertes en juillet.
 
-- **Les 172 fiches ne sont sourcées nulle part** — voir
-  [Peut-on s'y fier ?](#peut-on-sy-fier). Les durées de cycle sont ce qu'il y
-  a de plus approximatif, et ce que la correction de fiche rattrape le mieux.
+- **172 des 215 fiches ne sont sourcées nulle part** — les potagères, les
+  aromatiques et les fruitiers ; seules les médicinales et les plantes
+  d'intérieur le sont. Voir [Peut-on s'y fier ?](#peut-on-sy-fier). Les durées
+  de cycle sont ce qu'il y a de plus approximatif, et ce que la correction de
+  fiche rattrape le mieux.
 - **Un seul jardin par instance.**
-- **Aucune plante d'intérieur**, malgré le nom. Il anticipe, il ne décrit pas.
+- **Les plantes d'intérieur n'ont pas de calendrier.** Elles portent leur
+  lumière, leur eau, leur substrat et leur toxicité, et l'arrosage fonctionne
+  — mais aucune étape culturale, le rempotage compris : toutes les fenêtres du
+  catalogue sont calées sur les gelées, qu'une plante de salon ne connaît pas.
 - **Les quantités récoltées se saisissent à la main**, en grammes, et rien
   n'oblige à les peser.
 - **L'arrosage est théorique** : rien n'observe le sol, la pluie ni la

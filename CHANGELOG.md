@@ -4,6 +4,148 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Versions sous [SemVer](https://semver.org/lang/fr/). Rhizome est en `0.x` :
 l'intérieur peut encore bouger, mais pas vos données.
 
+## Non publié
+
+Rhizome tient enfin ce que son nom promettait : des plantes d'intérieur à
+côté du potager. Et le catalogue, qui n'avait jamais été confronté à une
+source extérieure, l'a été.
+
+### Ajouté
+
+- **43 fiches, et le catalogue passe de 172 à 215 cultures.** 21 médicinales
+  et comestibles sauvages — achillée, plantain, ortie, millepertuis, aubépine,
+  reine-des-prés, guimauve, échinacée, valériane, pissenlit, bardane,
+  bouillon-blanc, prêle, tanaisie, absinthe, menthe poivrée, tilleul,
+  églantier, onagre, passiflore, camomille matricaire — et 22 plantes
+  d'intérieur : monstera, pothos, philodendron, spathiphyllum, zamioculcas,
+  dieffenbachia, sansevieria, dragonnier, aspidistra, phalangère, calathea,
+  maranta, pilea, peperomia, hoya, fougère nid d'oiseau, kentia, phalaenopsis,
+  aloe vera, crassula, ficus elastica, ficus lyrata. Deux catégories nouvelles
+  dans le panneau, `Médicinales` et `Plantes d'intérieur`, filtrables comme
+  les autres.
+- **Les plantes d'intérieur n'ont pas de calendrier, et c'est voulu.** Toutes
+  les fenêtres du catalogue sont des décalages par rapport à vos gelées ; une
+  plante qui vit à vingt degrés toute l'année n'en connaît pas. Leur inventer
+  une plantation et une récolte aurait annoncé la récolte d'un monstera au
+  5 juillet. Leur fiche porte la lumière, l'eau, le substrat, l'encombrement
+  adulte, la toxicité et les conseils — et l'arrosage, qui est le seul
+  mécanisme de Rhizome à ne pas dépendre des saisons.
+- **Chaque fiche médicinale dit son risque en premier conseil** : toxicité,
+  confusion dangereuse à la cueillette, interaction médicamenteuse connue.
+  Aucune ne porte de posologie ni d'indication thérapeutique — Rhizome dit
+  comment faire pousser une plante, jamais quoi en faire pour se soigner.
+- **Ces 43 fiches sont les seules du catalogue à être sourcées** :
+  monographies du HMPC de l'Agence européenne du médicament, bulletins de
+  toxicovigilance de l'Anses, fiches de culture de la Royal Horticultural
+  Society, base de l'ASPCA pour la toxicité envers chiens et chats. Les 172
+  autres restent écrites de mémoire horticole, et la nuance est dite dans le
+  README.
+- **Une alerte gel, le soir, d'après votre météo.** Désignez une entité météo
+  dans *Réglages · Alerte gel*, et Rhizome vous prévient à 18 h quand la nuit
+  qui vient menace une plante. **Le seuil est celui de chaque fiche, pas zéro
+  degré** : un aloe vera souffre à 10 °C quand un pommier tient −20 °C, donc
+  une alerte unique « il gèle cette nuit » serait tardive pour l'un et inutile
+  pour l'autre. Seules les plantes en terre et en zone non abritée sont
+  concernées — une serre protège, et l'alerte le sait — et le message dit le
+  geste : rentrer ce qui est en pot, voiler ce qui est en terre. Un seul
+  message pour tout le jardin, une seule fois par nuit.
+- **L'heure de l'alerte gel est un réglage à part**, à 18 h par défaut, et
+  c'est délibéré : c'est la seule notification de Rhizome qui porte sur une
+  échéance de quelques heures. Envoyée à 8 h avec les autres rappels, elle
+  arriverait après la nuit qu'elle devait prévenir.
+
+### Modifié
+
+- **Une plante d'intérieur n'est plus privée de rappels d'arrosage l'hiver,
+  ni passé deux ans.** Deux règles existaient pour que les rappels restent
+  crédibles : rien en pleine terre entre les gelées, et rien pour une pérenne
+  sobre installée depuis deux ans. Appliquées à une plante de salon, la
+  première coupait les rappels de novembre à avril — la saison où elle sèche
+  le plus vite, le chauffage abaissant l'humidité de l'air pendant qu'elle
+  continue — et la seconde les coupait définitivement sur un sansevieria,
+  dont les racines sont pourtant enfermées dans un litre de terreau. Les deux
+  sont levées pour cette catégorie, d'après la fiche et non d'après la case
+  « zone abritée » : la survie de la plante ne doit pas dépendre d'un réglage
+  coché. Les règles restent entières pour le jardin.
+
+### Interne
+
+- **La sérialisation envoyée au panneau vit dans un module pur**,
+  `serialisation.py`. Elle était écrite dans `websocket.py`, qui importe Home
+  Assistant : le banc d'essai, qui monte le frontend hors d'une instance, la
+  réimplémentait donc à la main. Cette copie avait déjà montré un arrosage par
+  plante qui fonctionnait au banc alors qu'il était cassé en production, et
+  elle avait pris du retard sur un champ. Le banc appelle désormais le même
+  code que l'instance, et cette sérialisation gagne dix tests qui n'étaient
+  pas possibles auparavant.
+- **Le banc d'essai sert une fiche de détail par culture**, et non plus
+  toujours la même : toute la vue détail lui échappait. Son avertissement de
+  rotation est de même calculé par le vrai module face à son propre jardin,
+  au lieu d'annoncer des solanacées devant n'importe quelle fiche.
+- **Le nom scientifique et la famille des 215 fiches sont croisés sur trois
+  bases taxonomiques** — GBIF, World Flora Online et le Catalogue of Life — par
+  `tools/revue_croisee.py`, rejouable à tout moment. La famille n'est pas un
+  détail d'affichage : c'est elle qui pilote le délai de rotation, donc une
+  famille fausse donne un mauvais conseil. 207 fiches confirmées, 8 divergences
+  assumées et justifiées, 0 à vérifier. Le raisonnement complet est dans
+  `docs/revue-croisee.md`.
+- **Deux règles d'audit de plus sur les 215 fiches** : une culture gélive dont
+  la mise en terre s'ouvre moins de quinze jours après la dernière gelée est
+  signalée — la dernière gelée est une moyenne, et une année sur dix elle
+  tombe après le 13 mai —, et une fréquence d'arrosage incohérente avec le
+  besoin annoncé l'est aussi.
+
+### Corrigé
+
+- **Les cultures gélives sortent désormais après les saints de glace.** Les
+  43 fenêtres de mise en terre des cultures gélives sont décalées de treize
+  jours : pour une dernière gelée au 15 avril, tomate, courgette, haricot,
+  maïs et poivron se plantent le 13 mai — Saint Servais —, l'aubergine le 16,
+  le melon le 18, la pastèque le 20 et le gombo le 23 mai, jour de Saint
+  Didier. La « dernière gelée » du réglage est une moyenne : une année sur
+  dix, en plaine, elle tombe après le 13 mai. La pomme de terre ne bouge pas,
+  puisqu'elle est plantée à dix centimètres et que ce qui est enterré n'est
+  pas exposé. Un décalage uniforme et non un plancher, pour conserver la
+  gradation du catalogue entre cultures plus ou moins frileuses. Les 23 semis
+  à l'abri de ces mêmes cultures sont décalés d'autant : décaler la plantation
+  seule aurait allongé l'attente du plant en godet, et un plant qui attend
+  file.
+- **Sept cultures gélives sortaient trop tôt.** Tomate et tomate cerise
+  ouvraient leur plantation sept jours après la dernière gelée, cosmos,
+  tournesol et oca le jour même. Toutes passent à quinze jours, la valeur que
+  le catalogue appliquait déjà au reste de ses gélives. Annoncer « c'est le
+  moment » à la date moyenne de dernière gelée, c'est se tromper une fois sur
+  deux, et une tomate perdue ne se rattrape pas dans la saison.
+- **Le kentia était donné à 12 °C**, quand la Royal Horticultural Society le
+  classe au-dessus de 15. Il passe à 15 : une valeur trop basse retarde
+  l'alerte gel, et c'est le troisième cas après le poivron et le romarin.
+- **Le romarin était donné rustique jusqu'à −12 °C**, là où la RHS s'arrête à
+  −8 et l'Almanac à −10. Il passe à −10 : comme pour le poivron, une valeur
+  trop optimiste retarde l'alerte gel.
+- **Le concombre était espacé de 80 cm**, là où la RHS donne 30, l'Almanac
+  30–45 et Au Jardin 60. Il passe à 60.
+- **Le poivron souffrait à 12 °C, pas à 10.** Ce n'est pas cosmétique depuis
+  que l'alerte gel existe : `temp_min_c` la pilote, donc une valeur trop basse
+  retardait l'avertissement. Il était par ailleurs le seul des solanacées de
+  saison chaude sous les 12 °C.
+- **Le sureau noir était rangé en Adoxacées.** *Viburnaceae* est le nom
+  conservé depuis 2016 ; *Adoxaceae* n'a pas la priorité, et les quatre
+  sources consultées sont d'accord.
+- **La camomille matricaire portait un synonyme** : *Matricaria recutita* au
+  lieu du nom accepté *Matricaria chamomilla*.
+- **L'orchidée papillon portait « Phalaenopsis hybride »**, qui n'est pas un
+  épithète. Ce qu'on achète est un hybride horticole sans nom d'espèce, et
+  *Phalaenopsis* × hybr. le dit.
+- **La fiche consoude ne disait rien de l'usage interne.** Livrée depuis la
+  v0.6.0, elle est rangée en fleur compagne pour le purin, mais rien
+  n'empêchait d'en faire une tisane : l'Agence européenne du médicament écarte
+  l'usage interne, ses alcaloïdes pyrrolizidiniques étant toxiques pour le
+  foie. La mise en garde y figure désormais.
+- **Le panneau annonçait « Vivace — elle revient chaque année » sur une plante
+  qui ne part jamais**, et « Craint le gel » là où le chiffre utile est le
+  minimum thermique — c'est lui qui dit si la plante peut passer l'été dehors,
+  et quand la rentrer.
+
 ## [0.11.0] — 2026-10-29
 
 L'arrosage se lisait mal : un bouton bleu « Arrosé » qui ne disait pas s'il

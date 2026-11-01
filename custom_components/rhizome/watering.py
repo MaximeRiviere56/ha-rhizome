@@ -22,6 +22,17 @@ surface et ne pardonne pas un dessèchement.
 En pleine terre l'hiver, on n'arrose pas. Entre la première et la dernière
 gelée, aucun rappel pour les zones découvertes. Les zones abritées — serre,
 châssis, pots — continuent, elles sèchent toute l'année.
+
+Une plante d'intérieur échappe à deux de ces règles, et il faut le dire ici
+parce que c'est contre-intuitif : elle n'a pas d'hiver, et elle ne s'installe
+jamais. L'exclusion hivernale la condamnerait de novembre à avril alors que
+c'est la saison où elle sèche le plus vite — le chauffage abaisse l'humidité
+de l'air pendant que la plante, elle, continue ; et l'exclusion « pérenne
+installée » couperait pour toujours les rappels d'un sansevieria sobre au bout
+de deux ans, alors que ses racines sont enfermées dans un litre de terreau et
+n'iront rien chercher plus loin. Le signal est la catégorie de la fiche, pas le
+réglage « zone abritée » : compter sur une case cochée par l'utilisateur
+ferait dépendre la survie de la plante d'un détail de configuration.
 """
 
 from __future__ import annotations
@@ -53,6 +64,9 @@ HISTORIQUE_MAX = 60
 # Au-delà, une pérenne à faible besoin en eau est considérée comme installée :
 # ses racines vont chercher seules, et les fiches le disent explicitement.
 JOURS_PERENNE_INSTALLEE = 730
+
+# Les plantes d'intérieur : ni hiver, ni installation. Voir l'en-tête.
+CATEGORIE_INTERIEUR = "plante-interieur"
 
 
 @dataclass(frozen=True)
@@ -128,8 +142,15 @@ def _dans_la_periode_de_gel(jour: date, gelees) -> bool:
     )
 
 
+def _interieur(culture: dict) -> bool:
+    """Vrai pour une plante d'intérieur, qui ne subit aucune saison."""
+    return culture.get("categorie") == CATEGORIE_INTERIEUR
+
+
 def _perenne_installee(culture: dict, evenements: list, aujourdhui: date) -> bool:
     """Une pérenne sobre, en place depuis plus de deux ans, n'attend rien."""
+    if _interieur(culture):
+        return False
     if not culture.get("perenne"):
         return False
     if (culture.get("arrosage") or {}).get("besoin") != "faible":
@@ -173,7 +194,11 @@ def etat(
         return exclue(
             "Pas encore en terre, ou culture terminée.", "eau_exclu_pas_en_terre"
         )
-    if not zone.get("abritee") and _dans_la_periode_de_gel(aujourdhui, gelees):
+    if (
+        not _interieur(culture)
+        and not zone.get("abritee")
+        and _dans_la_periode_de_gel(aujourdhui, gelees)
+    ):
         return exclue(
             "En pleine terre l'hiver, la nature s'en charge.", "eau_exclu_hiver"
         )

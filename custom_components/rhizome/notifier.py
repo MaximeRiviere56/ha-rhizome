@@ -23,10 +23,12 @@ from homeassistant.core import Event, HomeAssistant, callback
 from homeassistant.helpers.event import async_track_time_change
 from homeassistant.util import dt as dt_util
 
-from . import i18n
+from . import gel, i18n
 from .const import (
+    CONF_NOTIFY_GEL_HEURE,
     CONF_NOTIFY_HEURE,
     CONF_NOTIFY_TARGETS,
+    DEFAUT_NOTIFY_GEL_HEURE,
     DEFAUT_NOTIFY_HEURE,
     DOMAIN,
 )
@@ -58,6 +60,11 @@ ETAPE_ARROSAGE = "arrosage"
 SEPARATEUR = "|"
 JOURS_REPORT = 3
 
+# Combien de plantes nommer dans l'alerte gel. Au-dela, le message devient une
+# liste que personne ne lit jusqu'au bout, et les plus fragiles — citees en
+# premier — s'y perdent.
+MAX_PLANTES_CITEES = 3
+
 # Combien de temps garder la trace d'un rappel envoye. Une etape annuelle doit
 # l'etre plus d'un an : l'oublier avant que sa fenetre ne revienne ferait
 # repartir le meme rappel. L'arrosage, lui, ne sert qu'a ne pas prevenir deux
@@ -75,12 +82,26 @@ JOURNAL_POUR_ETAPE: dict[str, tuple[str, dict[str, Any]]] = {
 }
 
 
+def _arrondi_lisible(valeur: float) -> str:
+    """« 3 » plutot que « 3.0 », et « -0.5 » garde sa decimale.
+
+    Une temperature affichee avec un zero inutile fait croire a une precision
+    que la prevision n'a pas.
+    """
+    arrondi = round(float(valeur), 1)
+    return str(int(arrondi)) if arrondi == int(arrondi) else str(arrondi)
+
+
 class RhizomeNotifier:
     """Verifie une fois par jour ce qui merite un rappel."""
 
     def __init__(self, hass: HomeAssistant, coordinator: RhizomeCoordinator) -> None:
         self.hass = hass
         self.coordinator = coordinator
+        # Une alerte gel par nuit. Deplacer l'heure du reglage ou redemarrer
+        # Home Assistant a 18 h repasserait sinon par la meme verification et
+        # repeterait le message mot pour mot.
+        self._derniere_alerte_gel: date | None = None
 
     # --- Branchement ---------------------------------------------------------
 
@@ -106,6 +127,29 @@ class RhizomeNotifier:
             minute=heure.minute,
             second=0,
         )
+        # L'alerte gel a son propre passage, et c'est la raison d'etre du
+        # reglage : c'est la seule notification de Rhizome qui porte sur une
+        # echeance de quelques heures. Envoyee a 8 h avec les autres, elle
+        # arriverait apres la nuit qu'elle devait prevenir.
+        heure_gel = dt_util.parse_time(
+            self.coordinator.entry.options.get(
+                CONF_NOTIFY_GEL_HEURE, DEFAUT_NOTIFY_GEL_HEURE
+            )
+        )
+        if heure_gel is None:
+            _LOGGER.warning(
+                "Heure d'alerte gel illisible : repli sur %s.",
+                DEFAUT_NOTIFY_GEL_HEURE,
+            )
+            heure_gel = time(18, 0)
+
+        annuler_gel = async_track_time_change(
+            self.hass,
+            self._async_verifier_gel,
+            hour=heure_gel.hour,
+            minute=heure_gel.minute,
+            second=0,
+        )
         annuler_actions = self.hass.bus.async_listen(
             EVENT_ACTION_MOBILE, self._async_action_recue
         )
@@ -113,6 +157,7 @@ class RhizomeNotifier:
         @callback
         def _desabonner() -> None:
             annuler_horaire()
+            annuler_gel()
             annuler_actions()
 
         return _desabonner
@@ -206,6 +251,86 @@ class RhizomeNotifier:
         )
         if retires:
             _LOGGER.debug("%s rappels perimes oublies.", retires)
+
+    # --- Alerte gel ----------------------------------------------------------
+
+    async def _async_verifier_gel(self, _now=None) -> None:
+        """Les plantes qui souffriront de la nuit qui vient.
+
+        Une seule notification pour tout le jardin, jamais une par plante :
+        une nuit de gel les concerne toutes en meme temps, et dix messages a
+        18 h sont dix messages qu'on balaie.
+        """
+        cibles = self.coordinator.entry.options.get(CONF_NOTIFY_TARGETS) or []
+        if not cibles or not self.coordinator.notify_gel:
+            return
+        if not self.coordinator.meteo_entite:
+            return
+
+        mini = await self.coordinator.async_minimum_cette_nuit()
+        if mini is None:
+            return
+
+        donnees = self.coordinator.data or {}
+        menacees = gel.menacees(list((donnees.get("plantes") or {}).values()), mini)
+        if not menacees:
+            return
+
+        # Une alerte par nuit, et non par passage : si l'utilisateur deplace
+        # l'heure ou si Home Assistant redemarre a 18 h, le second envoi
+        # repeterait le premier mot pour mot.
+        nuit = self._aujourdhui()
+        if self._derniere_alerte_gel == nuit:
+            return
+        if await self._async_envoyer_gel(cibles, mini, menacees):
+            self._derniere_alerte_gel = nuit
+
+    async def _async_envoyer_gel(
+        self, cibles: list[str], mini: float, menacees: list[dict]
+    ) -> bool:
+        """Le message du soir : combien il fera, et quoi rentrer."""
+        langue = self.coordinator.langue
+        # Les plus fragiles d'abord — `gel.menacees` les a deja triees — et
+        # au plus trois nommees : au-dela, le message devient une liste que
+        # personne ne lit jusqu'au bout.
+        nommees = menacees[:MAX_PLANTES_CITEES]
+        reste = len(menacees) - len(nommees)
+        liste = ", ".join(f"{p['emoji']} {p['nom']}" for p in nommees)
+        if reste > 0:
+            liste += i18n.t(langue, "notif_gel_et_autres", nombre=reste)
+
+        # Rentrer ou proteger : une plante en pot se deplace, une tomate en
+        # terre se voile. Si les deux sont menacees, on dit les deux.
+        geste = (
+            "notif_gel_geste_rentrer"
+            if all(p["interieur"] for p in menacees)
+            else "notif_gel_geste_proteger"
+            if not any(p["interieur"] for p in menacees)
+            else "notif_gel_geste_mixte"
+        )
+
+        charge: dict[str, Any] = {
+            "title": i18n.t(
+                langue, "notif_gel_titre", temperature=_arrondi_lisible(mini)
+            ),
+            "message": i18n.t(
+                langue,
+                "notif_gel_message",
+                plantes=liste,
+                geste=i18n.t(langue, geste),
+            ),
+        }
+        envoye = False
+        for cible in cibles:
+            service = cible.split(".", 1)[-1]
+            donnees = dict(charge)
+            if service != "persistent_notification":
+                donnees["data"] = {
+                    "tag": f"{DOMAIN}_gel",
+                    "group": f"{DOMAIN}_gel",
+                }
+            envoye = await self._async_appeler(service, donnees) or envoye
+        return envoye
 
     async def _async_envoyer_arrosage(self, cibles: list[str], besoin: dict) -> bool:
         """Un rappel d'arrosage, avec un bouton qui le note d'un geste.

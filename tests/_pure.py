@@ -33,8 +33,10 @@ def _charger(nom_module: str):
     return module
 
 
+gel = _charger("gel")
 i18n = _charger("i18n")
 lifecycle = _charger("lifecycle")
 phenology = _charger("phenology")
 rotation = _charger("rotation")
+serialisation = _charger("serialisation")
 watering = _charger("watering")

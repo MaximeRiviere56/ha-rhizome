@@ -6,8 +6,9 @@ donne ce qui ne se devine pas en lisant le code.
 
 ## Le produit
 
-Un suivi de plantes dans Home Assistant : un catalogue de 172 cultures, un jardin
-virtuel, un panneau latéral, des rappels, et un suivi d'arrosage.
+Un suivi de plantes dans Home Assistant : un catalogue de 215 cultures — dont
+21 médicinales et 22 plantes d'intérieur —, un jardin virtuel, un panneau
+latéral, des rappels, et un suivi d'arrosage.
 
 **L'idée centrale, qui gouverne tout le reste : le calendrier est piloté par ce
 qui s'est vraiment passé, pas par une moyenne saisonnière.** Dès qu'une date
@@ -34,6 +35,8 @@ ne réclame plus jamais de la semer. Toute évolution doit préserver ça.
 | `rotation.py` | avertissement de rotation des cultures |
 | `watering.py` | arrosage : fréquence, échéance, exclusions |
 | `i18n.py` | langue de l'interface : résolution, textes du serveur, dates |
+| `gel.py` | alerte gel : qui souffrira d'une température annoncée |
+| `serialisation.py` | ce que le panneau reçoit : la vue calculée, mise en dictionnaires |
 
 **C'est la convention la plus importante du projet.** Toute logique métier non
 triviale va dans un module pur et arrive avec ses tests. Home Assistant ne peut
@@ -60,14 +63,20 @@ servi est celui qu'on lit. Ne pas introduire de bundler.
 3. **Aucune date en dur dans le catalogue.** Chaque fenêtre est un décalage en
    jours par rapport aux gelées locales de l'utilisateur. Seules les pérennes
    déclarent une récolte à date fixe.
-4. **La phase se déduit toujours du journal par repli**, jamais stockée comme
+4. **Semis à l'abri et plantation se déplacent ensemble.** Décaler l'un sans
+   l'autre allonge silencieusement l'attente du plant en godet, et un plant
+   qui attend file. C'est arrivé en décalant les gélives après les saints de
+   glace : la tomate est passée de 75 à 88 jours entre semis et plantation
+   avant que ce ne soit rattrapé. `auditer_catalogue.py` le rappelle, mais sa
+   borne est large : elle attrape le grossier, pas la dérive.
+5. **La phase se déduit toujours du journal par repli**, jamais stockée comme
    fait indépendant. C'est ce qui rend l'annulation fiable.
-5. **Toute mutation passe par `coordinator.async_appliquer`**, qui écrit sur
+6. **Toute mutation passe par `coordinator.async_appliquer`**, qui écrit sur
    disque *et attend* avant de rendre la main. Une sauvegarde différée a déjà
    coûté un jardin entier au redémarrage.
-6. **L'arrosage n'est pas un événement du journal.** Il ne fait pas avancer le
+7. **L'arrosage n'est pas un événement du journal.** Il ne fait pas avancer le
    cycle et se répète trop souvent : liste séparée `arrosages`.
-7. **Un rappel qu'on ignore discrédite tous les autres.** Chaque garde-fou
+8. **Un rappel qu'on ignore discrédite tous les autres.** Chaque garde-fou
    existant (plante pas en terre, hiver en pleine terre, pérenne installée)
    est là pour ça.
 
@@ -112,7 +121,7 @@ Quatre endroits à tenir d'accord, et c'est tout :
 | `i18n.py` | tout ce que le **serveur** produit : noms d'entités, rappels, calendrier, tâches, refus |
 | `frontend/rhizome-panel.js`, table `TEXTES` | les libellés du **panneau** |
 | `frontend/rhizome-card.js`, table `TEXTES` | les libellés de la **carte** |
-| `tools/catalogue_traductions.py` | les **172 fiches** : noms, familles, sols, notes d'eau, conseils |
+| `tools/catalogue_traductions.py` | les **215 fiches** : noms, familles, sols, notes d'eau, conseils |
 
 Trois règles qui ne se devinent pas :
 
@@ -173,19 +182,97 @@ sans quoi `build_catalog.py` refuse de compiler.
 
 ## Honnêteté sur les données
 
-**Les 172 fiches n'ont été confrontées à aucune base de référence**, et leur
-traduction anglaise pas davantage — c'est le même contenu dans une autre
-langue, pas une seconde source. Les API du domaine ne fournissent pas de
-calendriers de semis — OpenFarm est mort, Growstuff n'a pas d'API officielle,
-Permapeople ne couvre pas les semis. Le catalogue a été écrit de mémoire
-horticole.
+Le catalogue a **deux régimes de confiance**, et la distinction se perd vite
+si personne ne la tient. Vérifie à quelle moitié tu touches avant d'affirmer
+quoi que ce soit sur une fiche.
 
-Trois atténuations : le réel prime dès le premier semis noté ; l'utilisateur
-peut corriger n'importe quelle fiche, y compris livrée ; et
-`tools/auditer_catalogue.py` prouve qu'aucune fiche n'est *impossible* (huit
-règles de cohérence interne). Les durées de cycle restent hors de portée de
-toute vérification automatique. **Ne présente jamais ces données comme
-sourcées.**
+**172 fiches n'ont été confrontées à aucune base de référence** — potagères,
+aromatiques, fruitiers, fleurs compagnes, céréales — et leur traduction
+anglaise pas davantage : c'est le même contenu dans une autre langue, pas une
+seconde source. Les API du domaine ne fournissent pas de calendriers de semis
+— OpenFarm est mort, Growstuff n'a pas d'API officielle, Permapeople ne couvre
+pas les semis. Elles ont été écrites de mémoire horticole. **Ne présente
+jamais ces données comme sourcées.**
+
+**43 fiches sont sourcées** : les 21 médicinales et les 22 plantes
+d'intérieur. Monographies HMPC de l'Agence européenne du médicament, bulletins
+de toxicovigilance de l'Anses, fiches de culture de la RHS, base ASPCA pour la
+toxicité envers les animaux. Les sources sont en tête de chaque section de
+`tools/catalogue_source.py`, et leur détail dans la PR #8.
+
+Pourquoi cette asymétrie est assumée plutôt que corrigée : sourcer les
+médicinales était une nécessité de sûreté, pas un gain de qualité. Une fiche
+muette sur une interaction médicamenteuse ou sur une confusion mortelle à la
+cueillette peut nuire ; une durée de cycle approximative coûte au pire une
+saison, et le réel la corrige dès le premier semis noté. Sourcer les 172
+autres serait un travail utile, pas un travail urgent — et tant qu'il n'est
+pas fait, ne laisse pas le sourçage des 43 déteindre sur elles dans un texte
+destiné à l'utilisateur.
+
+Deux règles non négociables sur les médicinales, tenues fiche par fiche :
+**aucune posologie, aucune indication thérapeutique** — Rhizome dit comment
+faire pousser une plante, jamais quoi en faire pour se soigner — et **le
+risque dit en clair, toujours en premier conseil**. `tests/test_catalogue.py`
+vérifie que chaque plante d'intérieur dit quelque chose de sa toxicité ; aucun
+test ne peut vérifier que la réponse est juste, seulement que la question est
+posée.
+
+**La nomenclature est vérifiée, depuis la revue du 30/10/2026.** Le nom
+scientifique et la famille des 215 fiches ont été croisés sur GBIF, World
+Flora Online et le Catalogue of Life par `tools/revue_croisee.py` : 207
+confirmées, 8 divergences assumées et justifiées dans le script lui-même, 0 à
+vérifier. Trois fiches ont été corrigées. `docs/revue-croisee.md` porte le
+raisonnement complet, y compris les synonymes horticoles délibérément
+conservés — un utilisateur qui cherche « petit pois » ne doit pas tomber sur
+*Lathyrus oleraceus*.
+
+Deux choses à ne pas défaire là-dessus :
+
+- **La table `DIVERGENCES_ASSUMEES` n'est pas une liste d'exceptions à
+  nettoyer.** Chaque entrée est une décision prise, avec sa raison. La rouvrir
+  demande de refaire le raisonnement, pas de supprimer la ligne. Sans elle
+  l'outil signalerait huit fiches à chaque passage, et un audit qui échoue
+  toujours est un audit que plus personne ne relance.
+- **Les données de culture ont leur propre revue**, `tools/revue_horticole.py`,
+  et elle est **partielle : 6 fiches sur 215**. Elle conserve des relevés
+  sourcés à la main, faute d'API — OpenFarm est mort, Permapeople demande une
+  clé, practicalplants ne répond plus, et je l'ai revérifié. `--tout` liste ce
+  qui reste à voir. Ne présente jamais cette passe comme terminée.
+- **Ne promets pas la même chose aux autres champs.** L'espacement, l'eau, les
+  fenêtres et les durées de cycle ne sont pas vérifiables par une revue
+  croisée : trois sources donnent trois chiffres pour une carotte, parce que
+  la réponse dépend de la variété, du sol et du climat. Une revue y produirait
+  une fourchette et la liste des désaccords, pas une vérité.
+
+Trois atténuations valent pour tout le catalogue : le réel prime dès le
+premier semis noté ; l'utilisateur peut corriger n'importe quelle fiche, y
+compris livrée ; et `tools/auditer_catalogue.py` prouve qu'aucune fiche n'est
+*impossible* (huit règles de cohérence interne). Les durées de cycle restent
+hors de portée de toute vérification automatique.
+
+## Les plantes d'intérieur
+
+Elles sont le seul endroit où le modèle du potager ne s'applique pas, et la
+tentation de les y ramener reviendra. Trois faits à ne pas défaire :
+
+1. **Elles ne portent aucune fenêtre**, et `build_catalog.py` leur interdit
+   d'en porter. Toutes les fenêtres du catalogue sont des décalages par
+   rapport aux gelées locales (invariant 3) ; une plante qui vit à vingt
+   degrés n'en connaît pas. Leur inventer une plantation et une récolte pour
+   satisfaire le validateur annoncerait la récolte d'un monstera au 5 juillet.
+2. **Elles échappent à deux exclusions d'arrosage** — l'hiver en zone
+   découverte, et la pérenne installée depuis deux ans. Le signal est la
+   catégorie de la fiche, jamais la case « zone abritée » : faire dépendre la
+   survie de la plante d'un réglage coché par l'utilisateur était le mauvais
+   choix. `watering.py` l'explique en tête, et quatre tests le verrouillent,
+   dont un contre-exemple sur un pommier. Les deux symptômes sont silencieux
+   et différés — plus aucun rappel, visible seulement en décembre ou deux ans
+   après l'achat.
+3. **`exposition` et `espacement_cm` changent de sens** : lumière vive
+   indirecte plutôt que mi-ombre, encombrement adulte plutôt que distance de
+   plantation. Documenté en tête de section, et non résolu par de nouvelles
+   valeurs — qui auraient demandé de toucher les filtres du panneau et les
+   deux tables de libellés pour un gain de vocabulaire seulement.
 
 ## Conventions
 
@@ -286,8 +373,9 @@ sur Python 3.9 **et** 3.14.
 Avant : v0.9.0 (deux passes d'audit), puis v0.8.0. L'intégration s'appelait `potager` /
 « Mon Potager » jusqu'à la v0.6.0 ; elle s'appelle `rhizome` / « Rhizome »
 depuis la v0.7.0. Le nom a changé pour que le projet puisse accueillir les
-plantes d'intérieur à côté du jardin — **cette extension n'est pas faite**,
-seul le nom l'anticipe.
+plantes d'intérieur à côté du jardin — **et cette extension est faite depuis
+la PR #8** : 22 fiches d'intérieur, dans une catégorie `plante-interieur` qui
+ne porte aucune fenêtre.
 
 Ce que le renommage a impliqué, et qu'il ne faut pas défaire :
 
@@ -314,18 +402,34 @@ poste de développement. À lire avant de toucher à cette zone :
 - Rappeler l'arrosage n'avait pas de réglage propre : seul `arrosage_actif`
   existait, et il coupait le suivi entier. D'où `CONF_NOTIFY_ARROSAGE`,
   volontairement **hors** de `ETAPES_NOTIFIABLES` — l'arrosage n'est pas une
-  étape du cycle (invariant 6), et une liste enregistrée avant ce réglage ne
+  étape du cycle (invariant 7), et une liste enregistrée avant ce réglage ne
   l'aurait pas contenu, taisant les rappels sans rien dire.
 
-### Angle mort connu du banc d'essai
+### L'angle mort du banc, comblé
 
-`tools/banc_fixture.py` **réimplémente à la main** la sérialisation que fait
+`tools/banc_fixture.py` **réimplémentait à la main** la sérialisation que fait
 `websocket.py`, parce que ce dernier importe Home Assistant. Le banc a donc
 montré un arrosage par plante qui fonctionnait alors qu'il était cassé en
-production. Sa promesse — « le panneau face à ce qu'il recevra réellement » —
-ne tient que tant que les deux ne divergent pas. Extraire `_plante_en_dict` et
-`_arrosage_en_dict` dans un module pur partagé par les deux serait la vraie
-correction ; elle reste à faire.
+production, et sa copie avait déjà pris du retard : elle n'envoyait pas
+`echelonnement_jours`.
+
+C'est réparé. `serialisation.py` est un module pur, et le banc l'appelle au
+lieu de le recopier — le panneau voit donc littéralement ce que l'instance lui
+enverra. Le gain secondaire est que cette sérialisation devient testable par
+le harnais rapide : `tests/test_serialisation.py`, dix tests, sans instance.
+
+**Ne refais pas cette copie.** Si une donnée manque au banc, elle manque à
+`serialisation.plante_en_dict`, et c'est là qu'il faut l'ajouter.
+
+Deux réponses du banc étaient par ailleurs **uniques** là où l'instance les
+calcule par culture : `rhizome/culture` servait la fiche de la tomate quelle
+que soit la carte cliquée — toute la vue détail échappait donc au banc — et
+`rhizome/rotation` annonçait des solanacées devant n'importe quelle fiche, un
+peperomia compris. Les deux sont désormais indexées, et l'avertissement de
+rotation sort du vrai module face au vrai jardin du banc. C'est pour cela
+qu'une aubergine terminée y occupe la pleine terre : sans antécédent réel,
+l'avertissement ne se déclencherait plus du tout et la vue perdrait sa
+couverture.
 
 Depuis l'audit du 25/10/2026, `tests/ha/test_websocket.py` tape sur les vraies
 commandes et rejoue les trois défauts de la v0.6.0. Le banc garde sa valeur
@@ -336,7 +440,19 @@ notifications vers `notify.mobile_app_fairphone_6`. Une vue « Rhizome » a ét�
 ajoutée à son tableau de bord `lovelace`, avec deux cartes `custom:rhizome-card`
 et quatre tuiles de plantes **figées** (elles ne suivent pas les ajouts).
 
-Pistes restantes, par ordre de valeur : les plantes d'intérieur, que le nom
-promet désormais ; la sérialisation partagée ci-dessus ; alerte gel via
-l'entité météo (`weather.bouguenais` existe, `rusticite.gel` est dans chaque
-fiche) ; arrosage réellement journalisé par zone ; export du journal.
+Pistes restantes, par ordre de valeur : arrosage réellement journalisé par
+zone ; export du journal. Le propriétaire a écarté les deux pour l'instant.
+
+L'**alerte gel est faite**. `gel.py` décide, le coordinateur lit la météo par
+`weather.get_forecasts`, le notifieur envoie à 18 h. Trois choses à ne pas
+défaire :
+
+- **Le seuil est celui de la fiche, jamais zéro.** C'est ce qui justifie
+  d'avoir 215 fiches : une alerte unique « il gèle » serait tardive pour un
+  aloe vera (10 °C) et inutile pour un pommier (−20 °C).
+- **Le second passage du soir est la raison d'être du réglage d'heure.**
+  L'alerte gel est la seule notification qui porte sur une échéance de
+  quelques heures ; la replier sur le passage de 8 h la rendrait inutile.
+- **Une météo absente ou illisible rend `None`, et le notifieur se tait.**
+  Inventer une valeur de repli ferait soit une alerte fausse, soit un silence
+  qui coûte une plante — le mutisme est le seul comportement honnête.

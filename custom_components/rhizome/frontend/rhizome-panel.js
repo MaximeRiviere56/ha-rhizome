@@ -77,6 +77,8 @@ const TEXTES = {
     cat_fruitier: "Fruitiers",
     "cat_fleur-compagne": "Fleurs compagnes",
     cat_cereale: "Céréales et graines",
+    cat_medicinale: "Médicinales",
+    "cat_plante-interieur": "Plantes d'intérieur",
 
     // Exposition et besoin en eau.
     "expo_plein-soleil": "Plein soleil",
@@ -93,7 +95,7 @@ const TEXTES = {
     evt_recolte: "Récolté",
     evt_termine: "Terminé",
     evt_perdu: "Perdu",
-    // L'arrosage n'est pas un evenement du journal (invariant 6) mais il
+    // L'arrosage n'est pas un evenement du journal (invariant 7) mais il
     // s'affiche dedans : c'est un fait date, et le cacher laissait l'utilisateur
     // sans trace de ce qu'il venait de noter.
     evt_arrosage: "Arrosé",
@@ -163,6 +165,7 @@ const TEXTES = {
     marqueurPerpetuelle: " · ♾️ perpétuelle",
     marqueurVivace: " · 🔁 vivace",
     plantationPerenne: "Plantation pérenne",
+    cultureInterieur: "En pot, toute l'année",
 
     // Vue « Calendrier ».
     videCalendrier:
@@ -266,11 +269,13 @@ const TEXTES = {
     cleCycle: "Cycle",
     cycleContinue: "Perpétuelle — récolte quasi continue",
     cycleVivace: "Vivace — elle revient chaque année",
+    cycleInterieur: "Plante d'intérieur — elle ne connaît pas de saison",
     cycleAnnuelle: "Annuelle — à ressemer chaque année",
     cleGel: "Gel",
     gelSupporte: "Supporte",
     gelSupporteJusqua: "Supporte jusqu'à {temperature} °C",
     gelCraint: "Craint le gel",
+    gelInterieurMini: "Jamais en dessous de {temperature} °C",
     cleSol: "Sol",
     cleConseils: "Conseils",
     blocVoisinage: "Voisinage",
@@ -328,6 +333,23 @@ const TEXTES = {
       "Le réglage par plante reste prioritaire&nbsp;: chaque plante a son interrupteur de rappels et peut avoir son propre délai, dans sa fiche.",
 
     titreArrosage: "Arrosage",
+    titreGel: "Alerte gel",
+    champEntiteMeteo: "Entité météo",
+    champMeteoAucune: "Aucune — alerte désactivée",
+    champAlerterGel: "Prévenir quand la nuit menace une plante",
+    champHeureGel: "Heure de l'alerte",
+    aideGelSeuil:
+      "Le seuil est celui de chaque fiche, pas zéro degré : un aloe vera " +
+      "souffre à 10 °C et un pommier tient −20 °C.",
+    aideGelPerimetre:
+      "Seules les plantes en terre et en zone non abritée sont concernées. " +
+      "Une serre ou un châssis protège, et l'alerte le sait.",
+    aideGelSoir:
+      "Le soir, et non avec les autres rappels du matin : une alerte gel à " +
+      "8 h arriverait après la nuit qu'elle devait prévenir.",
+    aideGelSansMeteo:
+      "Sans entité météo désignée, Rhizome ne lit aucune prévision et " +
+      "n'envoie aucune alerte.",
     champSuivreArrosage: "Suivre l'arrosage",
     aideArrosageCoupe:
       "Décoché, l'eau disparaît entièrement de l'application. Pour garder le suivi mais sans notification, laissez coché ici et décochez «&nbsp;Arroser&nbsp;» dans <strong>Rappels&nbsp;· Quoi</strong>.",
@@ -438,6 +460,8 @@ const TEXTES = {
     cat_fruitier: "Fruit trees",
     "cat_fleur-compagne": "Companion flowers",
     cat_cereale: "Cereals and seeds",
+    cat_medicinale: "Medicinal",
+    "cat_plante-interieur": "Houseplants",
 
     "expo_plein-soleil": "Full sun",
     "expo_mi-ombre": "Partial shade",
@@ -511,6 +535,7 @@ const TEXTES = {
     marqueurPerpetuelle: " · ♾️ everbearing",
     marqueurVivace: " · 🔁 perennial",
     plantationPerenne: "Perennial planting",
+    cultureInterieur: "In a pot, all year round",
 
     videCalendrier: "The calendar fills up as soon as you add a crop.",
     calPrevu: "(forecast)",
@@ -607,11 +632,13 @@ const TEXTES = {
     cleCycle: "Cycle",
     cycleContinue: "Everbearing — almost continuous harvest",
     cycleVivace: "Perennial — it comes back every year",
+    cycleInterieur: "Houseplant — it has no seasons",
     cycleAnnuelle: "Annual — to be sown again each year",
     cleGel: "Frost",
     gelSupporte: "Hardy",
     gelSupporteJusqua: "Hardy down to {temperature} °C",
     gelCraint: "Frost-tender",
+    gelInterieurMini: "Never below {temperature} °C",
     cleSol: "Soil",
     cleConseils: "Tips",
     blocVoisinage: "Neighbours",
@@ -667,6 +694,23 @@ const TEXTES = {
       "The per-plant setting still wins&nbsp;: each plant has its own reminder switch and can have its own lead time, on its card.",
 
     titreArrosage: "Watering",
+    titreGel: "Frost alert",
+    champEntiteMeteo: "Weather entity",
+    champMeteoAucune: "None — alert disabled",
+    champAlerterGel: "Warn me when the night threatens a plant",
+    champHeureGel: "Alert time",
+    aideGelSeuil:
+      "The threshold comes from each entry, not from zero: an aloe vera " +
+      "suffers at 10 °C where an apple tree takes −20 °C.",
+    aideGelPerimetre:
+      "Only plants in the ground, in an unsheltered zone, are considered. " +
+      "A greenhouse or a cold frame protects, and the alert knows it.",
+    aideGelSoir:
+      "In the evening, not with the morning reminders: a frost alert at " +
+      "8 am would arrive after the night it was meant to warn about.",
+    aideGelSansMeteo:
+      "With no weather entity set, Rhizome reads no forecast and sends no " +
+      "alert.",
     champSuivreArrosage: "Track watering",
     aideArrosageCoupe:
       "Unticked, water disappears from the application entirely. To keep the tracking without notifications, leave this ticked and untick «&nbsp;Water&nbsp;» under <strong>Reminders&nbsp;· What</strong>.",
@@ -767,7 +811,7 @@ const VUES = [
 const CATEGORIES_IDS = [
   "legume-fruit", "legume-racine", "legume-gousse", "legume-bulbe",
   "legume-feuille", "aromatique", "petit-fruit", "fruitier", "fleur-compagne",
-  "cereale",
+  "cereale", "medicinale", "plante-interieur",
 ];
 
 const libelleCategorie = (id) => (id ? T(`cat_${id}`) : "");
@@ -1188,7 +1232,7 @@ const STYLES = `
   .frise-trait { flex: 0 0 12px; display: flex; flex-direction: column; align-items: center; }
   .frise-point { width: 10px; height: 10px; border-radius: 50%; background: var(--primary-color); margin-top: 5px; }
   /* Creux et bleu : un arrosage se lit dans le journal sans se confondre avec
-     une etape du cycle, qu'il ne fait pas avancer (invariant 6). */
+     une etape du cycle, qu'il ne fait pas avancer (invariant 7). */
   .frise-point.eau {
     background: var(--card-background-color, #fff);
     border: 2px solid var(--rhizome-eau);
@@ -1849,6 +1893,8 @@ class RhizomePanel extends HTMLElement {
               ? `${echappe(culture.prochain_depart.libelle)} : ${fmtCourt(
                   culture.prochain_depart.debut
                 )} → ${fmtCourt(culture.prochain_depart.fin)}`
+              : culture.categorie === "plante-interieur"
+              ? T("cultureInterieur")
               : culture.perenne
               ? T("plantationPerenne")
               : ""
@@ -1980,7 +2026,7 @@ class RhizomePanel extends HTMLElement {
       }
     }
 
-    // L'arrosage ne fait pas avancer le cycle (invariant 6), mais c'est un
+    // L'arrosage ne fait pas avancer le cycle (invariant 7), mais c'est un
     // fait date : il a sa place au journal. Groupe par jour et non par plante,
     // sinon un ete d'arrosages enterrerait les semis et les recoltes sous des
     // centaines de lignes identiques.
@@ -2786,7 +2832,9 @@ class RhizomePanel extends HTMLElement {
     )}</div></div>
           <div class="fait"><div class="cle">${T("cleCycle")}</div>
             <div class="valeur">${
-              culture.perenne
+              culture.categorie === "plante-interieur"
+                ? T("cycleInterieur")
+                : culture.perenne
                 ? ((culture.cycle || {}).duree_recolte_jours || 0) >=
                   RECOLTE_CONTINUE_JOURS
                   ? T("cycleContinue")
@@ -2795,7 +2843,12 @@ class RhizomePanel extends HTMLElement {
             }</div></div>
           <div class="fait"><div class="cle">${T("cleGel")}</div>
             <div class="valeur">${
-              culture.rusticite.gel
+              culture.categorie === "plante-interieur" &&
+              culture.rusticite.temp_min_c != null
+                ? T("gelInterieurMini", {
+                    temperature: culture.rusticite.temp_min_c,
+                  })
+                : culture.rusticite.gel
                 ? culture.rusticite.temp_min_c != null
                   ? T("gelSupporteJusqua", {
                       temperature: culture.rusticite.temp_min_c,
@@ -3098,6 +3151,7 @@ class RhizomePanel extends HTMLElement {
       ${this._blocLangue(o)}
       ${this._blocNotifs(o)}
       ${this._blocEauReglages(o)}
+      ${this._blocGelReglages(o)}
       ${this._blocZones()}
       ${this._blocCataloguePerso()}
       ${this._blocAffichage(o)}`;
@@ -3296,6 +3350,45 @@ class RhizomePanel extends HTMLElement {
         <p class="aide">${T("aideArrosageCoupe")}</p>
         <p class="aide">${T("aideArrosageTheorique")}</p>
         <p class="aide">${T("aideArrosageGardeFous")}</p>
+      </div>`;
+  }
+
+  _blocGelReglages(o) {
+    const entites = this._reglages?.meteo_possibles || [];
+    const choisie = o.meteo_entite || "";
+    const options = [
+      `<option value=""${choisie ? "" : " selected"}>${T(
+        "champMeteoAucune"
+      )}</option>`,
+      ...entites.map(
+        (e) =>
+          `<option value="${echappe(e.value)}"${
+            e.value === choisie ? " selected" : ""
+          }>${echappe(e.label)}</option>`
+      ),
+    ].join("");
+
+    return `
+      <h2>${T("titreGel")}</h2>
+      <div class="carte bloc">
+        <div class="reglage">
+          <label for="meteo-entite">${T("champEntiteMeteo")}</label>
+          <select id="meteo-entite">${options}</select>
+        </div>
+        <p class="aide">${T("aideGelSansMeteo")}</p>
+        <label class="case">
+          <input type="checkbox" id="notify-gel"
+                 ${o.notify_gel !== false ? "checked" : ""}>
+          <span>${T("champAlerterGel")}</span>
+        </label>
+        <div class="reglage">
+          <label for="heure-gel">${T("champHeureGel")}</label>
+          <input id="heure-gel" type="time"
+                 value="${(o.notify_gel_heure || "18:00:00").slice(0, 5)}">
+        </div>
+        <p class="aide">${T("aideGelSoir")}</p>
+        <p class="aide">${T("aideGelSeuil")}</p>
+        <p class="aide">${T("aideGelPerimetre")}</p>
       </div>`;
   }
 
@@ -3787,6 +3880,20 @@ class RhizomePanel extends HTMLElement {
     const masquer = hote.querySelector("#masquer-terminees");
     masquer?.addEventListener("change", () =>
       this._enregistrerReglages({ masquer_terminees: masquer.checked })
+    );
+
+    // --- Alerte gel
+    const meteo = hote.querySelector("#meteo-entite");
+    meteo?.addEventListener("change", () =>
+      this._enregistrerReglages({ meteo_entite: meteo.value })
+    );
+    const notifGel = hote.querySelector("#notify-gel");
+    notifGel?.addEventListener("change", () =>
+      this._enregistrerReglages({ notify_gel: notifGel.checked })
+    );
+    const heureGel = hote.querySelector("#heure-gel");
+    heureGel?.addEventListener("change", () =>
+      this._enregistrerReglages({ notify_gel_heure: `${heureGel.value}:00` })
     );
 
     // --- Zones

@@ -221,6 +221,14 @@ TEXTES: dict[str, dict[str, str]] = {
         "notif_eau_dernier": "Dernier arrosage le {date}",
         "notif_eau_jamais": "Jamais arrosée depuis sa mise en terre",
         "notif_bouton_arrose": "Arrosé",
+        # Alerte gel. Le titre porte la temperature, le message dit quoi
+        # faire : une alerte qui ne dit pas le geste ne sert a rien a 18 h.
+        "notif_gel_titre": "🥶 {temperature} °C cette nuit",
+        "notif_gel_message": "{plantes}. {geste}",
+        "notif_gel_et_autres": " et {nombre} autres",
+        "notif_gel_geste_rentrer": "À rentrer avant la nuit.",
+        "notif_gel_geste_proteger": "À protéger : voile d'hivernage ou paillis.",
+        "notif_gel_geste_mixte": "À rentrer ou à voiler avant la nuit.",
         # Calendrier.
         "cal_resume_etape": "{verbe} : {plante}",
         "cal_resume_journal": "{emoji} {evenement} : {plante}",
@@ -269,6 +277,7 @@ TEXTES: dict[str, dict[str, str]] = {
         "err_date_invalide": "Date invalide : {valeur}",
         "err_quantite_negative": "Une quantité récoltée ne peut pas être négative.",
         "err_cible_notif": "Destinataire de notification inconnu : {cibles}.",
+        "err_meteo_inconnue": "Entité météo inconnue : {entite}.",
         "err_rien_a_retablir": (
             "Cette fiche n'existe pas dans le catalogue livré : il n'y a rien à "
             "rétablir. Supprimez-la plutôt."
@@ -343,6 +352,12 @@ TEXTES: dict[str, dict[str, str]] = {
         "notif_eau_dernier": "Last watered {date}",
         "notif_eau_jamais": "Never watered since it went in the ground",
         "notif_bouton_arrose": "Watered",
+        "notif_gel_titre": "🥶 {temperature} °C tonight",
+        "notif_gel_message": "{plantes}. {geste}",
+        "notif_gel_et_autres": " and {nombre} more",
+        "notif_gel_geste_rentrer": "Bring them in before nightfall.",
+        "notif_gel_geste_proteger": "Protect them: fleece or a thick mulch.",
+        "notif_gel_geste_mixte": "Bring in or fleece before nightfall.",
         "cal_resume_etape": "{verbe}: {plante}",
         "cal_resume_journal": "{emoji} {evenement}: {plante}",
         "cal_fenetre_prevue": "Forecast window, {debut} to {fin}.",
@@ -382,6 +397,7 @@ TEXTES: dict[str, dict[str, str]] = {
         "err_date_invalide": "Invalid date: {valeur}",
         "err_quantite_negative": "A harvested quantity cannot be negative.",
         "err_cible_notif": "Unknown reminder recipient: {cibles}.",
+        "err_meteo_inconnue": "Unknown weather entity: {entite}.",
         "err_rien_a_retablir": (
             "This entry does not exist in the shipped catalogue, so there is "
             "nothing to restore. Delete it instead."

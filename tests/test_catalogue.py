@@ -67,9 +67,18 @@ class TestIntegrite(unittest.TestCase):
                 )
 
 
+# Les plantes d'interieur sont hors de ce test par construction : elles ne
+# portent aucune fenetre, puisque toutes les fenetres du catalogue sont des
+# decalages par rapport aux gelees. Elles ont leur propre test, plus bas, qui
+# verifie justement qu'elles ne proposent rien.
+CATEGORIE_INTERIEUR = "plante-interieur"
+PLEIN_AIR = [c for c in CULTURES if c["categorie"] != CATEGORIE_INTERIEUR]
+INTERIEUR = [c for c in CULTURES if c["categorie"] == CATEGORIE_INTERIEUR]
+
+
 class TestCatalogueDansLeMoteur(unittest.TestCase):
     def test_toute_culture_produit_des_etapes_toute_l_annee(self):
-        for culture in CULTURES:
+        for culture in PLEIN_AIR:
             plante = {"uid": "x", "culture_id": culture["id"], "evenements": []}
             for jour in DATES_SONDE:
                 with self.subTest(culture=culture["id"], jour=jour):
@@ -81,7 +90,7 @@ class TestCatalogueDansLeMoteur(unittest.TestCase):
 
     def test_toute_culture_sait_mener_un_cycle_complet(self):
         """Semer, puis mettre en place, doit rester calculable partout."""
-        for culture in CULTURES:
+        for culture in PLEIN_AIR:
             if culture.get("perenne"):
                 continue
             fenetres = culture["fenetres"]
@@ -111,7 +120,7 @@ class TestCatalogueDansLeMoteur(unittest.TestCase):
                 )
 
     def test_les_perennes_ne_demandent_jamais_de_semis(self):
-        for culture in CULTURES:
+        for culture in PLEIN_AIR:
             if not culture.get("perenne"):
                 continue
             plante = {"uid": "x", "culture_id": culture["id"], "evenements": []}
@@ -209,3 +218,80 @@ class TestCataloguePersonnel(unittest.TestCase):
             all(not c["id"].startswith("perso-") for c in CULTURES),
             "le catalogue livré ne doit pas utiliser le préfixe perso-",
         )
+
+
+class TestPlantesInterieur(unittest.TestCase):
+    """Ce que le catalogue promet des plantes d'interieur, et rien de plus.
+
+    Le risque qu'on couvre ici n'est pas qu'elles cassent : c'est qu'une
+    evolution leur redonne un calendrier par inadvertance, et que le panneau
+    annonce la recolte d'un monstera.
+    """
+
+    def test_il_y_en_a(self):
+        self.assertGreaterEqual(len(INTERIEUR), 20)
+
+    def test_aucune_fenetre_ni_etape(self):
+        for culture in INTERIEUR:
+            with self.subTest(culture=culture["id"]):
+                self.assertEqual(culture["fenetres"], {})
+                plante = {"uid": "x", "culture_id": culture["id"], "evenements": []}
+                for jour in DATES_SONDE:
+                    self.assertEqual(
+                        ph.prochaines_etapes(culture, plante, GELEES, 0, jour), []
+                    )
+
+    def test_toutes_perennes_et_gelives(self):
+        """Une plante d'interieur declaree rustique promettrait un hivernage dehors."""
+        for culture in INTERIEUR:
+            with self.subTest(culture=culture["id"]):
+                self.assertTrue(culture["perenne"])
+                self.assertIs(culture["rusticite"]["gel"], False)
+                self.assertIsNotNone(culture["rusticite"]["temp_min_c"])
+
+    def test_chacune_dit_sa_toxicite(self):
+        """La question que pose un foyer avec un animal ou un enfant.
+
+        On ne verifie pas la justesse de la reponse — aucun test ne peut le
+        faire — mais qu'elle soit posee : une fiche muette sur ce point est le
+        seul endroit du catalogue ou le silence peut nuire.
+        """
+        marqueurs = ("toxi", "irritant", "latex", "saponine", "oxalate", "purgatif")
+        for culture in INTERIEUR:
+            with self.subTest(culture=culture["id"]):
+                conseils = " ".join(culture["conseils"]).lower()
+                self.assertTrue(
+                    any(m in conseils for m in marqueurs),
+                    f"{culture['id']} ne dit rien de sa toxicite",
+                )
+
+
+class TestRegistreRevue(unittest.TestCase):
+    """Le registre des relevés de `tools/revue_horticole.py`.
+
+    Un seul risque, mais il est silencieux : deux entrées pour la même fiche.
+    Python garde la dernière et jette la première sans rien dire, donc une
+    source disparaît du registre alors qu'elle y a été écrite. C'est arrivé —
+    `artichaut` et `fraisier-remontant` ont perdu leur relevé Gerbeaud de
+    cette façon, et seul `ruff` l'a vu.
+    """
+
+    def test_aucune_fiche_relevee_deux_fois(self):
+        import re
+
+        source = (RACINE / "tools" / "revue_horticole.py").read_text(encoding="utf-8")
+        corps = source[source.index("RELEVES: dict"):]
+        # Les cles de fiche sont a quatre espaces d'indentation ; celles des
+        # sources, a huit. Le motif distingue donc les deux sans parser.
+        cles = re.findall(r'^    "([a-z0-9-]+)": \{$', corps, re.M)
+        doublons = sorted({c for c in cles if cles.count(c) > 1})
+        self.assertEqual(doublons, [], f"fiches relevées deux fois : {doublons}")
+
+    def test_toute_fiche_relevee_existe_au_catalogue(self):
+        """Un identifiant mal orthographié ne relève rien, en silence."""
+        sys.path.insert(0, str(RACINE / "tools"))
+        from revue_horticole import RELEVES
+
+        connus = {c["id"] for c in CULTURES}
+        inconnus = sorted(set(RELEVES) - connus)
+        self.assertEqual(inconnus, [], f"relevés sans fiche : {inconnus}")

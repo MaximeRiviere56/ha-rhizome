@@ -98,7 +98,7 @@ SOL_ORDINAIRE = "ordinaire, bien drainé"
 
 C("tomate", "Tomate", "Solanum lycopersicum", "Solanacées", "legume-fruit", "🍅",
   eau="eleve", freq=2, sol=SOL_RICHE, espacement=60, prof=0.5, diff=2, gel=False, tmin=5,
-  semis_int=(-60, 30), plantation=(7, 30), cycle=(45, 110, 75, 90),
+  semis_int=(-47, 30), plantation=(28, 30), cycle=(45, 110, 75, 90),
   eau_notes="Au pied, jamais sur le feuillage : c'est ainsi qu'arrive le mildiou.",
   aime=["basilic", "oeillet-inde", "carotte", "persil"],
   evite=["pomme-de-terre", "fenouil-bulbeux", "chou-cabus"],
@@ -108,14 +108,14 @@ C("tomate", "Tomate", "Solanum lycopersicum", "Solanacées", "legume-fruit", "�
 
 C("tomate-cerise", "Tomate cerise", "Solanum lycopersicum var. cerasiforme", "Solanacées",
   "legume-fruit", "🍅", eau="eleve", freq=2, sol=SOL_RICHE, espacement=50, prof=0.5,
-  diff=1, gel=False, tmin=5, semis_int=(-60, 30), plantation=(7, 30), cycle=(45, 100, 70, 100),
+  diff=1, gel=False, tmin=5, semis_int=(-47, 30), plantation=(28, 30), cycle=(45, 100, 70, 100),
   eau_notes="Plus tolérante que la grosse tomate, mais garder le sol frais.",
   aime=["basilic", "oeillet-inde"], evite=["pomme-de-terre", "fenouil-bulbeux"],
   conseils=["Se passe de taille si elle est bien tuteurée", "Idéale en pot sur un balcon"])
 
 C("poivron", "Poivron", "Capsicum annuum", "Solanacées", "legume-fruit", "🫑",
-  eau="moyen", freq=3, sol=SOL_RICHE, espacement=50, prof=0.5, diff=3, gel=False, tmin=10,
-  semis_int=(-75, 30), plantation=(15, 25), cycle=(55, 130, 90, 70),
+  eau="moyen", freq=3, sol=SOL_RICHE, espacement=50, prof=0.5, diff=3, gel=False, tmin=12,
+  semis_int=(-62, 30), plantation=(28, 25), cycle=(55, 130, 90, 70),
   eau_notes="Régulier et sans excès ; craint l'eau stagnante.",
   aime=["basilic", "carotte", "oignon-jaune"], evite=["haricot-nain", "fenouil-bulbeux"],
   conseils=["Chaleur indispensable : attendre un sol à 15 °C",
@@ -123,7 +123,7 @@ C("poivron", "Poivron", "Capsicum annuum", "Solanacées", "legume-fruit", "🫑"
 
 C("piment", "Piment", "Capsicum annuum", "Solanacées", "legume-fruit", "🌶️",
   eau="moyen", freq=3, sol=SOL_RICHE, espacement=45, prof=0.5, diff=3, gel=False, tmin=10,
-  semis_int=(-80, 30), plantation=(18, 25), cycle=(55, 135, 95, 80),
+  semis_int=(-67, 30), plantation=(31, 25), cycle=(55, 135, 95, 80),
   eau_notes="Laisser sécher légèrement entre deux arrosages : le piment gagne en force.",
   aime=["basilic", "tomate"], evite=["fenouil-bulbeux"],
   conseils=["Semis très précoce indispensable sous nos latitudes",
@@ -131,36 +131,36 @@ C("piment", "Piment", "Capsicum annuum", "Solanacées", "legume-fruit", "🌶️
 
 C("aubergine", "Aubergine", "Solanum melongena", "Solanacées", "legume-fruit", "🍆",
   eau="eleve", freq=2, sol=SOL_RICHE, espacement=60, prof=0.5, diff=3, gel=False, tmin=12,
-  semis_int=(-80, 30), plantation=(18, 25), cycle=(55, 140, 95, 70),
+  semis_int=(-67, 30), plantation=(31, 25), cycle=(55, 140, 95, 70),
   eau_notes="Gourmande en eau dès la formation des fruits.",
   aime=["haricot-nain", "thym", "oeillet-inde"], evite=["pomme-de-terre"],
   conseils=["Tuteurer : les fruits sont lourds", "Limiter à 4-5 fruits par plant"])
 
 C("courgette", "Courgette", "Cucurbita pepo", "Cucurbitacées", "legume-fruit", "🥒",
   eau="eleve", freq=2, sol=SOL_RICHE, espacement=100, prof=2, diff=1, gel=False, tmin=10,
-  semis_int=(-30, 20), semis_dir=(15, 45), plantation=(15, 30), cycle=(28, 60, 50, 90),
+  semis_int=(-17, 20), semis_dir=(28, 45), plantation=(28, 30), cycle=(28, 60, 50, 90),
   eau_notes="Beaucoup d'eau, au pied, sans mouiller les feuilles.",
   aime=["haricot-nain", "mais-doux", "capucine"], evite=["pomme-de-terre", "concombre"],
   conseils=["Récolter jeune et souvent : un plant freine dès qu'un fruit grossit",
             "Deux plants suffisent pour une famille"])
 
 C("concombre", "Concombre", "Cucumis sativus", "Cucurbitacées", "legume-fruit", "🥒",
-  eau="eleve", freq=2, sol=SOL_RICHE, espacement=80, prof=2, diff=2, gel=False, tmin=12,
-  semis_int=(-30, 20), plantation=(15, 30), cycle=(28, 65, 55, 70),
+  eau="eleve", freq=2, sol=SOL_RICHE, espacement=60, prof=2, diff=2, gel=False, tmin=12,
+  semis_int=(-17, 20), plantation=(28, 30), cycle=(28, 65, 55, 70),
   eau_notes="Un manque d'eau rend les fruits amers.",
   aime=["haricot-a-rames", "laitue", "aneth"], evite=["pomme-de-terre", "courgette"],
   conseils=["Palisser à la verticale : fruits plus droits, moins de maladies"])
 
 C("cornichon", "Cornichon", "Cucumis sativus", "Cucurbitacées", "legume-fruit", "🥒",
   eau="eleve", freq=2, sol=SOL_RICHE, espacement=70, prof=2, diff=2, gel=False, tmin=12,
-  semis_int=(-25, 20), semis_dir=(15, 40), cycle=(25, 60, 50, 60),
+  semis_int=(-12, 20), semis_dir=(28, 40), cycle=(25, 60, 50, 60),
   eau_notes="Arrosage régulier, sinon les fruits avortent.",
   aime=["aneth", "haricot-nain"], evite=["pomme-de-terre"],
   conseils=["Cueillir tous les deux jours au plus fort de la production"])
 
 C("courge-butternut", "Courge butternut", "Cucurbita moschata", "Cucurbitacées",
   "legume-fruit", "🎃", eau="moyen", freq=4, sol=SOL_RICHE, espacement=120, prof=3,
-  diff=1, gel=False, tmin=10, semis_int=(-30, 20), plantation=(15, 30), cycle=(28, 120, 100, 45),
+  diff=1, gel=False, tmin=10, semis_int=(-17, 20), plantation=(28, 30), cycle=(28, 120, 100, 45),
   eau_notes="Arrosages copieux mais espacés ; couper l'eau à l'approche de la récolte.",
   aime=["mais-doux", "haricot-a-rames", "capucine"], evite=["pomme-de-terre"],
   conseils=["Récolter quand le pédoncule est sec et liégeux",
@@ -168,21 +168,21 @@ C("courge-butternut", "Courge butternut", "Cucurbita moschata", "Cucurbitacées"
 
 C("potimarron", "Potimarron", "Cucurbita maxima", "Cucurbitacées", "legume-fruit", "🎃",
   eau="moyen", freq=4, sol=SOL_RICHE, espacement=120, prof=3, diff=1, gel=False, tmin=10,
-  semis_int=(-30, 20), plantation=(15, 30), cycle=(28, 110, 95, 45),
+  semis_int=(-17, 20), plantation=(28, 30), cycle=(28, 110, 95, 45),
   eau_notes="Comme la butternut : copieux et espacés.",
   aime=["mais-doux", "haricot-a-rames"], evite=["pomme-de-terre"],
   conseils=["Se conserve tout l'hiver dans une pièce fraîche et sèche"])
 
 C("citrouille", "Citrouille", "Cucurbita maxima", "Cucurbitacées", "legume-fruit", "🎃",
   eau="moyen", freq=4, sol=SOL_RICHE, espacement=150, prof=3, diff=1, gel=False, tmin=10,
-  semis_int=(-30, 20), plantation=(15, 30), cycle=(28, 115, 100, 45),
+  semis_int=(-17, 20), plantation=(28, 30), cycle=(28, 115, 100, 45),
   eau_notes="Volume d'eau important, surtout pendant le grossissement.",
   aime=["mais-doux", "capucine"], evite=["pomme-de-terre"],
   conseils=["Glisser une planchette sous le fruit pour éviter qu'il pourrisse"])
 
 C("melon", "Melon", "Cucumis melo", "Cucurbitacées", "legume-fruit", "🍈",
   eau="moyen", freq=3, sol=SOL_RICHE, espacement=100, prof=2, diff=3, gel=False, tmin=14,
-  semis_int=(-45, 25), plantation=(20, 25), cycle=(35, 115, 90, 40),
+  semis_int=(-32, 25), plantation=(33, 25), cycle=(35, 115, 90, 40),
   eau_notes="Réduire fortement l'eau dix jours avant la récolte : c'est ce qui fait le sucre.",
   aime=["mais-doux", "capucine"], evite=["concombre", "pomme-de-terre"],
   conseils=["Pailler avec une bâche ou de l'ardoise pour accumuler la chaleur",
@@ -190,14 +190,14 @@ C("melon", "Melon", "Cucumis melo", "Cucurbitacées", "legume-fruit", "🍈",
 
 C("pasteque", "Pastèque", "Citrullus lanatus", "Cucurbitacées", "legume-fruit", "🍉",
   eau="moyen", freq=3, sol=SOL_RICHE, espacement=140, prof=2, diff=3, gel=False, tmin=15,
-  semis_int=(-45, 25), plantation=(22, 25), cycle=(35, 125, 100, 35),
+  semis_int=(-32, 25), plantation=(35, 25), cycle=(35, 125, 100, 35),
   eau_notes="Comme le melon : couper l'eau en fin de cycle.",
   aime=["mais-doux"], evite=["pomme-de-terre"],
   conseils=["Exige un été chaud : réserver la place la plus abritée du jardin"])
 
 C("mais-doux", "Maïs doux", "Zea mays", "Poacées", "legume-fruit", "🌽",
   eau="eleve", freq=3, sol=SOL_RICHE, espacement=40, prof=3, diff=1, gel=False, tmin=10,
-  semis_dir=(15, 45), cycle=(None, 90, None, 25),
+  semis_dir=(28, 45), cycle=(None, 90, None, 25),
   eau_notes="Très assoiffé à la floraison : ne jamais laisser sécher à ce stade.",
   aime=["courgette", "haricot-a-rames", "potimarron"], evite=["betterave", "celeri-branche"],
   conseils=["Semer en bloc carré, jamais en ligne unique : la pollinisation en dépend",
@@ -205,7 +205,7 @@ C("mais-doux", "Maïs doux", "Zea mays", "Poacées", "legume-fruit", "🌽",
 
 C("physalis", "Physalis", "Physalis peruviana", "Solanacées", "legume-fruit", "🏮",
   eau="moyen", freq=3, sol=SOL_ORDINAIRE, espacement=80, prof=0.5, diff=2, gel=False, tmin=8,
-  semis_int=(-60, 30), plantation=(15, 25), cycle=(45, 130, 95, 60),
+  semis_int=(-47, 30), plantation=(28, 25), cycle=(45, 130, 95, 60),
   eau_notes="Supporte bien un léger stress hydrique.",
   aime=["tomate", "basilic"], evite=[],
   conseils=["Les fruits sont mûrs quand le calice est sec et qu'ils tombent seuls"])
@@ -216,7 +216,7 @@ C("physalis", "Physalis", "Physalis peruviana", "Solanacées", "legume-fruit", "
 
 C("haricot-nain", "Haricot vert nain", "Phaseolus vulgaris", "Fabacées", "legume-gousse", "🫘",
   eau="moyen", freq=3, sol=SOL_ORDINAIRE, espacement=10, prof=3, diff=1, gel=False, tmin=10,
-  semis_dir=(15, 90), cycle=(None, 55, None, 40),
+  semis_dir=(28, 90), cycle=(None, 55, None, 40),
   eau_notes="Ne pas arroser avant la levée, puis régulièrement à la floraison.",
   aime=["carotte", "laitue", "courgette", "fraisier"], evite=["ail-blanc", "oignon-jaune", "echalote", "poireau"],
   conseils=["Semer tous les 15 jours jusqu'en juillet pour étaler la récolte",
@@ -224,14 +224,14 @@ C("haricot-nain", "Haricot vert nain", "Phaseolus vulgaris", "Fabacées", "legum
 
 C("haricot-a-rames", "Haricot à rames", "Phaseolus vulgaris", "Fabacées", "legume-gousse", "🫘",
   eau="moyen", freq=3, sol=SOL_ORDINAIRE, espacement=15, prof=3, diff=1, gel=False, tmin=10,
-  semis_dir=(20, 75), cycle=(None, 65, None, 60),
+  semis_dir=(33, 75), cycle=(None, 65, None, 60),
   eau_notes="Régulier dès la floraison.",
   aime=["mais-doux", "courgette", "laitue"], evite=["ail-blanc", "oignon-jaune", "poireau", "betterave"],
   conseils=["Installer les tuteurs avant de semer", "Produit plus longtemps que le nain"])
 
 C("haricot-sec", "Haricot sec", "Phaseolus vulgaris", "Fabacées", "legume-gousse", "🫘",
   eau="faible", freq=6, sol=SOL_ORDINAIRE, espacement=12, prof=3, diff=1, gel=False, tmin=10,
-  semis_dir=(20, 60), cycle=(None, 95, None, 25),
+  semis_dir=(33, 60), cycle=(None, 95, None, 25),
   eau_notes="Sobre ; arrêter l'arrosage dès que les gousses jaunissent.",
   aime=["carotte", "mais-doux"], evite=["ail-blanc", "oignon-jaune"],
   conseils=["Arracher les plants entiers et les faire sécher tête en bas"])
@@ -340,7 +340,7 @@ C("pomme-de-terre", "Pomme de terre", "Solanum tuberosum", "Solanacées", "legum
 
 C("patate-douce", "Patate douce", "Ipomoea batatas", "Convolvulacées", "legume-racine", "🍠",
   eau="moyen", freq=4, sol=SOL_LEGER, espacement=80, diff=2, gel=False, tmin=12,
-  plantation=(20, 30), cycle=(None, None, 130, 30),
+  plantation=(33, 30), cycle=(None, None, 130, 30),
   eau_notes="Supporte le sec une fois installée.",
   aime=["haricot-nain"], evite=["pomme-de-terre"],
   conseils=["Planter les boutures quand le sol atteint 15 °C",
@@ -568,14 +568,14 @@ C("cresson-alenois", "Cresson alénois", "Lepidium sativum", "Brassicacées", "l
 
 C("pourpier", "Pourpier d'été", "Portulaca oleracea", "Portulacacées", "legume-feuille", "🌿",
   eau="faible", freq=6, sol=SOL_LEGER, espacement=15, prof=0.5, diff=1, gel=False, tmin=8,
-  semis_dir=(15, 90), cycle=(None, 50, None, 60),
+  semis_dir=(28, 90), cycle=(None, 50, None, 60),
   eau_notes="Supporte très bien la sécheresse : c'est une plante grasse.",
   aime=["carotte", "tomate"], evite=[],
   conseils=["Pousse là où rien ne pousse, en plein cagnard"])
 
 C("tetragone", "Tétragone (épinard d'été)", "Tetragonia tetragonoides", "Aizoacées",
   "legume-feuille", "🥬", eau="moyen", freq=4, sol=SOL_ORDINAIRE, espacement=50, prof=2,
-  diff=1, gel=False, tmin=8, semis_dir=(15, 45), cycle=(None, 60, None, 120),
+  diff=1, gel=False, tmin=8, semis_dir=(28, 45), cycle=(None, 60, None, 120),
   eau_notes="Modéré, bien plus tolérante que l'épinard.",
   aime=["tomate", "haricot-nain"], evite=[],
   conseils=["La solution à l'épinard qui monte en été : elle ne monte pas"])
@@ -632,7 +632,7 @@ C("cardon", "Cardon", "Cynara cardunculus", "Astéracées", "legume-feuille", "�
 
 C("basilic", "Basilic", "Ocimum basilicum", "Lamiacées", "aromatique", "🌿",
   eau="eleve", freq=2, sol=SOL_RICHE, espacement=25, prof=0.5, diff=1, gel=False, tmin=12,
-  semis_int=(-45, 30), plantation=(20, 40), cycle=(35, 70, 45, 120),
+  semis_int=(-32, 30), plantation=(33, 40), cycle=(35, 70, 45, 120),
   eau_notes="Le matin, au pied ; jamais le soir, l'humidité nocturne le fait noircir.",
   aime=["tomate", "poivron", "courgette"], evite=["concombre"],
   conseils=["Pincer les fleurs dès qu'elles apparaissent : elles arrêtent la production de feuilles",
@@ -669,7 +669,7 @@ C("cerfeuil", "Cerfeuil", "Anthriscus cerefolium", "Apiacées", "aromatique", "�
 
 C("sarriette", "Sarriette", "Satureja hortensis", "Lamiacées", "aromatique", "🌿",
   eau="faible", freq=6, sol=SOL_LEGER, espacement=20, prof=0.5, diff=1, gel=False, tmin=5,
-  semis_dir=(15, 45), cycle=(None, 60, None, 90),
+  semis_dir=(28, 45), cycle=(None, 60, None, 90),
   eau_notes="Sobre, comme toutes les méditerranéennes.",
   aime=["haricot-nain", "oignon-jaune", "pois-chiche"], evite=[],
   conseils=["Plantée près des haricots, elle éloigne les pucerons noirs"])
@@ -693,7 +693,7 @@ C("thym", "Thym", "Thymus vulgaris", "Lamiacées", "aromatique", "🌿",
 
 C("romarin", "Romarin", "Salvia rosmarinus", "Lamiacées", "aromatique", "🌿",
   eau="faible", freq=12, sol="pauvre, caillouteux, très drainé", espacement=80,
-  diff=1, gel=True, tmin=-12, perenne=True,
+  diff=1, gel=True, tmin=-10, perenne=True,
   plantation=(-15, 60), recolte=("01-01", 364), cycle=(None, None, None, 364),
   eau_notes="Aucun arrosage une fois installé.",
   aime=["chou-cabus", "carotte"], evite=[],
@@ -914,7 +914,7 @@ C("noyer", "Noyer", "Juglans regia", "Juglandacées", "fruitier", "🌰",
 
 C("oeillet-inde", "Œillet d'Inde", "Tagetes patula", "Astéracées", "fleur-compagne", "🌼",
   eau="moyen", freq=4, sol=SOL_ORDINAIRE, espacement=25, prof=0.5, diff=1, gel=False, tmin=5,
-  semis_int=(-45, 30), semis_dir=(15, 60), cycle=(30, 70, 55, 150),
+  semis_int=(-32, 30), semis_dir=(28, 60), cycle=(30, 70, 55, 150),
   eau_notes="Modéré ; très tolérant.",
   aime=["tomate", "aubergine", "framboisier", "pomme-de-terre"], evite=[],
   conseils=["Ses racines assainissent le sol des nématodes : le compagnon numéro un de la tomate",
@@ -923,7 +923,7 @@ C("oeillet-inde", "Œillet d'Inde", "Tagetes patula", "Astéracées", "fleur-com
 C("capucine", "Capucine", "Tropaeolum majus", "Tropaeolacées", "fleur-compagne", "🌼",
   eau="faible", freq=5, sol="pauvre, sinon elle fait des feuilles et pas de fleurs",
   espacement=40, prof=2, diff=1, gel=False, tmin=5,
-  semis_dir=(10, 60), cycle=(None, 55, None, 150),
+  semis_dir=(28, 60), cycle=(None, 55, None, 150),
   eau_notes="Sobre ; trop d'eau et d'engrais la font monter en feuilles.",
   aime=["courgette", "citrouille", "pommier", "poirier", "pecher", "haricot-a-rames"], evite=[],
   conseils=["Plante-piège à pucerons : ils s'y installent plutôt que sur vos légumes",
@@ -966,7 +966,7 @@ C("camomille", "Camomille romaine", "Chamaemelum nobile", "Astéracées", "aroma
 
 C("courge-spaghetti", "Courge spaghetti", "Cucurbita pepo", "Cucurbitacées",
   "legume-fruit", "🎃", eau="moyen", freq=4, sol=SOL_RICHE, espacement=110, prof=3,
-  diff=1, gel=False, tmin=10, semis_int=(-30, 20), plantation=(15, 30),
+  diff=1, gel=False, tmin=10, semis_int=(-17, 20), plantation=(28, 30),
   cycle=(28, 110, 95, 45),
   eau_notes="Copieux mais espacés ; couper l'eau à l'approche de la récolte.",
   aime=["mais-doux", "capucine", "bourrache"], evite=["pomme-de-terre"],
@@ -975,7 +975,7 @@ C("courge-spaghetti", "Courge spaghetti", "Cucurbita pepo", "Cucurbitacées",
 
 C("patisson", "Pâtisson", "Cucurbita pepo", "Cucurbitacées", "legume-fruit", "🎃",
   eau="eleve", freq=2, sol=SOL_RICHE, espacement=90, prof=3, diff=1, gel=False, tmin=10,
-  semis_int=(-30, 20), semis_dir=(15, 40), plantation=(15, 30), cycle=(28, 70, 55, 75),
+  semis_int=(-17, 20), semis_dir=(28, 40), plantation=(28, 30), cycle=(28, 70, 55, 75),
   eau_notes="Comme la courgette : beaucoup d'eau au pied.",
   aime=["mais-doux", "haricot-nain", "capucine"], evite=["pomme-de-terre"],
   conseils=["Se cueille jeune, à la taille d'une soucoupe",
@@ -983,8 +983,8 @@ C("patisson", "Pâtisson", "Cucurbita pepo", "Cucurbitacées", "legume-fruit", "
 
 C("courge-muscade", "Courge muscade de Provence", "Cucurbita moschata",
   "Cucurbitacées", "legume-fruit", "🎃", eau="moyen", freq=4, sol=SOL_RICHE,
-  espacement=150, prof=3, diff=2, gel=False, tmin=12, semis_int=(-30, 20),
-  plantation=(18, 30), cycle=(28, 125, 110, 45),
+  espacement=150, prof=3, diff=2, gel=False, tmin=12, semis_int=(-17, 20),
+  plantation=(31, 30), cycle=(28, 125, 110, 45),
   eau_notes="Gros buveur en été, à sevrer en fin de cycle.",
   aime=["mais-doux", "bourrache"], evite=["pomme-de-terre", "courgette"],
   conseils=["Exige une longue saison chaude : à réserver aux étés francs",
@@ -992,7 +992,7 @@ C("courge-muscade", "Courge muscade de Provence", "Cucurbita moschata",
 
 C("tomatille", "Tomatille", "Physalis philadelphica", "Solanacées", "legume-fruit", "🫒",
   eau="moyen", freq=3, sol=SOL_ORDINAIRE, espacement=80, prof=0.5, diff=2,
-  gel=False, tmin=8, semis_int=(-60, 30), plantation=(15, 25), cycle=(45, 120, 80, 70),
+  gel=False, tmin=8, semis_int=(-47, 30), plantation=(28, 25), cycle=(45, 120, 80, 70),
   eau_notes="Supporte le sec mieux que la tomate.",
   aime=["basilic", "oeillet-inde", "capucine"], evite=["pomme-de-terre"],
   conseils=["Deux pieds minimum : elle ne se féconde pas elle-même",
@@ -1000,7 +1000,7 @@ C("tomatille", "Tomatille", "Physalis philadelphica", "Solanacées", "legume-fru
 
 C("gombo", "Gombo (okra)", "Abelmoschus esculentus", "Malvacées", "legume-fruit", "🫑",
   eau="moyen", freq=3, sol=SOL_RICHE, espacement=50, prof=2, diff=3, gel=False, tmin=15,
-  semis_int=(-45, 25), plantation=(25, 25), cycle=(40, 110, 70, 60),
+  semis_int=(-32, 25), plantation=(38, 25), cycle=(40, 110, 70, 60),
   eau_notes="Régulier, mais il déteste les pieds mouillés.",
   aime=["basilic", "poivron"], evite=[],
   conseils=["Demande une vraie chaleur : serre ou mur plein sud sous climat océanique",
@@ -1008,7 +1008,7 @@ C("gombo", "Gombo (okra)", "Abelmoschus esculentus", "Malvacées", "legume-fruit
 
 C("chayotte", "Chayotte (christophine)", "Sechium edule", "Cucurbitacées",
   "legume-fruit", "🥒", eau="eleve", freq=3, sol=SOL_RICHE, espacement=200,
-  diff=3, gel=False, tmin=10, perenne=True, plantation=(20, 30),
+  diff=3, gel=False, tmin=10, perenne=True, plantation=(33, 30),
   recolte=("09-20", 50), cycle=(None, None, None, 50),
   eau_notes="Très gourmande en eau pendant toute la végétation.",
   aime=[], evite=[],
@@ -1057,7 +1057,7 @@ C("persil-tubereux", "Persil tubéreux", "Petroselinum crispum var. tuberosum",
 
 C("oca-perou", "Oca du Pérou", "Oxalis tuberosa", "Oxalidacées", "legume-racine", "🥔",
   eau="moyen", freq=4, sol=SOL_LEGER, espacement=40, prof=6, diff=2, gel=False, tmin=2,
-  plantation=(0, 40), cycle=(None, None, 210, 45),
+  plantation=(28, 40), cycle=(None, None, 210, 45),
   eau_notes="Modéré ; elle grossit surtout à l'automne.",
   aime=["pomme-de-terre"], evite=[],
   conseils=["Les tubercules ne se forment qu'aux jours courts, en octobre",
@@ -1069,7 +1069,7 @@ C("oca-perou", "Oca du Pérou", "Oxalis tuberosa", "Oxalidacées", "legume-racin
 
 C("haricot-espagne", "Haricot d'Espagne", "Phaseolus coccineus", "Fabacées",
   "legume-gousse", "🫘", eau="moyen", freq=3, sol=SOL_ORDINAIRE, espacement=20,
-  prof=4, diff=1, gel=False, tmin=8, semis_dir=(15, 60), cycle=(None, 80, None, 70),
+  prof=4, diff=1, gel=False, tmin=8, semis_dir=(28, 60), cycle=(None, 80, None, 70),
   eau_notes="Régulier à la floraison.",
   aime=["mais-doux", "courgette"], evite=["ail-blanc", "oignon-jaune"],
   conseils=["Fleurs rouges très décoratives, et comestibles",
@@ -1085,7 +1085,7 @@ C("lentille", "Lentille", "Lens culinaris", "Fabacées", "legume-gousse", "🫘"
 
 C("edamame", "Soja edamame", "Glycine max", "Fabacées", "legume-gousse", "🫛",
   eau="moyen", freq=3, sol=SOL_ORDINAIRE, espacement=15, prof=3, diff=2,
-  gel=False, tmin=10, semis_dir=(20, 45), cycle=(None, 95, None, 25),
+  gel=False, tmin=10, semis_dir=(33, 45), cycle=(None, 95, None, 25),
   eau_notes="Soutenu à la formation des gousses.",
   aime=["mais-doux", "concombre"], evite=["ail-blanc", "oignon-jaune"],
   conseils=["Se récolte vert, quand les gousses sont pleines mais encore tendres",
@@ -1244,7 +1244,7 @@ C("hysope", "Hysope", "Hyssopus officinalis", "Lamiacées", "aromatique", "🌿"
 
 C("marjolaine", "Marjolaine", "Origanum majorana", "Lamiacées", "aromatique", "🌿",
   eau="faible", freq=6, sol=SOL_LEGER, espacement=25, prof=0.5, diff=1,
-  gel=False, tmin=3, semis_int=(-45, 30), plantation=(15, 40), cycle=(35, 90, 60, 120),
+  gel=False, tmin=3, semis_int=(-32, 30), plantation=(28, 40), cycle=(35, 90, 60, 120),
   eau_notes="Sobre.",
   aime=["tomate", "courgette"], evite=[],
   conseils=["Plus douce et plus fine que l'origan, mais gélive : à rentrer ou ressemer",
@@ -1279,7 +1279,7 @@ C("fenouil-aromatique", "Fenouil aromatique", "Foeniculum vulgare", "Apiacées",
 
 C("shiso", "Shiso (périlla)", "Perilla frutescens", "Lamiacées", "aromatique", "🌿",
   eau="moyen", freq=3, sol=SOL_RICHE, espacement=35, prof=0.5, diff=1,
-  gel=False, tmin=8, semis_int=(-45, 30), plantation=(15, 40), cycle=(35, 85, 55, 120),
+  gel=False, tmin=8, semis_int=(-32, 30), plantation=(28, 40), cycle=(35, 85, 55, 120),
   eau_notes="Régulier ; il flétrit vite au sec.",
   aime=["tomate", "concombre"], evite=[],
   conseils=["Goût entre la menthe et le cumin : la feuille des sushis",
@@ -1308,7 +1308,7 @@ C("groseillier-maquereau", "Groseillier à maquereau", "Ribes uva-crispa",
   conseils=["Épineux : tailler en gobelet pour pouvoir cueillir",
             "Se récolte vert pour les tartes, mûr pour le frais"])
 
-C("sureau-noir", "Sureau noir", "Sambucus nigra", "Adoxacées", "petit-fruit", "🫐",
+C("sureau-noir", "Sureau noir", "Sambucus nigra", "Viburnacées", "petit-fruit", "🫐",
   eau="faible", freq=8, sol=SOL_RICHE, espacement=300, diff=1, gel=True, tmin=-25,
   perenne=True, plantation=(-15, 90), anchor_pl="premiere", recolte=("08-20", 30),
   cycle=(None, None, None, 30),
@@ -1415,7 +1415,8 @@ C("consoude", "Consoude officinale", "Symphytum officinale", "Boraginacées",
   recolte=("05-01", 150), cycle=(None, None, None, 150),
   eau_notes="Aime les sols riches et frais.",
   aime=["tomate", "pomme-de-terre"], evite=[],
-  conseils=["Trois à quatre coupes par an pour le purin, riche en potasse",
+  conseils=["Usage externe seulement : ses alcaloïdes pyrrolizidiniques sont toxiques pour le foie par voie interne",
+            "Trois à quatre coupes par an pour le purin, riche en potasse",
             "Choisir la variété Bocking 14, stérile : les autres envahissent tout",
             "Ses racines descendent à deux mètres et remontent les minéraux"])
 
@@ -1431,7 +1432,7 @@ C("moutarde-blanche", "Moutarde blanche (engrais vert)", "Sinapis alba",
 
 C("sarrasin", "Sarrasin (engrais vert)", "Fagopyrum esculentum", "Polygonacées",
   "fleur-compagne", "🌼", eau="faible", freq=8, sol="pauvre, même ingrat",
-  espacement=10, prof=3, diff=1, gel=False, tmin=2, semis_dir=(15, 90),
+  espacement=10, prof=3, diff=1, gel=False, tmin=2, semis_dir=(28, 90),
   cycle=(None, 45, None, 30),
   eau_notes="Aucun arrosage.",
   aime=[], evite=[],
@@ -1459,7 +1460,7 @@ C("vesce", "Vesce d'hiver (engrais vert)", "Vicia villosa", "Fabacées",
 C("cosmos", "Cosmos", "Cosmos bipinnatus", "Astéracées", "fleur-compagne", "🌼",
   eau="faible", freq=6, sol="pauvre : trop riche, il ne fait que des feuilles",
   espacement=40, prof=1, diff=1, gel=False, tmin=4,
-  semis_dir=(0, 75), cycle=(None, 70, None, 120),
+  semis_dir=(28, 75), cycle=(None, 70, None, 120),
   eau_notes="Sobre.",
   aime=["tomate", "courgette"], evite=[],
   conseils=["Aimant à syrphes et à chrysopes, dont les larves mangent les pucerons",
@@ -1481,7 +1482,7 @@ C("mauve", "Mauve sylvestre", "Malva sylvestris", "Malvacées", "fleur-compagne"
 
 C("tournesol", "Tournesol", "Helianthus annuus", "Astéracées", "cereale", "🌻",
   eau="moyen", freq=5, sol=SOL_ORDINAIRE, espacement=50, prof=3, diff=1,
-  gel=False, tmin=6, semis_dir=(0, 60), cycle=(None, 110, None, 30),
+  gel=False, tmin=6, semis_dir=(28, 60), cycle=(None, 110, None, 30),
   eau_notes="Modéré ; ses racines descendent chercher loin.",
   aime=["concombre", "courgette", "mais-doux"], evite=["pomme-de-terre", "haricot-a-rames"],
   conseils=["Récolter quand le dos du capitule jaunit et que les graines se détachent",
@@ -1490,7 +1491,7 @@ C("tournesol", "Tournesol", "Helianthus annuus", "Astéracées", "cereale", "�
 
 C("mais-popcorn", "Maïs à pop-corn", "Zea mays var. everta", "Poacées", "cereale", "🌽",
   eau="moyen", freq=4, sol=SOL_RICHE, espacement=35, prof=3, diff=1, gel=False, tmin=10,
-  semis_dir=(15, 45), cycle=(None, 115, None, 30),
+  semis_dir=(28, 45), cycle=(None, 115, None, 30),
   eau_notes="Assoiffé à la floraison, comme le maïs doux.",
   aime=["courgette", "haricot-a-rames"], evite=["betterave", "mais-doux"],
   conseils=["Se récolte sec, à l'inverse du maïs doux : attendre que les tiges brunissent",
@@ -1508,7 +1509,7 @@ C("quinoa", "Quinoa", "Chenopodium quinoa", "Amaranthacées", "cereale", "🌾",
 
 C("amarante", "Amarante", "Amaranthus caudatus", "Amaranthacées", "cereale", "🌾",
   eau="faible", freq=6, sol=SOL_ORDINAIRE, espacement=40, prof=0.5, diff=1,
-  gel=False, tmin=6, semis_dir=(5, 60), cycle=(None, 110, None, 40),
+  gel=False, tmin=6, semis_dir=(28, 60), cycle=(None, 110, None, 40),
   eau_notes="Supporte très bien la sécheresse.",
   aime=["mais-doux", "tournesol"], evite=["betterave"],
   conseils=["Double usage : feuilles en épinard tout l'été, graines à l'automne",
@@ -1579,3 +1580,497 @@ C("roquette-vivace", "Roquette vivace", "Diplotaxis tenuifolia", "Brassicacées"
   conseils=["Plus piquante et bien plus rustique que la roquette cultivée",
             "Se coupe et repousse sans fin, de mars à novembre",
             "Supprimer les fleurs jaunes pour garder des feuilles tendres"])
+
+# =============================================================================
+# Médicinales et comestibles sauvages
+#
+# Cette section est la seule du catalogue à avoir été écrite en consultant des
+# sources extérieures, et non de mémoire horticole : les monographies de
+# plantes du HMPC de l'Agence européenne du médicament pour les usages et les
+# contre-indications, les bulletins de toxicovigilance de l'Anses et des
+# Centres antipoison pour les confusions de cueillette. Les sources exactes
+# sont listées dans le message de la pull request qui les introduit.
+#
+# Deux règles tenues pour chaque fiche, et elles ne sont pas négociables :
+#
+# 1. **Aucune posologie, aucune indication thérapeutique.** Rhizome dit
+#    comment faire pousser une plante, jamais quoi en faire pour se soigner.
+#    Une fiche qui conseillerait une dose sortirait de son rôle et prendrait
+#    une responsabilité qu'un suivi de jardin ne peut pas porter.
+# 2. **Le risque est dit en clair, dans les conseils.** Toxicité, confusion
+#    mortelle à la cueillette, interaction médicamenteuse connue : c'est le
+#    seul endroit du catalogue où une fiche muette peut nuire. Le conseil de
+#    prudence est toujours le premier de la liste, pour qu'il soit lu.
+# =============================================================================
+
+SOL_FRAIS_LOURD = "frais, lourd, qui ne sèche jamais"
+
+C("achillee", "Achillée millefeuille", "Achillea millefolium", "Astéracées",
+  "medicinale", "🌿", eau="faible", freq=10, sol=SOL_ORDINAIRE, espacement=40,
+  prof=0.5, diff=1, gel=True, tmin=-25, perenne=True, plantation=(-30, 75),
+  recolte=("06-01", 105), cycle=(None, None, None, 105),
+  eau_notes="Très sobre : elle pousse dans les talus que personne n'arrose.",
+  aime=["aubepine"], evite=[],
+  conseils=["Déconseillée aux femmes enceintes, et allergisante comme toutes les astéracées",
+            "Ne jamais la cueillir jeune en mélange : ses feuilles ressemblent à celles de la ciguë, mortelle",
+            "Couper les sommités fleuries par temps sec, en pleine floraison",
+            "Une bordure d'achillée attire les syrphes, qui mangent les pucerons"])
+
+C("plantain-lanceole", "Plantain lancéolé", "Plantago lanceolata", "Plantaginacées",
+  "medicinale", "🌿", eau="faible", freq=8, sol=SOL_ORDINAIRE, espacement=25,
+  prof=0.5, diff=1, gel=True, tmin=-25, perenne=True, semis_dir=(-15, 90),
+  recolte=("05-01", 150), cycle=(None, None, None, 150),
+  eau_notes="Sobre ; il supporte même le piétinement et la sécheresse.",
+  aime=[], evite=[],
+  conseils=["Aucune confusion dangereuse connue, ce qui en fait une bonne première plante à apprendre",
+            "Jeunes feuilles comestibles en salade ; les vieilles sont filandreuses",
+            "Pousse spontanément dans toutes les pelouses de France — inutile de l'acheter",
+            "Se ressème seul : supprimer les épis si on ne veut pas qu'il s'étende"])
+
+C("ortie", "Ortie dioïque", "Urtica dioica", "Urticacées",
+  "medicinale", "🌿", expo="mi-ombre", eau="moyen", freq=5, sol=SOL_RICHE,
+  espacement=50, diff=1, gel=True, tmin=-25, perenne=True, plantation=(-30, 75),
+  recolte=("04-01", 120), cycle=(None, None, None, 120),
+  eau_notes="Aime les sols riches en azote et frais ; elle marque les anciens fumiers.",
+  aime=["tomate", "menthe-poivree"], evite=[],
+  conseils=["Cueillir avec des gants : les poils urticants tiennent jusqu'à la cuisson",
+            "Ne récolter que les quatre feuilles du sommet, avant la floraison",
+            "Elle envahit par ses rhizomes : la cantonner dans un carré, ou en pot",
+            "Son purin est un engrais azoté ; celui de consoude apporte la potasse"])
+
+C("millepertuis", "Millepertuis perforé", "Hypericum perforatum", "Hypéricacées",
+  "medicinale", "🌼", eau="faible", freq=10, sol="pauvre, caillouteux, très drainé",
+  espacement=40, diff=1, gel=True, tmin=-20, perenne=True, plantation=(-30, 60),
+  recolte=("06-21", 60), cycle=(None, None, None, 60),
+  eau_notes="Sobre : trop d'eau le fait pourrir au collet.",
+  aime=[], evite=[],
+  conseils=["Interagit avec beaucoup de médicaments — pilule, anticoagulants, antirétroviraux — en accélérant leur élimination",
+            "Photosensibilisant : il rend la peau plus sensible au soleil",
+            "Reconnaissable aux points translucides de ses feuilles, vues à contre-jour",
+            "Récolter les sommités fleuries autour du solstice, c'est là qu'elles sont les plus riches"])
+
+C("aubepine", "Aubépine monogyne", "Crataegus monogyna", "Rosacées",
+  "medicinale", "🌸", eau="faible", freq=12, sol=SOL_ORDINAIRE, espacement=200,
+  diff=1, gel=True, tmin=-30, perenne=True, plantation=(-15, 75), anchor_pl="premiere",
+  recolte=("05-01", 30), cycle=(None, None, None, 30),
+  eau_notes="Aucun arrosage une fois établie : c'est un arbuste de haie.",
+  aime=["achillee"], evite=[],
+  conseils=["Ses épines sont longues et cassent sous la peau : tailler gants et manches longues",
+            "Plantation réglementée par endroits : hôte du feu bactérien, se renseigner en pépinière",
+            "Récolter les fleurs à peine ouvertes, les cynorhodons rouges en automne",
+            "Une haie d'aubépine abrite les oiseaux insectivores tout l'hiver"])
+
+C("reine-des-pres", "Reine-des-prés", "Filipendula ulmaria", "Rosacées",
+  "medicinale", "🌼", expo="mi-ombre", eau="eleve", freq=3, sol=SOL_FRAIS_LOURD,
+  espacement=60, diff=1, gel=True, tmin=-25, perenne=True, plantation=(-30, 75),
+  recolte=("06-15", 60), cycle=(None, None, None, 60),
+  eau_notes="Jamais à sec : c'est une plante de fossé et de prairie humide.",
+  aime=[], evite=[],
+  conseils=["Contient des dérivés salicylés : à éviter en cas d'allergie à l'aspirine",
+            "Elle meurt de sécheresse avant de mourir de froid : ne la planter qu'en sol frais",
+            "Récolter les fleurs blanches en plein épanouissement, elles sentent l'amande"])
+
+C("guimauve", "Guimauve officinale", "Althaea officinalis", "Malvacées",
+  "medicinale", "🌸", eau="moyen", freq=5, sol=SOL_FRAIS_LOURD, espacement=60,
+  prof=1, diff=2, gel=True, tmin=-20, perenne=True, plantation=(-15, 60),
+  recolte=("07-01", 75), cycle=(None, None, None, 75),
+  eau_notes="Aime avoir le pied frais tout l'été.",
+  aime=["mauve"], evite=[],
+  conseils=["Fleurs, feuilles et racines sont comestibles ; aucune toxicité connue",
+            "Ne récolter les racines qu'à l'automne de la deuxième année",
+            "Sa levée est lente et irrégulière : passer par un plant est plus sûr"])
+
+C("echinacee", "Échinacée pourpre", "Echinacea purpurea", "Astéracées",
+  "medicinale", "🌸", eau="faible", freq=8, sol=SOL_ORDINAIRE, espacement=45,
+  prof=0.5, diff=2, gel=True, tmin=-25, perenne=True, plantation=(0, 60),
+  recolte=("07-15", 75), cycle=(None, None, None, 75),
+  eau_notes="Sobre une fois installée ; craint l'humidité stagnante de l'hiver.",
+  aime=["tournesol"], evite=[],
+  conseils=["Allergisante comme toutes les astéracées ; déconseillée en cas de maladie auto-immune",
+            "Ne rien prélever les deux premières années, le temps que la touffe se fasse",
+            "Laisser les capitules secs en place l'hiver : les chardonnerets les vident"])
+
+C("valeriane", "Valériane officinale", "Valeriana officinalis", "Caprifoliacées",
+  "medicinale", "🌼", expo="mi-ombre", eau="moyen", freq=4, sol=SOL_FRAIS_LOURD,
+  espacement=50, prof=0.5, diff=2, gel=True, tmin=-25, perenne=True,
+  plantation=(-15, 60), recolte=("10-01", 45), cycle=(None, None, None, 45),
+  eau_notes="Sol frais en permanence ; elle pousse naturellement au bord des ruisseaux.",
+  aime=[], evite=[],
+  conseils=["Déconseillée avant la conduite : elle agit sur la vigilance",
+            "Ses racines sentent fort une fois sèches, et les chats s'y roulent",
+            "Déterrer les racines à l'automne de la deuxième année, pas avant"])
+
+C("pissenlit", "Pissenlit", "Taraxacum officinale", "Astéracées",
+  "medicinale", "🌼", eau="faible", freq=8, sol=SOL_ORDINAIRE, espacement=30,
+  prof=0.5, diff=1, gel=True, tmin=-25, perenne=True, semis_dir=(-30, 90),
+  recolte=("03-01", 180), cycle=(None, None, None, 180),
+  eau_notes="Sobre : sa racine pivot va chercher l'eau en profondeur.",
+  aime=[], evite=[],
+  conseils=["Entièrement comestible, sans confusion dangereuse connue en France",
+            "Ne jamais cueillir au bord d'une route ni sur une pelouse traitée",
+            "Blanchir les cœurs sous un pot retourné quinze jours : l'amertume tombe",
+            "Il remonte le calcium et le potassium des couches profondes du sol"])
+
+C("bardane", "Grande bardane", "Arctium lappa", "Astéracées",
+  "medicinale", "🌿", eau="moyen", freq=6, sol=SOL_LEGER, espacement=70,
+  prof=2, diff=2, gel=True, tmin=-20, semis_dir=(-15, 60), cycle=(None, 150, None, 60),
+  eau_notes="Régulier la première année, le temps que la racine descende.",
+  aime=[], evite=[],
+  conseils=["Allergisante comme les astéracées ; ses capitules s'accrochent aux vêtements et aux animaux",
+            "Racine comestible, récoltée à l'automne de la première année — c'est le gobō japonais",
+            "Semer en sol profond et meuble : la racine descend à cinquante centimètres",
+            "Supprimer les fleurs de la deuxième année, sinon elle se ressème partout"])
+
+C("bouillon-blanc", "Bouillon-blanc", "Verbascum thapsus", "Scrofulariacées",
+  "medicinale", "🌼", eau="faible", freq=12, sol="pauvre, caillouteux, très drainé",
+  espacement=60, prof=0.2, diff=1, gel=True, tmin=-25, semis_dir=(-15, 90),
+  cycle=(None, 150, None, 75),
+  eau_notes="Aucun arrosage : il colonise les gravières et les talus secs.",
+  aime=[], evite=[],
+  conseils=["Filtrer soigneusement toute infusion : les poils des feuilles irritent la gorge",
+            "Bisannuel — rosette la première année, hampe de deux mètres la seconde",
+            "Semer en surface sans recouvrir, la graine a besoin de lumière pour lever",
+            "Récolter les fleurs jaunes au fur et à mesure, elles s'ouvrent de bas en haut"])
+
+C("prele", "Prêle des champs", "Equisetum arvense", "Équisétacées",
+  "medicinale", "🌿", expo="mi-ombre", eau="eleve", freq=4, sol=SOL_FRAIS_LOURD,
+  espacement=40, diff=2, gel=True, tmin=-25, perenne=True, plantation=(-30, 75),
+  recolte=("06-01", 90), cycle=(None, None, None, 90),
+  eau_notes="Sol humide en permanence ; elle signale les terrains mal drainés.",
+  aime=["pommier", "tomate"], evite=[],
+  conseils=["Ne pas la confondre avec la prêle des marais, Equisetum palustre, toxique : chez la prêle des champs, le premier entre-nœud d'un rameau est aussi long ou plus long que la gaine de la tige d'où il part",
+            "Ses rhizomes descendent à un mètre et la rendent impossible à éradiquer : la planter en bac",
+            "Récolter les tiges stériles vertes de l'été, pas les épis bruns du printemps",
+            "Sa décoction, riche en silice, sert de traitement préventif contre les maladies cryptogamiques"])
+
+C("tanaisie", "Tanaisie commune", "Tanacetum vulgare", "Astéracées",
+  "medicinale", "🌼", eau="faible", freq=10, sol=SOL_ORDINAIRE, espacement=60,
+  diff=1, gel=True, tmin=-25, perenne=True, plantation=(-30, 75),
+  recolte=("07-01", 75), cycle=(None, None, None, 75),
+  eau_notes="Très sobre, à la limite de l'indestructible.",
+  aime=["chou-cabus", "pomme-de-terre"], evite=[],
+  conseils=["Toxique par ingestion à cause de sa thuyone, et interdite aux femmes enceintes : on la cultive pour le jardin, pas pour la tisane",
+            "Son purin répulsif est son véritable usage, contre pucerons et altises",
+            "Elle s'étend par rhizomes et prend la place : la diviser tous les trois ans"])
+
+C("armoise-absinthe", "Absinthe", "Artemisia absinthium", "Astéracées",
+  "medicinale", "🌿", eau="faible", freq=12, sol="pauvre, caillouteux, très drainé",
+  espacement=60, diff=1, gel=True, tmin=-25, perenne=True, plantation=(-15, 60),
+  recolte=("07-15", 60), cycle=(None, None, None, 60),
+  eau_notes="Aucun arrosage : elle meurt d'excès d'eau, jamais de sécheresse.",
+  aime=["chou-cabus", "carotte"], evite=["aneth", "coriandre", "fenouil-aromatique"],
+  conseils=["Neurotoxique à forte dose par sa thuyone, et interdite aux femmes enceintes",
+            "Elle inhibe la germination de ses voisines : la planter en bout de planche, jamais au milieu",
+            "Son purin éloigne les pucerons, les limaces et la piéride du chou"])
+
+C("menthe-poivree", "Menthe poivrée", "Mentha × piperita", "Lamiacées",
+  "medicinale", "🌿", expo="mi-ombre", eau="eleve", freq=3, sol=SOL_RICHE,
+  espacement=40, diff=1, gel=True, tmin=-20, perenne=True, plantation=(-15, 90),
+  recolte=("06-01", 120), cycle=(None, None, None, 120),
+  eau_notes="Jamais à sec : elle flétrit en une journée de canicule.",
+  aime=["chou-cabus", "tomate"], evite=["camomille", "persil"],
+  conseils=["Déconseillée aux nourrissons et aux jeunes enfants, par voie interne comme en inhalation",
+            "Hybride stérile : elle ne se ressème pas, mais ses stolons envahissent tout — la planter en pot enterré",
+            "Rabattre toute la touffe avant la floraison, l'arôme y est au maximum",
+            "Plus poivrée et plus riche en menthol que la menthe verte"])
+
+C("tilleul", "Tilleul à petites feuilles", "Tilia cordata", "Malvacées",
+  "medicinale", "🌳", eau="faible", freq=14, sol=SOL_ORDINAIRE, espacement=800,
+  diff=1, gel=True, tmin=-30, perenne=True, plantation=(-15, 75), anchor_pl="premiere",
+  recolte=("06-10", 20), cycle=(None, None, None, 20),
+  eau_notes="Aucun arrosage une fois établi ; le soutenir les deux premiers étés.",
+  aime=[], evite=[],
+  conseils=["Aucune toxicité connue, ce qui en fait une tisane de tous les âges",
+            "Arbre de vingt mètres : à ne planter que si la place existe vraiment",
+            "La fenêtre de récolte des bractées dure dix jours, pas plus",
+            "Récolter en hauteur et jamais en bord de route : ses fleurs captent les poussières"])
+
+C("eglantier", "Églantier", "Rosa canina", "Rosacées",
+  "medicinale", "🌹", eau="faible", freq=12, sol=SOL_ORDINAIRE, espacement=180,
+  diff=1, gel=True, tmin=-30, perenne=True, plantation=(-15, 75), anchor_pl="premiere",
+  recolte=("10-01", 60), cycle=(None, None, None, 60),
+  eau_notes="Aucun arrosage une fois établi : c'est la ronce des haies.",
+  aime=["aubepine"], evite=[],
+  conseils=["Les poils qui entourent les graines du cynorhodon sont irritants : les retirer avant toute préparation",
+            "Attendre les premières gelées pour cueillir, le fruit devient blet et sucré",
+            "Son cynorhodon est l'un des fruits les plus riches en vitamine C de la flore française",
+            "Il sert de porte-greffe aux rosiers de jardin"])
+
+C("onagre", "Onagre bisannuelle", "Oenothera biennis", "Onagracées",
+  "medicinale", "🌼", eau="faible", freq=10, sol="pauvre, sableux, très drainé",
+  espacement=50, prof=0.5, diff=1, gel=True, tmin=-25, semis_dir=(-15, 90),
+  cycle=(None, 150, None, 60),
+  eau_notes="Très sobre : elle pousse dans les sables et les remblais.",
+  aime=[], evite=[],
+  conseils=["Aucune toxicité connue ; sa racine de première année se mange comme un salsifis",
+            "Bisannuelle — rosette la première année, hampe fleurie la seconde",
+            "Ses fleurs s'ouvrent au crépuscule en quelques minutes et nourrissent les sphinx",
+            "Elle se ressème abondamment : garder deux ou trois pieds, arracher le reste"])
+
+C("passiflore", "Passiflore officinale", "Passiflora incarnata", "Passifloracées",
+  "medicinale", "🌸", eau="moyen", freq=5, sol=SOL_ORDINAIRE, espacement=120,
+  diff=3, gel=True, tmin=-15, perenne=True, plantation=(15, 45),
+  recolte=("07-01", 75), cycle=(None, None, None, 75),
+  eau_notes="Régulier en été ; très réduit l'hiver, quand elle disparaît.",
+  aime=[], evite=[],
+  conseils=["Déconseillée avant la conduite ; ne pas la confondre avec Passiflora caerulea, la passiflore bleue ornementale, dont les fruits ne se consomment pas",
+            "Elle disparaît complètement l'hiver et repart de souche en mai : ne pas croire qu'elle est morte",
+            "Ne pas espérer de fruit au nord de la Loire — c'est la partie aérienne qui est récoltée",
+            "Lui donner un mur au sud et un paillis épais pour passer l'hiver"])
+
+C("camomille-matricaire", "Camomille matricaire", "Matricaria chamomilla", "Astéracées",
+  "medicinale", "🌼", eau="faible", freq=8, sol=SOL_LEGER, espacement=20,
+  prof=0.2, diff=1, gel=True, tmin=-15, semis_dir=(-30, 90), cycle=(None, 75, None, 60),
+  eau_notes="Sobre ; elle n'aime pas les sols lourds et détrempés.",
+  aime=["chou-cabus", "oignon-jaune"], evite=["menthe-poivree"],
+  conseils=["Allergisante chez les personnes sensibles aux astéracées",
+            "Annuelle, à ne pas confondre avec la camomille romaine, vivace : son réceptacle est creux quand on le coupe en deux",
+            "Semer en surface sans recouvrir, la graine est minuscule",
+            "Cueillir les capitules un à un, au plus chaud d'une journée sèche"])
+
+# =============================================================================
+# Plantes d'intérieur
+#
+# Elles ne portent aucune fenêtre, et c'est volontaire : toutes les fenêtres du
+# catalogue sont des décalages par rapport aux gelées locales, et une plante qui
+# vit à vingt degrés toute l'année ne connaît pas de gelées. Lui inventer une
+# plantation et une récolte pour satisfaire le validateur aurait affiché des
+# étapes culturales absurdes — « récolte du monstera le 5 juillet ». La fiche ne
+# porte donc que ce qui est vrai d'elle : la lumière, l'eau, le substrat,
+# l'encombrement adulte et les conseils. L'arrosage, lui, fonctionne — c'est
+# justement le seul mécanisme de Rhizome qui ne dépende pas des saisons.
+#
+# `exposition` change de sens ici, et il faut le savoir pour lire ces fiches :
+# « plein-soleil » veut dire plein sud derrière une vitre, « mi-ombre » la
+# lumière vive mais indirecte dont la plupart de ces plantes vivent, et
+# « ombre » le fond d'une pièce. Ajouter des valeurs propres à l'intérieur
+# aurait demandé de toucher les filtres du panneau et les deux tables de
+# libellés pour un gain de vocabulaire seulement.
+#
+# `espacement_cm` est l'encombrement adulte — ce que la plante prendra sur le
+# meuble — et non une distance de plantation.
+#
+# `temp_min_c` est la température en dessous de laquelle la plante souffre,
+# pas celle d'une gelée : c'est le chiffre qui dit si elle peut passer l'été
+# dehors ou hiverner dans une véranda non chauffée.
+#
+# Sources : les fiches de culture de la Royal Horticultural Society pour la
+# lumière, l'eau et le rempotage ; la base des plantes toxiques de l'ASPCA
+# pour la toxicité envers chiens et chats, qui est la question que pose
+# vraiment un foyer avec un animal. Détail dans la pull request.
+# =============================================================================
+
+SOL_TERREAU = "terreau de plantes vertes, drainant"
+SOL_TERREAU_AERE = "terreau très aéré, écorce et perlite"
+SOL_CACTEE = "substrat à cactées, sableux et très drainant"
+SOL_ORCHIDEE = "écorce de pin seule, sans terreau"
+
+
+def INT(cid, nom, sci, famille, emoji, **kw):
+    """Une plante d'intérieur : perenne, gélive, et sans aucune fenêtre.
+
+    Le raccourci existe pour que ces trois faits ne puissent pas être oubliés
+    sur une fiche — une plante d'intérieur déclarée non gélive passerait le
+    validateur et promettrait un hivernage dehors.
+    """
+    kw.setdefault("gel", False)
+    kw.setdefault("sol", SOL_TERREAU)
+    return C(cid, nom, sci, famille, "plante-interieur", emoji,
+             perenne=True, cycle=(None, None, None, 0), **kw)
+
+
+# --- Aracées : le gros du rayon, et toutes irritantes ------------------------
+#
+# Toutes contiennent des oxalates de calcium en aiguilles : la bouche brûle
+# immédiatement, ce qui limite heureusement la quantité avalée. C'est le motif
+# de toxicité le plus répandu du rayon plantes vertes, et il est dit sur
+# chaque fiche plutôt que renvoyé à une note générale que personne ne lirait.
+
+INT("monstera", "Monstera", "Monstera deliciosa", "Aracées", "🪴",
+  expo="mi-ombre", eau="moyen", freq=8, sol=SOL_TERREAU_AERE, espacement=150,
+  diff=1, tmin=13,
+  eau_notes="Laisser sécher les trois premiers centimètres entre deux arrosages.",
+  conseils=["Irritante pour la bouche de l'homme et de l'animal : à mettre hors de portée d'un chat ou d'un petit enfant",
+            "Ses découpes n'apparaissent qu'avec l'âge et la lumière : une jeune feuille pleine est normale",
+            "Lui donner un tuteur-mousse, ses racines aériennes s'y accrochent",
+            "Dépoussiérer les feuilles : c'est par elles qu'elle respire"])
+
+INT("pothos", "Pothos", "Epipremnum aureum", "Aracées", "🌿",
+  expo="mi-ombre", eau="moyen", freq=9, espacement=60, diff=1, tmin=13,
+  eau_notes="Attendre que le terreau soit sec sur la moitié du pot.",
+  conseils=["Irritante par ses oxalates : la suspendre hors d'atteinte si un animal grignote",
+            "La plante la plus indulgente du rayon : elle survit à l'oubli et au fond d'une pièce",
+            "Une tige coupée sous un nœud racine en deux semaines dans un verre d'eau",
+            "Ses panachures pâlissent dans l'ombre : la rapprocher d'une fenêtre pour les garder"])
+
+INT("philodendron", "Philodendron grimpant", "Philodendron hederaceum", "Aracées", "🌿",
+  expo="mi-ombre", eau="moyen", freq=8, sol=SOL_TERREAU_AERE, espacement=80,
+  diff=1, tmin=15,
+  eau_notes="Garder le terreau juste humide, jamais détrempé.",
+  conseils=["Irritante par ses oxalates, pour l'homme comme pour l'animal",
+            "Pincer les tiges régulièrement, sans quoi elle file en lianes nues",
+            "Le pot doit pouvoir s'égoutter : l'eau stagnante lui pourrit les racines"])
+
+INT("spathiphyllum", "Fleur de lune", "Spathiphyllum wallisii", "Aracées", "🤍",
+  expo="mi-ombre", eau="eleve", freq=5, espacement=50, diff=1, tmin=15,
+  eau_notes="Elle signale elle-même la soif en s'affaissant, et se relève en deux heures.",
+  conseils=["Irritante par ses oxalates : c'est la plante d'intérieur la plus souvent signalée aux centres antipoison vétérinaires",
+            "Fleurit peu dans l'ombre profonde : lumière vive indirecte, sans soleil direct",
+            "Ne pas se fier à l'affaissement comme méthode d'arrosage : répété, il abîme les racines"])
+
+INT("zamioculcas", "Zamioculcas", "Zamioculcas zamiifolia", "Aracées", "🪴",
+  expo="mi-ombre", eau="faible", freq=21, sol=SOL_CACTEE, espacement=70,
+  diff=1, tmin=15,
+  eau_notes="Un arrosage toutes les trois semaines suffit, moitié moins l'hiver.",
+  conseils=["Irritante par ses oxalates et ses saponines, concentrées dans les tiges et les rhizomes",
+            "Elle meurt bien plus souvent d'excès d'eau que de sécheresse : en cas de doute, ne pas arroser",
+            "Ses rhizomes stockent l'eau : elle encaisse un mois d'absence sans broncher"])
+
+INT("dieffenbachia", "Dieffenbachia", "Dieffenbachia seguine", "Aracées", "🪴",
+  expo="mi-ombre", eau="moyen", freq=7, espacement=70, diff=2, tmin=16,
+  eau_notes="Terreau frais en permanence, mais jamais d'eau dans la soucoupe.",
+  conseils=["La plus toxique du rayon : sa sève provoque une douleur buccale intense et un gonflement qui peut gêner la parole — à écarter d'un foyer avec enfant en bas âge ou animal",
+            "Porter des gants pour la bouturer, et se laver les mains après",
+            "Ses feuilles brûlent au soleil direct : lumière tamisée uniquement"])
+
+# --- Asparagacées : robustes, et seulement la nausée en cas d'ingestion ------
+
+INT("sansevieria", "Sansevieria", "Dracaena trifasciata", "Asparagacées", "🌵",
+  expo="mi-ombre", eau="faible", freq=21, sol=SOL_CACTEE, espacement=40,
+  diff=1, tmin=12,
+  eau_notes="Toutes les trois semaines l'été, une fois par mois l'hiver.",
+  conseils=["Ses saponines provoquent vomissements et diarrhée chez le chien et le chat ; sans gravité chez l'adulte",
+            "Elle supporte tout sauf l'excès d'eau : c'est la seule faute qui la tue",
+            "Elle se contente du fond d'une pièce, mais pousse trois fois plus vite près d'une fenêtre",
+            "Une feuille coupée en tronçons et plantée dans du sable donne un nouveau pied"])
+
+INT("dracaena-marginata", "Dragonnier de Madagascar", "Dracaena marginata",
+  "Asparagacées", "🌴", expo="mi-ombre", eau="faible", freq=12, espacement=80,
+  diff=1, tmin=15,
+  eau_notes="Laisser sécher la moitié du pot ; elle craint l'eau stagnante.",
+  conseils=["Ses saponines rendent le chat malade ; les extrémités de feuilles tentent les chats, les mettre en hauteur",
+            "Les pointes brunes signalent presque toujours un excès de fluor ou de chlore : laisser l'eau reposer une nuit",
+            "Une tige dégarnie peut être étêtée : elle repart en deux ou trois têtes"])
+
+INT("aspidistra", "Aspidistra", "Aspidistra elatior", "Asparagacées", "🌿",
+  expo="ombre", eau="faible", freq=14, espacement=60, diff=1, tmin=5,
+  eau_notes="Très sobre, et elle pardonne l'oubli mieux que l'excès.",
+  conseils=["Aucune toxicité connue pour le chien ni le chat",
+            "Surnommée la plante du fer forgé : elle vit dans les coins que rien d'autre ne supporte",
+            "Elle tient 5 °C : c'est la seule du rayon qui passe l'hiver dans une cage d'escalier non chauffée",
+            "Sa croissance est très lente — deux ou trois feuilles par an, c'est normal"])
+
+INT("chlorophytum", "Phalangère", "Chlorophytum comosum", "Asparagacées", "🌱",
+  expo="mi-ombre", eau="moyen", freq=7, espacement=45, diff=1, tmin=10,
+  eau_notes="Terreau frais l'été, plus sec l'hiver ; ses racines charnues stockent l'eau.",
+  conseils=["Non toxique pour le chien et le chat selon l'ASPCA — mais les chats s'y intéressent et peuvent vomir d'en avoir trop mangé",
+            "Ses stolons portent des plantules qui racinent dans un verre d'eau",
+            "Les pointes brunes viennent du calcaire de l'eau du robinet"])
+
+# --- Marantacées : non toxiques, mais exigeantes en humidité ------------------
+
+INT("calathea", "Calathea", "Calathea orbifolia", "Marantacées", "🍃",
+  expo="mi-ombre", eau="eleve", freq=4, sol=SOL_TERREAU_AERE, espacement=60,
+  diff=3, tmin=18,
+  eau_notes="Jamais à sec, et à l'eau non calcaire : eau de pluie ou eau filtrée.",
+  conseils=["Non toxique pour le chien et le chat selon l'ASPCA",
+            "La plus difficile de cette liste : elle veut 60 % d'humidité et brunit sèchement en appartement chauffé",
+            "Le calcaire de l'eau du robinet lui brûle le bord des feuilles : c'est la cause la plus fréquente d'échec",
+            "La poser sur un lit de billes d'argile humides, jamais les pieds dans l'eau"])
+
+INT("maranta", "Maranta", "Maranta leuconeura", "Marantacées", "🍃",
+  expo="mi-ombre", eau="eleve", freq=4, sol=SOL_TERREAU_AERE, espacement=40,
+  diff=2, tmin=16,
+  eau_notes="Terreau frais en permanence, à l'eau non calcaire.",
+  conseils=["Non toxique pour le chien et le chat selon l'ASPCA",
+            "Elle replie ses feuilles la nuit : c'est son fonctionnement normal, pas un signe de soif",
+            "Plus indulgente que la calathea, pour un feuillage presque aussi beau"])
+
+# --- Les faciles, non toxiques ------------------------------------------------
+
+INT("pilea", "Plante à monnaie chinoise", "Pilea peperomioides", "Urticacées", "🪙",
+  expo="mi-ombre", eau="moyen", freq=8, espacement=35, diff=1, tmin=13,
+  eau_notes="Laisser sécher la surface entre deux arrosages ; elle flétrit vite et se remet vite.",
+  conseils=["Aucune toxicité connue pour le chien ni le chat",
+            "La tourner d'un quart de tour chaque semaine, sinon elle penche vers la fenêtre",
+            "Elle produit des rejets au pied : les détacher avec un peu de racine et les rempoter"])
+
+INT("peperomia", "Peperomia", "Peperomia obtusifolia", "Pipéracées", "🌿",
+  expo="mi-ombre", eau="faible", freq=12, sol=SOL_TERREAU_AERE, espacement=30,
+  diff=1, tmin=15,
+  eau_notes="Ses feuilles épaisses stockent l'eau : laisser bien sécher entre deux arrosages.",
+  conseils=["Non toxique pour le chien et le chat selon l'ASPCA",
+            "Petite et lente : idéale sur un bureau, elle ne dépassera pas trente centimètres",
+            "Une feuille piquée dans du terreau humide donne un nouveau pied"])
+
+INT("hoya", "Fleur de porcelaine", "Hoya carnosa", "Apocynacées", "🌸",
+  expo="plein-soleil", eau="faible", freq=14, sol=SOL_TERREAU_AERE, espacement=100,
+  diff=2, tmin=12,
+  eau_notes="Laisser sécher complètement entre deux arrosages, surtout l'hiver.",
+  conseils=["Aucune toxicité connue pour le chien ni le chat",
+            "Ne jamais couper le pédoncule après la floraison : elle refleurit dessus l'année suivante",
+            "Elle ne fleurit qu'une fois à l'étroit dans son pot : ne pas la rempoter trop vite",
+            "Il lui faut quelques heures de soleil filtré pour fleurir"])
+
+INT("fougere-nid", "Fougère nid d'oiseau", "Asplenium nidus", "Aspléniacées", "🌿",
+  expo="ombre", eau="eleve", freq=4, sol=SOL_TERREAU_AERE, espacement=70,
+  diff=2, tmin=16,
+  eau_notes="Terreau constamment humide ; arroser sur le bord, jamais dans le cœur.",
+  conseils=["Non toxique pour le chien et le chat selon l'ASPCA",
+            "L'eau versée au centre de la rosette la fait pourrir : c'est la faute classique",
+            "Une salle de bains éclairée est son meilleur emplacement en appartement",
+            "Ne jamais lustrer ses frondes : les produits lustrants les brûlent"])
+
+INT("kentia", "Kentia", "Howea forsteriana", "Arécacées", "🌴",
+  expo="mi-ombre", eau="moyen", freq=8, espacement=150, diff=2, tmin=15,
+  eau_notes="Terreau frais l'été, nettement plus sec l'hiver.",
+  conseils=["Non toxique pour le chien et le chat selon l'ASPCA : c'est le grand sujet de foyer avec animaux",
+            "Croissance très lente : une ou deux palmes par an, et un grand sujet coûte cher pour cette raison",
+            "Ne jamais couper le sommet d'un stipe : un palmier n'a qu'un bourgeon et ne repartira pas",
+            "Les araignées rouges l'attaquent en air sec : doucher le feuillage une fois par mois"])
+
+INT("orchidee-phalaenopsis", "Orchidée papillon", "Phalaenopsis × hybr.",
+  "Orchidacées", "🌺", expo="mi-ombre", eau="moyen", freq=7, sol=SOL_ORCHIDEE,
+  espacement=40, diff=2, tmin=16,
+  eau_notes="Tremper le pot un quart d'heure puis l'égoutter entièrement ; jamais d'eau résiduelle.",
+  conseils=["Non toxique pour le chien et le chat selon l'ASPCA",
+            "Jamais de terreau : ses racines sont aériennes et étouffent dedans",
+            "Des racines vertes après arrosage et argentées ensuite indiquent un rythme juste",
+            "Après la floraison, couper la hampe un centimètre au-dessus du deuxième œil"])
+
+# --- Succulentes et ficus ----------------------------------------------------
+
+INT("aloe-vera", "Aloe vera", "Aloe vera", "Asphodélacées", "🌵",
+  expo="plein-soleil", eau="faible", freq=21, sol=SOL_CACTEE, espacement=50,
+  diff=1, tmin=10,
+  eau_notes="Arroser abondamment, puis laisser le pot sécher complètement.",
+  conseils=["Le latex jaune sous la peau de la feuille est purgatif et rend chiens et chats malades : non toxique ne vaut que pour le gel transparent du cœur",
+            "L'erreur fatale est l'arrosage d'hiver : la plante est au repos et pourrit",
+            "Il lui faut le rebord de fenêtre le plus ensoleillé de la maison",
+            "Elle peut passer l'été dehors, rentrée avant que les nuits descendent sous 10 °C"])
+
+INT("crassula", "Arbre de jade", "Crassula ovata", "Crassulacées", "🪴",
+  expo="plein-soleil", eau="faible", freq=18, sol=SOL_CACTEE, espacement=60,
+  diff=1, tmin=7,
+  eau_notes="Laisser sécher complètement ; presque rien de novembre à mars.",
+  conseils=["Toxique pour le chien et le chat, qui vomissent et deviennent apathiques",
+            "Ses feuilles qui se rident disent la soif mieux que n'importe quel calendrier",
+            "Un pot étroit et lourd l'empêche de verser quand elle grossit",
+            "Elle vit cinquante ans et se transmet : c'est la plante grasse des maisons de famille"])
+
+INT("ficus-elastica", "Caoutchouc", "Ficus elastica", "Moracées", "🌳",
+  expo="mi-ombre", eau="moyen", freq=10, espacement=120, diff=1, tmin=13,
+  eau_notes="Laisser sécher la moitié du pot entre deux arrosages.",
+  conseils=["Son latex blanc irrite la peau et la bouche, de l'homme comme de l'animal : couper avec des gants",
+            "Il n'aime pas qu'on le déplace : trouver sa place et ne plus y toucher",
+            "Dépoussiérer les feuilles à l'éponge humide, elles captent beaucoup",
+            "Étêter un sujet trop haut le fait ramifier"])
+
+INT("ficus-lyrata", "Figuier lyre", "Ficus lyrata", "Moracées", "🌳",
+  expo="mi-ombre", eau="moyen", freq=9, sol=SOL_TERREAU_AERE, espacement=120,
+  diff=3, tmin=15,
+  eau_notes="Régulier et modéré : il perd ses feuilles basses à la moindre irrégularité.",
+  conseils=["Son latex blanc irrite la peau et la bouche, comme chez tous les ficus",
+            "Le plus capricieux des ficus : courant d'air, déplacement ou arrosage irrégulier lui font perdre ses feuilles",
+            "Il veut beaucoup de lumière indirecte, à moins d'un mètre d'une grande fenêtre",
+            "Les feuilles perdues en bas ne repoussent jamais au même endroit"])
