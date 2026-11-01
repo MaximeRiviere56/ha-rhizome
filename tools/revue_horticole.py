@@ -118,6 +118,50 @@ V = "https://www.rhs.org.uk/vegetables"
 GM = "https://www.rhs.org.uk/soil-composts-mulches/green-manures"
 
 RELEVES: dict[str, dict[str, dict]] = {
+    "ciboule": {
+        "aujardin": {"url": f"{AJ}/allium-fistulosum.php",
+                     "besoin_eau": "moyen", "espacement_cm": 10},
+    },
+    "claytone": {
+        "aujardin": {"url": f"{AJ}/claytonia-perfoliata.php",
+                     "besoin_eau": "moyen", "temp_min_c": -28,
+                     "espacement_cm": 30},
+    },
+    "lentille": {
+        "aujardin": {"url": f"{AJ}/lens-culinaris.php",
+                     "besoin_eau": "moyen", "temp_min_c": -5,
+                     "espacement_cm": 40},
+    },
+    "pois-chiche": {
+        "aujardin": {"url": f"{AJ}/cicer-arietinum.php",
+                     "besoin_eau": "moyen", "temp_min_c": -25,
+                     "espacement_cm": (20, 30)},
+    },
+    "gombo": {
+        "aujardin": {"url": f"{AJ}/abelmoschus-esculentus.php",
+                     "besoin_eau": "moyen", "temp_min_c": 2},
+    },
+    "cardon": {
+        "aujardin": {"url": f"{AJ}/cynara-cardunculus.php",
+                     "besoin_eau": "moyen", "temp_min_c": -10,
+                     "espacement_cm": 100},
+    },
+    "angelique": {
+        "aujardin": {"url": f"{AJ}/angelica-archangelica.php",
+                     "besoin_eau": "moyen", "temp_min_c": -34},
+    },
+    "hysope": {
+        "aujardin": {"url": f"{AJ}/hyssopus-officinalis.php",
+                     "besoin_eau": "faible", "espacement_cm": 65},
+    },
+    "shiso": {
+        "aujardin": {"url": f"{AJ}/perilla-frutescens.php",
+                     "besoin_eau": "moyen", "temp_min_c": -7},
+    },
+    "pourpier": {
+        "aujardin": {"url": f"{AJ}/portulaca-oleracea.php",
+                     "besoin_eau": "moyen", "temp_min_c": 0},
+    },
     # La page camomille de la RHS traite explicitement les deux especes :
     # la romaine, vivace, et la matricaire, annuelle. Un seul releve vaut
     # donc pour les deux fiches, et la page le dit elle-meme.
