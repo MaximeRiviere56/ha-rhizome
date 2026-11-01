@@ -264,3 +264,34 @@ class TestPlantesInterieur(unittest.TestCase):
                     any(m in conseils for m in marqueurs),
                     f"{culture['id']} ne dit rien de sa toxicite",
                 )
+
+
+class TestRegistreRevue(unittest.TestCase):
+    """Le registre des relevés de `tools/revue_horticole.py`.
+
+    Un seul risque, mais il est silencieux : deux entrées pour la même fiche.
+    Python garde la dernière et jette la première sans rien dire, donc une
+    source disparaît du registre alors qu'elle y a été écrite. C'est arrivé —
+    `artichaut` et `fraisier-remontant` ont perdu leur relevé Gerbeaud de
+    cette façon, et seul `ruff` l'a vu.
+    """
+
+    def test_aucune_fiche_relevee_deux_fois(self):
+        import re
+
+        source = (RACINE / "tools" / "revue_horticole.py").read_text(encoding="utf-8")
+        corps = source[source.index("RELEVES: dict"):]
+        # Les cles de fiche sont a quatre espaces d'indentation ; celles des
+        # sources, a huit. Le motif distingue donc les deux sans parser.
+        cles = re.findall(r'^    "([a-z0-9-]+)": \{$', corps, re.M)
+        doublons = sorted({c for c in cles if cles.count(c) > 1})
+        self.assertEqual(doublons, [], f"fiches relevées deux fois : {doublons}")
+
+    def test_toute_fiche_relevee_existe_au_catalogue(self):
+        """Un identifiant mal orthographié ne relève rien, en silence."""
+        sys.path.insert(0, str(RACINE / "tools"))
+        from revue_horticole import RELEVES
+
+        connus = {c["id"] for c in CULTURES}
+        inconnus = sorted(set(RELEVES) - connus)
+        self.assertEqual(inconnus, [], f"relevés sans fiche : {inconnus}")

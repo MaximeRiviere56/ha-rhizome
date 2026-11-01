@@ -164,10 +164,12 @@ RELEVES: dict[str, dict[str, dict]] = {
                 "espacement_cm": (35, 40), "besoin_eau": "eleve"},
         "aujardin": {"url": "https://www.aujardin.info/plantes/fraisier.php",
                      "besoin_eau": "eleve"},
+        "gerbeaud": {"url": GERB, "espacement_cm": 30},
     },
     "artichaut": {
         "aujardin": {"url": f"{AJ}/artichaut.php",
                      "besoin_eau": "moyen", "temp_min_c": (-12, -10)},
+        "gerbeaud": {"url": GERB, "espacement_cm": 80},
     },
     "asperge": {
         "aujardin": {"url": f"{AJ}/asperge.php",
@@ -375,9 +377,6 @@ RELEVES: dict[str, dict[str, dict]] = {
         "plandejardin": {"url": PLAN, "espacement_cm": (12, 15)},
         "gerbeaud": {"url": GERB, "espacement_cm": 15},
     },
-    "artichaut": {
-        "gerbeaud": {"url": GERB, "espacement_cm": 80},
-    },
     "blette": {
         "plandejardin": {"url": PLAN, "espacement_cm": 15},
         "gerbeaud": {"url": GERB, "espacement_cm": 40},
@@ -437,9 +436,6 @@ RELEVES: dict[str, dict[str, dict]] = {
         "plandejardin": {"url": PLAN, "espacement_cm": (25, 30)},
         "rhs": {"url": "https://www.rhs.org.uk/vegetables/chicory/grow-your-own",
                 "espacement_cm": 15, "profondeur_cm": 1, "besoin_eau": "moyen"},
-    },
-    "fraisier-remontant": {
-        "gerbeaud": {"url": GERB, "espacement_cm": 30},
     },
     "haricot-a-rames": {
         "plandejardin": {"url": PLAN, "espacement_cm": 10},
