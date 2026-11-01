@@ -118,6 +118,44 @@ V = "https://www.rhs.org.uk/vegetables"
 GM = "https://www.rhs.org.uk/soil-composts-mulches/green-manures"
 
 RELEVES: dict[str, dict[str, dict]] = {
+    # La page camomille de la RHS traite explicitement les deux especes :
+    # la romaine, vivace, et la matricaire, annuelle. Un seul releve vaut
+    # donc pour les deux fiches, et la page le dit elle-meme.
+    "camomille": {
+        "rhs": {"url": f"{R}/chamomile/grow-your-own",
+                "espacement_cm": 15, "besoin_eau": "moyen"},
+    },
+    "camomille-matricaire": {
+        "rhs": {"url": f"{R}/chamomile/grow-your-own",
+                "espacement_cm": 15, "besoin_eau": "moyen"},
+    },
+    "fenouil-aromatique": {
+        "rhs": {"url": f"{R}/fennel/grow-your-own",
+                "espacement_cm": 30, "besoin_eau": "faible"},
+    },
+    # Mentha x piperita : la page menthe de la RHS et celle de l'Almanac la
+    # nomment toutes deux, l'Almanac explicitement (« peppermint »).
+    "menthe-poivree": {
+        "rhs": {"url": f"{R}/mint/grow-your-own", "besoin_eau": "moyen"},
+        "almanac": {"url": "https://www.almanac.com/plant/mint",
+                    "espacement_cm": 60, "besoin_eau": "moyen"},
+    },
+    # La page roquette de la RHS distingue la roquette sauvage, vivace et
+    # rustique, de la roquette annuelle : c'est bien la fiche decrite ici.
+    "roquette-vivace": {
+        "rhs": {"url": f"{V}/rocket/grow-your-own",
+                "espacement_cm": 15, "profondeur_cm": 1, "besoin_eau": "moyen"},
+    },
+    # Chicorees non forcees : la page chicoree de la RHS leur donne 30 cm,
+    # contre 15 aux variétés que l'on force.
+    "trevise": {
+        "rhs": {"url": f"{V}/chicory/grow-your-own",
+                "espacement_cm": 30, "profondeur_cm": 1, "besoin_eau": "moyen"},
+    },
+    "pain-de-sucre": {
+        "rhs": {"url": f"{V}/chicory/grow-your-own",
+                "espacement_cm": 30, "profondeur_cm": 1, "besoin_eau": "moyen"},
+    },
     "celeri-branche": {
         "rhs": {"url": f"{V}/celery/grow-your-own",
                 "espacement_cm": 23, "besoin_eau": "eleve",
@@ -1430,6 +1468,10 @@ ECARTS_ASSUMES = {
     ("origan", "temp_min_c"): (
         "Au Jardin le donne rustique a -28 °C ; la fiche s'arrete a -15, "
         "ce qui avance l'alerte gel au lieu de la retarder"
+    ),
+    ("menthe-poivree", "besoin_eau"): (
+        "même raison que pour la menthe : les sources conseillent de la "
+        "cultiver en pot pour la contenir, et un pot sèche en deux jours l'été"
     ),
     ("menthe", "besoin_eau"): (
         "les trois sources disent d'elever la menthe en pot, pour la contenir ; "
