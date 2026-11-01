@@ -107,8 +107,42 @@ GERB = "https://www.gerbeaud.com/jardin/fiches/bonne-distance-plantation,1308.ht
 # d'accueil, sans le dire.
 AJ = "https://www.aujardin.info/plantes"
 R = "https://www.rhs.org.uk/herbs"
+V = "https://www.rhs.org.uk/vegetables"
 
 RELEVES: dict[str, dict[str, dict]] = {
+    "celeri-rave": {
+        "rhs": {"url": f"{V}/celeriac/grow-your-own", "espacement_cm": 30, "besoin_eau": "eleve", "jours_plant_recolte": (120, 180)},
+    },
+    "feve": {
+        "rhs": {"url": f"{V}/broad-beans/grow-your-own", "espacement_cm": (15, 23), "profondeur_cm": 5, "besoin_eau": "moyen"},
+    },
+    "haricot-espagne": {
+        "rhs": {"url": f"{V}/runner-beans/grow-your-own", "espacement_cm": 30, "profondeur_cm": 5, "besoin_eau": "eleve"},
+    },
+    "chou-rave": {
+        "rhs": {"url": f"{V}/kohl-rabi/grow-your-own", "espacement_cm": 15, "profondeur_cm": 1.5, "besoin_eau": "moyen", "jours_semis_recolte": (42, 84)},
+    },
+    "patate-douce": {
+        "rhs": {"url": f"{V}/sweet-potatoes/grow-your-own", "espacement_cm": 30, "besoin_eau": "eleve", "jours_plant_recolte": (120, 150)},
+    },
+    "chou-kale": {
+        "rhs": {"url": f"{V}/kale/grow-your-own", "espacement_cm": (30, 60), "profondeur_cm": 1, "besoin_eau": "moyen"},
+    },
+    "chou-bruxelles": {
+        "rhs": {"url": f"{V}/brussels-sprouts/grow-your-own", "espacement_cm": 60, "profondeur_cm": 2, "besoin_eau": "moyen"},
+    },
+    "blette": {
+        "rhs": {"url": f"{V}/chard/grow-your-own", "espacement_cm": 30, "profondeur_cm": 2.5, "besoin_eau": "moyen"},
+    },
+    "roquette": {
+        "rhs": {"url": f"{V}/rocket/grow-your-own", "espacement_cm": 15, "profondeur_cm": 1, "besoin_eau": "moyen", "jours_semis_recolte": (28, 42)},
+    },
+    "fenouil-bulbeux": {
+        "rhs": {"url": f"{V}/florence-fennel/grow-your-own", "espacement_cm": (10, 30), "profondeur_cm": 1.5, "besoin_eau": "eleve", "jours_semis_recolte": (90, 120)},
+    },
+    "navet": {
+        "rhs": {"url": f"{V}/turnips/grow-your-own", "espacement_cm": (15, 23), "profondeur_cm": 1, "besoin_eau": "moyen", "jours_semis_recolte": (42, 70)},
+    },
     "aneth": {
         "rhs": {"url": f"{R}/dill/grow-your-own", "espacement_cm": 20, "profondeur_cm": 1, "besoin_eau": "moyen"},
     },
