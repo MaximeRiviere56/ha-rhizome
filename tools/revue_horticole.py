@@ -109,7 +109,46 @@ AJ = "https://www.aujardin.info/plantes"
 R = "https://www.rhs.org.uk/herbs"
 V = "https://www.rhs.org.uk/vegetables"
 
+# Les engrais verts se sement a la volee : la RHS ne donne ni ecartement ni
+# besoin en eau pour eux, seulement des periodes de semis. Et ces periodes
+# s'etendent sur cinq a six mois, ce qui ne falsifie pas grand-chose — une
+# fenetre aussi large accepte presque n'importe quelle valeur de fiche. Le
+# releve est donc honnete mais faible, et il vaut d'etre dit : confirmer une
+# date dans un intervalle de six mois n'est pas la confirmer.
+GM = "https://www.rhs.org.uk/soil-composts-mulches/green-manures"
+
 RELEVES: dict[str, dict[str, dict]] = {
+    "bourrache": {
+        "rhs": {"url": "https://www.rhs.org.uk/plants/borage",
+                "besoin_eau": "faible"},
+    },
+    "capucine": {
+        "aujardin": {"url": f"{AJ}/capucine.php",
+                     "espacement_cm": (40, 50), "besoin_eau": "moyen",
+                     "temp_min_c": 0},
+    },
+    "souci": {
+        "aujardin": {"url": f"{AJ}/souci.php",
+                     "espacement_cm": (10, 15), "besoin_eau": "faible"},
+    },
+    "moutarde-blanche": {
+        "rhs": {"url": GM, "offset_semis_direct": (-45, 168)},
+    },
+    "phacelie": {
+        "rhs": {"url": GM, "offset_semis_direct": (-14, 138)},
+    },
+    "vesce": {
+        "rhs": {"url": GM, "offset_semis_direct": (-45, 168)},
+    },
+    "trefle-incarnat": {
+        "rhs": {"url": GM, "offset_semis_direct": (-45, 138)},
+    },
+    "seigle": {
+        "rhs": {"url": GM, "offset_semis_direct": (108, 229)},
+    },
+    "sarrasin": {
+        "rhs": {"url": GM, "offset_semis_direct": (-14, 138)},
+    },
     "celeri-rave": {
         "rhs": {"url": f"{V}/celeriac/grow-your-own", "espacement_cm": 30, "besoin_eau": "eleve", "jours_plant_recolte": (120, 180)},
     },
