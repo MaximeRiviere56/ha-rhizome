@@ -118,6 +118,58 @@ V = "https://www.rhs.org.uk/vegetables"
 GM = "https://www.rhs.org.uk/soil-composts-mulches/green-manures"
 
 RELEVES: dict[str, dict[str, dict]] = {
+    "celeri-branche": {
+        "rhs": {"url": f"{V}/celery/grow-your-own",
+                "espacement_cm": 23, "besoin_eau": "eleve",
+                "jours_plant_recolte": (70, 112)},
+        "aujardin": {"url": f"{AJ}/celeri-branche.php", "besoin_eau": "eleve"},
+    },
+    "cresson-fontaine": {
+        "aujardin": {"url": f"{AJ}/cresson-fontaine.php", "besoin_eau": "eleve"},
+    },
+    "ail-ours": {
+        "aujardin": {"url": f"{AJ}/ail-des-ours.php",
+                     "besoin_eau": "moyen", "temp_min_c": -34},
+    },
+    "houblon": {
+        "aujardin": {"url": f"{AJ}/houblon.php", "besoin_eau": "moyen"},
+    },
+    # Memes especes que `tomate` et `mais-doux` : la tomate cerise est
+    # Solanum lycopersicum var. cerasiforme, le mais a eclater un Zea mays
+    # comme le mais doux. Les sources de l'espece valent pour la variete,
+    # et les recopier plutot que les reutiliser creerait deux verites.
+    "tomate-cerise": {
+        "rhs": {"url": "https://www.rhs.org.uk/vegetables/tomatoes/grow-your-own",
+                "espacement_cm": (45, 60), "besoin_eau": "eleve"},
+        "aujardin": {"url": f"{AJ}/tomate.php",
+                     "espacement_cm": 50, "besoin_eau": "eleve"},
+    },
+    "mais-popcorn": {
+        "rhs": {"url": f"{V}/sweetcorn/grow-your-own",
+                "espacement_cm": (34, 45), "profondeur_cm": 2.5,
+                "temp_min_c": 10},
+    },
+    "radis-noir": {
+        "rhs": {"url": f"{V}/radishes/grow-your-own",
+                # « 15-20cm for winter/oriental types »
+                "espacement_cm": (15, 20), "profondeur_cm": 2,
+                "besoin_eau": "moyen"},
+    },
+    "argousier": {
+        "aujardin": {"url": f"{AJ}/hippophae-rhamnoides.php",
+                     "besoin_eau": "moyen", "temp_min_c": -40},
+    },
+    "goji": {
+        "aujardin": {"url": f"{AJ}/lycium-barbarum.php",
+                     "besoin_eau": "faible", "temp_min_c": -22},
+    },
+    "sureau-noir": {
+        "aujardin": {"url": f"{AJ}/sambucus-nigra.php", "besoin_eau": "faible"},
+    },
+    "physalis": {
+        "aujardin": {"url": f"{AJ}/physalis-peruviana.php",
+                     "besoin_eau": "moyen", "espacement_cm": 100},
+    },
     "bourrache": {
         "rhs": {"url": "https://www.rhs.org.uk/plants/borage",
                 "besoin_eau": "faible"},
