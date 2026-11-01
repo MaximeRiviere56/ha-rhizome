@@ -487,9 +487,36 @@ qui est la façon dont ces plantes se cultivent réellement. Les deux chiffres
 sont justes, ils ne mesurent pas la même chose. L'écart est assumé une fois
 pour toutes plutôt que fiche par fiche.
 
+## Lot 9 — douze médicinales
+
+Ces fiches-là avaient déjà des sources pour **la toxicité et les usages** —
+EMA, Anses, ASPCA. Leurs chiffres de culture, eux, n'en avaient pas, et c'est
+ce que ce lot comble. La distinction mérite d'être tenue : *sourcé sur la
+sécurité* n'est pas *sourcé sur l'horticulture*.
+
+**Aucune correction.**
+
+### La clé qui manquait
+
+Au Jardin indexe les plantes sauvages par leur **nom latin** —
+`plantago-lanceolata`, pas `plantain`. L'URL devinée depuis le nom français
+rend une page d'accueil **sans le dire**, ce qui ressemble à une absence de
+fiche alors que la fiche existe. C'est la quatrième variante du piège des
+pages, et la plus sournoise : elle ne renvoie pas une autre plante, elle
+renvoie du vide qui a l'air d'une réponse.
+
+### Sept pistes laissées ouvertes
+
+Dont deux qui vont dans le **sens risqué** sur `temp_min_c` : la `tanaisie`
+est donnée à −25 °C quand Au Jardin dit −22, le `tilleul` à −30 quand elle dit
+−24. Les deux sont des natives européennes très rustiques et les chiffres de
+la fiche sont plausibles — mais **je ne les justifie pas de mémoire**, puisque
+c'est précisément ce que la revue est censée remplacer. Elles restent
+affichées comme pistes, en attente d'une seconde source.
+
 ## Couverture, dite franchement
 
-**106 fiches sur 215 ont été relevées**, dont 30 sur trois sources ou plus.
+**118 fiches sur 215 ont été relevées**, dont 30 sur trois sources ou plus.
 
 Ce n'est pas la revue complète, et il ne faut pas la présenter comme telle.
 Une passe complète représente de l'ordre de **630 consultations de pages** —

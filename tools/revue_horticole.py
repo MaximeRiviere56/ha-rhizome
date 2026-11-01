@@ -101,7 +101,61 @@ GERB = "https://www.gerbeaud.com/jardin/fiches/bonne-distance-plantation,1308.ht
 # 10, H2 de 1 a 5. Les fiches RHS donnent aussi l'exposition, l'eau et
 # l'envergure adulte, ce qui couvre tout ce que la fiche affirme d'elles —
 # elles n'ont ni fenetre, ni cycle, ni profondeur de semis.
+# Les medicinales sont des sauvages de France, et Au Jardin les indexe par
+# leur nom latin — `plantago-lanceolata` et non `plantain`. C'est ce qui les
+# rendait introuvables : l'URL devinee depuis le nom francais rend une page
+# d'accueil, sans le dire.
+AJ = "https://www.aujardin.info/plantes"
+
 RELEVES: dict[str, dict[str, dict]] = {
+    "achillee": {
+        "aujardin": {"url": f"{AJ}/achillea-millefolium.php",
+                     "besoin_eau": "faible", "temp_min_c": -29, "espacement_cm": (40, 50)},
+    },
+    "plantain-lanceole": {
+        "aujardin": {"url": f"{AJ}/plantago-lanceolata.php",
+                     "besoin_eau": "faible"},
+    },
+    "aubepine": {
+        "aujardin": {"url": f"{AJ}/crataegus-monogyna.php",
+                     "besoin_eau": "faible", "temp_min_c": -29},
+    },
+    "reine-des-pres": {
+        "aujardin": {"url": f"{AJ}/filipendula-ulmaria.php",
+                     "besoin_eau": "eleve", "temp_min_c": -25, "espacement_cm": 40},
+    },
+    "guimauve": {
+        "aujardin": {"url": f"{AJ}/althaea-officinalis.php",
+                     "besoin_eau": "moyen", "temp_min_c": -24},
+    },
+    "bardane": {
+        "aujardin": {"url": f"{AJ}/arctium-lappa.php",
+                     "besoin_eau": "moyen", "temp_min_c": -34, "espacement_cm": 20},
+    },
+    "bouillon-blanc": {
+        "aujardin": {"url": f"{AJ}/verbascum-thapsus.php",
+                     "besoin_eau": "faible", "temp_min_c": -24, "espacement_cm": 50},
+    },
+    "tanaisie": {
+        "aujardin": {"url": f"{AJ}/tanacetum-vulgare.php",
+                     "besoin_eau": "faible", "temp_min_c": -22},
+    },
+    "armoise-absinthe": {
+        "aujardin": {"url": f"{AJ}/artemisia-absinthium.php",
+                     "besoin_eau": "moyen", "espacement_cm": 100},
+    },
+    "tilleul": {
+        "aujardin": {"url": f"{AJ}/tilia-cordata.php",
+                     "besoin_eau": "moyen", "temp_min_c": -24},
+    },
+    "onagre": {
+        "aujardin": {"url": f"{AJ}/oenothera-biennis.php",
+                     "besoin_eau": "faible", "temp_min_c": -24},
+    },
+    "passiflore": {
+        "aujardin": {"url": f"{AJ}/passiflora-incarnata.php",
+                     "besoin_eau": "moyen", "temp_min_c": -20},
+    },
     "aspidistra": {
         "rhs": {"url": "https://www.rhs.org.uk/plants/1715/aspidistra-elatior/details",  # cote H3
                 "temp_min_c": (-5, 1), "besoin_eau": "moyen", "espacement_cm": (10, 50)},
@@ -1088,6 +1142,21 @@ ECARTS_ASSUMES = {
     # l'Almanac diverge vraiment, et c'est une source.
     # Sur `temp_min_c`, la fiche plus frileuse que la source avance l'alerte
     # gel : c'est le bon sens de l'erreur, on ne la corrige pas. Voir origan.
+    # Quatre medicinales dont la fiche se declare moins rustique que la
+    # source. Meme regle qu'ailleurs : sur ce champ, la fiche la plus
+    # frileuse avance l'alerte gel au lieu de la retarder.
+    ("achillee", "temp_min_c"): "Au Jardin dit -29 °C, la fiche -25 : alerte plus tôt",
+    ("bardane", "temp_min_c"): "Au Jardin dit -34 °C, la fiche -20 : alerte plus tôt",
+    ("guimauve", "temp_min_c"): "Au Jardin dit -24 °C, la fiche -20 : alerte plus tôt",
+    ("passiflore", "temp_min_c"): "Au Jardin dit -20 °C, la fiche -15 : alerte plus tôt",
+    # L'espacement de la bardane : la source donne 20 cm, mais dans le
+    # paragraphe consacre a la production de racines, recoltees en 90 jours
+    # avant qu'elles ne durcissent. La fiche decrit la plante entiere, qui
+    # monte a deux metres. Les deux chiffres sont dans la meme page.
+    ("bardane", "espacement_cm"): (
+        "20 cm est la densité pour produire des racines (gobō) ; la fiche "
+        "espace une plante de deux mètres"
+    ),
     ("hoya", "temp_min_c"): (
         "la RHS la classe H2 (1-5 °C) ; la fiche s'arrête à 12, donc elle "
         "alerte plus tôt"
