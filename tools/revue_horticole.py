@@ -108,6 +108,26 @@ GERB = "https://www.gerbeaud.com/jardin/fiches/bonne-distance-plantation,1308.ht
 AJ = "https://www.aujardin.info/plantes"
 
 RELEVES: dict[str, dict[str, dict]] = {
+    "ortie": {
+        # 120 cm est la hauteur, pas l'ecartement : la source ne donne pas
+        # de distance de plantation, et la confondre avec la hauteur etait
+        # mon erreur, pas celle de la fiche.
+        "aujardin": {"url": f"{AJ}/ortie.php", "besoin_eau": "moyen"},
+    },
+    # Page de genre : Au Jardin traite les trois cents especes d'Hypericum
+    # ensemble, pas H. perforatum en particulier. On n'en retient donc que ce
+    # qui vaut pour le genre — l'eau — et surtout pas une valeur chiffree.
+    "millepertuis": {
+        "aujardin": {"url": f"{AJ}/millepertuis.php", "besoin_eau": "faible"},
+    },
+    "pissenlit": {
+        "aujardin": {"url": f"{AJ}/pissenlit.php",
+                     "besoin_eau": "moyen", "espacement_cm": (10, 15)},
+    },
+    "eglantier": {
+        # 1 a 3 m est la hauteur de l'arbuste, pas sa distance de plantation.
+        "aujardin": {"url": f"{AJ}/eglantier.php", "besoin_eau": "moyen"},
+    },
     "achillee": {
         "aujardin": {"url": f"{AJ}/achillea-millefolium.php",
                      "besoin_eau": "faible", "temp_min_c": -29, "espacement_cm": (40, 50)},

@@ -514,9 +514,27 @@ la fiche sont plausibles — mais **je ne les justifie pas de mémoire**, puisqu
 c'est précisément ce que la revue est censée remplacer. Elles restent
 affichées comme pistes, en attente d'une seconde source.
 
+### Quatre de plus, et une erreur de ma part
+
+Ortie, millepertuis, pissenlit, églantier — trouvées sous leur **nom
+français** cette fois, les neuf autres médicinales n'ayant de fiche Au Jardin
+sous aucun des deux noms.
+
+J'ai d'abord enregistré **120 cm d'écartement pour l'ortie et 1 à 3 m pour
+l'églantier**, en lisant des hauteurs comme des distances de plantation. Les
+deux fiches se retrouvaient accusées d'un écart qui venait entièrement de ma
+lecture. C'est la troisième fois qu'un écart naît du relevé et non de la
+fiche — après le chou cabus (relevé incomplet) et la ciboulette (plancher lu
+comme plafond), voici le relevé qui lit **le mauvais champ**.
+
+Pour le `millepertuis`, Au Jardin traite les **trois cents espèces
+d'*Hypericum* ensemble**, pas *H. perforatum* en particulier : seul le besoin
+en eau, qui vaut pour le genre, est retenu — et surtout aucune valeur
+chiffrée.
+
 ## Couverture, dite franchement
 
-**118 fiches sur 215 ont été relevées**, dont 30 sur trois sources ou plus.
+**122 fiches sur 215 ont été relevées**, dont 30 sur trois sources ou plus.
 
 Ce n'est pas la revue complète, et il ne faut pas la présenter comme telle.
 Une passe complète représente de l'ordre de **630 consultations de pages** —
