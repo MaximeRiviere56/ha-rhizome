@@ -534,15 +534,71 @@ chiffrée.
 
 ## Couverture, dite franchement
 
-**122 fiches sur 215 ont été relevées**, dont 30 sur trois sources ou plus.
+**192 fiches sur 215 relevées**, dont 36 sur trois sources ou plus.
 
-Ce n'est pas la revue complète, et il ne faut pas la présenter comme telle.
-Une passe complète représente de l'ordre de **630 consultations de pages** —
-215 fiches × 3 sources — faites à la main faute d'API. Ce qui est livré ici
-est la **méthode, l'outillage et les deux premiers lots** : le registre des
-relevés est dans le dépôt avec ses sources, `--tout` liste les fiches qui
-n'ont pas encore été vues, et la revue se reprend par lots sans rien refaire.
+### Les vingt-trois qui restent, et pourquoi
 
-Ce qui couvre déjà les 215 fiches, en revanche, ce sont les deux règles
-d'audit et les huit règles de cohérence qui existaient : elles ne disent pas
-qu'une fiche est juste, elles disent qu'elle n'est pas absurde.
+- `amarante`
+- `avoine`
+- `celeri-couper`
+- `chou-daubenton`
+- `consoude`
+- `echinacee`
+- `epinard-perpetuel`
+- `kiwi`
+- `mauve`
+- `mizuna`
+- `murier`
+- `oca-perou`
+- `oeillet-inde`
+- `oignon-rocambole`
+- `persil-tubereux`
+- `prele`
+- `quinoa`
+- `raifort`
+- `rutabaga`
+- `tetragone`
+- `tomatille`
+- `valeriane`
+- `verveine-citronnelle`
+
+Ce ne sont pas des oublis : ce sont les fiches pour lesquelles **aucune des
+sources retenues n'a de page**. Les quatre pistes ont été épuisées — nom
+français, nom latin, fiche RHS de légume, fiche RHS d'herbe —, et les quatre
+rendent une page d'accueil ou une erreur.
+
+Elles ont en commun d'être des cultures **oubliées, régionales ou
+d'introduction récente** : l'oca du Pérou, le chervis, la claytone, le crosne,
+le chou Daubenton, l'oignon rocambole, le persil tubéreux. La littérature
+horticole anglophone les ignore, et la française les traite dans des ouvrages
+plutôt que sur des fiches en ligne.
+
+**Les couvrir demanderait d'ouvrir une cinquième source**, probablement un
+catalogue de semencier spécialisé dans les légumes anciens. C'est faisable,
+mais c'est un choix de source à faire — pas un oubli à rattraper.
+
+### Ce que la revue aura appris
+
+Le taux est stable sur l'ensemble : **cinq corrections pour 192 fiches
+relevées**, et aucune grave. Les voici toutes :
+
+| Fiche | Champ | Avant | Après |
+|---|---|---|---|
+| 7 gélives | ouverture de plantation | +0 à +10 j | saints de glace |
+| `poivron` | `temp_min_c` | 10 °C | **12 °C** |
+| `concombre` | espacement | 80 cm | **60 cm** |
+| `romarin` | `temp_min_c` | −12 °C | **−10 °C** |
+| `kentia` | `temp_min_c` | 12 °C | **15 °C** |
+
+Trois des cinq portent sur `temp_min_c`, et ce n'est pas un hasard : c'est le
+champ que l'alerte gel a rendu actif. **Un champ qui ne servait qu'à
+l'affichage tolère une approximation ; le même champ, une fois qu'il déclenche
+une action, ne la tolère plus.**
+
+Et l'outil s'est trompé plus souvent que le catalogue. Quatre fois un écart
+signalé venait du relevé et non de la fiche : un relevé incomplet (chou
+cabus), un plancher lu comme un plafond (ciboulette), le mauvais champ lu
+(ortie, églantier), et deux fiches relevées deux fois dont une source avait
+disparu en silence (artichaut, fraisier remontant). Ces quatre-là sont
+consignées au même titre que les corrections — **le taux d'erreur de
+l'instrument mérite d'être su autant que celui de la mesure.**

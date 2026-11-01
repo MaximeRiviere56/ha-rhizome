@@ -118,6 +118,27 @@ V = "https://www.rhs.org.uk/vegetables"
 GM = "https://www.rhs.org.uk/soil-composts-mulches/green-manures"
 
 RELEVES: dict[str, dict[str, dict]] = {
+    "scorsonere": {
+        "aujardin": {"url": f"{AJ}/scorzonera-hispanica.php",
+                     "besoin_eau": "moyen", "temp_min_c": -25,
+                     "espacement_cm": (5, 10)},
+    },
+    "crosne": {
+        "aujardin": {"url": f"{AJ}/crosne.php",
+                     "besoin_eau": "moyen", "espacement_cm": 40,
+                     "profondeur_cm": 10},
+    },
+    "poireau-perpetuel": {
+        "aujardin": {"url": f"{AJ}/allium-ampeloprasum.php",
+                     "besoin_eau": "moyen", "temp_min_c": -25},
+    },
+    # La page radis de la RHS donne un ecartement distinct aux types
+    # « winter/oriental », qui est exactement ce qu'est le daikon.
+    "daikon": {
+        "rhs": {"url": f"{V}/radishes/grow-your-own",
+                "espacement_cm": (15, 20), "profondeur_cm": 2,
+                "besoin_eau": "moyen"},
+    },
     "arroche": {
         "aujardin": {"url": f"{AJ}/atriplex-hortensis.php", "besoin_eau": "moyen"},
     },
