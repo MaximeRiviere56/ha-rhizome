@@ -108,6 +108,30 @@ GERB = "https://www.gerbeaud.com/jardin/fiches/bonne-distance-plantation,1308.ht
 AJ = "https://www.aujardin.info/plantes"
 
 RELEVES: dict[str, dict[str, dict]] = {
+    "artichaut": {
+        "aujardin": {"url": f"{AJ}/artichaut.php",
+                     "besoin_eau": "moyen", "temp_min_c": (-12, -10)},
+    },
+    "asperge": {
+        "aujardin": {"url": f"{AJ}/asperge.php",
+                     "besoin_eau": "moyen", "espacement_cm": 60},
+    },
+    "rhubarbe": {
+        "aujardin": {"url": f"{AJ}/rhubarbe.php",
+                     "besoin_eau": "eleve", "espacement_cm": (100, 150)},
+    },
+    "oseille": {
+        "aujardin": {"url": f"{AJ}/oseille.php",
+                     "besoin_eau": "moyen", "espacement_cm": 20},
+    },
+    "topinambour": {
+        "aujardin": {"url": f"{AJ}/topinambour.php",
+                     "besoin_eau": "moyen", "espacement_cm": 40,
+                     "profondeur_cm": 10},
+    },
+    "mache": {
+        "aujardin": {"url": f"{AJ}/mache.php", "besoin_eau": "moyen"},
+    },
     "ortie": {
         # 120 cm est la hauteur, pas l'ecartement : la source ne donne pas
         # de distance de plantation, et la confondre avec la hauteur etait
