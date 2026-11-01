@@ -4,11 +4,20 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/).
 Versions sous [SemVer](https://semver.org/lang/fr/). Rhizome est en `0.x` :
 l'intérieur peut encore bouger, mais pas vos données.
 
-## Non publié
+## [0.12.0] — 2026-11-01
 
 Rhizome tient enfin ce que son nom promettait : des plantes d'intérieur à
 côté du potager. Et le catalogue, qui n'avait jamais été confronté à une
 source extérieure, l'a été.
+
+Rien à migrer. Le stockage ne bouge pas, et vos fiches corrigées survivent :
+elles vivent dans le jardin, pas dans le catalogue livré.
+
+**Une chose à faire après la mise à jour, si vous voulez l'alerte gel** :
+désignez votre entité météo dans *Réglages · Alerte gel*. Sans elle, Rhizome
+ne lit aucune prévision et n'envoie aucune alerte — c'est délibéré, une
+intégration ne doit pas se mettre à lire une entité qu'on ne lui a pas
+donnée.
 
 ### Ajouté
 
